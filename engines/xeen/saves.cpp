@@ -175,11 +175,7 @@ Common::Error SavesManager::loadGameState(int slot) {
 	XeenSavegameHeader header;
 	if (!readSavegameHeader(saveFile, header))
 		error("Invalid savegame");
-
-	if (header._thumbnail) {
-		header._thumbnail->free();
-		delete header._thumbnail;
-	}
+	delete header._thumbnail;
 
 	// Set the total play time
 	g_vm->_events->setPlayTime(header._totalFrames);

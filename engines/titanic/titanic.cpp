@@ -256,11 +256,8 @@ CString TitanicEngine::getSavegameName(int slot) {
 
 		TitanicSavegameHeader header;
 		bool isValid = CProjectItem::readSavegameHeader(&file, header);
-		if (header._thumbnail) {
-			header._thumbnail->free();
-			delete header._thumbnail;
-		}
 
+		delete header._thumbnail;
 		file.close();
 
 		if (isValid)

@@ -38,6 +38,7 @@
 #include "engines/wintermute/base/sound/base_sound.h"
 #include "graphics/transparent_surface.h"
 #include "engines/wintermute/wintermute.h"
+#include "graphics/managed_surface.h"
 #include "graphics/scaler.h"
 #include "image/bmp.h"
 #include "common/memstream.h"
@@ -176,10 +177,17 @@ void BasePersistenceManager::getSaveStateDesc(int slot, SaveStateDescriptor &des
 			Graphics::TransparentSurface *scaleableSurface = new Graphics::TransparentSurface(*bmpSurface, false);
 			Graphics::Surface *scaled = scaleableSurface->scale(kThumbnailWidth, kThumbnailHeight2);
 			Graphics::Surface *thumb = scaled->convertTo(g_system->getOverlayFormat());
-			desc.setThumbnail(thumb);
+
+			Graphics::ManagedSurface *msThumb = new Graphics::ManagedSurface(
+				thumb->w, thumb->h, thumb->format);
+			msThumb->blitFrom(*thumb);
+
+			desc.setThumbnail(msThumb);
 			delete scaleableSurface;
 			scaled->free();
 			delete scaled;
+			thumb->free();
+			delete thumb;
 		}
 	}
 

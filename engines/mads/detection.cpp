@@ -206,7 +206,6 @@ SaveStateList MADSMetaEngine::listSaves(const char *target) const {
 				MADS::Game::readSavegameHeader(in, header);
 				saveList.push_back(SaveStateDescriptor(slot, header._saveName));
 
-				header._thumbnail->free();
 				delete header._thumbnail;
 				delete in;
 			}

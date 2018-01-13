@@ -36,6 +36,7 @@
 #include "common/winexe.h"
 #include "common/winexe_pe.h"
 #include "engines/engine.h"
+#include "graphics/managed_surface.h"
 #include "graphics/pixelformat.h"
 #include "graphics/wincursor.h"
 #include "graphics/fontman.h"
@@ -214,7 +215,7 @@ enum {
 struct GnapSavegameHeader {
 	uint8 _version;
 	Common::String _saveName;
-	Graphics::Surface *_thumbnail;
+	Graphics::ManagedSurface *_thumbnail;
 	int _year, _month, _day;
 	int _hour, _minute;
 };

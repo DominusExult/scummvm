@@ -22,6 +22,7 @@
 
 #include "graphics/thumbnail.h"
 #include "graphics/scaler.h"
+#include "graphics/managed_surface.h"
 #include "graphics/colormasks.h"
 #include "common/endian.h"
 #include "common/algorithm.h"
@@ -147,7 +148,7 @@ bool skipThumbnail(Common::SeekableReadStream &in) {
 	return true;
 }
 
-Graphics::Surface *loadThumbnail(Common::SeekableReadStream &in) {
+Graphics::ManagedSurface *loadThumbnail(Common::SeekableReadStream &in) {
 	const uint32 position = in.pos();
 	ThumbnailHeader header;
 	HeaderState headerState = loadHeader(in, header, true);
@@ -171,8 +172,8 @@ Graphics::Surface *loadThumbnail(Common::SeekableReadStream &in) {
 		return 0;
 	}
 
-	Graphics::Surface *const to = new Graphics::Surface();
-	to->create(header.width, header.height, header.format);
+	Graphics::ManagedSurface *const to = new Graphics::ManagedSurface(
+		header.width, header.height, header.format);
 
 	for (int y = 0; y < to->h; ++y) {
 		switch (header.format.bytesPerPixel) {

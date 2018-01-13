@@ -30,6 +30,7 @@
 
 #include "common/savefile.h"
 #include "common/serializer.h"
+#include "graphics/managed_surface.h"
 #include "graphics/palette.h"
 #include "graphics/scaler.h"
 #include "graphics/thumbnail.h"
@@ -41,7 +42,7 @@ namespace Mortevielle {
 struct SavegameHeader {
 	uint8 version;
 	Common::String saveName;
-	Graphics::Surface *thumbnail;
+	Graphics::ManagedSurface *thumbnail;
 	int saveYear, saveMonth, saveDay;
 	int saveHour, saveMinutes;
 	int totalFrames;

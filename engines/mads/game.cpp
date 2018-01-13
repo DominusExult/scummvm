@@ -484,11 +484,7 @@ void Game::loadGame(int slotNumber) {
 	MADSSavegameHeader header;
 	if (!readSavegameHeader(_saveFile, header))
 		error("Invalid savegame");
-
-	if (header._thumbnail) {
-		header._thumbnail->free();
-		delete header._thumbnail;
-	}
+	delete header._thumbnail;
 
 	// Load most of the savegame data with the exception of scene specific info
 	synchronize(s, true);

@@ -128,11 +128,7 @@ SaveStateList TitanicMetaEngine::listSaves(const char *target) const {
 				if (Titanic::CProjectItem::readSavegameHeader(&cf, header))
 					saveList.push_back(SaveStateDescriptor(slot, header._saveName));
 
-				if (header._thumbnail) {
-					header._thumbnail->free();
-					delete header._thumbnail;
-				}
-
+				delete header._thumbnail;
 				cf.close();
 			}
 		}

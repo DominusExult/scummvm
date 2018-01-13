@@ -232,7 +232,7 @@ bool readSavegameHeader(Common::InSaveFile *in, FullpipeSavegameHeader &header) 
 		header.description = header.saveName;
 
 	// Get the thumbnail
-	header.thumbnail = Common::SharedPtr<Graphics::Surface>(Graphics::loadThumbnail(*in), Graphics::SurfaceDeleter());
+	header.thumbnail = Common::SharedPtr<Graphics::ManagedSurface>(Graphics::loadThumbnail(*in));
 
 	in->seek(oldPos, SEEK_SET); // Rewind the file
 

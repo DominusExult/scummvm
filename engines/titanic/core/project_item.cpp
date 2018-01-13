@@ -190,10 +190,7 @@ void CProjectItem::loadGame(int slotId) {
 	// Load the savegame header in
 	TitanicSavegameHeader header;
 	readSavegameHeader(&file, header);
-	if (header._thumbnail) {
-		header._thumbnail->free();
-		delete header._thumbnail;
-	}
+	delete header._thumbnail;
 
 	g_vm->_events->setTotalPlayTicks(header._totalFrames);
 
@@ -492,8 +489,6 @@ SaveStateList CProjectItem::getSavegameList(const Common::String &target) {
 					continue;
 
 				saveList.push_back(SaveStateDescriptor(slot, header._saveName));
-
-				header._thumbnail->free();
 				delete header._thumbnail;
 				delete in;
 			}

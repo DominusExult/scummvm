@@ -28,6 +28,7 @@
 #include "common/memstream.h"
 #include "common/savefile.h"
 #include "common/serializer.h"
+#include "graphics/managed_surface.h"
 
 namespace TsAGE {
 
@@ -40,7 +41,7 @@ class SavedObject;
 struct tSageSavegameHeader {
 	uint8 _version;
 	Common::String _saveName;
-	Graphics::Surface *_thumbnail;
+	Graphics::ManagedSurface *_thumbnail;
 	int _saveYear, _saveMonth, _saveDay;
 	int _saveHour, _saveMinutes;
 	int _totalFrames;

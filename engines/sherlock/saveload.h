@@ -28,7 +28,7 @@
 #include "common/serializer.h"
 #include "common/str-array.h"
 #include "engines/savestate.h"
-#include "graphics/surface.h"
+#include "graphics/managed_surface.h"
 
 namespace Sherlock {
 
@@ -47,7 +47,7 @@ extern const char *const EMPTY_SAVEGAME_SLOT;
 struct SherlockSavegameHeader {
 	uint8 _version;
 	Common::String _saveName;
-	Graphics::Surface *_thumbnail;
+	Graphics::ManagedSurface *_thumbnail;
 	int _year, _month, _day;
 	int _hour, _minute;
 	int _totalFrames;

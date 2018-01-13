@@ -31,7 +31,7 @@ class String;
 }
 
 namespace Graphics {
-struct Surface;
+class ManagedSurface;
 }
 
 namespace ZVision {
@@ -41,7 +41,7 @@ class ZVision;
 struct SaveGameHeader {
 	byte version;
 	Common::String saveName;
-	Graphics::Surface *thumbnail;
+	Graphics::ManagedSurface *thumbnail;
 	int saveYear, saveMonth, saveDay;
 	int saveHour, saveMinutes;
 };

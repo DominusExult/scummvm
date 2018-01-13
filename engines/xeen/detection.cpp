@@ -147,8 +147,6 @@ SaveStateList XeenMetaEngine::listSaves(const char *target) const {
 				Xeen::SavesManager::readSavegameHeader(in, header);
 				saveList.push_back(SaveStateDescriptor(slot, header._saveName));
 
-				if (header._thumbnail)
-					header._thumbnail->free();
 				delete header._thumbnail;
 				delete in;
 			}

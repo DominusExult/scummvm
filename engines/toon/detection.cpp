@@ -232,7 +232,7 @@ SaveStateDescriptor ToonMetaEngine::querySaveMetaInfos(const char *target, int s
 
 		SaveStateDescriptor desc(slot, saveName);
 
-		Graphics::Surface *const thumbnail = Graphics::loadThumbnail(*file);
+		Graphics::ManagedSurface *const thumbnail = Graphics::loadThumbnail(*file);
 		desc.setThumbnail(thumbnail);
 
 		uint32 saveDate = file->readUint32BE();

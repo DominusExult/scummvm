@@ -108,8 +108,6 @@ SaveStateList SaveManager::getSavegameList(const Common::String &target) {
 					continue;
 
 				saveList.push_back(SaveStateDescriptor(slot, header._saveName));
-
-				header._thumbnail->free();
 				delete header._thumbnail;
 				delete in;
 			}
@@ -211,11 +209,7 @@ void SaveManager::loadGame(int slot) {
 	SherlockSavegameHeader header;
 	if (!readSavegameHeader(saveFile, header))
 		error("Invalid savegame");
-
-	if (header._thumbnail) {
-		header._thumbnail->free();
-		delete header._thumbnail;
-	}
+	delete header._thumbnail;
 
 	// Synchronize the savegame data
 	Serializer s(saveFile, nullptr);

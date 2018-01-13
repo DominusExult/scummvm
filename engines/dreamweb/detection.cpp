@@ -198,7 +198,7 @@ SaveStateDescriptor DreamWebMetaEngine::querySaveMetaInfos(const char *target, i
 			uint32 saveDate = in->readUint32LE();
 			uint32 saveTime = in->readUint32LE();
 			uint32 playTime = in->readUint32LE();
-			Graphics::Surface *thumbnail = Graphics::loadThumbnail(*in);
+			Graphics::ManagedSurface *thumbnail = Graphics::loadThumbnail(*in);
 
 			int day = (saveDate >> 24) & 0xFF;
 			int month = (saveDate >> 16) & 0xFF;

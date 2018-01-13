@@ -119,7 +119,6 @@ bool CGE2Engine::loadGame(int slotNumber) {
 		}
 
 		// Delete the thumbnail
-		saveHeader.thumbnail->free();
 		delete saveHeader.thumbnail;
 	}
 

@@ -35,7 +35,7 @@
 #include "common/rendermode.h"
 #include "common/str.h"
 #include "common/textconsole.h"
-#include "graphics/surface.h"
+#include "graphics/managed_surface.h"
 #include "graphics/sjis.h"
 
 #include "scumm/gfx.h"
@@ -635,7 +635,7 @@ public:
 
 // thumbnail + info stuff
 public:
-	static bool querySaveMetaInfos(const char *target, int slot, int heversion, Common::String &desc, Graphics::Surface *&thumbnail, SaveStateMetaInfos *&timeInfos);
+	static bool querySaveMetaInfos(const char *target, int slot, int heversion, Common::String &desc, Graphics::ManagedSurface *&thumbnail, SaveStateMetaInfos *&timeInfos);
 
 protected:
 	void saveInfos(Common::WriteStream *file);

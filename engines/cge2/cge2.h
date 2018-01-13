@@ -33,6 +33,7 @@
 #include "common/serializer.h"
 #include "engines/engine.h"
 #include "engines/advancedDetector.h"
+#include "graphics/managed_surface.h"
 #include "common/system.h"
 #include "cge2/fileio.h"
 #include "cge2/console.h"
@@ -114,7 +115,7 @@ struct SavegameHeader;
 struct SavegameHeader {
 	uint8 version;
 	Common::String saveName;
-	Graphics::Surface *thumbnail;
+	Graphics::ManagedSurface *thumbnail;
 	int saveYear, saveMonth, saveDay;
 	int saveHour, saveMinutes;
 };

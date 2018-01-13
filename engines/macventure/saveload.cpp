@@ -65,7 +65,7 @@ SaveStateDescriptor loadMetaData(Common::SeekableReadStream *s, int slot) {
 	s->seek(-(5 + MACVENTURE_DESC_LENGTH + metaSize), SEEK_END);
 
 	// Load the thumbnail
-	Graphics::Surface *thumb = Graphics::loadThumbnail(*s);
+	Graphics::ManagedSurface *thumb = Graphics::loadThumbnail(*s);
 	desc.setThumbnail(thumb);
 
 	// Load the description

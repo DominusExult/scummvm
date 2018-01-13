@@ -693,7 +693,7 @@ void DialogsManager::showSaveLoad(SaveLoadMode mode) {
 	for (int slotNumber = 1; slotNumber <= 6; ++slotNumber) {
 		hopkinsSavegameHeader header;
 		if (_vm->_saveLoad->readSavegameHeader(slotNumber, header)) {
-			Graphics::Surface thumb8;
+			Graphics::ManagedSurface thumb8;
 			_vm->_saveLoad->convertThumb16To8(header._thumbnail, &thumb8);
 
 			byte *thumb = (byte *)thumb8.getPixels();
@@ -721,7 +721,6 @@ void DialogsManager::showSaveLoad(SaveLoadMode mode) {
 			}
 
 			thumb8.free();
-			header._thumbnail->free();
 			delete header._thumbnail;
 		}
 	}

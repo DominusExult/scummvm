@@ -33,7 +33,7 @@
 
 #include "engines/engine.h"
 
-#include "graphics/surface.h"
+#include "graphics/managed_surface.h"
 
 #include "gui/debugger.h"
 
@@ -210,7 +210,7 @@ public:
 		uint32 saveDate;
 		uint32 saveTime;
 		uint32 playTime;
-		Graphics::Surface *thumbnail;
+		Graphics::ManagedSurface *thumbnail;
 	};
 
 	bool _isSaveAllowed;

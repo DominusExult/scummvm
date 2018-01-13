@@ -487,11 +487,7 @@ Common::Error AccessEngine::loadGameState(int slot) {
 	AccessSavegameHeader header;
 	if (!readSavegameHeader(saveFile, header))
 		error("Invalid savegame");
-
-	if (header._thumbnail) {
-		header._thumbnail->free();
-		delete header._thumbnail;
-	}
+	delete header._thumbnail;
 
 	// Load most of the savegame data
 	synchronize(s);

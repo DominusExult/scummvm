@@ -36,6 +36,7 @@
 #include "gui/ThemeEval.h"
 #include "gui/widgets/edittext.h"
 
+#include "graphics/managed_surface.h"
 #include "graphics/scaler.h"
 #include <common/savefile.h>
 
@@ -545,9 +546,9 @@ void SaveLoadChooserSimple::updateSelection(bool redraw) {
 			startEditMode = false;
 
 		if (_thumbnailSupport) {
-			const Graphics::Surface *thumb = desc.getThumbnail();
+			const Graphics::ManagedSurface *thumb = desc.getThumbnail();
 			if (thumb) {
-				_gfxWidget->setGfx(thumb);
+				_gfxWidget->setGfx(thumb ? &thumb->rawSurface() : nullptr);
 				_gfxWidget->useAlpha(256);
 			}
 		}
@@ -1052,9 +1053,10 @@ void SaveLoadChooserGrid::updateSaves() {
 		SaveStateDescriptor desc =  (_saveList[i].getLocked() ? _saveList[i] : _metaEngine->querySaveMetaInfos(_target.c_str(), saveSlot));
 		SlotButton &curButton = _buttons[curNum];
 		curButton.setVisible(true);
-		const Graphics::Surface *thumbnail = desc.getThumbnail();
+		const Graphics::ManagedSurface *thumbnail = desc.getThumbnail();
 		if (thumbnail) {
-			curButton.button->setGfx(desc.getThumbnail());
+			const Graphics::ManagedSurface *surface = desc.getThumbnail();
+			curButton.button->setGfx(surface ? &surface->rawSurface() : nullptr);
 		} else {
 			curButton.button->setGfx(kThumbnailWidth, kThumbnailHeight2, 0, 0, 0);
 		}

@@ -1313,7 +1313,7 @@ void ScummMetaEngine::removeSaveState(const char *target, int slot) const {
 
 SaveStateDescriptor ScummMetaEngine::querySaveMetaInfos(const char *target, int slot) const {
 	Common::String saveDesc;
-	Graphics::Surface *thumbnail = nullptr;
+	Graphics::ManagedSurface *thumbnail = nullptr;
 	SaveStateMetaInfos infos;
 	memset(&infos, 0, sizeof(infos));
 	SaveStateMetaInfos *infoPtr = &infos;

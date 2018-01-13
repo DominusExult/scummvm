@@ -29,6 +29,7 @@
 
 namespace Graphics {
 struct Surface;
+class ManagedSurface;
 }
 
 /**
@@ -113,15 +114,15 @@ public:
 	 * should be either 160x100 or 160x120 pixels, depending on the aspect
 	 * ratio of the game. If another ratio is required, contact the core team.
 	 */
-	const Graphics::Surface *getThumbnail() const { return _thumbnail.get(); }
+	const Graphics::ManagedSurface *getThumbnail() const { return _thumbnail.get(); }
 
 	/**
 	 * Set a thumbnail graphics surface representing the savestate visually.
 	 * Ownership of the surface is transferred to the SaveStateDescriptor.
 	 * Hence the caller must not delete the surface.
 	 */
-	void setThumbnail(Graphics::Surface *t);
-	void setThumbnail(Common::SharedPtr<Graphics::Surface> t) { _thumbnail = t; }
+	void setThumbnail(Graphics::ManagedSurface *t);
+	void setThumbnail(Common::SharedPtr<Graphics::ManagedSurface> t) { _thumbnail = t; }
 
 	/**
 	 * Sets the date the save state was created.
@@ -222,7 +223,7 @@ private:
 	/**
 	 * The thumbnail of the save state.
 	 */
-	Common::SharedPtr<Graphics::Surface> _thumbnail;
+	Common::SharedPtr<Graphics::ManagedSurface> _thumbnail;
 };
 
 /** List of savestates. */

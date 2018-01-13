@@ -30,7 +30,7 @@
 #include "common/rect.h"
 #include "engines/engine.h"
 #include "gui/debugger.h"
-#include "graphics/surface.h"
+#include "graphics/managed_surface.h"
 #include "cge/console.h"
 #include "cge/bitmap.h"
 #include "cge/sound.h"
@@ -98,7 +98,7 @@ enum CallbackType {
 struct SavegameHeader {
 	uint8 version;
 	Common::String saveName;
-	Graphics::Surface *thumbnail;
+	Graphics::ManagedSurface *thumbnail;
 	int saveYear, saveMonth, saveDay;
 	int saveHour, saveMinutes;
 };

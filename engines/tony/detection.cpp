@@ -26,7 +26,7 @@
 #include "engines/advancedDetector.h"
 #include "common/system.h"
 #include "graphics/colormasks.h"
-#include "graphics/surface.h"
+#include "graphics/managed_surface.h"
 
 #include "tony/tony.h"
 #include "tony/game.h"
@@ -155,7 +155,7 @@ SaveStateDescriptor TonyMetaEngine::querySaveMetaInfos(const char *target, int s
 	Common::String saveName;
 	byte difficulty;
 
-	Graphics::Surface *to = new Graphics::Surface();
+	Graphics::ManagedSurface *to = new Graphics::ManagedSurface();
 	to->create(160, 120, Graphics::PixelFormat(2, 5, 5, 5, 0, 10, 5, 0, 0));
 
 	if (Tony::RMOptionScreen::loadThumbnailFromSaveState(slot, (byte *)to->getPixels(), saveName, difficulty)) {

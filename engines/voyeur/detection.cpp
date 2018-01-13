@@ -132,7 +132,7 @@ SaveStateList VoyeurMetaEngine::listSaves(const char *target) const {
 			if (in) {
 				if (header.read(in)) {
 					saveList.push_back(SaveStateDescriptor(slot, header._saveName));
-					header._thumbnail->free();
+					delete header._thumbnail;
 				}
 				delete in;
 			}

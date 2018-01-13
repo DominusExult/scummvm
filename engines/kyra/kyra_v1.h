@@ -31,6 +31,7 @@
 #include "common/hashmap.h"
 #include "common/random.h"
 #include "common/rendermode.h"
+#include "graphics/managed_surface.h"
 
 #include "audio/mixer.h"
 
@@ -406,7 +407,7 @@ protected:
 		bool originalSave;  // savegame from original interpreter
 		bool oldHeader;     // old scummvm save header
 
-		Graphics::Surface *thumbnail;
+		Graphics::ManagedSurface *thumbnail;
 	};
 
 	enum ReadSaveHeaderError {

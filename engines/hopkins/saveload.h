@@ -30,6 +30,7 @@
 #include "common/savefile.h"
 #include "common/serializer.h"
 #include "common/str.h"
+#include "graphics/managed_surface.h"
 
 namespace Hopkins {
 
@@ -40,7 +41,7 @@ class HopkinsEngine;
 struct hopkinsSavegameHeader {
 	uint8 _version;
 	Common::String _saveName;
-	Graphics::Surface *_thumbnail;
+	Graphics::ManagedSurface *_thumbnail;
 	int _year, _month, _day;
 	int _hour, _minute;
 	int _totalFrames;
@@ -70,7 +71,7 @@ public:
 	/**
 	 * Converts a 16-bit thumbnail to 8 bit paletted using the currently active palette.
 	 */
-	void convertThumb16To8(Graphics::Surface *thumb16, Graphics::Surface *thumb8);
+	void convertThumb16To8(const Graphics::ManagedSurface *thumb16, Graphics::ManagedSurface *thumb8);
 };
 
 } // End of namespace Hopkins

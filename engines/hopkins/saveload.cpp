@@ -187,8 +187,6 @@ Common::Error SaveLoadManager::loadGame(int slot) {
 	// Read in the savegame header
 	hopkinsSavegameHeader header;
 	readSavegameHeader(savefile, header);
-	if (header._thumbnail)
-		header._thumbnail->free();
 	delete header._thumbnail;
 
 	// Read in the savegame data
@@ -287,7 +285,7 @@ void SaveLoadManager::syncCharacterLocation(Common::Serializer &s, CharacterLoca
 	s.syncAsSint16LE(item._zoomFactor);
 }
 
-void SaveLoadManager::convertThumb16To8(Graphics::Surface *thumb16, Graphics::Surface *thumb8) {
+void SaveLoadManager::convertThumb16To8(const Graphics::ManagedSurface *thumb16, Graphics::ManagedSurface *thumb8) {
 	thumb8->create(thumb16->w, thumb16->h, Graphics::PixelFormat::createFormatCLUT8());
 	Graphics::PixelFormat pixelFormat16(2, 5, 6, 5, 0, 11, 5, 0, 0);
 

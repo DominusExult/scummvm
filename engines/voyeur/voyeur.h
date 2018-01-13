@@ -37,7 +37,7 @@
 #include "common/serializer.h"
 #include "common/util.h"
 #include "engines/engine.h"
-#include "graphics/surface.h"
+#include "graphics/managed_surface.h"
 
 /**
  * This is the namespace of the Voyeur engine.
@@ -304,7 +304,7 @@ public:
 struct VoyeurSavegameHeader {
 	uint8 _version;
 	Common::String _saveName;
-	Graphics::Surface *_thumbnail;
+	Graphics::ManagedSurface *_thumbnail;
 	int _saveYear, _saveMonth, _saveDay;
 	int _saveHour, _saveMinutes;
 	int _totalFrames;

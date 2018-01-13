@@ -26,7 +26,7 @@
 #include "common/scummsys.h"
 #include "common/str.h"
 #include "engines/savestate.h"
-#include "graphics/surface.h"
+#include "graphics/managed_surface.h"
 #include "titanic/support/simple_file.h"
 #include "titanic/core/dont_save_file_item.h"
 #include "titanic/core/file_item.h"
@@ -38,7 +38,7 @@ namespace Titanic {
 struct TitanicSavegameHeader {
 	uint8 _version;
 	CString _saveName;
-	Graphics::Surface *_thumbnail;
+	Graphics::ManagedSurface *_thumbnail;
 	int _year, _month, _day;
 	int _hour, _minute;
 	int _totalFrames;

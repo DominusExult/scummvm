@@ -168,8 +168,6 @@ SaveStateList HopkinsMetaEngine::listSaves(const char *target) const {
 			if (in) {
 				if (Hopkins::SaveLoadManager::readSavegameHeader(in, header)) {
 					saveList.push_back(SaveStateDescriptor(slot, header._saveName));
-
-					header._thumbnail->free();
 					delete header._thumbnail;
 				}
 

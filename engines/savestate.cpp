@@ -21,7 +21,7 @@
  */
 
 #include "engines/savestate.h"
-#include "graphics/surface.h"
+#include "graphics/managed_surface.h"
 #include "common/textconsole.h"
 
 SaveStateDescriptor::SaveStateDescriptor()
@@ -35,11 +35,11 @@ SaveStateDescriptor::SaveStateDescriptor(int s, const Common::String &d)
 	  _isLocked(false), _saveDate(), _saveTime(), _playTime(), _thumbnail() {
 }
 
-void SaveStateDescriptor::setThumbnail(Graphics::Surface *t) {
+void SaveStateDescriptor::setThumbnail(Graphics::ManagedSurface *t) {
 	if (_thumbnail.get() == t)
 		return;
 
-	_thumbnail = Common::SharedPtr<Graphics::Surface>(t, Graphics::SurfaceDeleter());
+	_thumbnail = Common::SharedPtr<Graphics::ManagedSurface>(t);
 }
 
 void SaveStateDescriptor::setSaveDate(int year, int month, int day) {

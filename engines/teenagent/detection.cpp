@@ -178,7 +178,7 @@ public:
 		SaveStateDescriptor ssd(slot, desc);
 
 		//checking for the thumbnail
-		if (Graphics::Surface *const thumb = Graphics::loadThumbnail(*in))
+		if (Graphics::ManagedSurface *const thumb = Graphics::loadThumbnail(*in))
 			ssd.setThumbnail(thumb);
 
 		return ssd;

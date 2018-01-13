@@ -25,6 +25,7 @@
 
 #include "common/ptr.h"
 #include "engines/savestate.h"
+#include "graphics/managed_surface.h"
 
 #include "fullpipe/objects.h"
 #include "fullpipe/inventory.h"
@@ -84,7 +85,7 @@ struct FullpipeSavegameHeader {
 	uint32 date;
 	uint16 time;
 	uint32 playtime;
-	Common::SharedPtr<Graphics::Surface> thumbnail;
+	Common::SharedPtr<Graphics::ManagedSurface> thumbnail;
 };
 
 struct SaveHeader {

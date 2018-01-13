@@ -34,6 +34,7 @@
 #include "common/savefile.h"
 #include "common/serializer.h"
 
+#include "graphics/managed_surface.h"
 #include "image/bmp.h"
 
 #include "gui/debugger.h"
@@ -88,7 +89,7 @@ enum {
 struct SavegameHeader {
 	uint8 version;
 	Common::String saveName;
-	Graphics::Surface *thumbnail;
+	Graphics::ManagedSurface *thumbnail;
 	int saveYear, saveMonth, saveDay;
 	int saveHour, saveMinutes;
 };

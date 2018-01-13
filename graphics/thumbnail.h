@@ -33,6 +33,7 @@ class WriteStream;
 namespace Graphics {
 
 struct Surface;
+class ManagedSurface;
 
 /**
  * Checks for presence of the thumbnail save header.
@@ -52,7 +53,7 @@ bool skipThumbnail(Common::SeekableReadStream &in);
 /**
  * Loads a thumbnail from the given input stream.
  */
-Graphics::Surface *loadThumbnail(Common::SeekableReadStream &in);
+Graphics::ManagedSurface *loadThumbnail(Common::SeekableReadStream &in);
 
 /**
  * Saves a thumbnail to the given write stream.

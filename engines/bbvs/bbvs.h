@@ -35,6 +35,7 @@
 #include "common/winexe.h"
 #include "common/winexe_pe.h"
 #include "engines/engine.h"
+#include "graphics/managed_surface.h"
 
 struct ADGameDescription;
 
@@ -403,7 +404,7 @@ public:
 		uint32 saveDate;
 		uint32 saveTime;
 		uint32 playTime;
-		Graphics::Surface *thumbnail;
+		Graphics::ManagedSurface *thumbnail;
 	};
 
 	bool _isSaveAllowed;

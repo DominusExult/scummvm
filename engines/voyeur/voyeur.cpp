@@ -789,8 +789,6 @@ void VoyeurEngine::loadGame(int slot) {
 	VoyeurSavegameHeader header;
 	if (!header.read(saveFile))
 		return;
-	if (header._thumbnail)
-		header._thumbnail->free();
 	delete header._thumbnail;
 
 	serializer.setVersion(header._version);

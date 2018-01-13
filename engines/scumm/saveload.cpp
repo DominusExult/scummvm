@@ -682,7 +682,7 @@ bool getSavegameName(Common::InSaveFile *in, Common::String &desc, int heversion
 	return true;
 }
 
-bool ScummEngine::querySaveMetaInfos(const char *target, int slot, int heversion, Common::String &desc, Graphics::Surface *&thumbnail, SaveStateMetaInfos *&timeInfos) {
+bool ScummEngine::querySaveMetaInfos(const char *target, int slot, int heversion, Common::String &desc, Graphics::ManagedSurface *&thumbnail, SaveStateMetaInfos *&timeInfos) {
 	if (slot < 0) {
 		return false;
 	}

@@ -193,7 +193,7 @@ SaveStateDescriptor AvalancheMetaEngine::querySaveMetaInfos(const char *target, 
 
 		SaveStateDescriptor desc(slot, description);
 
-		Graphics::Surface *const thumbnail = Graphics::loadThumbnail(*f);
+		Graphics::ManagedSurface *const thumbnail = Graphics::loadThumbnail(*f);
 		desc.setThumbnail(thumbnail);
 
 		delete f;

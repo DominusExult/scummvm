@@ -24,7 +24,7 @@
 #define CRUISE_SAVELOAD_H
 
 #include "common/scummsys.h"
-#include "graphics/surface.h"
+#include "graphics/managed_surface.h"
 
 namespace Cruise {
 
@@ -33,7 +33,7 @@ namespace Cruise {
 struct CruiseSavegameHeader {
 	uint8 version;
 	Common::String saveName;
-	Graphics::Surface *thumbnail;
+	Graphics::ManagedSurface *thumbnail;
 };
 
 Common::Error saveSavegameData(int saveGameIdx, const Common::String &saveName);

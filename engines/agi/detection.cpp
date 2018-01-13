@@ -375,7 +375,7 @@ SaveStateDescriptor AgiMetaEngine::querySaveMetaInfos(const char *target, int sl
 
 		char saveVersion = in->readByte();
 		if (saveVersion >= 4) {
-			Graphics::Surface *const thumbnail = Graphics::loadThumbnail(*in);
+			Graphics::ManagedSurface *const thumbnail = Graphics::loadThumbnail(*in);
 
 			descriptor.setThumbnail(thumbnail);
 

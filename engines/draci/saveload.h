@@ -25,7 +25,7 @@
 
 #include "common/savefile.h"
 #include "common/scummsys.h"
-#include "graphics/surface.h"
+#include "graphics/managed_surface.h"
 
 namespace Draci {
 
@@ -37,7 +37,7 @@ struct DraciSavegameHeader {
 	uint32 date;
 	uint16 time;
 	uint32 playtime;
-	Graphics::Surface *thumbnail;
+	Graphics::ManagedSurface *thumbnail;
 };
 
 class DraciEngine;

@@ -27,7 +27,7 @@
 #include "common/savefile.h"
 #include "common/serializer.h"
 #include "common/str.h"
-#include "graphics/surface.h"
+#include "graphics/managed_surface.h"
 #include "xeen/party.h"
 
 namespace Xeen {
@@ -35,7 +35,7 @@ namespace Xeen {
 struct XeenSavegameHeader {
 	uint8 _version;
 	Common::String _saveName;
-	Graphics::Surface *_thumbnail;
+	Graphics::ManagedSurface *_thumbnail;
 	int _year, _month, _day;
 	int _hour, _minute;
 	int _totalFrames;

@@ -31,7 +31,7 @@
 #include "common/serializer.h"
 #include "common/util.h"
 #include "engines/engine.h"
-#include "graphics/surface.h"
+#include "graphics/managed_surface.h"
 #include "access/animation.h"
 #include "access/bubble_box.h"
 #include "access/char.h"
@@ -81,7 +81,7 @@ extern const char *const _estTable[];
 struct AccessSavegameHeader {
 	uint8 _version;
 	Common::String _saveName;
-	Graphics::Surface *_thumbnail;
+	Graphics::ManagedSurface *_thumbnail;
 	int _year, _month, _day;
 	int _hour, _minute;
 	int _totalFrames;

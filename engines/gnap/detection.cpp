@@ -179,7 +179,7 @@ SaveStateDescriptor GnapMetaEngine::querySaveMetaInfos(const char *target, int s
 		SaveStateDescriptor desc(slot, saveName);
 
 		if (version != 1) {
-			Graphics::Surface *const thumbnail = Graphics::loadThumbnail(*file);
+			Graphics::ManagedSurface *const thumbnail = Graphics::loadThumbnail(*file);
 			desc.setThumbnail(thumbnail);
 		}
 

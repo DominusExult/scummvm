@@ -159,8 +159,6 @@ SaveStateList AccessMetaEngine::listSaves(const char *target) const {
 			if (in) {
 				Access::AccessEngine::readSavegameHeader(in, header);
 				saveList.push_back(SaveStateDescriptor(slot, header._saveName));
-
-				header._thumbnail->free();
 				delete header._thumbnail;
 				delete in;
 			}

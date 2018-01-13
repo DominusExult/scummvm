@@ -244,7 +244,6 @@ bool CGEEngine::loadGame(int slotNumber, SavegameHeader *header, bool tiny) {
 		}
 
 		// Delete the thumbnail
-		saveHeader.thumbnail->free();
 		delete saveHeader.thumbnail;
 	}
 

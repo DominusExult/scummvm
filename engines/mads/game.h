@@ -27,6 +27,7 @@
 #include "common/savefile.h"
 #include "common/str-array.h"
 #include "common/serializer.h"
+#include "graphics/managed_surface.h"
 #include "mads/audio.h"
 #include "mads/scene.h"
 #include "mads/game_data.h"
@@ -55,7 +56,7 @@ enum SyncType {
 struct MADSSavegameHeader {
 	uint8 _version;
 	Common::String _saveName;
-	Graphics::Surface *_thumbnail;
+	Graphics::ManagedSurface *_thumbnail;
 	int _year, _month, _day;
 	int _hour, _minute;
 	int _totalFrames;
