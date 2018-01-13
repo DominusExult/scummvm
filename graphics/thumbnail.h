@@ -79,10 +79,8 @@ bool createScreenShot(Graphics::Surface &surf);
  * @param srcImage		Source image to scale
  * @param xSize			New surface width
  * @param ySize			New surface height
- * @remarks Caller is responsible for freeing the returned surface
  */
-Graphics::Surface *scale(const Graphics::Surface &srcImage, int xSize, int ySize);
-
+Graphics::ManagedSurface *scale(const Graphics::Surface &srcImage, int xSize, int ySize);
 
 } // End of namespace Graphics
 
