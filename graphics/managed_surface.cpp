@@ -33,7 +33,7 @@ ManagedSurface::ManagedSurface() :
 		_disposeAfterUse(DisposeAfterUse::NO), _owner(nullptr) {
 }
 
-ManagedSurface::ManagedSurface(ManagedSurface &surf) :
+ManagedSurface::ManagedSurface(const ManagedSurface &surf) :
 		w(_innerSurface.w), h(_innerSurface.h), pitch(_innerSurface.pitch), format(_innerSurface.format),
 		_disposeAfterUse(DisposeAfterUse::NO), _owner(nullptr) {
 	*this = surf;
@@ -61,7 +61,7 @@ ManagedSurface::~ManagedSurface() {
 	free();
 }
 
-ManagedSurface &ManagedSurface::operator=(ManagedSurface &surf) {
+ManagedSurface &ManagedSurface::operator=(const ManagedSurface &surf) {
 	// Free any current surface
 	free();
 
@@ -74,7 +74,7 @@ ManagedSurface &ManagedSurface::operator=(ManagedSurface &surf) {
 		// Source isn't managed, so simply copy its fields
 		_owner = surf._owner;
 		_offsetFromOwner = surf._offsetFromOwner;
-		void *srcPixels = surf._innerSurface.getPixels();
+		void *srcPixels = const_cast<void *>(surf._innerSurface.getPixels());
 		_innerSurface.setPixels(srcPixels);
 		_innerSurface.w = surf.w;
 		_innerSurface.h = surf.h;
