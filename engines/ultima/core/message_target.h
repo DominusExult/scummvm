@@ -1,0 +1,96 @@
+/* ScummVM - Graphic Adventure Engine
+ *
+ * ScummVM is the legal property of its developers, whose names
+ * are too numerous to list here. Please refer to the COPYRIGHT
+ * file distributed with this source distribution.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ */
+
+#ifndef ULTIMA_MESSAGE_TARGET_H
+#define ULTIMA_MESSAGE_TARGET_H
+
+#include "ultima/core/saveable_object.h"
+
+namespace Ultima {
+
+class MessageTarget;
+class CMessage;
+
+typedef bool (MessageTarget::*PMSG)(CMessage *msg);
+
+struct MSGMAP_ENTRY {
+	PMSG _fn;
+	ClassDefFn _classDef;
+};
+
+struct MSGMAP {
+	const MSGMAP *(* pFnGetBaseMap)();
+	const MSGMAP_ENTRY *lpEntries;
+};
+
+#define DECLARE_MESSAGE_MAP \
+protected: \
+	static const MSGMAP *getThisMessageMap(); \
+	virtual const MSGMAP *getMessageMap() const
+
+#define BEGIN_MESSAGE_MAP(theClass, baseClass) \
+	ClassDef theClass::type() { return ClassDef(#theClass, &baseClass::type); } \
+	const MSGMAP *theClass::getMessageMap() const \
+		{ return getThisMessageMap(); } \
+	const MSGMAP *theClass::getThisMessageMap() \
+	{ \
+		typedef theClass ThisClass;						   \
+		typedef baseClass TheBaseClass;					   \
+		typedef bool (theClass::*FNPTR)(CMessage *msg);    \
+		static const MSGMAP_ENTRY _messageEntries[] = {
+
+#define ON_MESSAGE(msgClass) \
+	{ static_cast<PMSG>((FNPTR)&ThisClass::msgClass), &C##msgClass::type },
+
+#define END_MESSAGE_MAP() \
+		{ (PMSG)nullptr, nullptr } \
+	}; \
+		static const MSGMAP messageMap = \
+		{ &TheBaseClass::getThisMessageMap, &_messageEntries[0] }; \
+		return &messageMap; \
+	}
+
+#define EMPTY_MESSAGE_MAP(theClass, baseClass) \
+	ClassDef theClass::type() { return ClassDef(#theClass, &baseClass::type); } \
+	const MSGMAP *theClass::getMessageMap() const \
+		{ return getThisMessageMap(); } \
+	const MSGMAP *theClass::getThisMessageMap() \
+	{ \
+		typedef baseClass TheBaseClass;					   \
+		static const MSGMAP_ENTRY _messageEntries[] = { \
+		{ (PMSG)nullptr, nullptr } \
+	}; \
+		static const MSGMAP messageMap = \
+		{ &TheBaseClass::getThisMessageMap, &_messageEntries[0] }; \
+		return &messageMap; \
+	} \
+	enum { DUMMY }
+
+class MessageTarget: public SaveableObject {
+	DECLARE_MESSAGE_MAP;
+public:
+	CLASSDEF;
+};
+
+} // End of namespace Ultima
+
+#endif
