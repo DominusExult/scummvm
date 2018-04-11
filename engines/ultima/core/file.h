@@ -61,6 +61,11 @@ public:
 	 * @param	name		a string describing the 'file' corresponding to stream
 	 */
 	virtual bool open(SeekableReadStream *stream, const Common::String &name);
+
+	/**
+	 * Reads in a null terminated string
+	 */
+	Common::String readString();
 };
 
 } // End of namespace Ultima

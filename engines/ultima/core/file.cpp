@@ -70,4 +70,14 @@ bool File::open(SeekableReadStream *stream, const Common::String &name) {
 	return true;
 }
 
+Common::String File::readString() {
+	Common::String result;
+	char c;
+
+	while (pos() < size() && (c = (char)readByte()) != '\0')
+		result += c;
+
+	return result;
+}
+
 } // End of namespace Ultima

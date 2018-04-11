@@ -20,24 +20,60 @@
  *
  */
 
-#ifndef XEEN_RESOURCES_H
-#define XEEN_RESOURCES_H
+#ifndef ULTIMA_RESOURCES_H
+#define ULTIMA_RESOURCES_H
 
-#include "common/scummsys.h"
-#include "common/str-array.h"
-#include "gui/debugger.h"
+#include "common/algorithm.h"
+#include "common/str.h"
+#include "common/serializer.h"
+
+#define STRING_BUFFER_SIZE 32768
 
 namespace Ultima {
+
+/**
+ * Base class for classes that exposes a set of strings, arrays, and other data from a resource
+ */
+class ResourceFile {
+private:
+	Common::ReadStream *_inStream;
+	Common::WriteStream *_outStream;
+	char _buffer[STRING_BUFFER_SIZE];
+	char *_bufferP;
+protected:
+	/**
+	 * Constructor
+	 */
+	ResourceFile(Common::ReadStream *in);
+
+	/**
+	 * Constructor
+	 */
+	ResourceFile(Common::WriteStream *out);
+public:
+	void syncString(const char *&str);
+	void syncStrings(const char **str, int count);
+	void syncStrings2D(const char **str, int count1, int count2);
+	void syncNumber(int &val);
+	void syncNumbers(int *vals, int count);
+	void syncNumbers2D(int *vals, int count1, int count2);
+	void syncNumbers3D(int *vals, int count1, int count2, int count3);
+	void syncBytes2D(byte *vals, int count1, int count2);
+};
 
 class Resources {
 public:
 	/**
 	 * Constructor
 	 */
-	Resources();
-};
+	Resources() {}
 
-extern Resources *g_resources;
+	/**
+	 * Sets up the resources for the engine
+	 * @returns		False if setup failed
+	 */
+	bool setup();
+};
 
 } // End of namespace Xeen
 
