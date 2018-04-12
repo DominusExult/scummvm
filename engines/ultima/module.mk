@@ -8,7 +8,6 @@ MODULE_OBJS = \
 	core/project_item.o \
 	core/saveable_object.o \
 	core/tree_item.o \
-	games/ultima1/project_item.o \
 	gfx/font.o \
 	gfx/screen.o \
 	gfx/visual_container.o \
@@ -24,7 +23,10 @@ MODULE_OBJS = \
 	main_game_window.o \
 	messages.o \
 	resources.o \
-	ultima.o
+	ultima.o \
+	games/ultima0/project_item.o \
+	games/ultima0/resources.o \
+	games/ultima1/project_item.o
 
 # This module can be built as a plugin
 ifeq ($(ENABLE_ULTIMA), DYNAMIC_PLUGIN)
