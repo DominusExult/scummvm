@@ -6,6 +6,7 @@ MODULE_OBJS = \
 	core/mouse_cursor.o \
 	core/named_item.o \
 	core/project_item.o \
+	core/resources.o \
 	core/saveable_object.o \
 	core/tree_item.o \
 	gfx/font.o \
@@ -22,10 +23,10 @@ MODULE_OBJS = \
 	input_translator.o \
 	main_game_window.o \
 	messages.o \
-	resources.o \
 	ultima.o \
+	games/shared/core/resources.o \
 	games/ultima0/project_item.o \
-	games/ultima0/resources.o \
+	games/ultima0/core/resources.o \
 	games/ultima1/project_item.o
 
 # This module can be built as a plugin

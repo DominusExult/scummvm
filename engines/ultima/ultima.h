@@ -59,11 +59,11 @@ namespace Gfx {
 class UltimaEngine : public Engine {
 private:
 	Common::RandomSource _randomSource;
-protected:
+private:
 	/**
 	 * Initialize the engine
 	 */
-	virtual void initialize();
+	bool initialize();
 
 	/**
 	 * Deinitialize the engine
@@ -75,7 +75,6 @@ public:
 	Events *_events;
 	MainGameWindow *_window;
 	MouseCursor *_mouseCursor;
-	Resources *_res;
 	Gfx::Screen *_screen;
 public:
 	UltimaEngine(OSystem *syst, const UltimaGameDescription *gameDesc);

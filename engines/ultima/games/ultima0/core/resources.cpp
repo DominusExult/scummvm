@@ -20,7 +20,7 @@
  *
  */
 
-#include "ultima/resources.h"
+#include "ultima/core/resources.h"
 
 namespace Ultima {
 

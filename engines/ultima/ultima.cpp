@@ -27,7 +27,7 @@
 #include "ultima/debugger.h"
 #include "ultima/events.h"
 #include "ultima/main_game_window.h"
-#include "ultima/resources.h"
+#include "ultima/core/resources.h"
 #include "ultima/core/mouse_cursor.h"
 #include "ultima/gfx/screen.h"
 #include "ultima/games/ultima1/project_item.h"
@@ -42,7 +42,6 @@ UltimaEngine::UltimaEngine(OSystem *syst, const UltimaGameDescription *gameDesc)
 	_debugger = nullptr;
 	_events = nullptr;
 	_mouseCursor = nullptr;
-	_res = nullptr;
 	_screen = nullptr;
 	_window = nullptr;
 }
@@ -51,22 +50,25 @@ UltimaEngine::~UltimaEngine() {
 	delete _debugger;
 	delete _events;
 	delete _mouseCursor;
-	delete _res;
 	delete _screen;
 	delete _window;
 }
 
-void UltimaEngine::initialize() {
+bool UltimaEngine::initialize() {
 	DebugMan.addDebugChannel(kDebugLevelScript,      "scripts", "Script debug level");
+
+	Resources *res = new Resources();
+	if (!res->setup())
+		return false;
 
 	_debugger = Debugger::init(this);
 	_events = new Events(this);
-	_res = new Resources();
 	_screen = new Gfx::Screen();
 	_mouseCursor = new MouseCursor(this);
 
 	_window = new MainGameWindow(this);
 	_window->applicationStarting();
+	return true;
 }
 
 void UltimaEngine::deinitialize() {
@@ -74,7 +76,8 @@ void UltimaEngine::deinitialize() {
 
 Common::Error UltimaEngine::run() {
 	// Initialize the engine
-	initialize();
+	if (!initialize())
+		return Common::kUnknownError;
 
 	playGame();
 
