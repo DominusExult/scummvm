@@ -20,26 +20,14 @@
  *
  */
 
-#ifndef ULTIMA_COMMON_RESOURCES_H
-#define ULTIMA_COMMON_RESOURCES_H
+#ifndef ULTIMA_SHARED_CORE_MESSAGES_H
+#define ULTIMA_SHARED_CORE_MESSAGES_H
 
-#include "ultima/core/resources.h"
+#include "ultima/messages.h"
 
 namespace Ultima {
 namespace Shared {
 
-class FontResources : public LocalResourceFile {
-protected:
-	/**
-	 * Synchronize resource data
-	 */
-	virtual void synchronize();
-public:
-	byte _font8x8[256][8];
-public:
-	FontResources();
-	FontResources(Resources *resManager);
-};
 
 } // End of namespace Shared
 } // End of namespace Xeen

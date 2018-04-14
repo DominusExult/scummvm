@@ -20,28 +20,19 @@
  *
  */
 
-#ifndef ULTIMA_COMMON_RESOURCES_H
-#define ULTIMA_COMMON_RESOURCES_H
+#ifndef ULTIMA_ULTIMA1_CORE_MAP_H
+#define ULTIMA_ULTIMA1_CORE_MAP_H
 
-#include "ultima/core/resources.h"
+#include "ultima/games/shared/core/map.h"
 
 namespace Ultima {
-namespace Shared {
+namespace Ultima1 {
 
-class FontResources : public LocalResourceFile {
-protected:
-	/**
-	 * Synchronize resource data
-	 */
-	virtual void synchronize();
-public:
-	byte _font8x8[256][8];
-public:
-	FontResources();
-	FontResources(Resources *resManager);
+class Ultima1Map : public Shared::Map {
+
 };
 
-} // End of namespace Shared
-} // End of namespace Xeen
+} // End of namespace Ultima1
+} // End of namespace Ultima
 
 #endif

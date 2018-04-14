@@ -20,28 +20,32 @@
  *
  */
 
-#ifndef ULTIMA_COMMON_RESOURCES_H
-#define ULTIMA_COMMON_RESOURCES_H
-
-#include "ultima/core/resources.h"
+#include "ultima/games/shared/gfx/game_view.h"
+#include "ultima/games/shared/gfx/info.h"
+#include "ultima/games/shared/gfx/status.h"
+#include "ultima/games/shared/gfx/viewport_dungeon.h"
+#include "ultima/games/shared/gfx/viewport_map.h"
 
 namespace Ultima {
 namespace Shared {
 
-class FontResources : public LocalResourceFile {
-protected:
-	/**
-	 * Synchronize resource data
-	 */
-	virtual void synchronize();
-public:
-	byte _font8x8[256][8];
-public:
-	FontResources();
-	FontResources(Resources *resManager);
-};
+GameView::GameView() {
+	_info = new Info();
+	_status = new Status();
+	_viewportDungeon = new ViewportDungeon();
+	_viewportMap = new ViewportMap();
+	_info->addUnder(this);
+	_status->addUnder(this);
+	_viewportDungeon->addUnder(this);
+	_viewportMap->addUnder(this);
+}
+
+GameView::~GameView() {
+	delete _info;
+	delete _status;
+	delete _viewportDungeon;
+	delete _viewportMap;
+}
 
 } // End of namespace Shared
-} // End of namespace Xeen
-
-#endif
+} // End of namespace Ultima

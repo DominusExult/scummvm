@@ -26,7 +26,6 @@
 #include "common/scummsys.h"
 #include "common/array.h"
 #include "ultima/game_manager.h"
-#include "ultima/core/project_item.h"
 #include "ultima/events.h"
 
 namespace Ultima {
@@ -57,7 +56,7 @@ private:
 	bool isMouseControlEnabled() const { return true; }
 public:
 	GameManager *_gameManager;
-	ProjectItem *_project;
+	Game *_project;
 public:
 	MainGameWindow(UltimaEngine *vm);
 	virtual ~MainGameWindow();

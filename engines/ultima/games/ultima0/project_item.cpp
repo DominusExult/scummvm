@@ -25,9 +25,9 @@
 namespace Ultima {
 namespace Ultima0 {
 
-EMPTY_MESSAGE_MAP(Ultima0ProjectItem, ProjectItem);
+EMPTY_MESSAGE_MAP(Ultima0Game, Shared::UltimaGame);
 
-Ultima0ProjectItem::Ultima0ProjectItem() : ProjectItem() {
+Ultima0Game::Ultima0Game() : Shared::UltimaGame() {
 }
 
 } // End of namespace Ultima0

@@ -20,15 +20,8 @@
  *
  */
 
-#include "common/file.h"
-#include "common/savefile.h"
-#include "common/str-array.h"
-#include "common/system.h"
-#include "graphics/scaler.h"
-#include "graphics/thumbnail.h"
-#include "ultima/game_manager.h"
-#include "ultima/ultima.h"
-#include "ultima/core/project_item.h"
+#include "ultima/core/game.h"
+#include "ultima/core/named_item.h"
 
 namespace Ultima {
 
@@ -36,47 +29,47 @@ namespace Ultima {
 #define MAX_SAVEGAME_SLOTS 99
 #define MINIMUM_SAVEGAME_VERSION 1
 
-EMPTY_MESSAGE_MAP(ProjectItem, NamedItem);
+EMPTY_MESSAGE_MAP(Game, NamedItem);
 
-ProjectItem::ProjectItem() : _gameManager(nullptr) {
+Game::Game() : _gameManager(nullptr) {
 }
 
-void ProjectItem::setGameManager(GameManager *gameManager) {
+void Game::setGameManager(GameManager *gameManager) {
 	if (!_gameManager)
 		_gameManager = gameManager;
 }
 
-void ProjectItem::resetGameManager() {
+void Game::resetGameManager() {
 	_gameManager = nullptr;
 }
 
-void ProjectItem::loadGame(int slotId) {
+void Game::loadGame(int slotId) {
 
 }
 
-void ProjectItem::saveGame(int slotId, const Common::String &desc) {
+void Game::saveGame(int slotId, const Common::String &desc) {
 
 }
 
-void ProjectItem::clear() {
+void Game::clear() {
 	TreeItem *item;
 	while ((item = getFirstChild()) != nullptr)
 		item->destroyAll();
 }
 
-void ProjectItem::preLoad() {
+void Game::preLoad() {
 
 }
 
-void ProjectItem::postLoad() {
+void Game::postLoad() {
 
 }
 
-void ProjectItem::preSave() {
+void Game::preSave() {
 
 }
 
-void ProjectItem::postSave() {
+void Game::postSave() {
 
 }
 

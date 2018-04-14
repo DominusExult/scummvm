@@ -20,25 +20,32 @@
  *
  */
 
-#ifndef ULTIMA_COMMON_RESOURCES_H
-#define ULTIMA_COMMON_RESOURCES_H
+#ifndef ULTIMA_SHARED_GFX_GAME_VIEW_H
+#define ULTIMA_SHARED_GFX_GAME_VIEW_H
 
-#include "ultima/core/resources.h"
+#include "ultima/gfx/visual_container.h"
 
 namespace Ultima {
 namespace Shared {
 
-class FontResources : public LocalResourceFile {
-protected:
-	/**
-	 * Synchronize resource data
-	 */
-	virtual void synchronize();
+class Info;
+class Status;
+class ViewportDungeon;
+class ViewportMap;
+
+/**
+ * This class implements a standard view screen that shows a status and log area, as well as either
+ * a map or dungeon view covering the bulk of the screen
+ */
+class GameView : public Gfx::VisualContainer {
+private:
+	Info *_info;
+	Status *_status;
+	ViewportDungeon *_viewportDungeon;
+	ViewportMap *_viewportMap;
 public:
-	byte _font8x8[256][8];
-public:
-	FontResources();
-	FontResources(Resources *resManager);
+	GameView();
+	virtual ~GameView();
 };
 
 } // End of namespace Shared

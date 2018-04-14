@@ -27,6 +27,7 @@
 #include "ultima/main_game_window.h"
 #include "ultima/messages.h"
 #include "ultima/core/mouse_cursor.h"
+#include "ultima/core/game.h"
 
 namespace Ultima {
 

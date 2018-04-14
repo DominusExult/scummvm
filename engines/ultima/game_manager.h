@@ -32,19 +32,19 @@
 
 namespace Ultima {
 
-class ProjectItem;
+class Game;
 
 class GameManager {
 private:
 	int _transitionCtr;
 public:
-	ProjectItem *_project;
+	Game *_project;
 	GameState _gameState;
 	InputHandler _inputHandler;
 	InputTranslator _inputTranslator;
 	Gfx::VisualItem *_view;
 public:
-	GameManager(ProjectItem *project, Audio::Mixer *mixer);
+	GameManager(Game *project, Audio::Mixer *mixer);
 	~GameManager();
 
 	/**

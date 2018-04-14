@@ -20,25 +20,49 @@
  *
  */
 
-#ifndef ULTIMA_COMMON_RESOURCES_H
-#define ULTIMA_COMMON_RESOURCES_H
+#ifndef ULTIMA_SHARED_CORE_GAME_STATE_H
+#define ULTIMA_SHARED_CORE_GAME_STATE_H
 
-#include "ultima/core/resources.h"
+#include "common/rect.h"
+#include "ultima/games/shared/core/character.h"
+#include "ultima/games/shared/core/map.h"
 
 namespace Ultima {
 namespace Shared {
 
-class FontResources : public LocalResourceFile {
-protected:
+class GameState {
+private:
 	/**
-	 * Synchronize resource data
+	 * Enhanced game versions can have multiple tiles per tile of the original game. This constant
+	 * specifies the maximum number of tiles a map can have versus the original
 	 */
-	virtual void synchronize();
+	const Common::Point MAX_TILES_PER_ORIGINAL;
+
+	/**
+	 * Position in the world map. This is in the context of the whatever overworld map is used,
+	 * so would have to be divided by MAX_TILES_PER_ORIGINAL to get original game co-ordinates
+	 */
+	Common::Point _worldMapPos;
+
+	/**
+	 * Pointer to the map manager for the game
+	 */
+	Map *_map;
 public:
-	byte _font8x8[256][8];
+	/**
+	 * Characters in the party. In the earlier Ultima games, this is a single character
+	 */
+	CharacterArray _characters;
 public:
-	FontResources();
-	FontResources(Resources *resManager);
+	/**
+	 * Constructor
+	 */
+	GameState();
+
+	/**
+	 * Destructor
+	 */
+	~GameState();
 };
 
 } // End of namespace Shared

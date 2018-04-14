@@ -31,7 +31,7 @@ class GameManager;
 struct GameState;
 class Events;
 class NamedItem;
-class ProjectItem;
+class Game;
 class CMessage;
 
 class TreeItem: public MessageTarget {
@@ -80,7 +80,7 @@ public:
 	/**
 	 * Jumps up through the parents to find the root item
 	 */
-	ProjectItem *getRoot() const;
+	Game *getRoot() const;
 
 	/**
 	 * Get the next sibling

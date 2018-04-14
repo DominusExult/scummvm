@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef ULTIMA_PROJECT_ITEM_H
-#define ULTIMA_PROJECT_ITEM_H
+#ifndef ULTIMA_CORE_GAME_H
+#define ULTIMA_CORE_GAME_H
 
 #include "common/scummsys.h"
 #include "common/str.h"
@@ -43,7 +43,7 @@ struct UltimaSavegameHeader {
 
 class GameManager;
 
-class ProjectItem : public NamedItem {
+class Game : public NamedItem {
 	DECLARE_MESSAGE_MAP;
 private:
 	GameManager *_gameManager;
@@ -70,8 +70,8 @@ private:
 private:
 public:
 	CLASSDEF;
-	ProjectItem();
-	virtual ~ProjectItem() { destroyChildren(); }
+	Game();
+	virtual ~Game() { destroyChildren(); }
 
 	/**
 	 * Sets the game manager for the project, if not already set

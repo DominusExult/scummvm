@@ -20,24 +20,40 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_PROJECT_ITEM_H
-#define ULTIMA_ULTIMA1_PROJECT_ITEM_H
+#ifndef ULTIMA_SHARED_ULTIMA_GAME_H
+#define ULTIMA_SHARED_ULTIMA_GAME_H
 
-#include "ultima/core/project_item.h"
+#include "ultima/core/game.h"
 
 namespace Ultima {
-namespace Ultima1 {
+namespace Shared {
 
-class Ultima1ProjectItem : public ProjectItem {
+class GameView;
+class GameState;
+class FontResources;
+
+class UltimaGame : public Game {
 	DECLARE_MESSAGE_MAP;
 public:
+	GameView *_gameView;
+	GameState *_gameState;
+	FontResources *_fontResources;
+public:
 	CLASSDEF;
-	Ultima1ProjectItem();
-	virtual ~Ultima1ProjectItem() {}
+
+	/**
+	 * Constructor
+	 */
+	UltimaGame();
+	
+	/**
+	 * Destructor
+	 */
+	virtual ~UltimaGame();
 
 };
 
-} // End of namespace Ultima1
+} // End of namespace Shared
 } // End of namespace Ultima
 
 #endif

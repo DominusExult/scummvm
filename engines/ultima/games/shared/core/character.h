@@ -20,26 +20,34 @@
  *
  */
 
-#ifndef ULTIMA_COMMON_RESOURCES_H
-#define ULTIMA_COMMON_RESOURCES_H
+#ifndef ULTIMA_SHARED_CORE_CHARACTER_H
+#define ULTIMA_SHARED_CORE_CHARACTER_H
 
-#include "ultima/core/resources.h"
+#include "common/array.h"
+#include "common/str.h"
 
 namespace Ultima {
 namespace Shared {
 
-class FontResources : public LocalResourceFile {
-protected:
-	/**
-	 * Synchronize resource data
-	 */
-	virtual void synchronize();
+struct Character {
+	uint _strength;
+	uint _agility;
+	uint _stamina;
+	uint _charisma;
+	uint _wisdom;
+	uint _intelligence;
+	uint _experience;
+	uint _food;
+	uint _coins;
+	int _equippedWeapon;
+	int _equippedArmor;
+	int _readySpell;
 public:
-	byte _font8x8[256][8];
-public:
-	FontResources();
-	FontResources(Resources *resManager);
+	Character() : _strength(0), _agility(0), _stamina(0), _charisma(0), _wisdom(0), _intelligence(0),
+		_food(0), _coins(0), _equippedWeapon(-1), _equippedArmor(-1), _readySpell(-1) {}
 };
+
+typedef Common::Array<Character> CharacterArray;
 
 } // End of namespace Shared
 } // End of namespace Xeen

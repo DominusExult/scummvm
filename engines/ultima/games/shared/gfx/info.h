@@ -20,25 +20,20 @@
  *
  */
 
-#ifndef ULTIMA_COMMON_RESOURCES_H
-#define ULTIMA_COMMON_RESOURCES_H
+#ifndef ULTIMA_SHARED_GFX_INFO_H
+#define ULTIMA_SHARED_GFX_INFO_H
 
-#include "ultima/core/resources.h"
+#include "ultima/gfx/visual_item.h"
 
 namespace Ultima {
 namespace Shared {
 
-class FontResources : public LocalResourceFile {
-protected:
-	/**
-	 * Synchronize resource data
-	 */
-	virtual void synchronize();
+class Info : public Gfx::VisualItem {
+	DECLARE_MESSAGE_MAP;
 public:
-	byte _font8x8[256][8];
-public:
-	FontResources();
-	FontResources(Resources *resManager);
+	CLASSDEF;
+	Info() : Gfx::VisualItem("Info", Common::Rect(8, 168, 240, 200)) {}
+	virtual ~Info() {}
 };
 
 } // End of namespace Shared

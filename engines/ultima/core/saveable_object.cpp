@@ -23,7 +23,6 @@
 #include "ultima/core/saveable_object.h"
 #include "ultima/core/tree_item.h"
 #include "ultima/core/named_item.h"
-#include "ultima/core/project_item.h"
 
 namespace Ultima {
 

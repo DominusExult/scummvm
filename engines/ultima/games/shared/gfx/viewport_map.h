@@ -20,25 +20,20 @@
  *
  */
 
-#ifndef ULTIMA_COMMON_RESOURCES_H
-#define ULTIMA_COMMON_RESOURCES_H
+#ifndef ULTIMA_SHARED_GFX_VIEWPORT_MAP_H
+#define ULTIMA_SHARED_GFX_VIEWPORT_MAP_H
 
-#include "ultima/core/resources.h"
+#include "ultima/gfx/visual_item.h"
 
 namespace Ultima {
 namespace Shared {
 
-class FontResources : public LocalResourceFile {
-protected:
-	/**
-	 * Synchronize resource data
-	 */
-	virtual void synchronize();
+class ViewportMap : public Gfx::VisualItem {
+	DECLARE_MESSAGE_MAP;
 public:
-	byte _font8x8[256][8];
-public:
-	FontResources();
-	FontResources(Resources *resManager);
+	CLASSDEF;
+	ViewportMap() : Gfx::VisualItem("ViewportMap", Common::Rect(8, 8, 312, 168)) {}
+	virtual ~ViewportMap() {}
 };
 
 } // End of namespace Shared

@@ -30,7 +30,7 @@
 #include "ultima/core/resources.h"
 #include "ultima/core/mouse_cursor.h"
 #include "ultima/gfx/screen.h"
-#include "ultima/games/ultima1/project_item.h"
+#include "ultima/games/ultima1/game.h"
 
 namespace Ultima {
 
@@ -58,8 +58,10 @@ bool UltimaEngine::initialize() {
 	DebugMan.addDebugChannel(kDebugLevelScript,      "scripts", "Script debug level");
 
 	Resources *res = new Resources();
-	if (!res->setup())
+	if (!res->setup()) {
+		delete res;
 		return false;
+	}
 
 	_debugger = Debugger::init(this);
 	_events = new Events(this);
@@ -91,10 +93,10 @@ void UltimaEngine::playGame() {
 	}
 }
 
-ProjectItem *UltimaEngine::createProject() const {
+Game *UltimaEngine::createProject() const {
 	switch (getGameID()) {
 	case GType_Ultima1:
-		return new Ultima1::Ultima1ProjectItem();
+		return new Ultima1::Ultima1Game();
 	default:
 		error("Unknown game");
 	}

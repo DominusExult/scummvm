@@ -23,18 +23,18 @@
 #include "ultima/game_manager.h"
 #include "ultima/ultima.h"
 #include "ultima/events.h"
-#include "ultima/core/project_item.h"
 #include "ultima/messages.h"
+#include "ultima/core/game.h"
 
 namespace Ultima {
 
-GameManager::GameManager(ProjectItem *project, Audio::Mixer *mixer):
+GameManager::GameManager(Game *project, Audio::Mixer *mixer):
 		_project(project), _inputHandler(this), _inputTranslator(&_inputHandler) {
-	_project->setGameManager(this);
+//	_project->setGameManager(this);
 }
 
 GameManager::~GameManager() {
-	_project->resetGameManager();
+	//_project->resetGameManager();
 }
 
 void GameManager::update() {
