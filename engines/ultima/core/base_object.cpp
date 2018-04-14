@@ -20,51 +20,28 @@
  *
  */
 
-#ifndef ULTIMA_SAVEABLE_OBJECT_H
-#define ULTIMA_SAVEABLE_OBJECT_H
-
-#include "common/scummsys.h"
-#include "common/array.h"
-#include "common/hash-str.h"
-#include "common/list.h"
-#include "ultima/core/file.h"
+#include "ultima/core/base_object.h"
+#include "ultima/core/tree_item.h"
+#include "ultima/core/named_item.h"
 
 namespace Ultima {
 
-class SaveableObject;
+ClassDef BaseObject::type() {
+	return ClassDef("BaseObject", nullptr);
+}
 
-class ClassDef;
-typedef ClassDef(*ClassDefFn)();
-
-class ClassDef {
-private:
-	ClassDefFn _parentFn;
-public:
-	const char *_className;
-public:
-	ClassDef(const char *className, const ClassDefFn parentFn) :
-		_className(className), _parentFn(parentFn) {}
-
-	bool hasParent() const { return _parentFn != nullptr; }
-	ClassDef parent() const { return (*_parentFn)(); }
-	bool operator==(const ClassDef &right) const {
-		return !strcmp(_className, right._className);
+bool BaseObject::isInstanceOf(const ClassDef &classDef) const {
+	ClassDef def = getType();
+	for (;;) {
+		if (def == classDef)
+			return true;
+		
+		if (!def.hasParent())
+			break;
+		def = def.parent();
 	}
-};
 
-#define CLASSDEF \
-	static ClassDef type(); \
-	virtual ClassDef getType() const { return type(); }
-
-
-class SaveableObject {
-public:
-	CLASSDEF
-	virtual ~SaveableObject() {}
-
-	bool isInstanceOf(const ClassDef &classDef) const;
-};
+	return false;
+}
 
 } // End of namespace Ultima
-
-#endif

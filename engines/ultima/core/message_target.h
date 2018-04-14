@@ -23,7 +23,7 @@
 #ifndef ULTIMA_MESSAGE_TARGET_H
 #define ULTIMA_MESSAGE_TARGET_H
 
-#include "ultima/core/saveable_object.h"
+#include "ultima/core/base_object.h"
 
 namespace Ultima {
 
@@ -85,7 +85,11 @@ protected: \
 	} \
 	enum { DUMMY }
 
-class MessageTarget: public SaveableObject {
+/**
+ * The immediate descendant of the base object, this implements the base class for objects
+ * that can receive messages
+ */
+class MessageTarget: public BaseObject {
 	DECLARE_MESSAGE_MAP;
 public:
 	CLASSDEF;

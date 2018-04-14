@@ -25,7 +25,7 @@
 
 #include "common/keyboard.h"
 #include "common/rect.h"
-#include "ultima/core/saveable_object.h"
+#include "ultima/core/base_object.h"
 #include "ultima/core/tree_item.h"
 
 namespace Ultima {
@@ -82,14 +82,14 @@ namespace Gfx {
 	MESSAGEDEF(NAME); \
 	}
 
-class CMessage : public SaveableObject {
+class CMessage : public BaseObject {
 private:
 	/**
 	 * Find a map entry that supports the given class
 	 */
 	static const MSGMAP_ENTRY *findMapEntry(const TreeItem *treeItem, const ClassDef &classDef);
 public:
-	MESSAGEDEFP(CMessage, SaveableObject);
+	MESSAGEDEFP(CMessage, BaseObject);
 	CMessage();
 
 	/**

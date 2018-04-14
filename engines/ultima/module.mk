@@ -1,13 +1,13 @@
 MODULE := engines/ultima
 
 MODULE_OBJS = \
+	core/base_object.o \
 	core/file.o \
 	core/game.o \
 	core/message_target.o \
 	core/mouse_cursor.o \
 	core/named_item.o \
 	core/resources.o \
-	core/saveable_object.o \
 	core/tree_item.o \
 	gfx/font.o \
 	gfx/screen.o \

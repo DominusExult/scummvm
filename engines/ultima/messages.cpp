@@ -28,7 +28,7 @@
 
 namespace Ultima {
 
-CMessage::CMessage() : SaveableObject() {
+CMessage::CMessage() : BaseObject() {
 }
 
 bool CMessage::execute(TreeItem *target, const ClassDef *classDef, int flags) {
