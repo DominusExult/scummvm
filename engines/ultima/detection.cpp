@@ -45,7 +45,7 @@ Common::Language UltimaEngine::getLanguage() const {
 } // End of namespace Ultima
 
 static const PlainGameDescriptor ultimaGames[] = {
-	{ "ultima1", "Ultima I - The First Age of Darkness" },
+	{ "ultima1", "Ultima 1: The First Age of Darkness" },
 	{0, 0}
 };
 

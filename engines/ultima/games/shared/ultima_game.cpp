@@ -20,6 +20,7 @@
  *
  */
 
+#include "ultima/ultima.h"
 #include "ultima/games/shared/ultima_game.h"
 #include "ultima/games/shared/core/game_state.h"
 #include "ultima/games/shared/core/resources.h"
@@ -34,14 +35,40 @@ UltimaGame::UltimaGame() : Game() {
 	_fontResources = new FontResources();
 	_gameState = new GameState();
 	_gameView = new GameView();
-
 	_gameView->addUnder(this);
+
+	setPalette();
 }
 
 UltimaGame::~UltimaGame() {
 	delete _fontResources;
 	delete _gameState;
 	delete _gameView;
+}
+
+void UltimaGame::setPalette() {
+	switch (_gameState->_videoMode) {
+	case CGA: {
+		static const byte PALETTE[4][3] = { { 0, 0, 0 }, { 0xAA, 0xAA, 0 }, {0xAA, 0, 0xAA }, {0xAA, 0xAA, 0xAA } };
+		g_vm->_screen->setPalette(&PALETTE[0][0], 0, 4);
+		break;
+	}
+
+	case TGA:
+	case EGA: {
+		static const byte PALETTE[16][3] = {
+			{ 0, 0, 0 }, { 0x00, 0x00, 0x80 }, { 0x00, 0x80, 0x00 }, { 0x00, 0x80, 0x80 },
+			{ 0x80, 0x00, 0x00 }, { 0x80, 0x00, 0x80 }, { 0x80, 0x80, 0x00 }, { 0xC0, 0xC0, 0xC0 },
+			{ 0x80, 0x80, 0x80 }, { 0x00, 0x00, 0xFF }, { 0x00, 0xFF, 0x00 }, { 0x00, 0xFF, 0xFF },
+			{ 0xFF, 0x40, 0x40 }, { 0xFF, 0x00, 0xFF }, { 0xFF, 0xFF, 0x00 }, {0xFF, 0xFF, 0xFF }
+		};
+		g_vm->_screen->setPalette(&PALETTE[0][0], 0, 16);
+		break;
+	}
+
+	default:
+		break;
+	}
 }
 
 } // End of namespace Shared

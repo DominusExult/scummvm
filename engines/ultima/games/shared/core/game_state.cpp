@@ -20,13 +20,25 @@
  *
  */
 
+#include "ultima/ultima.h"
 #include "ultima/games/shared/core/game_state.h"
+#include "ultima/games/ultima1/core/map.h"
 
 namespace Ultima {
 namespace Shared {
 
-GameState::GameState() : MAX_TILES_PER_ORIGINAL(16, 16), _map(nullptr) {
+GameState::GameState() : MAX_TILES_PER_ORIGINAL(16, 16), _videoMode(EGA) {
 	_characters.resize(1);
+	_gameId = g_vm->getGameID();
+
+	switch (_gameId) {
+	case GType_Ultima1:
+		_map = new Ultima1::Ultima1Map();
+		break;
+	default:
+		error("Unspported game");
+		break;
+	}
 }
 
 GameState::~GameState() {
