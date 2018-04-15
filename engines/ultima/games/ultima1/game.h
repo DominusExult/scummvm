@@ -28,15 +28,16 @@
 namespace Ultima {
 namespace Ultima1 {
 
+class GameView;
+
 class Ultima1Game : public Shared::UltimaGame {
 	DECLARE_MESSAGE_MAP;
 public:
-
+	GameView *_gameView;
 public:
 	CLASSDEF;
 	Ultima1Game();
-	virtual ~Ultima1Game() {}
-
+	virtual ~Ultima1Game();
 };
 
 } // End of namespace Ultima1
