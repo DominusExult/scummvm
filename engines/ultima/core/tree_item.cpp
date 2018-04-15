@@ -21,7 +21,7 @@
  */
 
 #include "ultima/core/tree_item.h"
-#include "ultima/core/game.h"
+#include "ultima/games/shared/game.h"
 #include "ultima/game_manager.h"
 
 namespace Ultima {
@@ -33,7 +33,7 @@ TreeItem::TreeItem() : _parent(nullptr), _firstChild(nullptr),
 	_disposeAfterUse(DisposeAfterUse::NO) {
 }
 
-Game *TreeItem::getRoot() const {
+Shared::Game *TreeItem::getRoot() const {
 	TreeItem *parent = getParent();
 
 	if (parent) {
@@ -42,7 +42,7 @@ Game *TreeItem::getRoot() const {
 		} while (parent->getParent());
 	}
 
-	return dynamic_cast<Game *>(parent);
+	return dynamic_cast<Shared::Game *>(parent);
 }
 
 TreeItem *TreeItem::getLastSibling() {

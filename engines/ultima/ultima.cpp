@@ -93,7 +93,7 @@ void UltimaEngine::playGame() {
 	}
 }
 
-Game *UltimaEngine::createProject() const {
+Shared::Game *UltimaEngine::createGame() const {
 	switch (getGameID()) {
 	case GType_Ultima1:
 		return new Ultima1::Ultima1Game();

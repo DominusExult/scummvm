@@ -56,7 +56,7 @@ private:
 	bool isMouseControlEnabled() const { return true; }
 public:
 	GameManager *_gameManager;
-	Game *_project;
+	Shared::Game *_game;
 public:
 	MainGameWindow(UltimaEngine *vm);
 	virtual ~MainGameWindow();

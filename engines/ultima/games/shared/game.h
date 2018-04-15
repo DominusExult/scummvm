@@ -20,15 +20,50 @@
  *
  */
 
-#include "ultima/games/ultima0/project_item.h"
+#ifndef ULTIMA_SHARED_GAME_H
+#define ULTIMA_SHARED_GAME_H
+
+#include "ultima/core/named_item.h"
 
 namespace Ultima {
-namespace Ultima0 {
+namespace Shared {
 
-EMPTY_MESSAGE_MAP(Ultima0Game, Shared::UltimaGame);
+class GameView;
+class GameState;
+class FontResources;
 
-Ultima0Game::Ultima0Game() : Shared::UltimaGame() {
-}
+class Game : public NamedItem {
+	DECLARE_MESSAGE_MAP;
+private:
+	GameView *_gameView;
+	GameState *_gameState;
+	FontResources *_fontResources;
+private:
+	/**
+	 * Sets up game palette
+	 */
+	void setPalette();
+public:
+	byte _foregroundColor;
+	byte _backgroundColor;
+	byte _highlightColor;
+	byte _textColor;
+	byte _color1;
+public:
+	CLASSDEF;
 
-} // End of namespace Ultima0
+	/**
+	 * Constructor
+	 */
+	Game();
+	
+	/**
+	 * Destructor
+	 */
+	virtual ~Game();
+};
+
+} // End of namespace Shared
 } // End of namespace Ultima
+
+#endif

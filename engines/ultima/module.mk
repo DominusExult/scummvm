@@ -3,7 +3,6 @@ MODULE := engines/ultima
 MODULE_OBJS = \
 	core/base_object.o \
 	core/file.o \
-	core/game.o \
 	core/message_target.o \
 	core/mouse_cursor.o \
 	core/named_item.o \
@@ -24,7 +23,7 @@ MODULE_OBJS = \
 	main_game_window.o \
 	messages.o \
 	ultima.o \
-	games/shared/ultima_game.o \
+	games/shared/game.o \
 	games/shared/core/character.o \
 	games/shared/core/game_state.o \
 	games/shared/core/map.o \
@@ -33,7 +32,7 @@ MODULE_OBJS = \
 	games/shared/gfx/status.o \
 	games/shared/gfx/viewport_dungeon.o \
 	games/shared/gfx/viewport_map.o \
-	games/ultima0/project_item.o \
+	games/ultima0/game.o \
 	games/ultima0/core/resources.o \
 	games/ultima1/game.o \
 	games/ultima1/core/map.o \

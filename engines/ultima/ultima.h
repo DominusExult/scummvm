@@ -50,10 +50,12 @@ class Events;
 class MainGameWindow;
 class MouseCursor;
 class Resources;
-class Game;
 
 namespace Gfx {
 	class Screen;
+}
+namespace Shared {
+	class Game;
 }
 
 class UltimaEngine : public Engine {
@@ -106,10 +108,9 @@ public:
 	int getRandomNumber(int limit) { return _randomSource.getRandomNumber(limit - 1); }
 
 	/**
-	 * Creates a new project hierarchy for the game, that contains all
-	 * the logic for playing that particular game.
+	 * Creates a new hierarchy for the game, that contains all the logic for playing that particular game.
 	 */
-	Game *createProject() const;
+	Shared::Game *createGame() const;
 };
 
 extern UltimaEngine *g_vm;

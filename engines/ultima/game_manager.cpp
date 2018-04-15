@@ -24,17 +24,17 @@
 #include "ultima/ultima.h"
 #include "ultima/events.h"
 #include "ultima/messages.h"
-#include "ultima/core/game.h"
+#include "ultima/games/shared/game.h"
 
 namespace Ultima {
 
-GameManager::GameManager(Game *project, Audio::Mixer *mixer):
-		_project(project), _inputHandler(this), _inputTranslator(&_inputHandler) {
-//	_project->setGameManager(this);
+GameManager::GameManager(Shared::Game *game, Audio::Mixer *mixer):
+		_game(game), _inputHandler(this), _inputTranslator(&_inputHandler) {
+//	_game->setGameManager(this);
 }
 
 GameManager::~GameManager() {
-	//_project->resetGameManager();
+	//_game->resetGameManager();
 }
 
 void GameManager::update() {
@@ -48,7 +48,7 @@ void GameManager::update() {
 }
 
 void GameManager::changeView(const Common::String &name) {
-	Gfx::VisualItem *newView = dynamic_cast<Gfx::VisualItem *>(_project->findByName(name));
+	Gfx::VisualItem *newView = dynamic_cast<Gfx::VisualItem *>(_game->findByName(name));
 	assert(newView);
 
 	// Hide the current view

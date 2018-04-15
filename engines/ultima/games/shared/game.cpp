@@ -20,7 +20,7 @@
  *
  */
 
-#include "ultima/games/shared/ultima_game.h"
+#include "ultima/games/shared/game.h"
 #include "ultima/games/shared/core/game_state.h"
 #include "ultima/games/shared/core/resources.h"
 #include "ultima/ultima.h"
@@ -29,21 +29,21 @@
 namespace Ultima {
 namespace Shared {
 
-EMPTY_MESSAGE_MAP(UltimaGame, Game);
+EMPTY_MESSAGE_MAP(Game, NamedItem);
 
-UltimaGame::UltimaGame() : Game() {
+Game::Game() : NamedItem() {
 	_fontResources = new FontResources();
 	_gameState = new GameState();
 
 	setPalette();
 }
 
-UltimaGame::~UltimaGame() {
+Game::~Game() {
 	delete _fontResources;
 	delete _gameState;
 }
 
-void UltimaGame::setPalette() {
+void Game::setPalette() {
 	switch (_gameState->_videoMode) {
 	case CGA: {
 		static const byte PALETTE[4][3] = { { 0, 0, 0 }, { 0xAA, 0xAA, 0 }, {0xAA, 0, 0xAA }, {0xAA, 0xAA, 0xAA } };

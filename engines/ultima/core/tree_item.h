@@ -27,11 +27,14 @@
 
 namespace Ultima {
 
+namespace Shared {
+	class Game;
+}
+
 class GameManager;
 struct GameState;
 class Events;
 class NamedItem;
-class Game;
 class CMessage;
 
 /**
@@ -84,7 +87,7 @@ public:
 	/**
 	 * Jumps up through the parents to find the root item
 	 */
-	Game *getRoot() const;
+	Shared::Game *getRoot() const;
 
 	/**
 	 * Get the next sibling
