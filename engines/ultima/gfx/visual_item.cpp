@@ -31,8 +31,10 @@ BEGIN_MESSAGE_MAP(VisualItem, NamedItem)
 	ON_MESSAGE(HideMsg)
 END_MESSAGE_MAP()
 
-void VisualItem::init() {
+void VisualItem::init(TreeItem *parent) {
 	_isDirty = true;
+	if (parent != nullptr)
+		addUnder(parent);
 }
 
 bool VisualItem::ShowMsg(CShowMsg &msg) {
