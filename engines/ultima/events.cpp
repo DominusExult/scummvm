@@ -145,7 +145,7 @@ bool Events::waitForPress(uint expiry) {
 	return pressTarget._pressed;
 }
 
-void Events::setMousePos(const Common::Point &pt) {
+void Events::setMousePos(const Point &pt) {
 	g_system->warpMouse(pt.x, pt.y);
 	_mousePos = pt;
 	eventTarget()->mouseMove(_mousePos);

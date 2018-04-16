@@ -26,26 +26,27 @@
 #include "common/array.h"
 #include "common/stream.h"
 #include "graphics/managed_surface.h"
+#include "ultima/core/rect.h"
 
 namespace Ultima {
-
-class UltimaEngine;
-
 namespace Gfx {
 
 class Font {
+private:
+	const byte *_data;
+	size_t _startingChar, _endingChar;
 public:
-	Font();
-
-	/**
-	 * Draw a character
-	 */
-	void writeChar(Graphics::ManagedSurface &surface, Common::Point &textPos, char c);
+	Font(const byte *data, size_t startingChar = 0, size_t charCount = 256);
 
 	/**
 	 * Write out a string
 	 */
-	void writeString(Graphics::ManagedSurface &surface, Common::Point &textPos, const Common::String &msg);
+	int writeString(Graphics::ManagedSurface &surface, const Common::String &msg, const Point &pt, byte color);
+
+	/**
+	 * Draw a character
+	 */
+	void writeChar(Graphics::ManagedSurface &surface, unsigned char c, const Point &pt, byte color);
 
 	/**
 	 * Return the width of a character
@@ -60,7 +61,7 @@ public:
 	/**
 	 * Returns the height of the font
 	 */
-	uint lineHeight() const { return 8; }
+	uint lineHeight() const;
 };
 
 } // End of namespace Gfx

@@ -26,13 +26,17 @@
 #include "ultima/debugger.h"
 #include "ultima/messages.h"
 #include "ultima/core/mouse_cursor.h"
+#include "ultima/gfx/font.h"
 #include "ultima/gfx/visual_container.h"
 
 namespace Ultima {
 
-GameBase::GameBase(): _currentView(nullptr),
-		_priorLeftDownTime(0), _priorMiddleDownTime(0), _priorRightDownTime(0),
-		_inputHandler(this), _inputTranslator(&_inputHandler) {
+GameBase::GameBase(): _currentView(nullptr), _font(nullptr), _priorLeftDownTime(0),
+	_priorMiddleDownTime(0), _priorRightDownTime(0), _inputHandler(this), _inputTranslator(&_inputHandler) {
+}
+
+GameBase::~GameBase() {
+	delete _font;
 }
 
 void GameBase::starting() {
@@ -68,14 +72,14 @@ void GameBase::onIdle() {
 	mouseChanged()
 
 
-void GameBase::mouseMove(const Common::Point &mousePos) {
+void GameBase::mouseMove(const Point &mousePos) {
 	if (!isMouseControlEnabled())
 		return;
 
 	HANDLE_MESSAGE(mouseMove);
 }
 
-void GameBase::leftButtonDown(const Common::Point &mousePos) {
+void GameBase::leftButtonDown(const Point &mousePos) {
 	if (!isMouseControlEnabled())
 		return;
 
@@ -88,21 +92,21 @@ void GameBase::leftButtonDown(const Common::Point &mousePos) {
 	}
 }
 
-void GameBase::leftButtonUp(const Common::Point &mousePos) {
+void GameBase::leftButtonUp(const Point &mousePos) {
 	if (!isMouseControlEnabled())
 		return;
 
 	HANDLE_MESSAGE(leftButtonUp);
 }
 
-void GameBase::leftButtonDoubleClick(const Common::Point &mousePos) {
+void GameBase::leftButtonDoubleClick(const Point &mousePos) {
 	if (!isMouseControlEnabled())
 		return;
 
 	HANDLE_MESSAGE(leftButtonDoubleClick);
 }
 
-void GameBase::middleButtonDown(const Common::Point &mousePos) {
+void GameBase::middleButtonDown(const Point &mousePos) {
 	if (!isMouseControlEnabled())
 		return;
 
@@ -115,21 +119,21 @@ void GameBase::middleButtonDown(const Common::Point &mousePos) {
 	}
 }
 
-void GameBase::middleButtonUp(const Common::Point &mousePos) {
+void GameBase::middleButtonUp(const Point &mousePos) {
 	if (!isMouseControlEnabled())
 		return;
 
 	HANDLE_MESSAGE(middleButtonUp);
 }
 
-void GameBase::middleButtonDoubleClick(const Common::Point &mousePos) {
+void GameBase::middleButtonDoubleClick(const Point &mousePos) {
 	if (!isMouseControlEnabled())
 		return;
 
 	HANDLE_MESSAGE(middleButtonDoubleClick);
 }
 
-void GameBase::rightButtonDown(const Common::Point &mousePos) {
+void GameBase::rightButtonDown(const Point &mousePos) {
 	if (!isMouseControlEnabled())
 		return;
 
@@ -142,14 +146,14 @@ void GameBase::rightButtonDown(const Common::Point &mousePos) {
 	}
 }
 
-void GameBase::rightButtonUp(const Common::Point &mousePos) {
+void GameBase::rightButtonUp(const Point &mousePos) {
 	if (!isMouseControlEnabled())
 		return;
 
 	HANDLE_MESSAGE(rightButtonUp);
 }
 
-void GameBase::mouseWheel(const Common::Point &mousePos, bool wheelUp) {
+void GameBase::mouseWheel(const Point &mousePos, bool wheelUp) {
 	if (!isMouseControlEnabled())
 		return;
 
@@ -157,7 +161,7 @@ void GameBase::mouseWheel(const Common::Point &mousePos, bool wheelUp) {
 	mouseChanged();
 }
 
-void GameBase::rightButtonDoubleClick(const Common::Point &mousePos) {
+void GameBase::rightButtonDoubleClick(const Point &mousePos) {
 	if (!isMouseControlEnabled())
 		return;
 
@@ -215,6 +219,11 @@ void GameBase::changeView(const Common::String &name) {
 	if (showMsg._fadeIn) {
 		// TODO: Fade in
 	}
+}
+
+void GameBase::setFont(Gfx::Font *font) {
+	delete _font;
+	_font = font;
 }
 
 } // End of namespace Ultima

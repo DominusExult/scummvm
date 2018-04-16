@@ -26,6 +26,7 @@
 #include "common/scummsys.h"
 #include "common/events.h"
 #include "common/stack.h"
+#include "ultima/core/rect.h"
 
 namespace Ultima {
 
@@ -53,16 +54,16 @@ public:
 	/**
 	 * Mouse/key event handlers
 	 */
-	virtual void mouseMove(const Common::Point &mousePos) {}
-	virtual void leftButtonDown(const Common::Point &mousePos) {}
-	virtual void leftButtonUp(const Common::Point &mousePos) {}
-	virtual void leftButtonDoubleClick(const Common::Point &mousePos) {}
-	virtual void middleButtonDown(const Common::Point &mousePos) {}
-	virtual void middleButtonUp(const Common::Point &mousePos) {}
-	virtual void middleButtonDoubleClick(const Common::Point &mousePos) {}
-	virtual void rightButtonDown(const Common::Point &mousePos) {}
-	virtual void rightButtonUp(const Common::Point &mousePos) {}
-	virtual void mouseWheel(const Common::Point &mousePos, bool wheelUp) {}
+	virtual void mouseMove(const Point &mousePos) {}
+	virtual void leftButtonDown(const Point &mousePos) {}
+	virtual void leftButtonUp(const Point &mousePos) {}
+	virtual void leftButtonDoubleClick(const Point &mousePos) {}
+	virtual void middleButtonDown(const Point &mousePos) {}
+	virtual void middleButtonUp(const Point &mousePos) {}
+	virtual void middleButtonDoubleClick(const Point &mousePos) {}
+	virtual void rightButtonDown(const Point &mousePos) {}
+	virtual void rightButtonUp(const Point &mousePos) {}
+	virtual void mouseWheel(const Point &mousePos, bool wheelUp) {}
 	virtual void keyDown(Common::KeyState keyState) {}
 	virtual void keyUp(Common::KeyState keyState) {}
 };
@@ -76,9 +77,9 @@ public:
 public:
 	CPressTarget() : _pressed(false) {}
 	virtual ~CPressTarget() {}
-	virtual void leftButtonDown(const Common::Point &mousePos) { _pressed = true; }
-	virtual void middleButtonDown(const Common::Point &mousePos) { _pressed = true; }
-	virtual void rightButtonDown(const Common::Point &mousePos) { _pressed = true; }
+	virtual void leftButtonDown(const Point &mousePos) { _pressed = true; }
+	virtual void middleButtonDown(const Point &mousePos) { _pressed = true; }
+	virtual void rightButtonDown(const Point &mousePos) { _pressed = true; }
 	virtual void keyDown(Common::KeyState keyState) { _pressed = true; }
 };
 
@@ -87,7 +88,7 @@ private:
 	Common::Stack<EventTarget *> _eventTargets;
 	uint32 _frameCounter;
 	uint32 _priorFrameTime;
-	Common::Point _mousePos;
+	Point _mousePos;
 	uint _specialButtons;
 
 	/**
@@ -160,12 +161,12 @@ public:
 	/**
 	 * Get the mouse position
 	 */
-	Common::Point getMousePos() const { return _mousePos; }
+	Point getMousePos() const { return _mousePos; }
 
 	/**
 	 * Sets the mouse position
 	 */
-	void setMousePos(const Common::Point &pt);
+	void setMousePos(const Point &pt);
 
 	/*
 	 * Return whether a given special key is currently pressed

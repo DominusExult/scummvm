@@ -20,23 +20,31 @@
  *
  */
 
-#ifndef ULTIMA_SHARED_GFX_INFO_H
-#define ULTIMA_SHARED_GFX_INFO_H
+#ifndef ULTIMA_RECT_H
+#define ULTIMA_RECT_H
 
-#include "ultima/gfx/visual_item.h"
+#include "common/rect.h"
 
 namespace Ultima {
-namespace Shared {
 
-class Info : public Gfx::VisualItem {
-	DECLARE_MESSAGE_MAP;
-public:
-	CLASSDEF;
-	Info(TreeItem *parent) : Gfx::VisualItem("Info", Rect(8, 168, 240, 200), parent) {}
-	virtual ~Info() {}
+typedef Common::Rect Rect;
+
+struct Point : public Common::Point {
+	Point() : Common::Point() {}
+	Point(int16 x1, int16 y1) : Common::Point(x1, y1) {}
+	Point(const Common::Point &pt) : Common::Point(pt.x, pt.y) {}
 };
 
-} // End of namespace Shared
-} // End of namespace Xeen
+class TextPoint : public Common::Point {
+public:
+	TextPoint() : Point() {}
+	TextPoint(int16 x1, int16 y1) : Point(x1, y1) {}
+
+	operator Point() const {
+		return Point(x * 8, y * 8);
+	}
+};
+
+} // End of namespace Ultima
 
 #endif

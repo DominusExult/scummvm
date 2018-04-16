@@ -25,7 +25,7 @@
 
 #include "ultima/gfx/font.h"
 #include "common/list.h"
-#include "common/rect.h"
+#include "ultima/core/rect.h"
 #include "graphics/screen.h"
 #include "ultima/messages.h"
 
