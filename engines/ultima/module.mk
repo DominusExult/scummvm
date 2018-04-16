@@ -36,7 +36,8 @@ MODULE_OBJS = \
 	games/ultima1/game.o \
 	games/ultima1/core/map.o \
 	games/ultima1/core/resources.o \
-	games/ultima1/gfx/game_view.o
+	games/ultima1/gfx/game_view.o \
+	games/ultima1/gfx/drawing_support.o
 
 # This module can be built as a plugin
 ifeq ($(ENABLE_ULTIMA), DYNAMIC_PLUGIN)
