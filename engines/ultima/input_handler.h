@@ -28,7 +28,7 @@
 
 namespace Ultima {
 
-class GameManager;
+class GameBase;
 
 class InputHandler {
 private:
@@ -42,7 +42,7 @@ private:
 	 */
 	void dispatchMessage(CMessage *msg);
 public:
-	GameManager *_gameManager;
+	GameBase *_game;
 	InputTranslator *_inputTranslator;
 	bool _dragging;
 	bool _buttonDown;
@@ -51,7 +51,7 @@ public:
 	int _lockCount;
 	bool _abortMessage;
 public:
-	InputHandler(GameManager *owner);
+	InputHandler(GameBase *game);
 	~InputHandler();
 
 	void setTranslator(InputTranslator *translator);

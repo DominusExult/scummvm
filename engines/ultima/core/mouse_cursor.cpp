@@ -39,7 +39,7 @@ void MouseCursor::MouseCursorData::load(Common::SeekableReadStream &s) {
 
 /*-------------------------------------------------------------------*/
 
-MouseCursor::MouseCursor(UltimaEngine *vm) {
+MouseCursor::MouseCursor() {
 /*
 	loadCursors();
 	_cursorId = -1;

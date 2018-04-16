@@ -47,7 +47,7 @@ struct UltimaGameDescription;
 
 class Debugger;
 class Events;
-class MainGameWindow;
+class GameBase;
 class MouseCursor;
 class Resources;
 
@@ -75,7 +75,7 @@ public:
 	const UltimaGameDescription *_gameDescription;
 	Debugger *_debugger;
 	Events *_events;
-	MainGameWindow *_window;
+	GameBase *_game;
 	MouseCursor *_mouseCursor;
 	Gfx::Screen *_screen;
 public:

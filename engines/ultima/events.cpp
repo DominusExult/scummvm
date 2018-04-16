@@ -27,12 +27,11 @@
 #include "ultima/ultima.h"
 #include "ultima/debugger.h"
 #include "ultima/events.h"
-#include "ultima/main_game_window.h"
+#include "ultima/gfx/screen.h"
 
 namespace Ultima {
 
-Events::Events(UltimaEngine *vm): _vm(vm), _frameCounter(1),
-		_priorFrameTime(0), _specialButtons(0) {
+Events::Events(): _frameCounter(1), _priorFrameTime(0), _specialButtons(0) {
 }
 
 void Events::pollEvents() {
@@ -111,10 +110,10 @@ bool Events::checkForNextFrameCounter() {
 		eventTarget()->onIdle();
 
 		// Give time to the debugger
-		_vm->_debugger->onFrame();
+		g_vm->_debugger->onFrame();
 
 		// Display the frame
-		_vm->_screen->update();
+		g_vm->_screen->update();
 
 		return true;
 	}
@@ -129,7 +128,7 @@ uint32 Events::getTicksCount() const {
 void Events::sleep(uint time) {
 	uint32 delayEnd = g_system->getMillis() + time;
 
-	while (!_vm->shouldQuit() && g_system->getMillis() < delayEnd)
+	while (!g_vm->shouldQuit() && g_system->getMillis() < delayEnd)
 		pollEventsAndWait();
 }
 
@@ -138,7 +137,7 @@ bool Events::waitForPress(uint expiry) {
 	CPressTarget pressTarget;
 	addTarget(&pressTarget);
 
-	while (!_vm->shouldQuit() && g_system->getMillis() < delayEnd && !pressTarget._pressed) {
+	while (!g_vm->shouldQuit() && g_system->getMillis() < delayEnd && !pressTarget._pressed) {
 		pollEventsAndWait();
 	}
 

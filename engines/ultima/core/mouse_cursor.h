@@ -75,7 +75,7 @@ private:
 	 */
 	void loadCursors();
 public:
-	MouseCursor(UltimaEngine *vm);
+	MouseCursor();
 
 	/**
 	 * Sets the active cursor

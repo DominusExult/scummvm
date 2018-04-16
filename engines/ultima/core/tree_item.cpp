@@ -21,8 +21,9 @@
  */
 
 #include "ultima/core/tree_item.h"
+#include "ultima/core/named_item.h"
 #include "ultima/games/shared/game.h"
-#include "ultima/game_manager.h"
+#include "ultima/game_base.h"
 
 namespace Ultima {
 

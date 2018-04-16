@@ -26,7 +26,6 @@
 #include "ultima/ultima.h"
 #include "ultima/debugger.h"
 #include "ultima/events.h"
-#include "ultima/main_game_window.h"
 #include "ultima/core/resources.h"
 #include "ultima/core/mouse_cursor.h"
 #include "ultima/gfx/screen.h"
@@ -41,17 +40,17 @@ UltimaEngine::UltimaEngine(OSystem *syst, const UltimaGameDescription *gameDesc)
 	g_vm = this;
 	_debugger = nullptr;
 	_events = nullptr;
+	_game = nullptr;
 	_mouseCursor = nullptr;
 	_screen = nullptr;
-	_window = nullptr;
 }
 
 UltimaEngine::~UltimaEngine() {
 	delete _debugger;
 	delete _events;
+	delete _game;
 	delete _mouseCursor;
 	delete _screen;
-	delete _window;
 }
 
 bool UltimaEngine::initialize() {
@@ -64,12 +63,14 @@ bool UltimaEngine::initialize() {
 	}
 
 	_debugger = Debugger::init(this);
-	_events = new Events(this);
+	_events = new Events();
 	_screen = new Gfx::Screen();
-	_mouseCursor = new MouseCursor(this);
+	_mouseCursor = new MouseCursor();
 
-	_window = new MainGameWindow(this);
-	_window->applicationStarting();
+	// Create the game, and signal to it that the game is starting
+	_game = createGame();
+	_events->addTarget(_game);
+	_game->starting();
 	return true;
 }
 

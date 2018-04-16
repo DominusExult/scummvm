@@ -16,11 +16,10 @@ MODULE_OBJS = \
 	debugger.o \
 	detection.o \
 	events.o \
-	game_manager.o \
+	game_base.o \
 	game_state.o \
 	input_handler.o \
 	input_translator.o \
-	main_game_window.o \
 	messages.o \
 	ultima.o \
 	games/shared/game.o \

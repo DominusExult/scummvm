@@ -38,8 +38,6 @@ enum SpecialButtons {
 	MK_MBUTTON = 0x10
 };
 
-class UltimaEngine;
-
 /**
  * A base class for windows that can receive event messages
  */
@@ -86,7 +84,6 @@ public:
 
 class Events {
 private:
-	UltimaEngine *_vm;
 	Common::Stack<EventTarget *> _eventTargets;
 	uint32 _frameCounter;
 	uint32 _priorFrameTime;
@@ -110,7 +107,7 @@ private:
 	 */
 	void handleKbdSpecial(Common::KeyState keyState);
 public:
-	Events(UltimaEngine *vm);
+	Events();
 	~Events() {}
 
 	/**

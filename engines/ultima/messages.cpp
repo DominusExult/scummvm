@@ -22,7 +22,7 @@
 
 #include "ultima/messages.h"
 #include "ultima/ultima.h"
-#include "ultima/main_game_window.h"
+#include "ultima/game_base.h"
 #include "ultima/gfx/screen.h"
 #include "ultima/games/shared/game.h"
 
@@ -61,7 +61,7 @@ bool CMessage::execute(TreeItem *target, const ClassDef *classDef, int flags) {
 
 bool CMessage::execute(const Common::String &target, const ClassDef *classDef, int flags) {
 	// Scan for the target by name
-	Shared::Game *game = g_vm->_window->_game;
+	GameBase *game = g_vm->_game;
 	for (TreeItem *treeItem = game; treeItem; treeItem = treeItem->scan(game)) {
 		if (!treeItem->getName().compareToIgnoreCase(target))
 			return execute(treeItem, classDef, flags);

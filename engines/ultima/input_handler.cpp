@@ -21,15 +21,14 @@
  */
 
 #include "ultima/input_handler.h"
-#include "ultima/game_manager.h"
 #include "ultima/ultima.h"
 #include "ultima/events.h"
+#include "ultima/game_base.h"
 #include "ultima/messages.h"
 
 namespace Ultima {
 
-InputHandler::InputHandler(GameManager *owner) :
-		_gameManager(owner), _inputTranslator(nullptr), _dragging(false),
+InputHandler::InputHandler(GameBase *game) : _game(game), _inputTranslator(nullptr), _dragging(false),
 		_buttonDown(false), _lockCount(0), _abortMessage(false) {
 }
 
@@ -110,9 +109,9 @@ void InputHandler::processMessage(CMessage *msg) {
 }
 
 void InputHandler::dispatchMessage(CMessage *msg) {
-	Gfx::VisualItem *view = _gameManager->getView();
-	if (view)
-		msg->execute(view, nullptr, MSGFLAG_BREAK_IF_HANDLED);
+//	Gfx::VisualItem *view = _game->getView();
+//	if (view)
+//		msg->execute(view, nullptr, MSGFLAG_BREAK_IF_HANDLED);
 }
 
 } // End of namespace Ultima
