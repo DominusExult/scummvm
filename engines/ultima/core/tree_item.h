@@ -87,7 +87,7 @@ public:
 	/**
 	 * Jumps up through the parents to find the root item
 	 */
-	Shared::Game *getRoot() const;
+	Shared::Game *getRoot();
 
 	/**
 	 * Get the next sibling

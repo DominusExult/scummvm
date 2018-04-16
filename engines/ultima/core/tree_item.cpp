@@ -34,16 +34,14 @@ TreeItem::TreeItem() : _parent(nullptr), _firstChild(nullptr),
 	_disposeAfterUse(DisposeAfterUse::NO) {
 }
 
-Shared::Game *TreeItem::getRoot() const {
-	TreeItem *parent = getParent();
+Shared::Game *TreeItem::getRoot() {
+	TreeItem *treeItem = this;
 
-	if (parent) {
-		do {
-			parent = parent->getParent();
-		} while (parent->getParent());
+	while (treeItem->getParent()) {
+		treeItem = treeItem->getParent();
 	}
 
-	return dynamic_cast<Shared::Game *>(parent);
+	return dynamic_cast<Shared::Game *>(treeItem);
 }
 
 TreeItem *TreeItem::getLastSibling() {
