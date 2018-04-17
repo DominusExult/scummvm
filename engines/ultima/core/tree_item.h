@@ -29,6 +29,7 @@ namespace Ultima {
 
 namespace Shared {
 	class Game;
+	class GameState;
 }
 
 class GameManager;
@@ -85,9 +86,14 @@ public:
 	TreeItem *getParent() const { return _parent; }
 
 	/**
-	 * Jumps up through the parents to find the root item
+	 * Jumps up through the parents to find the root game
 	 */
 	Shared::Game *getRoot();
+
+	/**
+	 * Return the game state
+	 */
+	Shared::GameState *getGameState();
 
 	/**
 	 * Get the next sibling

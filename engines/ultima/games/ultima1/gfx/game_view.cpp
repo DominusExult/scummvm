@@ -46,16 +46,10 @@ GameView::~GameView() {
 }
 
 void GameView::draw() {
-	drawFrame();
-	Gfx::VisualContainer::draw();
-}
-
-void GameView::drawFrame() {
 	DrawingSupport ds(getSurface());
 	ds.drawGameFrame();
 
-	Gfx::VisualSurface vs = getSurface();
-	vs.writeString("Testing", Point(100, 80), 1);
+	Gfx::VisualContainer::draw();
 }
 
 } // End of namespace Shared
