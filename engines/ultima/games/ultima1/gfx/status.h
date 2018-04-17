@@ -20,13 +20,13 @@
  *
  */
 
-#ifndef ULTIMA_SHARED_GFX_STATUS_H
-#define ULTIMA_SHARED_GFX_STATUS_H
+#ifndef ULTIMA_ULTIMA1_GFX_STATUS_H
+#define ULTIMA_ULTIMA1_GFX_STATUS_H
 
 #include "ultima/gfx/visual_item.h"
 
 namespace Ultima {
-namespace Shared {
+namespace Ultima1 {
 
 /**
  * Displays the total hits, food, experience, and coins you have
@@ -44,7 +44,7 @@ public:
 	virtual void draw();
 };
 
-} // End of namespace Shared
+} // End of namespace Ultima1
 } // End of namespace Xeen
 
 #endif

@@ -20,36 +20,34 @@
  *
  */
 
-#include "ultima/games/shared/gfx/status.h"
-#include "ultima/games/shared/game.h"
+#include "ultima/games/ultima1/gfx/status.h"
+#include "ultima/games/ultima1/game.h"
 #include "ultima/games/shared/core/game_state.h"
+#include "ultima/games/ultima1/core/resources.h"
 
 namespace Ultima {
-namespace Shared {
+namespace Ultima1 {
 
 EMPTY_MESSAGE_MAP(Status, Gfx::VisualItem);
 
 void Status::draw() {
-	Game *game = getRoot();
-	GameState *gameState = getGameState();
+	Ultima1Game *game = static_cast<Ultima1Game *>(getRoot());
+	Shared::GameState *gameState = getGameState();
 	Gfx::VisualSurface s = getSurface();
 	s.clear();
 
-	// Write headers
-	s.writeString("Hits:", TextPoint(0, 0), game->_textColor);
-	s.writeString("Food:", TextPoint(0, 1), game->_textColor);
-	s.writeString("Exp.:", TextPoint(0, 2), game->_textColor);
-	s.writeString("Coin:", TextPoint(0, 3), game->_textColor);
-
 	// Iterate through displaying the four values
-	Character &c = gameState->_characters.front();
+	Shared::Character &c = gameState->_characters.front();
 	const uint *vals[4] = { &c._hitPoints, &c._food, &c._experience, &c._coins };
 
 	for (int idx = 0; idx < 4; ++idx) {
+		// Write header
+		s.writeString(game->_res->STATUS_TEXT[idx], TextPoint(0, idx), game->_textColor);
+
 		uint value = MIN(*vals[idx], (uint)9999);
 		s.writeString(Common::String::format("%4u", value), TextPoint(5, idx), game->_textColor);
 	}
 }
 
-} // End of namespace Shared
+} // End of namespace Ultima1
 } // End of namespace Ultima

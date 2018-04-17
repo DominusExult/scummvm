@@ -22,18 +22,18 @@
 
 #include "ultima/games/ultima1/gfx/game_view.h"
 #include "ultima/games/shared/gfx/info.h"
-#include "ultima/games/shared/gfx/status.h"
 #include "ultima/games/shared/gfx/viewport_dungeon.h"
 #include "ultima/games/shared/gfx/viewport_map.h"
 #include "ultima/games/ultima1/game.h"
 #include "ultima/games/ultima1/gfx/drawing_support.h"
+#include "ultima/games/ultima1/gfx/status.h"
 
 namespace Ultima {
 namespace Ultima1 {
 
 GameView::GameView(TreeItem *parent) : Gfx::VisualContainer("GameView", Rect(0, 0, 320, 200), parent) {
 	_info = new Shared::Info(this);
-	_status = new Shared::Status(this);
+	_status = new Status(this);
 	_viewportDungeon = new Shared::ViewportDungeon(this);
 	_viewportMap = new Shared::ViewportMap(this);
 }

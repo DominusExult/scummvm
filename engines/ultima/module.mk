@@ -28,7 +28,6 @@ MODULE_OBJS = \
 	games/shared/core/map.o \
 	games/shared/core/resources.o \
 	games/shared/gfx/info.o \
-	games/shared/gfx/status.o \
 	games/shared/gfx/viewport_dungeon.o \
 	games/shared/gfx/viewport_map.o \
 	games/ultima0/game.o \
@@ -37,7 +36,8 @@ MODULE_OBJS = \
 	games/ultima1/core/map.o \
 	games/ultima1/core/resources.o \
 	games/ultima1/gfx/game_view.o \
-	games/ultima1/gfx/drawing_support.o
+	games/ultima1/gfx/drawing_support.o \
+	games/ultima1/gfx/status.o
 
 # This module can be built as a plugin
 ifeq ($(ENABLE_ULTIMA), DYNAMIC_PLUGIN)
