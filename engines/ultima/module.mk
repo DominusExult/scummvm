@@ -10,6 +10,7 @@ MODULE_OBJS = \
 	core/tree_item.o \
 	gfx/font.o \
 	gfx/screen.o \
+	gfx/sprite.o \
 	gfx/visual_container.o \
 	gfx/visual_item.o \
 	gfx/visual_surface.o \
