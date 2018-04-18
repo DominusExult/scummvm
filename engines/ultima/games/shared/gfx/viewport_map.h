@@ -24,16 +24,32 @@
 #define ULTIMA_SHARED_GFX_VIEWPORT_MAP_H
 
 #include "ultima/gfx/visual_item.h"
+#include "ultima/gfx/sprite.h"
 
 namespace Ultima {
 namespace Shared {
 
 class ViewportMap : public Gfx::VisualItem {
 	DECLARE_MESSAGE_MAP;
+protected:
+	Gfx::Sprites _sprites;
 public:
 	CLASSDEF;
-	ViewportMap(TreeItem *parent) : Gfx::VisualItem("ViewportMap", Rect(8, 8, 312, 168), parent) {}
+
+	/**
+	 * Constructor
+	 */
+	ViewportMap(TreeItem *parent) : Gfx::VisualItem("ViewportMap", Rect(8, 8, 312, 152), parent) {}
+	
+	/**
+	 * Destructor
+	 */
 	virtual ~ViewportMap() {}
+
+	/**
+	 * Draws the map
+	 */
+	virtual void draw();
 };
 
 } // End of namespace Shared

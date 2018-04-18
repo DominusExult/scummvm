@@ -20,37 +20,21 @@
  *
  */
 
-#include "ultima/games/ultima1/gfx/game_view.h"
-#include "ultima/games/shared/gfx/info.h"
-#include "ultima/games/shared/gfx/viewport_dungeon.h"
-#include "ultima/games/ultima1/game.h"
-#include "ultima/games/ultima1/gfx/drawing_support.h"
-#include "ultima/games/ultima1/gfx/status.h"
-#include "ultima/games/ultima1/gfx/viewport_map.h"
+#ifndef ULTIMA_ULTIMA1_GFX_VIEWPORT_MAP_H
+#define ULTIMA_ULTIMA1_GFX_VIEWPORT_MAP_H
+
+#include "ultima/games/shared/gfx/viewport_map.h"
 
 namespace Ultima {
 namespace Ultima1 {
 
-GameView::GameView(TreeItem *parent) : Gfx::VisualContainer("GameView", Rect(0, 0, 320, 200), parent) {
-	_info = new Shared::Info(this);
-	_status = new Status(this);
-	_viewportDungeon = new Shared::ViewportDungeon(this);
-	_viewportMap = new ViewportMap(this);
-}
+class ViewportMap : public Shared::ViewportMap {
+public:
+	ViewportMap(TreeItem *parent);
+	virtual ~ViewportMap() {}
+};
 
-GameView::~GameView() {
-	delete _info;
-	delete _status;
-	delete _viewportDungeon;
-	delete _viewportMap;
-}
+} // End of namespace Ultima1
+} // End of namespace Xeen
 
-void GameView::draw() {
-	DrawingSupport ds(getSurface());
-	ds.drawGameFrame();
-
-	Gfx::VisualContainer::draw();
-}
-
-} // End of namespace Shared
-} // End of namespace Ultima
+#endif
