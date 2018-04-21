@@ -29,7 +29,7 @@ namespace Ultima {
 namespace Ultima1 {
 
 Ultima1Map::Ultima1Map(Ultima1Game *game) : Shared::Map() {
-	_widgets.push_back(WidgetPlayer(game, this));
+	_widgets.push_back(Shared::MapWidgetPtr(new WidgetPlayer(game, this)));
 }
 
 void Ultima1Map::loadMap(int mapId, uint videoMode) {

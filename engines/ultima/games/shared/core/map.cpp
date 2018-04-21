@@ -65,7 +65,7 @@ void Map::setPosition(const Point &pt) {
 	_position = Point(pt.x * _tilesPerOrigTile.x, pt.y * _tilesPerOrigTile.y);
 
 	// The party is kept in the first widget slot, so keep it's position up to date
-	_widgets[0]._position = _position;
+	_widgets[0]->_position = _position;
 
 	// Reset the viewport, so it's position will get recalculated
 	_viewportPos.reset();
@@ -107,8 +107,8 @@ void Map::getTileAt(const Point &pt, MapTile *tile) {
 	// Get the tiles for any widgets on that map tile
 	tile->_widgetTiles.clear();
 	for (uint idx = 0; idx < _widgets.size(); ++idx) {
-		if (_widgets[idx]._position == pt)
-			tile->_widgetTiles.push_back(_widgets[idx].getTileNum());
+		if (_widgets[idx]->_position == pt)
+			tile->_widgetTiles.push_back(_widgets[idx]->getTileNum());
 	}
 }
 
