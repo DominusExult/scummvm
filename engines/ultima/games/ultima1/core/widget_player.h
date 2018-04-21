@@ -20,47 +20,25 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_CORE_MAP_H
-#define ULTIMA_ULTIMA1_CORE_MAP_H
+#ifndef ULTIMA_ULTIMA1_CORE_WIDGET_PLAYER_H
+#define ULTIMA_ULTIMA1_CORE_WIDGET_PLAYER_H
 
 #include "ultima/games/shared/core/map.h"
 
 namespace Ultima {
 namespace Ultima1 {
 
-class Ultima1Game;
-
-class U1MapTile : public Shared::MapTile {
-public:
-
-};
-
-class Ultima1Map : public Shared::Map {
-private:
-	/**
-	 * Load the overworld map
-	 */
-	void loadOverworldMap();
-
-	/**
-	 * Load a town/castle map
-	 */
-	void loadTownCastleMap();
+class WidgetPlayer : public Shared::MapWidget {
 public:
 	/**
 	 * Constructor
 	 */
-	Ultima1Map(Ultima1Game *game);
+	WidgetPlayer(Shared::Game *game, Shared::Map *map) : Shared::MapWidget(game, map) {}
 
 	/**
-	 * Load a given map
+	 * Get the tile for the widget
 	 */
-	virtual void loadMap(int mapId, uint videoMode);
-
-	/**
-	 * Gets a tile at a given position
-	 */
-	void getTileAt(const Point &pt, U1MapTile *tile);
+	virtual uint getTileNum() const { return 42; }
 };
 
 } // End of namespace Ultima1

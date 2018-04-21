@@ -38,18 +38,11 @@ namespace Gfx {
 	class VisualItem;
 	class Font;
 }
+namespace Shared {
+	class GameState;
+}
 
 class GameBase : public TreeItem, public EventTarget {
-private:
-	int _pendingLoadSlot;
-	uint32 _priorLeftDownTime;
-	uint32 _priorMiddleDownTime;
-	uint32 _priorRightDownTime;
-	Gfx::VisualItem *_currentView;
-	Shared::GameState _gameState;
-	InputHandler _inputHandler;
-	InputTranslator _inputTranslator;
-	Gfx::Font *_font;
 private:
 	/**
 	 * Checks for the presence of any savegames and, if present,
@@ -67,6 +60,17 @@ private:
 	bool isMouseControlEnabled() const { return true; }
 
 	void changeView(const Common::String &name);
+protected:
+	int _pendingLoadSlot;
+	uint32 _priorLeftDownTime;
+	uint32 _priorMiddleDownTime;
+	uint32 _priorRightDownTime;
+	Gfx::VisualItem *_currentView;
+	InputHandler _inputHandler;
+	InputTranslator _inputTranslator;
+	Gfx::Font *_font;
+public:
+	Shared::GameState *_gameState;
 public:
 	/**
 	 * Constructor
