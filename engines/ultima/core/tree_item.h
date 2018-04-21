@@ -30,6 +30,7 @@ namespace Ultima {
 namespace Shared {
 	class Game;
 	class GameState;
+	class Map;
 }
 
 class GameManager;
@@ -94,6 +95,11 @@ public:
 	 * Return the game state
 	 */
 	Shared::GameState *getGameState();
+
+	/**
+	 * Return the game's map
+	 */
+	Shared::Map *getMap();
 
 	/**
 	 * Get the next sibling
