@@ -46,6 +46,7 @@ class Map;
 class MapTile {
 public:
 	int _tileNum;
+	Common::Array<int> _widgetTiles;
 public:
 	/**
 	 * Constructor
@@ -65,6 +66,7 @@ class MapWidget {
 protected:
 	Game *_game;						// Game reference
 	Map *_map;							// Map reference
+public:
 	Point _position;					// Position within the map
 	int _hitPoints;						// Hit pointers
 public:

@@ -53,8 +53,8 @@ void Ultima1Map::loadOverworldMap() {
 	for (int y = 0; y < _size.y; ++y) {
 		for (int x = 0; x < _size.x; x += 2) {
 			b = f.readByte();
-			_data[y * _size.x + x] = b & 0xf;
-			_data[y * _size.x + x + 1] = b >> 4;
+			_data[y * _size.x + x] = b >> 4;
+			_data[y * _size.x + x + 1] = b & 0xf;
 		}
 	}
 }
