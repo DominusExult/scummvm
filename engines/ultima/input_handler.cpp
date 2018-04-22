@@ -25,6 +25,7 @@
 #include "ultima/events.h"
 #include "ultima/game_base.h"
 #include "ultima/messages.h"
+#include "ultima/gfx/visual_item.h"
 
 namespace Ultima {
 
@@ -109,9 +110,9 @@ void InputHandler::processMessage(CMessage *msg) {
 }
 
 void InputHandler::dispatchMessage(CMessage *msg) {
-//	Gfx::VisualItem *view = _game->getView();
-//	if (view)
-//		msg->execute(view, nullptr, MSGFLAG_BREAK_IF_HANDLED);
+	Gfx::VisualItem *view = _game->getView();
+	if (view)
+		msg->execute(view, nullptr, MSGFLAG_BREAK_IF_HANDLED);
 }
 
 } // End of namespace Ultima

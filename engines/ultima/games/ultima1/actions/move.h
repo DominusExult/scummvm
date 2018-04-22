@@ -24,7 +24,7 @@
 #define ULTIMA_ULTIMA1_ACTIONS_MOVE_H
 
 #include "ultima/games/ultima1/actions/action.h"
-#include "ultima/games/ultima1/core/messages.h"
+#include "ultima/messages.h"
 
 namespace Ultima {
 namespace Ultima1 {

@@ -82,6 +82,9 @@ namespace Gfx {
 	MESSAGEDEF(NAME); \
 	}
 
+/**
+ * Base class for all messages
+ */
 class CMessage : public BaseObject {
 private:
 	/**
@@ -126,6 +129,9 @@ public:
 
 enum CMouseButton { MB_LEFT = 1, MB_MIDDLE = 2, MB_RIGHT = 4 };
 
+/**
+ * Base class for the different mouse notifications
+ */
 class CMouseMsg : public CMessage {
 public:
 	int _buttons;
@@ -138,6 +144,10 @@ public:
 		_mousePos(pt), _buttons(buttons) {}
 };
 
+/**
+ * Notifies a mouse movement
+ *
+ */
 class CMouseMoveMsg : public CMouseMsg {
 public:
 	MESSAGEDEFP(CMouseMoveMsg, CMouseMsg);
@@ -145,6 +155,9 @@ public:
 	CMouseMoveMsg(const Point &pt, int buttons) : CMouseMsg(pt, buttons) {}
 };
 
+/**
+ * Notifies of a mouse drag operation
+ */
 class CMouseDragMsg : public CMouseMoveMsg {
 public:
 	MESSAGEDEFP(CMouseDragMsg, CMouseMoveMsg);
@@ -152,15 +165,19 @@ public:
 	CMouseDragMsg(const Point &pt, int buttons) : CMouseMoveMsg(pt, buttons) {}
 };
 
+/**
+ * Base class for mouse button notifications
+ */
 class CMouseButtonMsg : public CMouseMsg {
 public:
-	int _field10;
-public:
 	MESSAGEDEFP(CMouseButtonMsg, CMouseMsg);
-	CMouseButtonMsg() : CMouseMsg(), _field10(0) {}
+	CMouseButtonMsg() : CMouseMsg() {}
 	CMouseButtonMsg(const Point &pt, int buttons) : CMouseMsg(pt, buttons) {}
 };
 
+/**
+ * Notifies a mouse button down
+ */
 class CMouseButtonDownMsg : public CMouseButtonMsg {
 public:
 	MESSAGEDEFP(CMouseButtonDownMsg, CMouseButtonMsg);
@@ -168,6 +185,9 @@ public:
 	CMouseButtonDownMsg(const Point &pt, int buttons) : CMouseButtonMsg(pt, buttons) {}
 };
 
+/**
+ * Notifies a mouse button release
+ */
 class CMouseButtonUpMsg : public CMouseButtonMsg {
 public:
 	MESSAGEDEFP(CMouseButtonUpMsg, CMouseButtonMsg);
@@ -175,6 +195,9 @@ public:
 	CMouseButtonUpMsg(const Point &pt, int buttons) : CMouseButtonMsg(pt, buttons) {}
 };
 
+/**
+ * Notifies a mouse wheel action
+ */
 class CMouseWheelMsg : public CMouseMsg {
 public:
 	bool _wheelUp;
@@ -185,6 +208,9 @@ public:
 		CMouseMsg(pt, 0), _wheelUp(wheelUp) {}
 };
 
+/**
+ * Notifies a mouse double-click
+ */
 class CMouseDoubleClickMsg : public CMouseButtonMsg {
 public:
 	MESSAGEDEFP(CMouseDuobleClickMsg, CMouseButtonMsg);
@@ -192,11 +218,35 @@ public:
 	CMouseDoubleClickMsg(const Point &pt, int buttons) : CMouseButtonMsg(pt, buttons) {}
 };
 
+/**
+ * Signals a single standard ASCII keypress
+ */
 MESSAGE1(CKeyCharMsg, int, key, 32);
+
+/**
+ * Signals a keypress
+ */
 MESSAGE1(CVirtualKeyCharMsg, Common::KeyState, keyState, Common::KeyState());
+
+/**
+ * Called when a game view is shown
+ */
 MESSAGE2(CShowMsg, Gfx::VisualItem *, view, (Gfx::VisualItem *)nullptr, bool, fadeIn, false);
+
+/**
+ * Notifies a game view is being hidden
+ */
 MESSAGE2(CHideMsg, Gfx::VisualItem *, view, (Gfx::VisualItem *)nullptr, bool, fadeOut, false);
+
+/**
+ * Used to notify that a rendering frame has finished, occurring at GAME_FRAME_RATE times every second
+ */
 MESSAGE1(CFrameMsg, uint, ticks, 0);
+
+/**
+ * Used to trigger a party movement
+ */
+MESSAGE1(CMoveMsg, int, direction, 0);
 
 } // End of namespace Ultima
 

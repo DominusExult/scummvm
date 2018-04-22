@@ -47,6 +47,8 @@ class ViewportMap;
  * a map or dungeon view covering the bulk of the screen
  */
 class GameView : public Gfx::VisualContainer {
+	DECLARE_MESSAGE_MAP;
+	bool VirtualKeyCharMsg(CVirtualKeyCharMsg &msg);
 private:
 	Shared::Info *_info;
 	Shared::ViewportDungeon *_viewportDungeon;
@@ -54,6 +56,7 @@ private:
 	Status *_status;
 	Actions::Action *_actions[1];
 public:
+	CLASSDEF;
 	GameView(TreeItem *parent = nullptr);
 	virtual ~GameView();
 
