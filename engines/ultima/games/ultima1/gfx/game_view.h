@@ -33,6 +33,10 @@ namespace Shared {
 }
 	
 namespace Ultima1 {
+namespace Actions {
+	class Action;
+}
+	
 namespace U1Gfx {
 
 class Status;
@@ -48,6 +52,7 @@ private:
 	Shared::ViewportDungeon *_viewportDungeon;
 	ViewportMap *_viewportMap;
 	Status *_status;
+	Actions::Action *_actions[1];
 public:
 	GameView(TreeItem *parent = nullptr);
 	virtual ~GameView();

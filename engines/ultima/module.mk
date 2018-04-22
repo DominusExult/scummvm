@@ -39,7 +39,9 @@ MODULE_OBJS = \
 	games/ultima1/gfx/game_view.o \
 	games/ultima1/gfx/drawing_support.o \
 	games/ultima1/gfx/status.o \
-	games/ultima1/gfx/viewport_map.o
+	games/ultima1/gfx/viewport_map.o \
+	games/ultima1/actions/action.o \
+	games/ultima1/actions/move.o
 
 # This module can be built as a plugin
 ifeq ($(ENABLE_ULTIMA), DYNAMIC_PLUGIN)

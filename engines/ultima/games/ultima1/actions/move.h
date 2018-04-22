@@ -20,42 +20,35 @@
  *
  */
 
-#include "ultima/games/ultima1/gfx/game_view.h"
-#include "ultima/games/shared/gfx/info.h"
-#include "ultima/games/shared/gfx/viewport_dungeon.h"
-#include "ultima/games/ultima1/game.h"
-#include "ultima/games/ultima1/gfx/drawing_support.h"
-#include "ultima/games/ultima1/gfx/status.h"
-#include "ultima/games/ultima1/gfx/viewport_map.h"
-#include "ultima/games/ultima1/actions/move.h"
+#ifndef ULTIMA_ULTIMA1_ACTIONS_MOVE_H
+#define ULTIMA_ULTIMA1_ACTIONS_MOVE_H
+
+#include "ultima/games/ultima1/actions/action.h"
+#include "ultima/games/ultima1/core/messages.h"
 
 namespace Ultima {
 namespace Ultima1 {
-namespace U1Gfx {
+namespace Actions {
 
-GameView::GameView(TreeItem *parent) : Gfx::VisualContainer("GameView", Rect(0, 0, 320, 200), parent) {
-	_info = new Shared::Info(this);
-	_status = new Status(this);
-	_viewportDungeon = new Shared::ViewportDungeon(this);
-	_viewportMap = new ViewportMap(this);
-	_actions[0] = new Actions::Move(this);
-}
+class Move : public Action {
+	DECLARE_MESSAGE_MAP;
+	bool MoveMsg(CMoveMsg &msg);
+public:
+	CLASSDEF;
 
-GameView::~GameView() {
-	delete _info;
-	delete _status;
-	delete _viewportDungeon;
-	delete _viewportMap;
-	delete _actions[0];
-}
+	/**
+	* Constructor
+	*/
+	Move(TreeItem *parent) : Action(parent) {}
 
-void GameView::draw() {
-	DrawingSupport ds(getSurface());
-	ds.drawGameFrame();
+	/**
+	 * Destructor
+	 */
+	virtual ~Move() {}
+};
 
-	Gfx::VisualContainer::draw();
-}
-
-} // End of namespace U1Gfx
-} // End of namespace Shared
+} // End of namespace Actions
+} // End of namespace Ultima1
 } // End of namespace Ultima
+
+#endif

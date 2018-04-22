@@ -28,7 +28,6 @@
 namespace Ultima {
 namespace Shared {
 
-
 } // End of namespace Shared
 } // End of namespace Xeen
 
