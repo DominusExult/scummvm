@@ -21,6 +21,11 @@
  */
 
 #include "ultima/games/ultima1/actions/action.h"
+#include "ultima/games/ultima1/game.h"
+#include "ultima/games/ultima1/core/map.h"
+#include "ultima/games/ultima1/core/resources.h"
+#include "ultima/gfx/visual_item.h"
+#include "ultima/messages.h"
 
 namespace Ultima {
 namespace Ultima1 {
@@ -29,6 +34,23 @@ namespace Actions {
 Action::Action(TreeItem *parent) : TreeItem() {
 	assert(parent);
 	addUnder(parent);
+}
+
+Ultima1Game *Action::getRoot() {
+	return static_cast<Ultima1Game *>(TreeItem::getRoot());
+}
+
+Ultima1Map *Action::getMap() {
+	return static_cast<Ultima1Map *>(TreeItem::getMap());
+}
+
+GameResources *Action::getRes() {
+	return getRoot()->_res;
+}
+
+void Action::addStatusMsg(const Common::String &text) {
+	CStatusMsg msg(text);
+	msg.execute(getView());
 }
 
 } // End of namespace Actions

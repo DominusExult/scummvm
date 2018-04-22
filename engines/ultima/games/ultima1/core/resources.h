@@ -36,7 +36,9 @@ protected:
 	virtual void synchronize();
 public:
 	const char *STATUS_TEXT[4];
+	const char *DIRECTION_NAMES[4];
 	const char *LOCATION_NAMES[85];
+	const char *BLOCKED;
 public:
 	GameResources();
 	GameResources(Resources *resManager);

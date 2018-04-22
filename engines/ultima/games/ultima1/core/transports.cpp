@@ -20,28 +20,29 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_CORE_WIDGET_PLAYER_H
-#define ULTIMA_ULTIMA1_CORE_WIDGET_PLAYER_H
-
-#include "ultima/games/shared/core/map.h"
+#include "ultima/games/ultima1/core/transports.h"
+#include "ultima/games/ultima1/core/map.h"
+#include "common/algorithm.h"
 
 namespace Ultima {
 namespace Ultima1 {
 
-class WidgetPlayer : public Shared::MapWidget {
-public:
-	/**
-	 * Constructor
-	 */
-	WidgetPlayer(Shared::Game *game, Shared::Map *map) : Shared::MapWidget(game, map) {}
+bool TransportOnFoot::canMoveTo(const Point &destPos) {
+	return true;
+}
 
-	/**
-	 * Get the tile for the widget
-	 */
-	virtual uint getTileNum() const { return 10; }
-};
+bool TransportOnFoot::moveTo(const Point &destPos) {
+	_map->setPosition(destPos);
+	return true;
+}
+
+bool TransportOnFoot::isPrincessSaved() const {
+	return false;
+}
+
+void TransportOnFoot::princessSaved() {
+
+}
 
 } // End of namespace Ultima1
 } // End of namespace Ultima
-
-#endif

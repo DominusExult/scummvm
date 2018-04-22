@@ -36,6 +36,7 @@ MODULE_OBJS = \
 	games/ultima1/game.o \
 	games/ultima1/core/map.o \
 	games/ultima1/core/resources.o \
+	games/ultima1/core/transports.o \
 	games/ultima1/gfx/game_view.o \
 	games/ultima1/gfx/drawing_support.o \
 	games/ultima1/gfx/status.o \

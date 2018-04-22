@@ -60,6 +60,10 @@ Shared::Map *TreeItem::getMap() {
 	return getGameState()->_map;
 }
 
+Gfx::VisualItem *TreeItem::getView() {
+	return getRoot()->getView();
+}
+
 TreeItem *TreeItem::getLastChild() const {
 	if (!_firstChild)
 		return nullptr;
