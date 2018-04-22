@@ -43,12 +43,13 @@ class Map;
 class MapTile {
 public:
 	int _tileNum;
+	int _tileId;
 	Common::Array<int> _widgetTiles;
 public:
 	/**
 	 * Constructor
 	 */
-	MapTile() : _tileNum(-1) {}
+	MapTile() : _tileNum(-1), _tileId(-1) {}
 
 	/**
 	 * Clears the map tile information
@@ -161,14 +162,14 @@ public:
 	void shiftViewport(const Point &delta);
 
 	/**
-	 * Gets a tile at a given position
-	 */
-	void getTileAt(const Point &pt, MapTile *tile);
-
-	/**
 	 * Adds a widget to the map
 	 */
 	void addWidget(MapWidget *widget);
+
+	/**
+	 * Gets a tile at a given position
+	 */
+	virtual void getTileAt(const Point &pt, MapTile *tile);
 
 	/**
 	 * Load a given map

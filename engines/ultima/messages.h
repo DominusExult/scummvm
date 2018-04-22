@@ -226,7 +226,7 @@ MESSAGE1(CKeyCharMsg, int, key, 32);
 /**
  * Signals a keypress
  */
-MESSAGE1(CVirtualKeyCharMsg, Common::KeyState, keyState, Common::KeyState());
+MESSAGE1(CKeypressMsg, Common::KeyState, keyState, Common::KeyState());
 
 /**
  * Called when a game view is shown

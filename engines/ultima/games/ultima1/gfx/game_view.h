@@ -48,13 +48,13 @@ class ViewportMap;
  */
 class GameView : public Gfx::VisualContainer {
 	DECLARE_MESSAGE_MAP;
-	bool VirtualKeyCharMsg(CVirtualKeyCharMsg &msg);
+	bool KeypressMsg(CKeypressMsg &msg);
 private:
 	Shared::Info *_info;
 	Shared::ViewportDungeon *_viewportDungeon;
 	ViewportMap *_viewportMap;
 	Status *_status;
-	Actions::Action *_actions[1];
+	Actions::Action *_actions[2];
 public:
 	CLASSDEF;
 	GameView(TreeItem *parent = nullptr);

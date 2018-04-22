@@ -28,6 +28,7 @@
 #include "ultima/games/ultima1/gfx/drawing_support.h"
 #include "ultima/games/ultima1/gfx/status.h"
 #include "ultima/games/ultima1/gfx/viewport_map.h"
+#include "ultima/games/ultima1/actions/enter.h"
 #include "ultima/games/ultima1/actions/move.h"
 #include "ultima/messages.h"
 
@@ -36,7 +37,7 @@ namespace Ultima1 {
 namespace U1Gfx {
 
 BEGIN_MESSAGE_MAP(GameView, Gfx::VisualContainer)
-	ON_MESSAGE(VirtualKeyCharMsg)
+	ON_MESSAGE(KeypressMsg)
 END_MESSAGE_MAP()
 
 GameView::GameView(TreeItem *parent) : Gfx::VisualContainer("GameView", Rect(0, 0, 320, 200), parent) {
@@ -45,6 +46,7 @@ GameView::GameView(TreeItem *parent) : Gfx::VisualContainer("GameView", Rect(0, 
 	_viewportDungeon = new Shared::ViewportDungeon(this);
 	_viewportMap = new ViewportMap(this);
 	_actions[0] = new Actions::Move(this);
+	_actions[1] = new Actions::Enter(this);
 }
 
 GameView::~GameView() {
@@ -52,7 +54,8 @@ GameView::~GameView() {
 	delete _status;
 	delete _viewportDungeon;
 	delete _viewportMap;
-	delete _actions[0];
+	for (int idx = 0; idx < 2; ++idx)
+		delete _actions[idx];
 }
 
 void GameView::draw() {
@@ -62,7 +65,7 @@ void GameView::draw() {
 	Gfx::VisualContainer::draw();
 }
 
-bool GameView::VirtualKeyCharMsg(CVirtualKeyCharMsg &msg) {
+bool GameView::KeypressMsg(CKeypressMsg &msg) {
 	if (msg._keyState.keycode == Common::KEYCODE_LEFT || msg._keyState.keycode == Common::KEYCODE_KP4) {
 		CMoveMsg move(Shared::DIR_LEFT);
 		move.execute(this);

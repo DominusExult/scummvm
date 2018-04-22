@@ -20,46 +20,37 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_CORE_RESOURCES_H
-#define ULTIMA_ULTIMA1_CORE_RESOURCES_H
+#ifndef ULTIMA_ULTIMA1_CORE_PEOPLE_H
+#define ULTIMA_ULTIMA1_CORE_PEOPLE_H
 
-#include "ultima/core/resources.h"
+#include "ultima/games/shared/core/map.h"
 
 namespace Ultima {
 namespace Ultima1 {
 
-#define LOCATION_COUNT 84
-
-struct LocationPerson {
-	int _id;
-	int _x;
-	int _y;
-	uint _hitPoints;
-};
-
-class GameResources : public LocalResourceFile {
-protected:
+class Person : public Shared::MapWidget {
+private:
+	uint _tileNum;
+	int _hitPoints;
+public:
 	/**
-	 * Synchronize resource data
+	 * Constructor
 	 */
-	virtual void synchronize();
-public:
-	const char *STATUS_TEXT[4];
-	const char *DIRECTION_NAMES[4];
-	const char *LOCATION_NAMES[LOCATION_COUNT];
-	byte LOCATION_X[LOCATION_COUNT];
-	byte LOCATION_Y[LOCATION_COUNT];
-	LocationPerson LOCATION_PEOPLE[150];
-	const char *BLOCKED;
-	const char *ENTER_QUESTION;
-	const char *ENTERING;
-	const char *THE_CITY_OF;
-public:
-	GameResources();
-	GameResources(Resources *resManager);
+	Person(Shared::Game *game, Shared::Map *map, uint tileNum, int hitPoints) : Shared::MapWidget(game, map),
+		_tileNum(tileNum), _hitPoints(hitPoints) {}
+
+	/**
+	 * Destructor
+	 */
+	virtual ~Person() {}
+
+	/**
+	 * Get the tile number for the person
+	 */
+	virtual uint getTileNum() const { return _tileNum; }
 };
 
 } // End of namespace Ultima1
-} // End of namespace Xeen
+} // End of namespace Ultima
 
 #endif

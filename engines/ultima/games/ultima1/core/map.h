@@ -42,6 +42,8 @@ class WidgetTransport;
 
 class U1MapTile : public Shared::MapTile {
 public:
+	int _locationNum;
+public:
 	/**
 	 * Return true if the tile base is water
 	 */
@@ -105,6 +107,11 @@ private:
 	 * Load a town/castle map
 	 */
 	void loadTownCastleMap();
+
+	/**
+	 * Load widgets for locations
+	 */
+	void loadLocationWidgets();
 public:
 	MapType _mapType;					// Type of map
 	uint _mapStyle;						// Map style category for towns & castles
@@ -125,7 +132,7 @@ public:
 	/**
 	 * Gets a tile at a given position
 	 */
-	void getTileAt(const Point &pt, U1MapTile *tile);
+	virtual void getTileAt(const Point &pt, Shared::MapTile *tile);
 
 	/**
 	 * Returns true if Lord British's castle is the currently active map

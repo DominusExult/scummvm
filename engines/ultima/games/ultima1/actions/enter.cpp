@@ -34,9 +34,23 @@ BEGIN_MESSAGE_MAP(Enter, Action)
 END_MESSAGE_MAP()
 
 bool Enter::EnterMsg(CEnterMsg &msg) {
+	Ultima1Game *game = getRoot();
 	Ultima1Map *map = getMap();
-	
+	U1MapTile mapTile;
 
+	map->getTileAt(map->getPosition(), &mapTile);
+	
+	if (mapTile._locationNum == -1) {
+		addStatusMsg(game->_res->ENTER_QUESTION);
+		playFX(1);
+	} else {
+		// Load the location
+		map->loadMap(mapTile._locationNum, getGameState()->_videoMode);
+
+		// Add message for location having been entered
+		addStatusMsg(game->_res->ENTERING);
+		addStatusMsg(map->_name);
+	}
 
 	return true;
 }
