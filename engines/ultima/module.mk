@@ -42,6 +42,7 @@ MODULE_OBJS = \
 	games/ultima1/gfx/status.o \
 	games/ultima1/gfx/viewport_map.o \
 	games/ultima1/actions/action.o \
+	games/ultima1/actions/enter.o \
 	games/ultima1/actions/move.o
 
 # This module can be built as a plugin

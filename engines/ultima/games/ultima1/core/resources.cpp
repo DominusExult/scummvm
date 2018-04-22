@@ -123,6 +123,12 @@ const char *const SRC_LOCATION_NAMES[85] = {
 
 const char *const SRC_BLOCKED = "Blocked!";
 
+const char *const SRC_ENTER_QUESTION = "Enter?";
+
+const char *const SRC_ENTERING = "Entering...";
+
+const char *const SRC_THE_CITY_OF = "The city of ";
+
 /*-------------------------------------------------------------------*/
 
 GameResources::GameResources() : LocalResourceFile("ULTIMA1/DATA") {
@@ -133,6 +139,9 @@ GameResources::GameResources(Resources *resManager) : LocalResourceFile(resManag
 	Common::copy(SRC_DIRECTION_NAMES, SRC_DIRECTION_NAMES + 4, DIRECTION_NAMES);
 	Common::copy(SRC_LOCATION_NAMES, SRC_LOCATION_NAMES + 85, LOCATION_NAMES);
 	BLOCKED = SRC_BLOCKED;
+	ENTER_QUESTION = SRC_ENTER_QUESTION;
+	ENTERING = SRC_ENTERING;
+	THE_CITY_OF = SRC_THE_CITY_OF;
 }
 
 void GameResources::synchronize() {
@@ -140,6 +149,9 @@ void GameResources::synchronize() {
 	syncStrings(DIRECTION_NAMES, 4);
 	syncStrings(LOCATION_NAMES, 32);
 	syncString(BLOCKED);
+	syncString(ENTER_QUESTION);
+	syncString(ENTERING);
+	syncString(THE_CITY_OF);
 }
 
 } // End of namespace Ultima1

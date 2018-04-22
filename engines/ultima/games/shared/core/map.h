@@ -119,11 +119,6 @@ public:
 	Point _tilesPerOrigTile;			// For enhanced modes, number of tiles per original game tile
 	Direction _direction;				// Current direction being faced in the underworld
 	bool _fixed;						// Town/city type maps that don't scroll as the player moves
-protected:
-	/**
-	 * Gets a point relative to the current position
-	 */
-	virtual Point getRelativePosition(const Point &delta);
 public:
 	/**
 	 * Constructor
@@ -144,6 +139,11 @@ public:
 	 * Return the current position
 	 */
 	Point getPosition() const { return _position; }
+
+	/**
+	 * Gets a point relative to the current position
+	 */
+	Point getDeltaPosition(const Point &delta);
 
 	/**
 	 * Set the position

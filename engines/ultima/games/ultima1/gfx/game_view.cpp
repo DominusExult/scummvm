@@ -75,6 +75,9 @@ bool GameView::VirtualKeyCharMsg(CVirtualKeyCharMsg &msg) {
 	} else if (msg._keyState.keycode == Common::KEYCODE_DOWN || msg._keyState.keycode == Common::KEYCODE_KP2) {
 		CMoveMsg move(Shared::DIR_DOWN);
 		move.execute(this);
+	} else if (msg._keyState.keycode == Common::KEYCODE_e) {
+		CEnterMsg enter;
+		enter.execute(this);
 	} else {
 		return false;
 	}

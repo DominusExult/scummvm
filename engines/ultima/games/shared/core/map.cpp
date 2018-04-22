@@ -37,7 +37,7 @@ Map::Map() {
 	_fixed = false;
 }
 
-Point Map::getRelativePosition(const Point &delta) {
+Point Map::getDeltaPosition(const Point &delta) {
 	Point pt = _position + delta;
 	if (pt.x < 0)
 		pt.x += _size.x;

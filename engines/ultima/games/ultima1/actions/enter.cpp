@@ -20,34 +20,27 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_CORE_RESOURCES_H
-#define ULTIMA_ULTIMA1_CORE_RESOURCES_H
-
-#include "ultima/core/resources.h"
+#include "ultima/games/ultima1/actions/enter.h"
+#include "ultima/games/ultima1/game.h"
+#include "ultima/games/ultima1/core/map.h"
+#include "ultima/games/ultima1/core/resources.h"
 
 namespace Ultima {
 namespace Ultima1 {
+namespace Actions {
 
-class GameResources : public LocalResourceFile {
-protected:
-	/**
-	 * Synchronize resource data
-	 */
-	virtual void synchronize();
-public:
-	const char *STATUS_TEXT[4];
-	const char *DIRECTION_NAMES[4];
-	const char *LOCATION_NAMES[85];
-	const char *BLOCKED;
-	const char *ENTER_QUESTION;
-	const char *ENTERING;
-	const char *THE_CITY_OF;
-public:
-	GameResources();
-	GameResources(Resources *resManager);
-};
+BEGIN_MESSAGE_MAP(Enter, Action)
+	ON_MESSAGE(EnterMsg)
+END_MESSAGE_MAP()
 
+bool Enter::EnterMsg(CEnterMsg &msg) {
+	Ultima1Map *map = getMap();
+	
+
+
+	return true;
+}
+
+} // End of namespace Actions
 } // End of namespace Ultima1
-} // End of namespace Xeen
-
-#endif
+} // End of namespace Ultima

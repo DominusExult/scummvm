@@ -50,7 +50,7 @@ namespace Gfx {
 
 #define MESSAGE0(NAME) \
 	class NAME: public CMessage { \
-	public: NAME() : Message() {} \
+	public: NAME() : CMessage() {} \
 	MESSAGEDEF(NAME); \
 	}
 #define MESSAGE1(NAME, F1, N1, V1) \
@@ -244,19 +244,19 @@ MESSAGE2(CHideMsg, Gfx::VisualItem *, view, (Gfx::VisualItem *)nullptr, bool, fa
 MESSAGE1(CFrameMsg, uint, ticks, 0);
 
 /**
- * Used to trigger a party movement
- */
-MESSAGE1(CMoveMsg, int, direction, 0);
-
-/**
  * Adds text strings to the status area
  */
 MESSAGE1(CStatusMsg, const Common::String &, text, "");
 
 /**
- * Signals a sound effect
+ * Used to trigger a party movement
  */
-MESSAGE1(CSoundEffectMsg, uint, effectNum, 0);
+MESSAGE1(CMoveMsg, int, direction, 0);
+
+/**
+ * Used to trigger an Enter action
+ */
+MESSAGE0(CEnterMsg);
 
 } // End of namespace Ultima
 
