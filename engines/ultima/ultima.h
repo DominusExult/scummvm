@@ -60,8 +60,6 @@ namespace Shared {
 
 class UltimaEngine : public Engine {
 private:
-	Common::RandomSource _randomSource;
-private:
 	/**
 	 * Initialize the engine
 	 */
@@ -101,11 +99,6 @@ public:
 	 * Return the game's language
 	 */
 	Common::Language getLanguage() const;
-
-	/**
-	 * Return a random number
-	 */
-	int getRandomNumber(int limit) { return _randomSource.getRandomNumber(limit - 1); }
 
 	/**
 	 * Creates a new hierarchy for the game, that contains all the logic for playing that particular game.

@@ -32,7 +32,7 @@ namespace U1Gfx {
 EMPTY_MESSAGE_MAP(Status, Gfx::VisualItem);
 
 void Status::draw() {
-	Ultima1Game *game = static_cast<Ultima1Game *>(getRoot());
+	Ultima1Game *game = static_cast<Ultima1Game *>(getGame());
 	Shared::GameState *gameState = getGameState();
 	Gfx::VisualSurface s = getSurface();
 	s.clear();

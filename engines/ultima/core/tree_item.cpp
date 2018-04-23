@@ -34,7 +34,7 @@ TreeItem::TreeItem() : _parent(nullptr), _firstChild(nullptr),
 	_disposeAfterUse(DisposeAfterUse::NO) {
 }
 
-Shared::Game *TreeItem::getRoot() {
+Shared::Game *TreeItem::getGame() {
 	TreeItem *treeItem = this;
 
 	while (treeItem->getParent()) {
@@ -45,7 +45,7 @@ Shared::Game *TreeItem::getRoot() {
 }
 
 Shared::GameState *TreeItem::getGameState() {
-	return getRoot()->_gameState;
+	return getGame()->_gameState;
 }
 
 TreeItem *TreeItem::getLastSibling() {
@@ -61,7 +61,7 @@ Shared::Map *TreeItem::getMap() {
 }
 
 Gfx::VisualItem *TreeItem::getView() {
-	return getRoot()->getView();
+	return getGame()->getView();
 }
 
 TreeItem *TreeItem::getLastChild() const {
