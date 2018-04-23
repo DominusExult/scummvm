@@ -39,14 +39,17 @@ Map::Map() {
 
 Point Map::getDeltaPosition(const Point &delta) {
 	Point pt = _position + delta;
-	if (pt.x < 0)
-		pt.x += _size.x;
-	else if (pt.x >= _size.x)
-		pt.x -= _size.x;
-	if (pt.y < 0)
-		pt.y += _size.y;
-	else if (pt.y >= _size.y)
-		pt.y -= _size.y;
+
+	if (!_fixed) {
+		if (pt.x < 0)
+			pt.x += _size.x;
+		else if (pt.x >= _size.x)
+			pt.x -= _size.x;
+		if (pt.y < 0)
+			pt.y += _size.y;
+		else if (pt.y >= _size.y)
+			pt.y -= _size.y;
+	}
 
 	return pt;
 }

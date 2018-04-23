@@ -75,6 +75,7 @@ void Ultima1Map::loadMap(int mapId, uint videoMode) {
 }
 
 void Ultima1Map::loadOverworldMap() {
+	_mapType = MAP_OVERWORLD;
 	_size = Point(168, 156);
 	_tilesPerOrigTile = Point(1, 1);
 	_data.resize(_size.x * _size.y);
