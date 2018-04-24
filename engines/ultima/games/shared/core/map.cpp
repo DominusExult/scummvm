@@ -26,7 +26,9 @@ namespace Ultima {
 namespace Shared {
 
 void MapTile::clear() {
-	_tileNum = -1;
+	_tileId = _tileNum = -1;
+	_widgetNum = -1;
+	_widget = nullptr;
 }
 
 /*-------------------------------------------------------------------*/
@@ -124,14 +126,18 @@ void Map::shiftViewport(const Point &delta) {
 }
 
 void Map::getTileAt(const Point &pt, MapTile *tile) {
+	tile->clear();
+
 	// Get the base tile
 	tile->_tileNum = tile->_tileId = _data[pt.y * _size.x + pt.x];
 
-	// Get the tiles for any widgets on that map tile
-	tile->_widgetTiles.clear();
+	// Check for any widget on that map tile
 	for (uint idx = 0; idx < _widgets.size(); ++idx) {
-		if (_widgets[idx]->_position == pt)
-			tile->_widgetTiles.push_back(_widgets[idx]->getTileNum());
+		if (_widgets[idx]->_position == pt) {
+			tile->_widgetNum = idx;
+			tile->_widget = _widgets[idx].get();
+			break;
+		}
 	}
 }
 

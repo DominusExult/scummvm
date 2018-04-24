@@ -50,7 +50,15 @@ bool TransportOnFoot::canMoveTo(const Point &destPos) {
 	if (destPos.x < 0 || destPos.y < 0 || destPos.x >= (int)map->width() || destPos.y >= (int)map->height())
 		return true;
 
-	return true;
+	// Get the details of the position
+	U1MapTile tile;
+	map->getTileAt(destPos, &tile);
+
+	// If there's a widget blocking the tile, return false
+	if (tile._widget && tile._widget->isBlocking())
+		return false;
+
+	return tile.isGround();
 }
 
 bool TransportOnFoot::moveTo(const Point &destPos) {
