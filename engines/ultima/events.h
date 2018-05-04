@@ -30,7 +30,7 @@
 
 namespace Ultima {
 
-#define GAME_FRAME_RATE 30
+#define GAME_FRAME_RATE 6
 #define GAME_FRAME_TIME (1000 / GAME_FRAME_RATE)
 #define DOUBLE_CLICK_TIME 100
 
