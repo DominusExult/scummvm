@@ -20,39 +20,33 @@
  *
  */
 
-#ifndef ULTIMA_SHARED_GFX_VIEWPORT_MAP_H
-#define ULTIMA_SHARED_GFX_VIEWPORT_MAP_H
+#ifndef ULTIMA_ULTIMA1_GFX_SPRITES_H
+#define ULTIMA_ULTIMA1_GFX_SPRITES_H
 
-#include "ultima/gfx/visual_item.h"
 #include "ultima/gfx/sprites.h"
+#include "ultima/core/tree_item.h"
+#include "ultima/messages.h"
 
 namespace Ultima {
-namespace Shared {
+namespace Ultima1 {
+namespace U1Gfx {
 
-class ViewportMap : public Gfx::VisualItem {
+/**
+ * Displays the total hits, food, experience, and coins you have
+ */
+class Sprites : public Gfx::Sprites, public TreeItem {
 	DECLARE_MESSAGE_MAP;
-protected:
-	Gfx::Sprites *_sprites;
+	bool FrameMsg(CFrameMsg &msg);
 public:
 	CLASSDEF;
-
-	/**
-	 * Constructor
-	 */
-	ViewportMap(TreeItem *parent) : Gfx::VisualItem("ViewportMap", Rect(8, 8, 312, 152), parent), _sprites(nullptr) {}
-	
-	/**
-	 * Destructor
-	 */
-	virtual ~ViewportMap() {}
-
-	/**
-	 * Draws the map
-	 */
-	virtual void draw();
+	Sprites(TreeItem *parent) : Gfx::Sprites(), TreeItem() {
+		addUnder(parent);
+	}
+	virtual ~Sprites() {}
 };
 
-} // End of namespace Shared
+} // End of namespace U1Gfx
+} // End of namespace Ultima1
 } // End of namespace Xeen
 
 #endif

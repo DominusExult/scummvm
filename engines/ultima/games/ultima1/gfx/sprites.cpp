@@ -20,39 +20,20 @@
  *
  */
 
-#ifndef ULTIMA_SHARED_GFX_VIEWPORT_MAP_H
-#define ULTIMA_SHARED_GFX_VIEWPORT_MAP_H
-
-#include "ultima/gfx/visual_item.h"
-#include "ultima/gfx/sprites.h"
+#include "ultima/games/ultima1/gfx/sprites.h"
 
 namespace Ultima {
-namespace Shared {
+namespace Ultima1 {
+namespace U1Gfx {
 
-class ViewportMap : public Gfx::VisualItem {
-	DECLARE_MESSAGE_MAP;
-protected:
-	Gfx::Sprites *_sprites;
-public:
-	CLASSDEF;
+BEGIN_MESSAGE_MAP(Sprites, TreeItem)
+	ON_MESSAGE(FrameMsg)
+END_MESSAGE_MAP()
 
-	/**
-	 * Constructor
-	 */
-	ViewportMap(TreeItem *parent) : Gfx::VisualItem("ViewportMap", Rect(8, 8, 312, 152), parent), _sprites(nullptr) {}
-	
-	/**
-	 * Destructor
-	 */
-	virtual ~ViewportMap() {}
+bool Sprites::FrameMsg(CFrameMsg &msg) {
+	return false;
+}
 
-	/**
-	 * Draws the map
-	 */
-	virtual void draw();
-};
-
-} // End of namespace Shared
-} // End of namespace Xeen
-
-#endif
+} // End of namespace U1Gfx
+} // End of namespace Ultima1
+} // End of namespace Ultima

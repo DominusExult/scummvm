@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef ULTIMA_SPRITE_H
-#define ULTIMA_SPRITE_H
+#ifndef ULTIMA_SPRITES_H
+#define ULTIMA_SPRITES_H
 
 #include "common/array.h"
 #include "graphics/managed_surface.h"

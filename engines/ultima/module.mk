@@ -10,7 +10,7 @@ MODULE_OBJS = \
 	core/tree_item.o \
 	gfx/font.o \
 	gfx/screen.o \
-	gfx/sprite.o \
+	gfx/sprites.o \
 	gfx/visual_container.o \
 	gfx/visual_item.o \
 	gfx/visual_surface.o \
@@ -40,6 +40,7 @@ MODULE_OBJS = \
 	games/ultima1/core/transports.o \
 	games/ultima1/gfx/game_view.o \
 	games/ultima1/gfx/drawing_support.o \
+	games/ultima1/gfx/sprites.o \
 	games/ultima1/gfx/status.o \
 	games/ultima1/gfx/viewport_map.o \
 	games/ultima1/actions/action.o \
