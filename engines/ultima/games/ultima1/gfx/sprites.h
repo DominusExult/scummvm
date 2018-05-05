@@ -38,16 +38,23 @@ class Sprites : public Gfx::Sprites, public TreeItem {
 	DECLARE_MESSAGE_MAP;
 	bool FrameMsg(CFrameMsg &msg);
 private:
+	uint _frameCtr;
+private:
 	/**
 	 * Animates the water sprite by rotating it's lines vertically
 	 */
 	void animateWater();
 public:
 	CLASSDEF;
-	Sprites(TreeItem *parent) : Gfx::Sprites(), TreeItem() {
+	Sprites(TreeItem *parent) : Gfx::Sprites(), TreeItem(), _frameCtr(0) {
 		addUnder(parent);
 	}
 	virtual ~Sprites() {}
+
+	/**
+	 * Return a specific sprite
+	 */
+	virtual Gfx::Sprite &operator[](uint idx);
 };
 
 } // End of namespace U1Gfx

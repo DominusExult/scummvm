@@ -25,7 +25,6 @@
 
 #include "common/scummsys.h"
 #include "common/array.h"
-#include "common/random.h"
 #include "ultima/events.h"
 #include "ultima/games/shared/core/game_state.h"
 #include "ultima/input_handler.h"
@@ -44,8 +43,6 @@ namespace Shared {
 }
 
 class GameBase : public TreeItem, public EventTarget {
-private:
-	Common::RandomSource _randomSource;
 private:
 	/**
 	 * Checks for the presence of any savegames and, if present,
@@ -143,12 +140,12 @@ public:
 	/**
 	 * Gets a random number
 	 */
-	uint getRandomNumber(uint max) { return _randomSource.getRandomNumber(max); }
+	uint getRandomNumber(uint max);
 
 	/**
 	 * Gets a random number
 	 */
-	uint getRandomNumber(uint min, uint max) { return min + _randomSource.getRandomNumber(max - min); }
+	uint getRandomNumber(uint min, uint max);
 };
 
 } // End of namespace Ultima

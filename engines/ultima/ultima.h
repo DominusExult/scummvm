@@ -60,6 +60,8 @@ namespace Shared {
 
 class UltimaEngine : public Engine {
 private:
+	Common::RandomSource _randomSource;
+private:
 	/**
 	 * Initialize the engine
 	 */
@@ -104,6 +106,16 @@ public:
 	 * Creates a new hierarchy for the game, that contains all the logic for playing that particular game.
 	 */
 	Shared::Game *createGame() const;
+
+	/**
+	 * Gets a random number
+	 */
+	uint getRandomNumber(uint max) { return _randomSource.getRandomNumber(max); }
+
+	/**
+	 * Gets a random number
+	 */
+	uint getRandomNumber(uint min, uint max) { return min + _randomSource.getRandomNumber(max - min); }
 };
 
 extern UltimaEngine *g_vm;

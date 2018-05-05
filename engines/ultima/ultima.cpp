@@ -36,7 +36,7 @@ namespace Ultima {
 UltimaEngine *g_vm;
 
 UltimaEngine::UltimaEngine(OSystem *syst, const UltimaGameDescription *gameDesc) :
-		Engine(syst), _gameDescription(gameDesc) {
+		Engine(syst), _gameDescription(gameDesc), _randomSource("Ultima") {
 	g_vm = this;
 	_debugger = nullptr;
 	_events = nullptr;
