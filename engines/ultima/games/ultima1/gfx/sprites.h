@@ -38,6 +38,7 @@ class Sprites : public Gfx::Sprites, public TreeItem {
 	DECLARE_MESSAGE_MAP;
 	bool FrameMsg(CFrameMsg &msg);
 private:
+	bool _isOverworld;
 	uint _frameCtr;
 private:
 	/**
@@ -46,7 +47,7 @@ private:
 	void animateWater();
 public:
 	CLASSDEF;
-	Sprites(TreeItem *parent) : Gfx::Sprites(), TreeItem(), _frameCtr(0) {
+	Sprites(TreeItem *parent) : Gfx::Sprites(), TreeItem(), _isOverworld(false), _frameCtr(0) {
 		addUnder(parent);
 	}
 	virtual ~Sprites() {}
@@ -55,6 +56,11 @@ public:
 	 * Return a specific sprite
 	 */
 	virtual Gfx::Sprite &operator[](uint idx);
+
+	/**
+	 * Loads the Ultima 1 sprites
+	 */
+	void load(bool isOverworld);
 };
 
 } // End of namespace U1Gfx

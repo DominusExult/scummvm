@@ -89,7 +89,7 @@ class Sprites {
 protected:
 	Common::Array<Sprite> _data;
 	Point _spriteSize;							// Size of individual sprites
-public:
+protected:
 	/**
 	 * Load a raw data file containing sprite pixels
 	 * @param name			Filename
@@ -98,7 +98,7 @@ public:
 	 * @param h				Height of files
 	 */
 	void load(const Common::String &name, uint bpp, uint16 w = 16, uint16 h = 16);
-
+public:
 	/**
 	 * Return the default dimensions for tiles
 	 */
