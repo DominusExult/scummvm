@@ -109,6 +109,8 @@ void Ultima1Map::loadMap(int mapId, uint videoMode) {
 
 	if (mapId == MAPID_OVERWORLD)
 		loadOverworldMap();
+	else if (mapId == MAP_UNDERWORLD)
+		loadUnderworldMap();
 	else
 		loadTownCastleMap();
 }
@@ -233,6 +235,10 @@ void Ultima1Map::loadWidgets() {
 			addWidget(person);
 		}
 	}
+}
+
+void Ultima1Map::loadUnderworldMap() {
+
 }
 
 } // End of namespace Ultima1
