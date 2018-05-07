@@ -27,6 +27,7 @@ MODULE_OBJS = \
 	games/shared/core/character.o \
 	games/shared/core/game_state.o \
 	games/shared/core/map.o \
+	games/shared/core/monsters.o \
 	games/shared/core/resources.o \
 	games/shared/gfx/info.o \
 	games/shared/gfx/viewport_dungeon.o \
@@ -35,8 +36,9 @@ MODULE_OBJS = \
 	games/ultima0/core/resources.o \
 	games/ultima1/game.o \
 	games/ultima1/core/map.o \
-	games/ultima1/core/resources.o \
+	games/ultima1/core/monsters.o \
 	games/ultima1/core/people.o \
+	games/ultima1/core/resources.o \
 	games/ultima1/core/transports.o \
 	games/ultima1/gfx/game_view.o \
 	games/ultima1/gfx/drawing_support.o \
