@@ -149,7 +149,6 @@ public:
  * Base class for managing maps within the game
  */
 class Map {
-	friend class MapTile;
 	/**
 	 * Stores state about the current viewport being displayed. It's kept as part of the Map class
 	 * as a convenience to be alongside the current party position
@@ -229,6 +228,11 @@ public:
 	 * Return the current position
 	 */
 	Point getPosition() const { return _position; }
+
+	/**
+	 * Returns a delta for the cell in front of the player based on the direction they're facing
+	 */
+	Point getDirectionDelta() const;
 
 	/**
 	 * Gets a point relative to the current position

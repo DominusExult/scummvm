@@ -33,6 +33,26 @@ namespace Actions {
 class Move : public Action {
 	DECLARE_MESSAGE_MAP;
 	bool MoveMsg(CMoveMsg &msg);
+private:
+	/**
+	 * Turn left
+	 */
+	void dungeonTurnLeft();
+
+	/**
+	 * Turn right
+	 */
+	void dungeonTurnRight();
+
+	/**
+	 * Turn around
+	 */
+	void dungeonTurnAround();
+
+	/**
+	 * Move forwards
+	 */
+	void dungeonMoveForward();
 public:
 	CLASSDEF;
 
