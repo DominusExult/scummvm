@@ -85,17 +85,36 @@ void ViewportDungeon::draw() {
 		if (isDoor)
 			s.drawDoorway(0);
 
-		bool endingLeft, endingRight = false;
-		bool var5 = 0, var6 = 0;
-		byte var7 = 0, var8 = 0;
+		bool endingLeft = false, endingRight = false;
+		bool leftFlag = false, rightFlag = false;
+		bool priorLeftFlag = false, priorRightFlag = false;
+
 		for (int index = distance; distance; --distance) {
 			currDelta -= delta;
+			Point pt = currentPos + currDelta;
 			
 			if (!isDoor || distance > 1) {
-				// todo
+				map->getTileAt(pt + leftDelta, &leftTile);
+				map->getTileAt(pt + rightDelta, &rightTile);
+				leftFlag = leftTile.isSolid();
+				rightFlag = rightTile.isSolid();
+				if (index == distance) {
+					endingLeft = leftFlag;
+					endingRight = rightFlag;
+				} else {
+					if (leftFlag != priorLeftFlag)
+						s.drawLeftEdge(index);
+					if (rightFlag != priorRightFlag)
+						s.drawRightEdge(index);
+				}
+
+				drawLeftCell(index, pt);
+				drawRightCell(index, pt);
 			}
 
-
+			drawCell(index, pt + delta);
+			priorLeftFlag = leftFlag;
+			priorRightFlag = rightFlag;
 		}
 
 		if (isDoor)
