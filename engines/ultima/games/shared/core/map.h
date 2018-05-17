@@ -111,13 +111,14 @@ public:
 	// Dungeon tile flags 
 	bool _isDoor, _isSecretDoor;
 	bool _isLadderUp, _isLadderDown;
-	bool _isWall, _isHallway;
+	bool _isWall, _isHallway, _isBeams;
 public:
 	/**
 	 * Constructor
 	 */
 	MapTile() : _tileNum(-1), _tileId(-1), _widgetNum(-1), _widget(nullptr), _itemNum(-1), _item(nullptr),
-	_isDoor(false), _isSecretDoor(false), _isLadderUp(false), _isLadderDown(false), _isWall(false), _isHallway(false) {}
+	_isDoor(false), _isSecretDoor(false), _isLadderUp(false), _isLadderDown(false), _isWall(false),
+		_isHallway(false), _isBeams(false) {}
 
 	/**
 	 * Clears the map tile information
@@ -142,7 +143,7 @@ public:
 	/**
 	 * Returns true if a tile is a solid type within a dungeon
 	 */
-	bool isSolid() const { return !(_isHallway || _isLadderUp || _isLadderDown); }
+	bool isSolid() const { return !(_isHallway || _isLadderUp || _isLadderDown || _isBeams); }
 };
 
 /**
