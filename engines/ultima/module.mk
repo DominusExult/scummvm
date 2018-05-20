@@ -36,8 +36,8 @@ MODULE_OBJS = \
 	games/ultima0/game.o \
 	games/ultima0/core/resources.o \
 	games/ultima1/game.o \
+	games/ultima1/core/dungeon_widgets.o \
 	games/ultima1/core/map.o \
-	games/ultima1/core/monsters.o \
 	games/ultima1/core/people.o \
 	games/ultima1/core/resources.o \
 	games/ultima1/core/transports.o \

@@ -74,7 +74,8 @@ public:
  */
 class DungeonWidget : public Shared::MapItem {
 private:
-	uint _itemId;
+	DungeonItemId _itemId;
+	DungeonWidgetId _widgetId;
 private:
 	/**
 	 * Get the drawing data table
@@ -86,10 +87,12 @@ private:
 	 */
 	static void getPos(const byte *&data, int bitShift, Point &pt);
 public:
+	Common::String _name;			// Name of item
+public:
 	/**
 	 * Constructor
 	 */
-	DungeonWidget(Shared::Game *game, Shared::Map *map, uint itemId) : Shared::MapItem(game, map), _itemId(itemId) {}
+	DungeonWidget(Shared::Game *game, Shared::Map *map, const Point &pt, DungeonItemId itemId);
 
 	/**
 	 * Draws a dungeon widget onto the passed surface
@@ -97,9 +100,9 @@ public:
 	static void drawWidget(Graphics::ManagedSurface &s, DungeonWidgetId widgetId, uint distance, byte color);
 
 	/**
-	 * Handles any post-rendering drawing of specific item types
+	 * Handles drawing the item
 	 */
-	virtual void postDraw(Shared::DungeonSurface &s);
+	virtual void draw(Shared::DungeonSurface &s, uint distance);
 };
 
 } // End of namespace Ultima1

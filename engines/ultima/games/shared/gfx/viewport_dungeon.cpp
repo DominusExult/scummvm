@@ -142,7 +142,7 @@ void ViewportDungeon::draw() {
 	}
 
 	if (isDoor && tile._item) {
-		tile._item->postDraw(s);
+		tile._item->draw(s, 0);
 	}
 }
 
@@ -229,6 +229,10 @@ void ViewportDungeon::drawCell(uint distance, const Point &pt) {
 			break;
 		}
 	}
+
+	// Draw any item at that distance
+	if (tile._item)
+		tile._item->draw(s, distance);
 }
 
 void ViewportDungeon::drawLeftCell(uint distance, const MapTile &tile) {

@@ -88,11 +88,6 @@ public:
 	 * Draw the item
 	 */
 	virtual void draw(Shared::DungeonSurface &s, uint distance) {}
-
-	/**
-	 * Handles any post-rendering drawing of specific item types
-	 */
-	virtual void postDraw(Shared::DungeonSurface &s) {}
 };
 
 typedef Common::SharedPtr<MapItem> MapItemPtr;
