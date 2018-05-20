@@ -27,8 +27,8 @@ MODULE_OBJS = \
 	games/shared/core/character.o \
 	games/shared/core/game_state.o \
 	games/shared/core/map.o \
-	games/shared/core/monsters.o \
 	games/shared/core/resources.o \
+	games/shared/core/widgets.o \
 	games/shared/gfx/dungeon_surface.o \
 	games/shared/gfx/info.o \
 	games/shared/gfx/viewport_dungeon.o \

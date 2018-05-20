@@ -315,7 +315,7 @@ void Ultima1Map::loadDungeonMap() {
 		byte currTile = _data[pt.y][pt.x];
 
 		if (currTile != DTILE_WALL && currTile != DTILE_SECRET_DOOR && currTile != DTILE_BEAMS) {
-			_items.push_back(Shared::MapItemPtr(new DungeonWidget(_game, this, pt,
+			_widgets.push_back(Shared::MapWidgetPtr(new DungeonWidget(_game, this, pt,
 				(getRandomNumber(1, 100) & 1) ? DITEM_COFFIN : DITEM_CHEST)));
 		}
 	}

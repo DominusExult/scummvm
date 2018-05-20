@@ -23,7 +23,7 @@
 #ifndef ULTIMA_ULTIMA1_CORE_MONSTERS_H
 #define ULTIMA_ULTIMA1_CORE_MONSTERS_H
 
-#include "ultima/games/shared/core/monsters.h"
+#include "ultima/games/shared/core/widgets.h"
 #include "graphics/managed_surface.h"
 
 namespace Ultima {
@@ -72,7 +72,7 @@ public:
 /**
  * Encapsulated class for drawing widgets within dungeons
  */
-class DungeonWidget : public Shared::MapItem {
+class DungeonWidget : public Shared::DungeonWidget {
 private:
 	DungeonItemId _itemId;
 	DungeonWidgetId _widgetId;

@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef ULTIMA_SHARED_CORE_MONSTERS_H
-#define ULTIMA_SHARED_CORE_MONSTERS_H
+#ifndef ULTIMA_SHARED_CORE_WIDGETS_H
+#define ULTIMA_SHARED_CORE_WIDGETS_H
 
 #include "ultima/games/shared/core/map.h"
 #include "ultima/games/shared/gfx/dungeon_surface.h"
@@ -36,12 +36,34 @@ public:
 	/**
 	 * Constructor
 	 */
+	Monster(Game *game, Map *map) : MapWidget(game, map), _hitPoints(0) {}
 	Monster(Game *game, Map *map, int hitPoints) : MapWidget(game, map), _hitPoints(hitPoints) {}
+	Monster(Game *game, Map *map, const Point &pt, int hitPoints) : MapWidget(game, map, pt), _hitPoints(hitPoints) {}
 
 	/**
 	 * Destructor
 	 */
 	virtual ~Monster() {}
+};
+
+
+/**
+ * Base class for things that appear within the dungeons
+ */
+class DungeonWidget : public MapWidget {
+public:
+	/**
+	* Constructor
+	*/
+	DungeonWidget(Game *game, Map *map) : MapWidget(game, map) {}
+	DungeonWidget(Game *game, Map *map, const Point &pt) : MapWidget(game, map, pt) {}
+	DungeonWidget(Game *game, Map *map, const Point &pt, const Common::String &name) :
+		MapWidget(game, map, pt, name) {}
+
+	/**
+	 * Draws an item
+	 */
+	virtual void draw(DungeonSurface &s, uint distance) = 0;
 };
 
 class DungeonMonster : public Monster {
@@ -50,6 +72,8 @@ public:
 	 * Constructor
 	 */
 	DungeonMonster(Game *game, Map *map, int hitPoints) : Monster(game, map, hitPoints) {}
+	DungeonMonster(Game *game, Map *map, const Point &pt, int hitPoints) :
+		Monster(game, map, pt, hitPoints) {}
 
 	/**
 	 * Destructor
@@ -67,7 +91,7 @@ public:
 	virtual void draw(DungeonSurface &s, uint distance);
 };
 
-} // End of namespace Ultima1
+} // End of namespace Shared
 } // End of namespace Ultima
 
 #endif

@@ -21,7 +21,7 @@
  */
 
 #include "ultima/games/shared/gfx/viewport_dungeon.h"
-#include "ultima/games/shared/core/monsters.h"
+#include "ultima/games/shared/core/widgets.h"
 #include "ultima/games/shared/core/map.h"
 #include "ultima/games/shared/game.h"
 
@@ -141,8 +141,9 @@ void ViewportDungeon::draw() {
 		}
 	}
 
-	if (isDoor && tile._item) {
-		tile._item->draw(s, 0);
+	DungeonWidget *widget = dynamic_cast<DungeonWidget *>(tile._widget);
+	if (isDoor && widget) {
+		widget->draw(s, 0);
 	}
 }
 
@@ -231,8 +232,9 @@ void ViewportDungeon::drawCell(uint distance, const Point &pt) {
 	}
 
 	// Draw any item at that distance
-	if (tile._item)
-		tile._item->draw(s, distance);
+	DungeonWidget *widget = dynamic_cast<DungeonWidget *>(tile._widget);
+	if (widget)
+		widget->draw(s, distance);
 }
 
 void ViewportDungeon::drawLeftCell(uint distance, const MapTile &tile) {

@@ -20,7 +20,7 @@
  *
  */
 
-#include "ultima/games/shared/core/monsters.h"
+#include "ultima/games/shared/core/widgets.h"
 
 namespace Ultima {
 namespace Shared {

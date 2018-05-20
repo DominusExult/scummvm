@@ -49,9 +49,8 @@ void U1DungeonMonster::draw(Shared::DungeonSurface &s, uint distance) {
 /*-------------------------------------------------------------------*/
 
 DungeonWidget::DungeonWidget(Shared::Game *game, Shared::Map *map, const Point &pt, DungeonItemId itemId) :
-		Shared::MapItem(game, map), _itemId(itemId) {
+		Shared::DungeonWidget(game, map, pt), _itemId(itemId) {
 	_widgetId = (_itemId == DITEM_CHEST) ? MONSTER_MIMIC : UITEM_COFFIN;
-	_position = pt;
 	
 	GameResources &res = *static_cast<Ultima1Game *>(game)->_res;
 	_name = (_itemId == DITEM_CHEST) ? res.DUNGEON_ITEM_NAMES[0] : res.DUNGEON_ITEM_NAMES[1];
@@ -99,7 +98,6 @@ void DungeonWidget::getPos(const byte *&data, int bitShift, Point &pt) {
 void DungeonWidget::draw(Shared::DungeonSurface &s, uint distance) {
 	Ultima1Game *game = static_cast<Ultima1Game *>(_game);
 	drawWidget(s, _widgetId, distance, game->_edgeColor);
-
 }
 
 } // End of namespace Ultima1
