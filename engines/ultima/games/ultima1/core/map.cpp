@@ -33,15 +33,6 @@
 namespace Ultima {
 namespace Ultima1 {
 
-enum CityTile {
-	CTILE_GATE = 11
-};
-
-enum DungeonTile {
-	DTILE_HALLWAY = 0, DTILE_WALL = 1, DTILE_SECRET_DOOR = 2, DTILE_DOOR = 3, DTILE_LADDER_DOWN = 6, 
-	DTILE_LADDER_UP = 7, DTILE_BEAMS = 8
-};
-
 void SurroundingTotals::load(Ultima1Map *map) {
 	U1MapTile mapTile;
 	_water = _woods = _grass = 0;
@@ -269,6 +260,10 @@ void Ultima1Map::loadDungeonMap() {
 	_position = Point(1, 1);
 	_direction = Shared::DIR_DOWN;
 
+	generateDungeonMap();
+}
+
+void Ultima1Map::generateDungeonMap() {
 	// Set up widget for the player
 	_currentTransport = new TransportOnFoot(_game, this);
 	addWidget(_currentTransport);

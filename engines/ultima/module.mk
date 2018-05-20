@@ -48,6 +48,7 @@ MODULE_OBJS = \
 	games/ultima1/gfx/viewport_dungeon.o \
 	games/ultima1/gfx/viewport_map.o \
 	games/ultima1/actions/action.o \
+	games/ultima1/actions/climb.o \
 	games/ultima1/actions/enter.o \
 	games/ultima1/actions/move.o
 
