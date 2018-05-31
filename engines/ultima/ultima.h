@@ -43,6 +43,10 @@ enum GameType {
 	GType_Ultima1	= 0
 };
 
+enum UltimaGameFeatures {
+	GF_VGA_ENHANCED = 1 << 0
+};
+
 struct UltimaGameDescription;
 
 class Debugger;
@@ -101,6 +105,11 @@ public:
 	 * Return the game's language
 	 */
 	Common::Language getLanguage() const;
+
+	/**
+	 * Return the game's features
+	 */
+	uint32 getFeatures() const;
 
 	/**
 	 * Creates a new hierarchy for the game, that contains all the logic for playing that particular game.

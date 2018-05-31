@@ -27,14 +27,35 @@ static const UltimaGameDescription gameDescriptions[] = {
 		// Ultima I - The First Age of Darkness
 		{
 			"ultima1",
-			0,
-			AD_ENTRY1s("map.bin", "f99633a0110ccf90837ab161be56cf1c", 13104),
+			"VGA Enhanced",
+			{
+				{ "maptiles.vga", 0, "d4b67e17affe64c0ddb48511bfe4cf37", 47199 },
+				{ "objtiles.vga", 0, "1a1446970d095aeb03bcf6dcec40d6e2", 289344 },
+				{ "map.bin", 0, "f99633a0110ccf90837ab161be56cf1c", 13104 },
+				AD_LISTEND
+			},
 			Common::EN_ANY,
 			Common::kPlatformDOS,
 			ADGF_NO_FLAGS,
 			GUIO0()
 		},
-		GType_Ultima1
+		GType_Ultima1,
+		GF_VGA_ENHANCED
+	},
+
+	{
+		// Ultima I - The First Age of Darkness
+		{
+			"ultima1",
+			0,
+			AD_ENTRY1s("xxxmap.bin", "f99633a0110ccf90837ab161be56cf1c", 13104),
+			Common::EN_ANY,
+			Common::kPlatformDOS,
+			ADGF_NO_FLAGS,
+			GUIO0()
+		},
+		GType_Ultima1,
+		0
 	},
 
 	{ AD_TABLE_END_MARKER, (GameType)0 }

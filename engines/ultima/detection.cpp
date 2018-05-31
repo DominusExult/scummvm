@@ -31,6 +31,7 @@ struct UltimaGameDescription {
 	ADGameDescription desc;
 
 	GameType gameID;
+	uint32 features;
 };
 
 GameType UltimaEngine::getGameID() const {
@@ -41,6 +42,9 @@ Common::Language UltimaEngine::getLanguage() const {
 	return _gameDescription->desc.language;
 }
 
+uint32 UltimaEngine::getFeatures() const {
+	return _gameDescription->features;
+}
 
 } // End of namespace Ultima
 
