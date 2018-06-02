@@ -35,6 +35,8 @@ class UltimaEngine;
 
 namespace Gfx {
 
+#define VGA_COLOR_TRANS(x) ((x) * 255 / 63)
+
 class Screen: public Graphics::Screen {
 public:
 	Screen();

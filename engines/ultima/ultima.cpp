@@ -65,12 +65,15 @@ bool UltimaEngine::initialize() {
 	_debugger = Debugger::init(this);
 	_events = new Events();
 	_screen = new Gfx::Screen();
-	_mouseCursor = new MouseCursor();
 
 	// Create the game, and signal to it that the game is starting
 	_game = createGame();
 	_events->addTarget(_game);
 	_game->starting();
+
+	// Load cursors
+	_mouseCursor = new MouseCursor();
+
 	return true;
 }
 
