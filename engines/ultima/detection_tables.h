@@ -48,7 +48,7 @@ static const UltimaGameDescription gameDescriptions[] = {
 		{
 			"ultima1",
 			0,
-			AD_ENTRY1s("xxxmap.bin", "f99633a0110ccf90837ab161be56cf1c", 13104),
+			AD_ENTRY1s("map.bin", "f99633a0110ccf90837ab161be56cf1c", 13104),
 			Common::EN_ANY,
 			Common::kPlatformDOS,
 			ADGF_NO_FLAGS,
