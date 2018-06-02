@@ -20,42 +20,33 @@
  *
  */
 
-#include "ultima/games/ultima1/game.h"
-#include "ultima/games/ultima1/core/resources.h"
-#include "ultima/games/ultima1/gfx/game_view.h"
-#include "ultima/games/ultima1/u6gfx/game_view.h"
-#include "ultima/ultima.h"
+#include "ultima/gfx/bitmap.h"
+#include "ultima/core/file.h"
+#include "common/memstream.h"
+#include "graphics/managed_surface.h"
 
 namespace Ultima {
-namespace Ultima1 {
+namespace Gfx {
 
-EMPTY_MESSAGE_MAP(Ultima1Game, Shared::Game);
+void Bitmap::load(const Common::String &filename) {
+	File srcFile(filename);
+	Common::MemoryWriteStreamDynamic decompressedFile(DisposeAfterUse::YES);
+	decompress(&srcFile, &decompressedFile);
 
-Ultima1Game::Ultima1Game() : Shared::Game() {
-	_res = new GameResources();
+	// Set the bitmap size
+	Common::MemoryReadStream f(decompressedFile.getData(), decompressedFile.size());
+	int16 xs = f.readSint16LE();
+	int16 ys = f.readSint16LE();
+	create(xs, ys);
 
-	if (g_vm->getFeatures() & GF_VGA_ENHANCED) {
-		_videoMode = VIDEOMODE_VGA;
-		loadU6Palette();
-		_gameView = new U6Gfx::GameView(this);
-	} else {
-		setEGAPalette();
-		_gameView = new U1Gfx::GameView(this);
+	Graphics::Surface s = getSubArea(Common::Rect(0, 0, xs, ys));
+
+	// Read in the lines
+	for (int y = 0; y < ys; ++y) {
+		byte *dest = (byte *)s.getBasePtr(0, y);
+		f.read(dest, xs);
 	}
 }
 
-Ultima1Game::~Ultima1Game() {
-	delete _gameView;
-}
-
-void Ultima1Game::starting() {
-	_res->load();
-	_gameView->setView("GameView");
-}
-
-void Ultima1Game::playFX(uint effectId) {
-	warning("TODO: playFX");
-}
-
-} // End of namespace Ultima1
+} // End of namespace Gfx
 } // End of namespace Ultima

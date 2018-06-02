@@ -20,42 +20,29 @@
  *
  */
 
-#include "ultima/games/ultima1/game.h"
-#include "ultima/games/ultima1/core/resources.h"
-#include "ultima/games/ultima1/gfx/game_view.h"
-#include "ultima/games/ultima1/u6gfx/game_view.h"
-#include "ultima/ultima.h"
+#ifndef ULTIMA_LZW_H
+#define ULTIMA_LZW_H
+
+#include "common/stream.h"
+#include "common/memstream.h"
 
 namespace Ultima {
-namespace Ultima1 {
 
-EMPTY_MESSAGE_MAP(Ultima1Game, Shared::Game);
+class LZW {
+private:
+	Common::ReadStream *_source;
+	byte _sourceBitsLeft;
+	byte _codeLength;
+	byte _currentByte;
+private:
+	uint16 getCode();
+public:
+	/**
+	 * Decompresses data
+	 */
+	void decompress(Common::ReadStream *source, Common::WriteStream *dest);
+};
 
-Ultima1Game::Ultima1Game() : Shared::Game() {
-	_res = new GameResources();
-
-	if (g_vm->getFeatures() & GF_VGA_ENHANCED) {
-		_videoMode = VIDEOMODE_VGA;
-		loadU6Palette();
-		_gameView = new U6Gfx::GameView(this);
-	} else {
-		setEGAPalette();
-		_gameView = new U1Gfx::GameView(this);
-	}
-}
-
-Ultima1Game::~Ultima1Game() {
-	delete _gameView;
-}
-
-void Ultima1Game::starting() {
-	_res->load();
-	_gameView->setView("GameView");
-}
-
-void Ultima1Game::playFX(uint effectId) {
-	warning("TODO: playFX");
-}
-
-} // End of namespace Ultima1
 } // End of namespace Ultima
+
+#endif

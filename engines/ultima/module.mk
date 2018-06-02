@@ -3,11 +3,13 @@ MODULE := engines/ultima
 MODULE_OBJS = \
 	core/base_object.o \
 	core/file.o \
+	core/lzw.o \
 	core/message_target.o \
 	core/mouse_cursor.o \
 	core/named_item.o \
 	core/resources.o \
 	core/tree_item.o \
+	gfx/bitmap.o \
 	gfx/font.o \
 	gfx/screen.o \
 	gfx/sprites.o \
@@ -47,6 +49,7 @@ MODULE_OBJS = \
 	games/ultima1/gfx/status.o \
 	games/ultima1/gfx/viewport_dungeon.o \
 	games/ultima1/gfx/viewport_map.o \
+	games/ultima1/u6gfx/game_view.o \
 	games/ultima1/actions/action.o \
 	games/ultima1/actions/climb.o \
 	games/ultima1/actions/enter.o \

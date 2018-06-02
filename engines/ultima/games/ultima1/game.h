@@ -24,6 +24,7 @@
 #define ULTIMA_ULTIMA1_GAME_H
 
 #include "ultima/games/shared/game.h"
+#include "ultima/gfx/visual_container.h"
 
 namespace Ultima {
 namespace Ultima1 {
@@ -42,7 +43,7 @@ class Ultima1Game : public Shared::Game {
 	DECLARE_MESSAGE_MAP;
 public:
 	GameResources *_res;
-	U1Gfx::GameView *_gameView;
+	Gfx::VisualContainer *_gameView;
 public:
 	CLASSDEF;
 	Ultima1Game();

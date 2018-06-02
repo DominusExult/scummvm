@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_GFX_GAME_VIEW_H
-#define ULTIMA_ULTIMA1_GFX_GAME_VIEW_H
+#ifndef ULTIMA_ULTIMA1_U6GFX_GAME_VIEW_H
+#define ULTIMA_ULTIMA1_U6GFX_GAME_VIEW_H
 
 #include "ultima/gfx/visual_container.h"
 #include "ultima/gfx/bitmap.h"
@@ -38,10 +38,7 @@ namespace Actions {
 	class Action;
 }
 	
-namespace U1Gfx {
-
-class Status;
-class ViewportMap;
+namespace U6Gfx {
 
 /**
  * This class implements a standard view screen that shows a status and log area, as well as either
@@ -53,14 +50,8 @@ class GameView : public Gfx::VisualContainer {
 private:
 	Shared::Info *_info;
 	Shared::ViewportDungeon *_viewportDungeon;
-	ViewportMap *_viewportMap;
-	Status *_status;
 	Actions::Action *_actions[3];
-private:
-	/**
-	 * Draws level & direction indicators when in a dungeon
-	 */
-	void drawIndicators();
+	Gfx::Bitmap _background;
 public:
 	CLASSDEF;
 	GameView(TreeItem *parent = nullptr);
@@ -72,7 +63,7 @@ public:
 	virtual void draw();
 };
 
-} // End of namespace U1Gfx
+} // End of namespace U6Gfx
 } // End of namespace Shared
 } // End of namespace Xeen
 
