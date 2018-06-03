@@ -44,6 +44,22 @@ namespace U6Gfx {
  * a map or dungeon view covering the bulk of the screen
  */
 class GameView : public Gfx::VisualContainer {
+	/**
+	 * Simple class encapsulating the logic for drawing the Ultima 6 scroll onto a surface
+	 */	
+	class Scroll : private Graphics::ManagedSurface {
+	public:
+		/**
+		 * Constructor
+		 */
+		Scroll();
+
+		/**
+		 * Draw a scroll of a given size
+		 */
+		void draw(Graphics::ManagedSurface &dest, const Common::Rect &r);
+	};
+
 	DECLARE_MESSAGE_MAP;
 	bool KeypressMsg(CKeypressMsg &msg);
 private:
