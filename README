@@ -43,12 +43,13 @@ Table of Contents:
  * 3.22 The Feeble Files notes
  * 3.23 The Legend of Kyrandia notes
  * 3.24 Troll's Tale notes
- * 3.25 Winnie the Pooh notes
- * 3.26 Sierra AGI games: Predictive Input Dialog notes
- * 3.27 Sierra SCI games: Simultaneous speech and subtitles
- * 3.28 Zork games notes
- * 3.29 Commodore64 games notes
- * 3.30 Macintosh games notes
+ * 3.25 Ultima games notes
+ * 3.26 Winnie the Pooh notes
+ * 3.27 Sierra AGI games: Predictive Input Dialog notes
+ * 3.28 Sierra SCI games: Simultaneous speech and subtitles
+ * 3.29 Zork games notes
+ * 3.30 Commodore64 games notes
+ * 3.31 Macintosh games notes
 4.0) Supported Platforms
 5.0) Running ScummVM
  * 5.1 Command Line Options
@@ -1081,7 +1082,14 @@ dump the contents of that disk in an image file and name it "troll.img"
 to be able to play the game under ScummVM.
 
 
-3.25) Winnie the Pooh notes:
+3.25) ULtima games notes
+------------------------
+In order to play Ultima 1 in the new VGA enhanced mode, you'll need to copy
+the following files from an Ultima VI installation into the Ultima I folder:
+objtiles.vga, maptiles.vga, newmagic.bmp, paper.bmp, u6pal, u6.ch
+
+
+3.26) Winnie the Pooh notes:
 ----- ----------------------
 It is possible to import saved games from the original interpreter of the
 game into ScummVM.
@@ -1096,7 +1104,7 @@ game's screen to change location, similar to many adventure games, which
 is simpler and more straightforward than moving around using the menu.
 
 
-3.26) Sierra AGI games: Predictive Input Dialog:
+3.27) Sierra AGI games: Predictive Input Dialog:
 ----- ------------------------------------------
 The Predictive Input Dialog is a ScummVM aid for running AGI engine
 games (which notoriously require command line input) on devices with
@@ -1150,7 +1158,7 @@ naturally mapping the functionality to the numeric keypad. Also, the
 dialog's buttons can be navigated with the arrow and the enter keys.
 
 
-3.27) Sierra SCI games: Simultaneous speech and subtitles:
+3.28) Sierra SCI games: Simultaneous speech and subtitles:
 ----- ----------------------------------------------------
 Certain CD versions of Sierra SCI games had both speech and text
 resources. Some have an option to toggle between the two, but there are
@@ -1240,7 +1248,7 @@ Torin's Passage CD:
     to zero.
 
 
-3.28) Zork games notes:
+3.29) Zork games notes:
 ----- -----------------
 To run the supported Zork games (Zork Nemesis: The Forbidden Lands
 and Zork: Grand Inquisitor) you need to copy some (extra) data to its
@@ -1337,7 +1345,7 @@ Copy the zassetsc directory into the game root directory
 Copy the zassetse directory into the game root directory
 
 
-3.29) Commodore64 games notes:
+3.30) Commodore64 games notes:
 ----- ------------------------
 Both Maniac Mansion and Zak McKracken run but Maniac Mansion is not yet
 playable. Simply name the D64 disks "maniac1.d64" and "maniac2.d64"
@@ -1351,7 +1359,7 @@ to Commodore64. We recommend using the much simpler approach described
 in the previous paragraph.
 
 
-3.30) Macintosh games notes:
+3.31) Macintosh games notes:
 ----- ----------------------
 All LucasArts SCUMM based adventures, except COMI, also exist in versions
 for the Macintosh. ScummVM can use most (all?) of them, however, in some
