@@ -69,6 +69,7 @@ void Game::setEGAPalette() {
 	_highlightColor = 12;
 	_textColor = 11;
 	_color1 = 7;
+	_bgColor = 0;
 }
 
 void Game::loadU6Palette() {
@@ -87,8 +88,9 @@ void Game::loadU6Palette() {
 	_edgeColor = 15;
 	_borderColor = 1;
 	_highlightColor = 12;
-	_textColor = 11;
+	_textColor = 72;
 	_color1 = 7;
+	_bgColor = 49;
 }
 
 } // End of namespace Shared

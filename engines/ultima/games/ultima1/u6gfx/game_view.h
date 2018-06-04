@@ -36,6 +36,9 @@ namespace Ultima1 {
 namespace Actions {
 	class Action;
 }
+namespace U1Gfx {
+	class Status;
+}
 	
 namespace U6Gfx {
 
@@ -64,6 +67,7 @@ class GameView : public Gfx::VisualContainer {
 	bool KeypressMsg(CKeypressMsg &msg);
 private:
 	Shared::Info *_info;
+	U1Gfx::Status *_status;
 	Shared::ViewportDungeon *_viewportDungeon;
 	Actions::Action *_actions[3];
 	Graphics::ManagedSurface _background;
