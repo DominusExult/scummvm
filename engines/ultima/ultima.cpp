@@ -56,11 +56,13 @@ UltimaEngine::~UltimaEngine() {
 bool UltimaEngine::initialize() {
 	DebugMan.addDebugChannel(kDebugLevelScript,      "scripts", "Script debug level");
 
+	// Set up the resources datafile
 	Resources *res = new Resources();
-	if (!res->setup()) {
-		delete res;
+	if (!res->open()) {
+		GUIErrorMessage("Could not find correct ultima.dat datafile");
 		return false;
 	}
+	SearchMan.add("ultima", res);
 
 	_debugger = Debugger::init(this);
 	_events = new Events();
@@ -81,12 +83,11 @@ void UltimaEngine::deinitialize() {
 }
 
 Common::Error UltimaEngine::run() {
-	// Initialize the engine
-	if (!initialize())
-		return Common::kUnknownError;
+	// Initialize the engine and play the game
+	if (initialize())
+		playGame();
 
-	playGame();
-
+	// Deinitialize and free the engine
 	deinitialize();
 	return Common::kNoError;
 }

@@ -23,8 +23,114 @@
 #include "ultima/core/resources.h"
 #include "ultima/games/shared/core/resources.h"
 #include "ultima/games/ultima1/core/resources.h"
+#include "common/endian.h"
 
 namespace Ultima {
+
+#define DATA_FILENAME "ultima.dat"
+#define DATA_IDENT MKTAG('S', 'U', 'L', 'T')
+#define DATA_VERSION 1
+
+/*-------------------------------------------------------------------*/
+
+bool Resources::open() {
+	// Open up the datafile
+	if (!Common::File::exists(DATA_FILENAME))
+		return false;
+
+	File file;
+	file.open(DATA_FILENAME);
+	if (file.readUint32BE() != DATA_IDENT)
+		return false;
+	int version = file.readUint16LE();
+	if (version != DATA_VERSION)
+		return false;
+	
+	// Load in the file index
+	size_t count = file.readUint16LE();
+	_index.resize(count);
+	for (size_t idx = 0; idx < count; ++idx)
+		_index[idx].load(file);
+	file.close();
+
+	// Save locally constructred resources to the archive manager for access
+	Shared::FontResources sharedFonts(this);
+	sharedFonts.save();
+	Ultima1::GameResources u1Data(this);
+	u1Data.save();
+
+	return true;
+}
+
+void Resources::addResource(const Common::String &name, const byte *data, size_t size) {
+	// Add a new entry to the local resources list for the passed data
+	_localResources.push_back(LocalResource());
+	LocalResource &lr = _localResources[_localResources.size() - 1];
+
+	lr._name = name;
+	lr._data.resize(size);
+	Common::copy(data, data + size, &lr._data[0]);
+}
+
+bool Resources::hasFile(const Common::String &name) const {
+	for (uint idx = 0; idx < _index.size(); ++idx)
+		if (!_index[idx]._name.compareToIgnoreCase(name))
+			return true;
+
+	for (uint idx = 0; idx < _localResources.size(); ++idx)
+		if (!_localResources[idx]._name.compareToIgnoreCase(name))
+			return true;
+
+	return false;
+}
+
+int Resources::listMembers(Common::ArchiveMemberList &list) const {
+	for (uint idx = 0; idx < _index.size(); ++idx) {
+		list.push_back(Common::ArchiveMemberPtr(new Common::GenericArchiveMember(_index[idx]._name, this)));
+	}
+
+	for (uint idx = 0; idx < _localResources.size(); ++idx) {
+		list.push_back(Common::ArchiveMemberPtr(new Common::GenericArchiveMember(_localResources[idx]._name, this)));
+	}
+
+	return _localResources.size();
+}
+
+const Common::ArchiveMemberPtr Resources::getMember(const Common::String &name) const {
+	if (!hasFile(name))
+		return Common::ArchiveMemberPtr();
+
+	return Common::ArchiveMemberPtr(new Common::GenericArchiveMember(name, this));
+}
+
+Common::SeekableReadStream *Resources::createReadStreamForMember(const Common::String &name) const {
+	for (uint idx = 0; idx < _index.size(); ++idx) {
+		const FileResource &fr = _index[idx];
+		if (!fr._name.compareToIgnoreCase(name)) {
+			File f(DATA_FILENAME);
+			f.seek(fr._offset);
+			return f.readStream(fr._size);
+		}
+	}
+
+	for (uint idx = 0; idx < _localResources.size(); ++idx) {
+		const LocalResource &lr = _localResources[idx];
+		if (!lr._name.compareToIgnoreCase(name))
+			return new Common::MemoryReadStream(&lr._data[0], lr._data.size());
+	}
+
+	return nullptr;
+}
+
+/*-------------------------------------------------------------------*/
+
+void Resources::FileResource::load(File &f) {
+	_name = f.readString();
+	_offset = f.readUint32LE();
+	_size = f.readUint16LE();
+}
+
+/*-------------------------------------------------------------------*/
 
 ResourceFile::ResourceFile(const Common::String &filename) : _filename(filename), _bufferP(_buffer) {
 	Common::fill(_buffer, _buffer + STRING_BUFFER_SIZE, 0);
@@ -188,65 +294,6 @@ void LocalResourceFile::syncBytes2D(byte *vals, size_t count1, size_t count2) {
 		_file.writeUint32LE(MKTAG(count1, count2, 0, 0));
 		_file.write(vals, count1 * count2);
 	}
-}
-
-/*-------------------------------------------------------------------*/
-
-bool Resources::setup() {
-	// Save locally constructred resources to the archive manager for access
-	Shared::FontResources sharedFonts(this);
-	sharedFonts.save();
-	Ultima1::GameResources u1Data(this);
-	u1Data.save();
-
-	SearchMan.add("ultima", this);
-	return true;
-}
-
-void Resources::addResource(const Common::String &name, const byte *data, size_t size) {
-	// Add a new entry to the local resources list for the passed data
-	_localResources.push_back(LocalResource());
-	LocalResource &lr = _localResources[_localResources.size() - 1];
-
-	lr._name = name;
-	lr._data.resize(size);
-	Common::copy(data, data + size, &lr._data[0]);
-}
-
-const Resources::LocalResource *Resources::getResource(const Common::String &name) const {
-	for (uint idx = 0; idx < _localResources.size(); ++idx) {
-		if (!_localResources[idx]._name.compareToIgnoreCase(name))
-			return &_localResources[idx];
-	}
-
-	return nullptr;
-}
-
-bool Resources::hasFile(const Common::String &name) const {
-	return getResource(name) != nullptr;
-}
-
-int Resources::listMembers(Common::ArchiveMemberList &list) const {
-	for (uint idx = 0; idx < _localResources.size(); ++idx) {
-		list.push_back(Common::ArchiveMemberPtr(new Common::GenericArchiveMember(_localResources[idx]._name, this)));
-	}
-
-	return _localResources.size();
-}
-
-const Common::ArchiveMemberPtr Resources::getMember(const Common::String &name) const {
-	if (!hasFile(name))
-		return Common::ArchiveMemberPtr();
-
-	return Common::ArchiveMemberPtr(new Common::GenericArchiveMember(name, this));
-}
-
-Common::SeekableReadStream *Resources::createReadStreamForMember(const Common::String &name) const {
-	const LocalResource *lr = getResource(name);
-	if (!lr)
-		return nullptr;
-
-	return new Common::MemoryReadStream(&lr->_data[0], lr->_data.size());
 }
 
 } // End of namespace Ultima
