@@ -20,40 +20,37 @@
  *
  */
 
-#include "ultima/games/ultima1/game.h"
-#include "ultima/games/ultima1/core/resources.h"
-#include "ultima/games/ultima1/gfx/game_view.h"
-#include "ultima/games/ultima1/u6gfx/game_view.h"
-#include "ultima/games/shared/core/resources.h"
-#include "ultima/ultima.h"
+#ifndef ULTIMA_SHARED_ACTIONS_PASS_H
+#define ULTIMA_SHARED_ACTIONS_PASS_H
+
+#include "ultima/games/shared/actions/action.h"
+#include "ultima/messages.h"
 
 namespace Ultima {
-namespace Ultima1 {
+namespace Shared {
+namespace Actions {
 
-EMPTY_MESSAGE_MAP(Ultima1Game, Shared::Game);
+class Pass : public Action {
+	DECLARE_MESSAGE_MAP;
+	bool PassMsg(CPassMsg &msg);
+private:
+	const char *&_text;
+public:
+	CLASSDEF;
 
-Ultima1Game::Ultima1Game() : Shared::Game() {
-	_res = new GameResources();
+	/**
+	* Constructor
+	*/
+	Pass(TreeItem *parent, const char *&text) : Action(parent), _text(text) {}
 
-	if (g_vm->getFeatures() & GF_VGA_ENHANCED) {
-		_videoMode = VIDEOMODE_VGA;
-		loadU6Palette();
-		setFont(new Gfx::Font((const byte *)&_fontResources->_fontU6[0][0]));
-		_gameView = new U6Gfx::GameView(this);
-	} else {
-		setEGAPalette();
-		_gameView = new U1Gfx::GameView(this);
-	}
-}
+	/**
+	 * Destructor
+	 */
+	virtual ~Pass() {}
+};
 
-Ultima1Game::~Ultima1Game() {
-	delete _gameView;
-}
-
-void Ultima1Game::starting() {
-	_res->load();
-	_gameView->setView("GameView");
-}
-
-} // End of namespace Ultima1
+} // End of namespace Actions
+} // End of namespace Shared
 } // End of namespace Ultima
+
+#endif

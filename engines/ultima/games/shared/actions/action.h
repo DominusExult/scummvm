@@ -20,40 +20,56 @@
  *
  */
 
-#include "ultima/games/ultima1/game.h"
-#include "ultima/games/ultima1/core/resources.h"
-#include "ultima/games/ultima1/gfx/game_view.h"
-#include "ultima/games/ultima1/u6gfx/game_view.h"
-#include "ultima/games/shared/core/resources.h"
-#include "ultima/ultima.h"
+#ifndef ULTIMA_SHARED_ACTIONS_ACTION_H
+#define ULTIMA_SHARED_ACTIONS_ACTION_H
+
+#include "ultima/core/tree_item.h"
 
 namespace Ultima {
-namespace Ultima1 {
+namespace Shared {
 
-EMPTY_MESSAGE_MAP(Ultima1Game, Shared::Game);
+class Game;
+class Map;
 
-Ultima1Game::Ultima1Game() : Shared::Game() {
-	_res = new GameResources();
+namespace Actions {
 
-	if (g_vm->getFeatures() & GF_VGA_ENHANCED) {
-		_videoMode = VIDEOMODE_VGA;
-		loadU6Palette();
-		setFont(new Gfx::Font((const byte *)&_fontResources->_fontU6[0][0]));
-		_gameView = new U6Gfx::GameView(this);
-	} else {
-		setEGAPalette();
-		_gameView = new U1Gfx::GameView(this);
-	}
-}
+class Action : public TreeItem {
+public:
+	/**
+	 * Constructor
+	 */
+	Action(TreeItem *parent);
 
-Ultima1Game::~Ultima1Game() {
-	delete _gameView;
-}
+	/**
+	 * Destructor
+	 */
+	virtual ~Action() {}
 
-void Ultima1Game::starting() {
-	_res->load();
-	_gameView->setView("GameView");
-}
+	/**
+	 * Jumps up through the parents to find the root game
+	 */
+	Game *getGame();
 
-} // End of namespace Ultima1
+	/**
+	 * Return the game's map
+	 */
+	Map *getMap();
+
+	/**
+	 * Adds a text string to the info area
+	 * @param text		Text to add
+	 * @param newLine	Whether to apply a newline at the end
+	 */
+	void addInfoMsg(const Common::String &text, bool newLine = true);
+
+	/**
+	 * Play a sound effect
+	 */
+	void playFX(uint effectId);
+};
+
+} // End of namespace Actions
+} // End of namespace Shared
 } // End of namespace Ultima
+
+#endif

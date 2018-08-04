@@ -30,12 +30,12 @@ namespace Ultima {
 namespace Shared {
 	class Info;
 	class ViewportDungeon;
+	namespace Actions {
+		class Action;
+	}
 }
 	
 namespace Ultima1 {
-namespace Actions {
-	class Action;
-}
 namespace U1Gfx {
 	class Status;
 }
@@ -69,7 +69,7 @@ private:
 	Shared::Info *_info;
 	U1Gfx::Status *_status;
 	Shared::ViewportDungeon *_viewportDungeon;
-	Actions::Action *_actions[3];
+	Shared::Actions::Action *_actions[4];
 	Graphics::ManagedSurface _background;
 private:
 	/**

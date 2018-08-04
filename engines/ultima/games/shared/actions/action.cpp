@@ -20,40 +20,38 @@
  *
  */
 
-#include "ultima/games/ultima1/game.h"
-#include "ultima/games/ultima1/core/resources.h"
-#include "ultima/games/ultima1/gfx/game_view.h"
-#include "ultima/games/ultima1/u6gfx/game_view.h"
-#include "ultima/games/shared/core/resources.h"
-#include "ultima/ultima.h"
+#include "ultima/games/shared/actions/action.h"
+#include "ultima/games/shared/game.h"
+#include "ultima/games/shared/core/map.h"
+#include "ultima/gfx/visual_item.h"
+#include "ultima/messages.h"
 
 namespace Ultima {
-namespace Ultima1 {
+namespace Shared {
+namespace Actions {
 
-EMPTY_MESSAGE_MAP(Ultima1Game, Shared::Game);
-
-Ultima1Game::Ultima1Game() : Shared::Game() {
-	_res = new GameResources();
-
-	if (g_vm->getFeatures() & GF_VGA_ENHANCED) {
-		_videoMode = VIDEOMODE_VGA;
-		loadU6Palette();
-		setFont(new Gfx::Font((const byte *)&_fontResources->_fontU6[0][0]));
-		_gameView = new U6Gfx::GameView(this);
-	} else {
-		setEGAPalette();
-		_gameView = new U1Gfx::GameView(this);
-	}
+Action::Action(TreeItem *parent) : TreeItem() {
+	assert(parent);
+	addUnder(parent);
 }
 
-Ultima1Game::~Ultima1Game() {
-	delete _gameView;
+Game *Action::getGame() {
+	return static_cast<Game *>(TreeItem::getGame());
 }
 
-void Ultima1Game::starting() {
-	_res->load();
-	_gameView->setView("GameView");
+Map *Action::getMap() {
+	return static_cast<Map *>(TreeItem::getMap());
 }
 
-} // End of namespace Ultima1
+void Action::addInfoMsg(const Common::String &text, bool newLine) {
+	CInfoMsg msg(text, newLine);
+	msg.execute(getView(), nullptr, MSGFLAG_BREAK_IF_HANDLED);
+}
+
+void Action::playFX(uint effectId) {
+	getGame()->playFX(effectId);
+}
+
+} // End of namespace Actions
+} // End of namespace Shared
 } // End of namespace Ultima

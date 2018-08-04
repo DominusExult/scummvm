@@ -31,13 +31,12 @@ namespace Ultima {
 namespace Shared {
 	class Info;
 	class ViewportDungeon;
+	namespace Actions {
+		class Action;
+	}
 }
 	
 namespace Ultima1 {
-namespace Actions {
-	class Action;
-}
-	
 namespace U1Gfx {
 
 class Status;
@@ -55,7 +54,7 @@ private:
 	Shared::ViewportDungeon *_viewportDungeon;
 	ViewportMap *_viewportMap;
 	Status *_status;
-	Actions::Action *_actions[3];
+	Shared::Actions::Action *_actions[4];
 private:
 	/**
 	 * Draws level & direction indicators when in a dungeon

@@ -31,11 +31,6 @@ namespace Ultima {
 namespace Ultima1 {
 namespace Actions {
 
-Action::Action(TreeItem *parent) : TreeItem() {
-	assert(parent);
-	addUnder(parent);
-}
-
 Ultima1Game *Action::getGame() {
 	return static_cast<Ultima1Game *>(TreeItem::getGame());
 }
@@ -46,15 +41,6 @@ Ultima1Map *Action::getMap() {
 
 GameResources *Action::getRes() {
 	return getGame()->_res;
-}
-
-void Action::addInfoMsg(const Common::String &text, bool newLine) {
-	CInfoMsg msg(text, newLine);
-	msg.execute(getView(), nullptr, MSGFLAG_BREAK_IF_HANDLED);
-}
-
-void Action::playFX(uint effectId) {
-	getGame()->playFX(effectId);
 }
 
 } // End of namespace Actions

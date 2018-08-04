@@ -263,6 +263,11 @@ MESSAGE0(CEnterMsg);
  */
 MESSAGE0(CClimbMsg);
 
+/**
+ * Pass a turn
+ */
+MESSAGE0(CPassMsg);
+
 } // End of namespace Ultima
 
 #endif
