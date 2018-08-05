@@ -35,8 +35,9 @@ namespace Ultima {
 class UltimaEngine;
 
 namespace Gfx {
-	class VisualItem;
 	class Font;
+	class TextCursor;
+	class VisualItem;
 }
 namespace Shared {
 	class GameState;
@@ -69,6 +70,7 @@ protected:
 	InputHandler _inputHandler;
 	InputTranslator _inputTranslator;
 	Gfx::Font *_font;
+	Gfx::TextCursor *_textCursor;
 public:
 	Shared::GameState *_gameState;
 	uint _videoMode;

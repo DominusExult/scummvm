@@ -46,7 +46,7 @@ namespace U6Gfx {
  * This class implements a standard view screen that shows a status and log area, as well as either
  * a map or dungeon view covering the bulk of the screen
  */
-class GameView : public Gfx::VisualContainer {
+class GameView : public Ultima::Gfx::VisualContainer {
 	/**
 	 * Simple class encapsulating the logic for drawing the Ultima 6 scroll onto a surface
 	 */	

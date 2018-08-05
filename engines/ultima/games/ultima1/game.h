@@ -43,7 +43,7 @@ class Ultima1Game : public Shared::Game {
 	DECLARE_MESSAGE_MAP;
 public:
 	GameResources *_res;
-	Gfx::VisualContainer *_gameView;
+	Ultima::Gfx::VisualContainer *_gameView;
 public:
 	CLASSDEF;
 	Ultima1Game();

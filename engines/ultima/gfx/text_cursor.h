@@ -20,43 +20,52 @@
  *
  */
 
-#include "ultima/games/ultima1/game.h"
-#include "ultima/games/ultima1/core/resources.h"
-#include "ultima/games/ultima1/gfx/game_view.h"
-#include "ultima/games/ultima1/gfx/text_cursor.h"
-#include "ultima/games/ultima1/u6gfx/game_view.h"
-#include "ultima/games/shared/core/resources.h"
-#include "ultima/ultima.h"
+#ifndef ULTIMA_TEXT_CURSOR_H
+#define ULTIMA_TEXT_CURSOR_H
+
+#include "ultima/core/rect.h"
 
 namespace Ultima {
-namespace Ultima1 {
+namespace Gfx {
 
-EMPTY_MESSAGE_MAP(Ultima1Game, Shared::Game);
+/**
+ * Base class for text cursors, and is used by those games that don't have a visible cursor
+ */
+class TextCursor {
+protected:
+	bool _visible;
+	Point _pos;
+public:
+	TextCursor() : _visible(false) {}
+	virtual ~TextCursor() {}
 
-Ultima1Game::Ultima1Game() : Shared::Game() {
-	_res = new GameResources();
-	delete _textCursor;
-	_textCursor = new Gfx::U1TextCursor();
+	/**
+	 * Returns true if the cursor is visible
+	 */
+	bool isVisible() const { return _visible; }
 
-	if (g_vm->getFeatures() & GF_VGA_ENHANCED) {
-		_videoMode = VIDEOMODE_VGA;
-		loadU6Palette();
-		setFont(new Ultima::Gfx::Font((const byte *)&_fontResources->_fontU6[0][0]));
-		_gameView = new U6Gfx::GameView(this);
-	} else {
-		setEGAPalette();
-		_gameView = new U1Gfx::GameView(this);
-	}
-}
+	/**
+	 * Returns the position of the cursor
+	 */
+	Point getPosition() const { return _pos; }
 
-Ultima1Game::~Ultima1Game() {
-	delete _gameView;
-}
+	/**
+	 * Sets the visibility of the cursor
+	 */
+	void setVisible(bool isVis) { _visible = isVis; }
+	
+	/**
+	 * Sets the position of the cursor
+	 */
+	void setPosition(const Point &pt) { _pos = pt; }
 
-void Ultima1Game::starting() {
-	_res->load();
-	_gameView->setView("GameView");
-}
+	/**
+	 * Draw the cursor
+	 */
+	virtual void draw() {}
+};
 
-} // End of namespace Ultima1
+} // End of namespace Gfx
 } // End of namespace Ultima
+
+#endif
