@@ -47,6 +47,7 @@ MODULE_OBJS = \
 	games/ultima1/core/transports.o \
 	games/ultima1/u1gfx/game_view.o \
 	games/ultima1/u1gfx/drawing_support.o \
+	games/ultima1/u1gfx/info.o \
 	games/ultima1/u1gfx/sprites.o \
 	games/ultima1/u1gfx/status.o \
 	games/ultima1/u1gfx/text_cursor.o \
