@@ -189,6 +189,6 @@ public:
 	virtual Common::SeekableReadStream *createReadStreamForMember(const Common::String &name) const;
 };
 
-} // End of namespace Xeen
+} // End of namespace Ultima
 
 #endif

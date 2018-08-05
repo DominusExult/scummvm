@@ -90,6 +90,6 @@ public:
 
 } // End of namespace U6Gfx
 } // End of namespace Shared
-} // End of namespace Xeen
+} // End of namespace Ultima
 
 #endif

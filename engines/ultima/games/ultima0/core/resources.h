@@ -33,6 +33,6 @@ class Resources : public ::Ultima::LocalResourceFile {
 };
 
 } // End of namespace Ultima0
-} // End of namespace Xeen
+} // End of namespace Ultima
 
 #endif
