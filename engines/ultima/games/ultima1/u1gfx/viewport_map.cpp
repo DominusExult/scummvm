@@ -20,35 +20,32 @@
  *
  */
 
-#include "ultima/games/ultima1/gfx/status.h"
-#include "ultima/games/ultima1/game.h"
-#include "ultima/games/shared/core/game_state.h"
-#include "ultima/games/ultima1/core/resources.h"
+#include "ultima/games/ultima1/u1gfx/viewport_map.h"
+#include "ultima/games/ultima1/u1gfx/sprites.h"
 
 namespace Ultima {
 namespace Ultima1 {
 namespace U1Gfx {
 
-EMPTY_MESSAGE_MAP(Status, Gfx::VisualItem);
+ViewportMap::ViewportMap(TreeItem *parent) : Shared::ViewportMap(parent), _mapType(MAP_OVERWORLD) {
+	_sprites = new Sprites(this);	
+}
 
-void Status::draw() {
-	Ultima1Game *game = static_cast<Ultima1Game *>(getGame());
-	Shared::GameState *gameState = getGameState();
-	Gfx::VisualSurface s = getSurface();
-	s.clear();
+ViewportMap::~ViewportMap() {
+}
 
-	// Iterate through displaying the values
-	Shared::Character &c = gameState->_characters.front();
-	const uint *vals[4] = { &c._hitPoints, &c._food, &c._experience, &c._coins };
-	int count = game->isVGA() ? 3 : 4;
+void ViewportMap::draw() {
+	Ultima1Map *map = static_cast<Ultima1Map *>(getMap());
 
-	for (int idx = 0; idx < count; ++idx) {
-		// Write header
-		s.writeString(game->_res->STATUS_TEXT[idx], TextPoint(0, idx), game->_textColor, game->_bgColor);
-
-		uint value = MIN(*vals[idx], (uint)9999);
-		s.writeString(Common::String::format("%4u", value), TextPoint(5, idx), game->_textColor, game->_bgColor);
+	// If necessary, load the sprites for rendering the map
+	if (_sprites->empty() || _mapType != map->_mapType) {
+		_mapType = map->_mapType;
+		Sprites *sprites = static_cast<Sprites *>(_sprites);
+		sprites->load(_mapType == MAP_OVERWORLD);
 	}
+
+	// Draw the map
+	Shared::ViewportMap::draw();
 }
 
 } // End of namespace U1Gfx

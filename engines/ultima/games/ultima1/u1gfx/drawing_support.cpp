@@ -20,7 +20,7 @@
  *
  */
 
-#include "ultima/games/ultima1/gfx/drawing_support.h"
+#include "ultima/games/ultima1/u1gfx/drawing_support.h"
 #include "ultima/games/ultima1/game.h"
 #include "ultima/ultima.h"
 

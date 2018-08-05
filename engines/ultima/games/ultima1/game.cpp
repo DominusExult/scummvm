@@ -22,8 +22,8 @@
 
 #include "ultima/games/ultima1/game.h"
 #include "ultima/games/ultima1/core/resources.h"
-#include "ultima/games/ultima1/gfx/game_view.h"
-#include "ultima/games/ultima1/gfx/text_cursor.h"
+#include "ultima/games/ultima1/u1gfx/game_view.h"
+#include "ultima/games/ultima1/u1gfx/text_cursor.h"
 #include "ultima/games/ultima1/u6gfx/game_view.h"
 #include "ultima/games/shared/core/resources.h"
 #include "ultima/ultima.h"
@@ -36,12 +36,12 @@ EMPTY_MESSAGE_MAP(Ultima1Game, Shared::Game);
 Ultima1Game::Ultima1Game() : Shared::Game() {
 	_res = new GameResources();
 	delete _textCursor;
-	_textCursor = new Gfx::U1TextCursor();
+	_textCursor = new U1Gfx::U1TextCursor();
 
 	if (g_vm->getFeatures() & GF_VGA_ENHANCED) {
 		_videoMode = VIDEOMODE_VGA;
 		loadU6Palette();
-		setFont(new Ultima::Gfx::Font((const byte *)&_fontResources->_fontU6[0][0]));
+		setFont(new Gfx::Font((const byte *)&_fontResources->_fontU6[0][0]));
 		_gameView = new U6Gfx::GameView(this);
 	} else {
 		setEGAPalette();

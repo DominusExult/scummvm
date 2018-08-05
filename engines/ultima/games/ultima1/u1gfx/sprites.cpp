@@ -20,7 +20,7 @@
  *
  */
 
-#include "ultima/games/ultima1/gfx/sprites.h"
+#include "ultima/games/ultima1/u1gfx/sprites.h"
 #include "ultima/ultima.h"
 
 namespace Ultima {

@@ -20,12 +20,12 @@
  *
  */
 
-#include "ultima/games/ultima1/gfx/text_cursor.h"
+#include "ultima/games/ultima1/u1gfx/text_cursor.h"
 #include "common/system.h"
 
 namespace Ultima {
 namespace Ultima1 {
-namespace Gfx {
+namespace U1Gfx {
 
 #define CURSOR_ANIM_FRAME_TIME 100
 
@@ -42,6 +42,6 @@ uint32 U1TextCursor::getTime() {
 	return g_system->getMillis();
 }
 
-} // End of namespace Gfx
+} // End of namespace U1Gfx
 } // End of namespace Ultima1
 } // End of namespace Ultima

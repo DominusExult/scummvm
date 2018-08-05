@@ -20,43 +20,25 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_TEXT_CURSOR_H
-#define ULTIMA_ULTIMA1_TEXT_CURSOR_H
-
-#include "ultima/gfx/text_cursor.h"
+#include "ultima/games/ultima1/u1gfx/viewport_dungeon.h"
+#include "ultima/games/ultima1/core/dungeon_widgets.h"
+#include "ultima/ultima.h"
 
 namespace Ultima {
 namespace Ultima1 {
-namespace Gfx {
+namespace U1Gfx {
 
-class U1TextCursor : public Ultima::Gfx::TextCursor {
-private:
-	int _frameNum;
-	uint32 _lastFrameFrame;
-private:
-	/**
-	 * Get the current game milliseconds
-	 */
-	uint32 getTime();
-public:
-	/**
-	 * Constructor
-	 */
-	U1TextCursor() : _frameNum(0), _lastFrameFrame(0) {}
+Shared::DungeonSurface ViewportDungeon::getSurface() {
+	Graphics::ManagedSurface src(*g_vm->_screen, _bounds);
+	return Shared::DungeonSurface(src, _bounds, getGame(), &drawWidget);
+}
 
-	/**
-	 * Destructor
-	 */
-	virtual ~U1TextCursor() {}
+void ViewportDungeon::drawWidget(Graphics::ManagedSurface &s, uint widgetId, uint distance, byte color) {
+	// Pass on to the dungeon widget drawer
+	Graphics::ManagedSurface surf(s, Common::Rect(-8, -8, s.w - 8, s.h - 8));
+	DungeonWidget::drawWidget(surf, (DungeonWidgetId)widgetId, distance, color);
+}
 
-	/**
-	 * Draw the cursor
-	 */
-	virtual void draw();
-};
-
-} // End of namespace Gfx
+} // End of namespace U1Gfx
 } // End of namespace Ultima1
 } // End of namespace Ultima
-
-#endif

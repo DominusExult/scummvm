@@ -45,13 +45,13 @@ MODULE_OBJS = \
 	games/ultima1/core/people.o \
 	games/ultima1/core/resources.o \
 	games/ultima1/core/transports.o \
-	games/ultima1/gfx/game_view.o \
-	games/ultima1/gfx/drawing_support.o \
-	games/ultima1/gfx/sprites.o \
-	games/ultima1/gfx/status.o \
-	games/ultima1/gfx/text_cursor.o \
-	games/ultima1/gfx/viewport_dungeon.o \
-	games/ultima1/gfx/viewport_map.o \
+	games/ultima1/u1gfx/game_view.o \
+	games/ultima1/u1gfx/drawing_support.o \
+	games/ultima1/u1gfx/sprites.o \
+	games/ultima1/u1gfx/status.o \
+	games/ultima1/u1gfx/text_cursor.o \
+	games/ultima1/u1gfx/viewport_dungeon.o \
+	games/ultima1/u1gfx/viewport_map.o \
 	games/ultima1/u6gfx/game_view.o \
 	games/ultima1/actions/action.o \
 	games/ultima1/actions/climb.o \

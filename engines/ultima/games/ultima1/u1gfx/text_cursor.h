@@ -20,34 +20,43 @@
  *
  */
 
-#include "ultima/games/ultima1/gfx/viewport_map.h"
-#include "ultima/games/ultima1/gfx/sprites.h"
+#ifndef ULTIMA_ULTIMA1_TEXT_CURSOR_H
+#define ULTIMA_ULTIMA1_TEXT_CURSOR_H
+
+#include "ultima/gfx/text_cursor.h"
 
 namespace Ultima {
 namespace Ultima1 {
 namespace U1Gfx {
 
-ViewportMap::ViewportMap(TreeItem *parent) : Shared::ViewportMap(parent), _mapType(MAP_OVERWORLD) {
-	_sprites = new Sprites(this);	
-}
+class U1TextCursor : public Ultima::Gfx::TextCursor {
+private:
+	int _frameNum;
+	uint32 _lastFrameFrame;
+private:
+	/**
+	 * Get the current game milliseconds
+	 */
+	uint32 getTime();
+public:
+	/**
+	 * Constructor
+	 */
+	U1TextCursor() : _frameNum(0), _lastFrameFrame(0) {}
 
-ViewportMap::~ViewportMap() {
-}
+	/**
+	 * Destructor
+	 */
+	virtual ~U1TextCursor() {}
 
-void ViewportMap::draw() {
-	Ultima1Map *map = static_cast<Ultima1Map *>(getMap());
-
-	// If necessary, load the sprites for rendering the map
-	if (_sprites->empty() || _mapType != map->_mapType) {
-		_mapType = map->_mapType;
-		Sprites *sprites = static_cast<Sprites *>(_sprites);
-		sprites->load(_mapType == MAP_OVERWORLD);
-	}
-
-	// Draw the map
-	Shared::ViewportMap::draw();
-}
+	/**
+	 * Draw the cursor
+	 */
+	virtual void draw();
+};
 
 } // End of namespace U1Gfx
 } // End of namespace Ultima1
 } // End of namespace Ultima
+
+#endif
