@@ -100,6 +100,11 @@ protected:
 	void load(const Common::String &name, uint bpp, uint16 w = 16, uint16 h = 16);
 public:
 	/**
+	 * Destructor
+	 */
+	virtual ~Sprites() {}
+
+	/**
 	 * Return the default dimensions for tiles
 	 */
 	Point getSpriteSize() const { return _spriteSize; }
