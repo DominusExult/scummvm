@@ -20,13 +20,48 @@
  *
  */
 
-#include "ultima/games/ultima1/core/people.h"
+#ifndef ULTIMA_ULTIMA1_MAP_MAP_OVERWORLD_H
+#define ULTIMA_ULTIMA1_MAP_MAP_OVERWORLD_H
+
 #include "ultima/games/ultima1/map/map.h"
-#include "common/algorithm.h"
 
 namespace Ultima {
 namespace Ultima1 {
+namespace Map {
 
+class MapOverworld : public Ultima1Map::MapBase {
+private:
+	/**
+	 * Load widget list for the map
+	 */
+	void loadWidgets();
+public:
+	MapOverworld(Ultima1Game *game) : Ultima1Map::MapBase(game) {}
+	virtual ~MapOverworld() {}
 
+	/**
+	 * Load the map
+	 */
+	virtual void load(Shared::MapId mapId);
+
+	/**
+	 * Shifts the viewport by a given delta
+	 */
+	virtual void shiftViewport(const Point &delta);
+
+	/**
+	 * Get the viewport position
+	 */
+	virtual Point getViewportPosition(const Point &viewportSize);
+
+	/**
+	 * Gets a point relative to the current position
+	 */
+	virtual Point getDeltaPosition(const Point &delta);
+};
+
+} // End of namespace Map
 } // End of namespace Ultima1
 } // End of namespace Ultima
+
+#endif

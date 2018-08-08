@@ -36,8 +36,8 @@ public:
 	/**
 	 * Constructor
 	 */
-	Person(Shared::Game *game, Shared::Map *map, uint tileNum, int hitPoints) : Shared::MapWidget(game, map),
-		_tileNum(tileNum), _hitPoints(hitPoints) {}
+	Person(Shared::Game *game, Shared::Map::MapBase *map, uint tileNum, int hitPoints) :
+		Shared::MapWidget(game, map), _tileNum(tileNum), _hitPoints(hitPoints) {}
 
 	/**
 	 * Destructor

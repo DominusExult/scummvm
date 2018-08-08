@@ -41,10 +41,13 @@ MODULE_OBJS = \
 	games/ultima0/core/resources.o \
 	games/ultima1/game.o \
 	games/ultima1/core/dungeon_widgets.o \
-	games/ultima1/core/map.o \
 	games/ultima1/core/people.o \
 	games/ultima1/core/resources.o \
 	games/ultima1/core/transports.o \
+	games/ultima1/map/map.o \
+	games/ultima1/map/map_city_castle.o \
+	games/ultima1/map/map_dungeon.o \
+	games/ultima1/map/map_overworld.o \
 	games/ultima1/u1gfx/game_view.o \
 	games/ultima1/u1gfx/drawing_support.o \
 	games/ultima1/u1gfx/info.o \
