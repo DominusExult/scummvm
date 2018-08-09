@@ -20,13 +20,12 @@
  *
  */
 
-#include "ultima/games/ultima1/core/people.h"
-#include "ultima/games/ultima1/map/map.h"
-#include "common/algorithm.h"
+#include "ultima/games/ultima1/people/person.h"
 
 namespace Ultima {
 namespace Ultima1 {
+namespace People {
 
-
+} // End of namespace People
 } // End of namespace Ultima1
 } // End of namespace Ultima

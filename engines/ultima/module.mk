@@ -41,7 +41,6 @@ MODULE_OBJS = \
 	games/ultima0/core/resources.o \
 	games/ultima1/game.o \
 	games/ultima1/core/dungeon_widgets.o \
-	games/ultima1/core/people.o \
 	games/ultima1/core/resources.o \
 	games/ultima1/core/transports.o \
 	games/ultima1/map/map.o \
@@ -60,7 +59,12 @@ MODULE_OBJS = \
 	games/ultima1/actions/action.o \
 	games/ultima1/actions/climb.o \
 	games/ultima1/actions/enter.o \
-	games/ultima1/actions/move.o
+	games/ultima1/actions/move.o \
+	games/ultima1/people/person.o \
+	games/ultima1/people/bard.o \
+	games/ultima1/people/guard.o \
+	games/ultima1/people/king.o \
+	games/ultima1/people/princess.o
 
 # This module can be built as a plugin
 ifeq ($(ENABLE_ULTIMA), DYNAMIC_PLUGIN)

@@ -20,37 +20,16 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_CORE_PEOPLE_H
-#define ULTIMA_ULTIMA1_CORE_PEOPLE_H
-
-#include "ultima/games/shared/core/map.h"
+#include "ultima/games/ultima1/people/bard.h"
 
 namespace Ultima {
 namespace Ultima1 {
+namespace People {
 
-class Person : public Shared::MapWidget {
-private:
-	uint _tileNum;
-	int _hitPoints;
-public:
-	/**
-	 * Constructor
-	 */
-	Person(Shared::Game *game, Shared::Map::MapBase *map, uint tileNum, int hitPoints) :
-		Shared::MapWidget(game, map), _tileNum(tileNum), _hitPoints(hitPoints) {}
+void Bard::update() {
 
-	/**
-	 * Destructor
-	 */
-	virtual ~Person() {}
+}
 
-	/**
-	 * Get the tile number for the person
-	 */
-	virtual uint getTileNum() const { return _tileNum; }
-};
-
+} // End of namespace People
 } // End of namespace Ultima1
 } // End of namespace Ultima
-
-#endif
