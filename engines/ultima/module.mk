@@ -64,7 +64,8 @@ MODULE_OBJS = \
 	games/ultima1/people/bard.o \
 	games/ultima1/people/guard.o \
 	games/ultima1/people/king.o \
-	games/ultima1/people/princess.o
+	games/ultima1/people/princess.o \
+	games/ultima1/people/wench.o
 
 # This module can be built as a plugin
 ifeq ($(ENABLE_ULTIMA), DYNAMIC_PLUGIN)
