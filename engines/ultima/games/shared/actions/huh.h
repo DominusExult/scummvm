@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef ULTIMA_SHARED_ACTIONS_PASS_H
-#define ULTIMA_SHARED_ACTIONS_PASS_H
+#ifndef ULTIMA_SHARED_ACTIONS_HUH_H
+#define ULTIMA_SHARED_ACTIONS_HUH_H
 
 #include "ultima/games/shared/actions/action.h"
 #include "ultima/messages.h"
@@ -30,9 +30,9 @@ namespace Ultima {
 namespace Shared {
 namespace Actions {
 
-class Pass : public Action {
+class Huh : public Action {
 	DECLARE_MESSAGE_MAP;
-	bool PassMsg(CPassMsg &msg);
+	bool HuhMsg(CHuhMsg &msg);
 private:
 	const char *&_text;
 public:
@@ -41,12 +41,12 @@ public:
 	/**
 	 * Constructor
 	 */
-	Pass(TreeItem *parent, const char *&text) : Action(parent), _text(text) {}
+	Huh(TreeItem *parent, const char *&text) : Action(parent), _text(text) {}
 
 	/**
 	 * Destructor
 	 */
-	virtual ~Pass() {}
+	virtual ~Huh() {}
 };
 
 } // End of namespace Actions

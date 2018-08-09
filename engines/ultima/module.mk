@@ -27,6 +27,7 @@ MODULE_OBJS = \
 	ultima.o \
 	games/shared/game.o \
 	games/shared/actions/action.o \
+	games/shared/actions/huh.o \
 	games/shared/actions/pass.o \
 	games/shared/core/character.o \
 	games/shared/core/game_state.o \

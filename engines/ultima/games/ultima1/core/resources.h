@@ -51,6 +51,7 @@ public:
 	const char *THE_CITY_OF;
 	const char *DUNGEON_LEVEL;
 	const char *PASS;
+	const char *HUH;
 public:
 	GameResources();
 	GameResources(Resources *resManager);
