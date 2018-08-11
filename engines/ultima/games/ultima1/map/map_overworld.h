@@ -45,6 +45,11 @@ public:
 	virtual void load(Shared::MapId mapId);
 
 	/**
+	 * Returns whether the map is fixed
+	 */
+	virtual bool isFixed() const { return false; }
+
+	/**
 	 * Shifts the viewport by a given delta
 	 */
 	virtual void shiftViewport(const Point &delta);

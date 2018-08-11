@@ -20,32 +20,33 @@
  *
  */
 
+#ifndef ULTIMA_ULTIMA1_WIDGETS_DUNGEON_PLAYER_H
+#define ULTIMA_ULTIMA1_WIDGETS_DUNGEON_PLAYER_H
+
 #include "ultima/games/shared/core/widgets.h"
 
 namespace Ultima {
-namespace Shared {
+namespace Ultima1 {
+namespace Widgets {
 
-bool DungeonWidget::canMoveTo(const Point &destPos) {
-	if (!MapWidget::canMoveTo(destPos))
-		return false;
+class DungeonPlayer : public Shared::DungeonWidget {
+public:
+	/**
+	 * Constructor
+	 */
+	DungeonWidget(Shared::Game *game, Map::MapBase *map) : MapWidget(game, map) {}
+	DungeonWidget(Shared::Game::Game *game, Ultima1Map::MapBase *map, const Point &pt) : MapWidget(game, map, pt) {}
+	DungeonWidget(Shared::Game *game, Ultima1Map::MapBase *map, const Point &pt, const Common::String &name) :
+		MapWidget(Shared::Game, map, pt, name) {}
 
-	// Get the details of the position
-	MapTile currTile, destTile;
-	_map->getTileAt(_map->getPosition(), &currTile);
-	_map->getTileAt(destPos, &destTile);
+	/**
+	 * Destructor
+	 */
+	virtual ~DungeonWidget() {}
+};
 
-	// Can't move onto certain dungeon tile types
-	if (destTile._isWall || destTile._isSecretDoor || destTile._isBeams)
-		return false;
-
-	// Can't move to directly adjoining doorway cells (they'd be in parralel to each other, not connected)
-	if (destTile._isDoor && currTile._isDoor)
-		return false;
-
-	return true;
-}
-
-/*------------------------------------------------------------------------*/
-
+} // End of namespace Widgets
 } // End of namespace Ultima1
 } // End of namespace Ultima
+
+#endif
