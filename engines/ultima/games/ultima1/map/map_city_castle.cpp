@@ -21,7 +21,7 @@
  */
 
 #include "ultima/games/ultima1/map/map_city_castle.h"
-#include "ultima/games/ultima1/core/transports.h"
+#include "ultima/games/ultima1/widgets/transport.h"
 #include "ultima/games/ultima1/core/resources.h"
 #include "ultima/games/ultima1/game.h"
 #include "ultima/games/ultima1/widgets/bard.h"
@@ -49,7 +49,7 @@ void MapCityCastle::clear() {
 
 void MapCityCastle::loadWidgets() {
 	// Set up widget for the player
-	_currentTransport = new TransportOnFoot(_game, this);
+	_currentTransport = new Widgets::TransportOnFoot(_game, this);
 	addWidget(_currentTransport);
 
 	for (int idx = 0; idx < 15; ++idx) {

@@ -66,7 +66,8 @@ MODULE_OBJS = \
 	games/ultima1/widgets/king.o \
 	games/ultima1/widgets/princess.o \
 	games/ultima1/widgets/wench.o \
-	games/ultima1/widgets/dungeon_widget.o
+	games/ultima1/widgets/dungeon_widget.o \
+	games/ultima1/widgets/transport.h
 
 # This module can be built as a plugin
 ifeq ($(ENABLE_ULTIMA), DYNAMIC_PLUGIN)
