@@ -20,16 +20,16 @@
  *
  */
 
-#include "ultima/games/ultima1/people/bard.h"
+#include "ultima/games/ultima1/widgets/guard.h"
 
 namespace Ultima {
 namespace Ultima1 {
-namespace People {
+namespace Widgets {
 
-void Bard::update() {
+void Guard::update() {
 
 }
 
-} // End of namespace People
+} // End of namespace Widgets
 } // End of namespace Ultima1
 } // End of namespace Ultima

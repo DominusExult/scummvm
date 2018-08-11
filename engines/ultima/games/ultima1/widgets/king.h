@@ -20,27 +20,27 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_PEOPLE_GUARD_H
-#define ULTIMA_ULTIMA1_PEOPLE_GUARD_H
+#ifndef ULTIMA_ULTIMA1_PEOPLE_KING_H
+#define ULTIMA_ULTIMA1_PEOPLE_KING_H
 
-#include "ultima/games/ultima1/people/person.h"
+#include "ultima/games/ultima1/widgets/person.h"
 
 namespace Ultima {
 namespace Ultima1 {
-namespace People {
+namespace Widgets {
 
-class Guard : public Person {
+class King : public Person {
 public:
 	/**
 	 * Constructor
 	 */
-	Guard(Ultima1Game *game, Map::Ultima1Map::MapBase *map, int hitPoints) :
-		Person(game, map, 17, hitPoints) {}
+	King(Ultima1Game *game, Map::Ultima1Map::MapBase *map, int hitPoints) :
+		Person(game, map, 20, hitPoints) {}
 
 	/**
 	 * Destructor
 	 */
-	virtual ~Guard() {}
+	virtual ~King() {}
 
 	/**
 	 * Called to update the character at the end of a turn
@@ -48,7 +48,7 @@ public:
 	virtual void update();
 };
 
-} // End of namespace People
+} // End of namespace Widgets
 } // End of namespace Ultima1
 } // End of namespace Ultima
 

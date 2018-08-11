@@ -20,35 +20,59 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_PEOPLE_PRINCESS_H
-#define ULTIMA_ULTIMA1_PEOPLE_PRINCESS_H
+#ifndef ULTIMA_ULTIMA1_PEOPLE_PERSON_H
+#define ULTIMA_ULTIMA1_PEOPLE_PERSON_H
 
-#include "ultima/games/ultima1/people/person.h"
+#include "ultima/games/ultima1/map/map.h"
+#include "ultima/games/ultima1/game.h"
 
 namespace Ultima {
 namespace Ultima1 {
-namespace People {
+namespace Widgets {
 
-class Princess : public Person {
+class Person : public Shared::MapWidget {
+private:
+	uint _tileNum;
+	int _hitPoints;
+protected:
+	Ultima1Game *_game;
+	Map::Ultima1Map::MapBase *_map;
+protected:
+	/**
+	 * Returns true if the guards are currently hostile
+	 */
+	bool areGuardsHostile() const;
+
+	/**
+	 * Returns a random movement delta of -1, 0, or 1
+	 */
+	int getRandomDelta() const;
+
+	/**
+	 * Returns a random movement delta
+	 */
+	Point getRandomMoveDelta() const {
+		return Point(getRandomDelta(), getRandomDelta());
+	}
 public:
 	/**
 	 * Constructor
 	 */
-	Princess(Ultima1Game *game, Map::Ultima1Map::MapBase *map, int hitPoints) :
-		Person(game, map, 22, hitPoints) {}
+	Person(Ultima1Game *game, Map::Ultima1Map::MapBase *map, uint tileNum, int hitPoints) :
+		Shared::MapWidget(game, map), _game(game), _map(map), _tileNum(tileNum), _hitPoints(hitPoints) {}
 
 	/**
 	 * Destructor
 	 */
-	virtual ~Princess() {}
+	virtual ~Person() {}
 
 	/**
-	 * Called to update the character at the end of a turn
+	 * Get the tile number for the person
 	 */
-	virtual void update();
+	virtual uint getTileNum() const { return _tileNum; }
 };
 
-} // End of namespace People
+} // End of namespace Widgets
 } // End of namespace Ultima1
 } // End of namespace Ultima
 

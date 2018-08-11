@@ -20,16 +20,28 @@
  *
  */
 
-#include "ultima/games/ultima1/people/guard.h"
+#include "ultima/games/ultima1/widgets/wench.h"
+#include "ultima/games/ultima1/map/map.h"
 
 namespace Ultima {
 namespace Ultima1 {
-namespace People {
+namespace Widgets {
 
-void Guard::update() {
+void Wench::update() {
+	if (!areGuardsHostile()) {
+		// Get a random new position
+		Point delta = getRandomMoveDelta();
+		Point newPos = _position + delta;
+		
+		// Check the destination tile
+		Map::U1MapTile mapTile;
+		_map->getTileAt(newPos, &mapTile);
 
+		// If the destination is clear, move to it
+		// TODO: move check, and if clear, move to dest
+	}
 }
 
-} // End of namespace People
+} // End of namespace Widgets
 } // End of namespace Ultima1
 } // End of namespace Ultima

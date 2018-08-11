@@ -61,12 +61,12 @@ MODULE_OBJS = \
 	games/ultima1/actions/climb.o \
 	games/ultima1/actions/enter.o \
 	games/ultima1/actions/move.o \
-	games/ultima1/people/person.o \
-	games/ultima1/people/bard.o \
-	games/ultima1/people/guard.o \
-	games/ultima1/people/king.o \
-	games/ultima1/people/princess.o \
-	games/ultima1/people/wench.o
+	games/ultima1/widgets/person.o \
+	games/ultima1/widgets/bard.o \
+	games/ultima1/widgets/guard.o \
+	games/ultima1/widgets/king.o \
+	games/ultima1/widgets/princess.o \
+	games/ultima1/widgets/wench.o
 
 # This module can be built as a plugin
 ifeq ($(ENABLE_ULTIMA), DYNAMIC_PLUGIN)
