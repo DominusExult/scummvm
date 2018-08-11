@@ -109,6 +109,8 @@ void Move::dungeonTurnLeft() {
 		map->setDirection(Shared::DIR_LEFT);
 		break;
 	}
+
+	addInfoMsg(getGame()->_res->DUNGEON_MOVES[Shared::DIR_LEFT - 1]);
 }
 
 void Move::dungeonTurnRight() {
@@ -128,6 +130,8 @@ void Move::dungeonTurnRight() {
 		map->setDirection(Shared::DIR_RIGHT);
 		break;
 	}
+
+	addInfoMsg(getGame()->_res->DUNGEON_MOVES[Shared::DIR_RIGHT - 1]);
 }
 
 void Move::dungeonTurnAround() {
@@ -147,6 +151,8 @@ void Move::dungeonTurnAround() {
 		map->setDirection(Shared::DIR_DOWN);
 		break;
 	}
+
+	addInfoMsg(getGame()->_res->DUNGEON_MOVES[Shared::DIR_DOWN - 1]);
 }
 
 void Move::dungeonMoveForward() {
@@ -160,6 +166,8 @@ void Move::dungeonMoveForward() {
 	} else {
 		playFX(0);
 	}
+
+	addInfoMsg(getGame()->_res->DUNGEON_MOVES[Shared::DIR_UP - 1]);
 }
 
 } // End of namespace Actions
