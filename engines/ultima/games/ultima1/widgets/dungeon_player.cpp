@@ -20,44 +20,20 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_WIDGETS_DUNGEON_PLAYER_H
-#define ULTIMA_ULTIMA1_WIDGETS_DUNGEON_PLAYER_H
-
-#include "ultima/games/shared/core/widgets.h"
-#include "ultima/games/shared/game.h"
+#include "ultima/games/ultima1/widgets/dungeon_player.h"
+#include "ultima/games/ultima1/widgets/dungeon_widget.h"
 
 namespace Ultima {
 namespace Ultima1 {
 namespace Widgets {
 
-class DungeonPlayer : public Shared::DungeonWidget {
-public:
-	/**
-	 * Constructor
-	 */
-	DungeonPlayer(Shared::Game *game, Shared::Map::MapBase *map) : Shared::DungeonWidget(game, map) {}
-	DungeonPlayer(Shared::Game *game, Shared::Map::MapBase *map, const Point &pt, Shared::Direction dir = Shared::DIR_NONE) : Shared::DungeonWidget(game, map, pt, dir) {}
-	DungeonPlayer(Shared::Game *game, Shared::Map::MapBase *map, const Common::String &name, const Point &pt, Shared::Direction dir = Shared::DIR_NONE) :
-		Shared::DungeonWidget(game, map, name, pt, dir) {}
+bool DungeonPlayer::canMoveTo(const Point &destPos) {
+	if (!MapWidget::canMoveTo(destPos))
+		return false;
 
-	/**
-	 * Destructor
-	 */
-	virtual ~DungeonPlayer() {}
-
-	/**
-	 * The player's viewpoint has no intrinsic drawing
-	 */
-	virtual void draw(Shared::DungeonSurface &s, uint distance) {}
-
-	/**
-	 * Returns true if the given widget can move to a given position on the map
-	 */
-	virtual bool canMoveTo(const Point &destPos);
-};
+	return DungeonMonster::canMoveTo(_map, this, destPos);
+}
 
 } // End of namespace Widgets
 } // End of namespace Ultima1
 } // End of namespace Ultima
-
-#endif
