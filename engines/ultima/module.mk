@@ -41,6 +41,7 @@ MODULE_OBJS = \
 	games/ultima0/game.o \
 	games/ultima0/core/resources.o \
 	games/ultima1/game.o \
+	games/ultima1/core/game_state.o \
 	games/ultima1/core/resources.o \
 	games/ultima1/core/transports.o \
 	games/ultima1/map/map.o \
