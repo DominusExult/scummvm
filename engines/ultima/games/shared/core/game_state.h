@@ -37,6 +37,8 @@ enum VideoMode {
 };
 
 class GameState {
+protected:
+	Game *_game;
 public:
 	/**
 	 * Position in the world map. This is stored separately from the map so that the same point can
@@ -88,6 +90,11 @@ public:
 	 * Destructor
 	 */
 	~GameState();
+
+	/**
+	 * Setup the initial game state
+	 */
+	virtual void setup() {}
 
 	/**
 	 * Returns true if the party is dead

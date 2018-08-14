@@ -31,16 +31,16 @@ namespace Ultima1 {
 class Ultima1Game;
 
 class GameState : public Shared::GameState {
-private:
-	/**
-	 * Sets up the party
-	 */
-	void setupParty();
 public:
 	/**
 	 * Constructor
 	 */
 	GameState(Ultima1Game *game);
+
+	/**
+	 * Setup the initial game state
+	 */
+	virtual void setup();
 };
 
 } // End of namespace Ultima1

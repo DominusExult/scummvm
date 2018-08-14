@@ -24,6 +24,7 @@ MODULE_OBJS = \
 	input_handler.o \
 	input_translator.o \
 	messages.o \
+	utils.o \
 	ultima.o \
 	games/shared/game.o \
 	games/shared/actions/action.o \
