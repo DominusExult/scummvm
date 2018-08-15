@@ -20,25 +20,17 @@
  *
  */
 
-#include "ultima/games/shared/core/widgets.h"
-#include "ultima/games/shared/game.h"
-#include "ultima/games/shared/core/game_state.h"
+#include "ultima/games/ultima1/widgets/hit.h"
 
 namespace Ultima {
-namespace Shared {
+namespace Ultima1 {
+namespace Widgets {
 
-/*------------------------------------------------------------------------*/
-
-void Creature::update(bool isPreUpdate) {
-	if (isPreUpdate) {
-		// Check whether creature can attack
-		_isAttacking = attackDistance() != 0;
-		if (!_isAttacking)
-			movement();
-	} else if (_isAttacking && !_game->_gameState->isPartyDead()) {
-		attack();
-	}
+uint Hit::getTileNum() const {
+	// Tile for the round hit effect
+	return 50;
 }
 
+} // End of namespace Widgets
 } // End of namespace Ultima1
 } // End of namespace Ultima

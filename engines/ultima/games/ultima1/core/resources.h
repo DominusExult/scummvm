@@ -67,6 +67,7 @@ public:
 	const char *THIEF_STOLE;
 	const char *A, *AN;
 	const char *HIT_DAMAGE;
+	const char *MONSTER_ATTACKS;
 public:
 	GameResources();
 	GameResources(Resources *resManager);

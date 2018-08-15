@@ -154,6 +154,11 @@ public:
 	 * Gets a random number
 	 */
 	uint getRandomNumber(uint min, uint max);
+
+	/**
+	 * Wait for a given period of time
+	 */
+	void sleep(uint time);
 };
 
 } // End of namespace Ultima

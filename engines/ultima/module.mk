@@ -71,6 +71,7 @@ MODULE_OBJS = \
 	games/ultima1/widgets/dungeon_player.o \
 	games/ultima1/widgets/dungeon_widget.o \
 	games/ultima1/widgets/dungeon_monster.o \
+	games/ultima1/widgets/hit.o \
 	games/ultima1/widgets/transport.o \
 	games/ultima1/widgets/overworld_monster.o
 
