@@ -40,7 +40,7 @@ public:
 	/**
 	 * Setup the initial game state
 	 */
-	virtual void setup();
+	virtual void setup() override;
 };
 
 } // End of namespace Ultima1

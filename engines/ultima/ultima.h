@@ -74,7 +74,7 @@ private:
 	/**
 	 * Deinitialize the engine
 	 */
-	virtual void deinitialize();
+	void deinitialize();
 public:
 	const UltimaGameDescription *_gameDescription;
 	Debugger *_debugger;
@@ -89,7 +89,7 @@ public:
 	/**
 	 * Main method for running the game
 	 */
-	virtual Common::Error run();
+	virtual Common::Error run() override;
 
 	/**
 	 * Play the game

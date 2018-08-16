@@ -55,7 +55,7 @@ public:
 	/**
 	 * Return a specific sprite
 	 */
-	virtual Gfx::Sprite &operator[](uint idx);
+	virtual Gfx::Sprite &operator[](uint idx) override;
 
 	/**
 	 * Loads the Ultima 1 sprites
