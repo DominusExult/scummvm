@@ -23,7 +23,8 @@
 #include "ultima/games/ultima1/game.h"
 #include "ultima/games/ultima1/core/game_state.h"
 #include "ultima/games/ultima1/core/resources.h"
-#include "ultima/games/ultima1/u1gfx/game_view.h"
+#include "ultima/games/ultima1/u1gfx/view_game.h"
+#include "ultima/games/ultima1/u1gfx/view_title.h"
 #include "ultima/games/ultima1/u1gfx/text_cursor.h"
 #include "ultima/games/ultima1/u6gfx/game_view.h"
 #include "ultima/games/shared/core/resources.h"
@@ -40,14 +41,16 @@ Ultima1Game::Ultima1Game() : Shared::Game() {
 	delete _textCursor;
 	_textCursor = new U1Gfx::U1TextCursor(_textColor, _bgColor);
 
-	if (g_vm->getFeatures() & GF_VGA_ENHANCED) {
+	if (g_vm->isVGAEnhanced()) {
 		_videoMode = VIDEOMODE_VGA;
 		loadU6Palette();
 		setFont(new Gfx::Font((const byte *)&_fontResources->_fontU6[0][0]));
 		_gameView = new U6Gfx::GameView(this);
+		_titleView = nullptr;
 	} else {
 		setEGAPalette();
-		_gameView = new U1Gfx::GameView(this);
+		_gameView = new U1Gfx::ViewGame(this);
+		_titleView = new U1Gfx::ViewTitle(this);
 	}
 }
 
@@ -58,7 +61,7 @@ Ultima1Game::~Ultima1Game() {
 void Ultima1Game::starting() {
 	_res->load();
 	_gameState->setup();
-	_gameView->setView("GameView");
+	_gameView->setView(g_vm->isVGAEnhanced() ? "Game" : "Title");
 }
 
 } // End of namespace Ultima1

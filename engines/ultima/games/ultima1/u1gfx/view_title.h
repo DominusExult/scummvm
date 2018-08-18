@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_GFX_GAME_VIEW_H
-#define ULTIMA_ULTIMA1_GFX_GAME_VIEW_H
+#ifndef ULTIMA_ULTIMA1_GFX_VIEW_MAP_H
+#define ULTIMA_ULTIMA1_GFX_VIEW_MAP_H
 
 #include "ultima/gfx/visual_container.h"
 #include "ultima/gfx/bitmap.h"
@@ -46,24 +46,13 @@ class ViewportMap;
  * This class implements a standard view screen that shows a status and log area, as well as either
  * a map or dungeon view covering the bulk of the screen
  */
-class GameView : public Gfx::VisualContainer {
+class ViewTitle : public Gfx::VisualContainer {
 	DECLARE_MESSAGE_MAP;
 	bool KeypressMsg(CKeypressMsg &msg);
-private:
-	Shared::Info *_info;
-	Shared::ViewportDungeon *_viewportDungeon;
-	ViewportMap *_viewportMap;
-	Status *_status;
-	Shared::Actions::Action *_actions[5];
-private:
-	/**
-	 * Draws level & direction indicators when in a dungeon
-	 */
-	void drawIndicators();
 public:
 	CLASSDEF;
-	GameView(TreeItem *parent = nullptr);
-	virtual ~GameView();
+	ViewTitle(TreeItem *parent = nullptr);
+	virtual ~ViewTitle();
 
 	/**
 	 * Draw the game screen

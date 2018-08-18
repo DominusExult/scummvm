@@ -49,12 +49,13 @@ MODULE_OBJS = \
 	games/ultima1/map/map_city_castle.o \
 	games/ultima1/map/map_dungeon.o \
 	games/ultima1/map/map_overworld.o \
-	games/ultima1/u1gfx/game_view.o \
 	games/ultima1/u1gfx/drawing_support.o \
 	games/ultima1/u1gfx/info.o \
 	games/ultima1/u1gfx/sprites.o \
 	games/ultima1/u1gfx/status.o \
 	games/ultima1/u1gfx/text_cursor.o \
+	games/ultima1/u1gfx/view_game.o \
+	games/ultima1/u1gfx/view_title.o \
 	games/ultima1/u1gfx/viewport_dungeon.o \
 	games/ultima1/u1gfx/viewport_map.o \
 	games/ultima1/u6gfx/game_view.o \

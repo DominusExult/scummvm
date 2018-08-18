@@ -20,70 +20,58 @@
  *
  */
 
-#ifndef ULTIMA_SHARED_GAME_H
-#define ULTIMA_SHARED_GAME_H
+#ifndef ULTIMA_ULTIMA1_GFX_VIEW_GAME_H
+#define ULTIMA_ULTIMA1_GFX_VIEW_GAME_H
 
-#include "ultima/game_base.h"
+#include "ultima/gfx/visual_container.h"
+#include "ultima/gfx/bitmap.h"
 
 namespace Ultima {
+
 namespace Shared {
+	class Info;
+	class ViewportDungeon;
+	namespace Actions {
+		class Action;
+	}
+}
+	
+namespace Ultima1 {
+namespace U1Gfx {
 
-class GameView;
-class GameState;
-class FontResources;
+class Status;
+class ViewportMap;
 
-class Game : public GameBase {
+/**
+ * This class implements a standard view screen that shows a status and log area, as well as either
+ * a map or dungeon view covering the bulk of the screen
+ */
+class ViewGame : public Gfx::VisualContainer {
 	DECLARE_MESSAGE_MAP;
-protected:
-	GameView *_gameView;
-	FontResources *_fontResources;
-protected:
+	bool KeypressMsg(CKeypressMsg &msg);
+private:
+	Shared::Info *_info;
+	Shared::ViewportDungeon *_viewportDungeon;
+	ViewportMap *_viewportMap;
+	Status *_status;
+	Shared::Actions::Action *_actions[5];
+private:
 	/**
-	 * Sets up EGA palette
+	 * Draws level & direction indicators when in a dungeon
 	 */
-	void setEGAPalette();
-
-	/**
-	 * Sets up a CGA palette
-	 */
-	void setCGAPalette();
-
-	/**
-	 * Loads the Ultima 6 palette
-	 */
-	void loadU6Palette();
-public:
-	byte _edgeColor;
-	byte _borderColor;
-	byte _highlightColor;
-	byte _textColor;
-	byte _color1;
-	byte _bgColor;
-	byte _whiteColor;
+	void drawIndicators();
 public:
 	CLASSDEF;
+	ViewGame(TreeItem *parent = nullptr);
+	virtual ~ViewGame();
 
 	/**
-	 * Constructor
+	 * Draw the game screen
 	 */
-	Game();
-	
-	/**
-	 * Destructor
-	 */
-	virtual ~Game();
-
-	/**
-	 * Play a sound effect
-	 */
-	void playFX(uint effectId);
-
-	/**
-	 * Called at the end of each turn
-	 */
-	void endOfTurn();
+	virtual void draw();
 };
 
+} // End of namespace U1Gfx
 } // End of namespace Shared
 } // End of namespace Ultima
 

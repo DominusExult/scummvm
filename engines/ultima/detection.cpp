@@ -46,6 +46,10 @@ uint32 UltimaEngine::getFeatures() const {
 	return _gameDescription->features;
 }
 
+bool UltimaEngine::isVGAEnhanced() const {
+	return getFeatures() & GF_VGA_ENHANCED;
+}
+
 } // End of namespace Ultima
 
 static const PlainGameDescriptor ultimaGames[] = {

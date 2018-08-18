@@ -112,6 +112,11 @@ public:
 	uint32 getFeatures() const;
 
 	/**
+	 * Return if the game is running in the new VGA enhanced mode
+	 */
+	bool isVGAEnhanced() const;
+
+	/**
 	 * Creates a new hierarchy for the game, that contains all the logic for playing that particular game.
 	 */
 	Shared::Game *createGame() const;
