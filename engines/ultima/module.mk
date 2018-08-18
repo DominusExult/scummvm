@@ -66,6 +66,7 @@ MODULE_OBJS = \
 	games/ultima1/widgets/bard.o \
 	games/ultima1/widgets/guard.o \
 	games/ultima1/widgets/king.o \
+	games/ultima1/widgets/merchant.o \
 	games/ultima1/widgets/princess.o \
 	games/ultima1/widgets/wench.o \
 	games/ultima1/widgets/dungeon_player.o \
