@@ -63,6 +63,16 @@ private:
 	 * Draws the castle view
 	 */
 	void drawCastleView();
+
+	/**
+	 * Sets up the palette for the castle view
+	 */
+	void setCastlePalette();
+
+	/**
+	 * Sets up the palette for the title views
+	 */
+	void setTitlePalette();
 public:
 	CLASSDEF;
 	ViewTitle(TreeItem *parent = nullptr);
