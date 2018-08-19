@@ -25,6 +25,7 @@
 
 #include "ultima/gfx/visual_container.h"
 #include "ultima/gfx/bitmap.h"
+#include "graphics/managed_surface.h"
 
 namespace Ultima {
 
@@ -49,6 +50,8 @@ class ViewportMap;
 class ViewTitle : public Gfx::VisualContainer {
 	DECLARE_MESSAGE_MAP;
 	bool KeypressMsg(CKeypressMsg &msg);
+private:
+	Graphics::ManagedSurface _logo;
 public:
 	CLASSDEF;
 	ViewTitle(TreeItem *parent = nullptr);

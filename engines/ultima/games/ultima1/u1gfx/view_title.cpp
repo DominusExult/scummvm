@@ -24,6 +24,7 @@
 #include "ultima/games/ultima1/u1gfx/drawing_support.h"
 #include "ultima/games/ultima1/core/resources.h"
 #include "ultima/games/ultima1/game.h"
+#include "ultima/core/file.h"
 #include "ultima/messages.h"
 
 namespace Ultima {
@@ -35,6 +36,10 @@ BEGIN_MESSAGE_MAP(ViewTitle, Gfx::VisualContainer)
 END_MESSAGE_MAP()
 
 ViewTitle::ViewTitle(TreeItem *parent) : Gfx::VisualContainer("Title", Rect(0, 0, 320, 200), parent) {
+	// Load the Origin logo
+	File f("ULTIMA1/LOGO");
+	_logo.create(275, 64);
+	f.read((byte *)_logo.getPixels(), _logo.w * _logo.h);
 }
 
 ViewTitle::~ViewTitle() {
@@ -54,6 +59,9 @@ void ViewTitle::draw() {
 	s.writeString(game->_res->TITLE_MESSAGES[0], TextPoint(16, 8), game->_whiteColor);
 	s.writeString(game->_res->TITLE_MESSAGES[1], TextPoint(8, 11), game->_whiteColor);
 	s.writeString(game->_res->TITLE_MESSAGES[2], TextPoint(0, 21), game->_whiteColor);
+
+	//****DEBUG*****
+	s.blitFrom(_logo);
 }
 
 bool ViewTitle::KeypressMsg(CKeypressMsg &msg) {
