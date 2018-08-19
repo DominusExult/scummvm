@@ -43,7 +43,7 @@ class ViewTitle : public Gfx::VisualContainer {
 	bool KeypressMsg(CKeypressMsg &msg);
 	bool FrameMsg(CFrameMsg &msg);
 private:
-	Graphics::ManagedSurface _logo;
+	Graphics::ManagedSurface _logo, _castle;
 	enum TitleMode { TITLEMODE_COPYRIGHT, TITLEMODE_PRESENTS, TITLEMODE_CASTLE };
 	TitleMode _mode;
 	uint32 _expiryTime;
