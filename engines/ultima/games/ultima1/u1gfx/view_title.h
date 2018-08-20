@@ -45,7 +45,7 @@ class ViewTitle : public Gfx::VisualContainer {
 private:
 	Graphics::ManagedSurface _logo, _castle;
 	Graphics::ManagedSurface _flags[3];
-	enum TitleMode { TITLEMODE_COPYRIGHT, TITLEMODE_PRESENTS, TITLEMODE_CASTLE };
+	enum TitleMode { TITLEMODE_COPYRIGHT, TITLEMODE_PRESENTS, TITLEMODE_CASTLE, TITLEMODE_TRADEMARKS, TITLEMODE_MAIN_MENU };
 	TitleMode _mode;
 	uint32 _expiryTime;
 	int _counter;
@@ -69,6 +69,16 @@ private:
 	 * Animates the castle flags
 	 */
 	void drawCastleFlag(Gfx::VisualSurface &s, int xp);
+
+	/**
+	 * Draws the trademarks view
+	 */
+	void drawTrademarksView();
+
+	/**
+	 * Draws the main menu
+	 */
+	void drawMainMenu();
 
 	/**
 	 * Sets up the palette for the castle view
