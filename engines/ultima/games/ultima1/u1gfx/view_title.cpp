@@ -25,6 +25,7 @@
 #include "ultima/games/ultima1/core/resources.h"
 #include "ultima/games/ultima1/game.h"
 #include "ultima/core/file.h"
+#include "ultima/gfx/text_cursor.h"
 #include "ultima/messages.h"
 
 namespace Ultima {
@@ -243,6 +244,10 @@ bool ViewTitle::FrameMsg(CFrameMsg &msg) {
 				_mode = TITLEMODE_MAIN_MENU;
 				_expiryTime = time;
 				_counter = 0;
+
+				Gfx::TextCursor *textCursor = getGame()->_textCursor;
+				textCursor->setVisible(true);
+				textCursor->setPosition(TextPoint(25, 18));
 			}
 		}
 		break;
