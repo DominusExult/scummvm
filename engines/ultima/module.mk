@@ -13,6 +13,7 @@ MODULE_OBJS = \
 	gfx/font.o \
 	gfx/screen.o \
 	gfx/sprites.o \
+	gfx/text_cursor.o \
 	gfx/visual_container.o \
 	gfx/visual_item.o \
 	gfx/visual_surface.o \

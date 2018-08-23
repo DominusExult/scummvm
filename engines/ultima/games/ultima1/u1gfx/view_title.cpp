@@ -246,8 +246,8 @@ bool ViewTitle::FrameMsg(CFrameMsg &msg) {
 				_counter = 0;
 
 				Gfx::TextCursor *textCursor = getGame()->_textCursor;
-				textCursor->setVisible(true);
 				textCursor->setPosition(TextPoint(25, 18));
+				textCursor->setVisible(true);
 			}
 		}
 		break;

@@ -35,8 +35,7 @@ namespace Ultima {
 
 GameBase::GameBase(): _currentView(nullptr), _font(nullptr), _priorLeftDownTime(0), _priorMiddleDownTime(0),
 		_priorRightDownTime(0), _inputHandler(this), _inputTranslator(&_inputHandler), _gameState(nullptr),
-		_videoMode(0) {
-	_textCursor = new Gfx::TextCursor();
+		_videoMode(0), _textCursor(nullptr) {
 }
 
 GameBase::~GameBase() {
@@ -196,8 +195,8 @@ void GameBase::update() {
 		// Draw the view
 		_currentView->draw();
 
-		 // Draw the text cursor if it's visible
-		_textCursor->draw();
+		 // Allow the text cursor to update
+		_textCursor->update();
 	}
 }
 

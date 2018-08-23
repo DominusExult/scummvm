@@ -27,12 +27,36 @@
 namespace Ultima {
 namespace Gfx {
 
-Screen::Screen(): Graphics::Screen(320, 200) {
+Screen::Screen(): Graphics::Screen(320, 200), _cursor(nullptr), _drawCursor(false) {
 	initGraphics(320, 200);
 }
 
-Screen::~Screen() {
+void Screen::update() {
+	_drawCursor = false;
+
+	if (_cursor) {
+		// Check whether the area the cursor occupies will be being updated
+		Common::Rect cursorBounds = _cursor->getBounds();
+		for (Common::List<Common::Rect>::iterator i = _dirtyRects.begin(); i != _dirtyRects.end(); ++i) {
+			const Common::Rect &r = *i;
+			if (r.intersects(cursorBounds)) {
+				addDirtyRect(cursorBounds);
+				_drawCursor = true;
+				break;
+			}
+		}
+	}
+
+	Graphics::Screen::update();
 }
+
+void Screen::updateScreen() {
+	if (_drawCursor)
+		_cursor->draw();
+
+	Graphics::Screen::updateScreen();
+}
+
 
 } // End of namespace Gfx
 } // End of namespace Ultima
