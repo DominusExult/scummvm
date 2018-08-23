@@ -20,45 +20,41 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_GAME_H
-#define ULTIMA_ULTIMA1_GAME_H
-
-#include "ultima/games/shared/game.h"
-#include "ultima/gfx/visual_container.h"
+#include "ultima/games/ultima1/u1gfx/view_char_gen.h"
+#include "ultima/games/ultima1/u1gfx/drawing_support.h"
+#include "ultima/games/ultima1/core/resources.h"
+#include "ultima/games/ultima1/game.h"
+#include "ultima/messages.h"
 
 namespace Ultima {
 namespace Ultima1 {
+namespace U1Gfx {
 
-enum VideoMode {
-	VIDEOMODE_EGA = 0, VIDEOMODE_VGA = 1
-};
+BEGIN_MESSAGE_MAP(ViewCharacterGeneration, Gfx::VisualContainer)
+	ON_MESSAGE(KeypressMsg)
+END_MESSAGE_MAP()
 
-class GameResources;
+ViewCharacterGeneration::ViewCharacterGeneration(TreeItem *parent) : Gfx::VisualContainer("CharGen", Rect(0, 0, 320, 200), parent) {
+}
 
-class Ultima1Game : public Shared::Game {
-	DECLARE_MESSAGE_MAP;
-public:
-	GameResources *_res;
-	Ultima::Gfx::VisualContainer *_gameView;
-	Ultima::Gfx::VisualContainer *_titleView;
-	Ultima::Gfx::VisualContainer *_charGenView;
-public:
-	CLASSDEF;
-	Ultima1Game();
-	virtual ~Ultima1Game();
+void ViewCharacterGeneration::draw() {
+	if (!_isDirty)
+		return;
 
-	/**
-	 * Returns true if the current video mode is VGA
-	 */
-	virtual bool isVGA() const { return _videoMode == VIDEOMODE_VGA; }
+	// Handle drawing the frame
+	Gfx::VisualSurface s = getSurface();
+	s.clear();
+	DrawingSupport ds(s);
+	ds.drawFrame();
 
-	/**
-	 * Called when the game starts
-	 */
-	void starting();
-};
+	VisualContainer::draw();
+}
 
-} // End of namespace Ultima1
+bool ViewCharacterGeneration::KeypressMsg(CKeypressMsg &msg) {
+
+	return true;
+}
+
+} // End of namespace U1Gfx
+} // End of namespace Shared
 } // End of namespace Ultima
-
-#endif

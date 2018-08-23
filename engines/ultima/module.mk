@@ -56,6 +56,7 @@ MODULE_OBJS = \
 	games/ultima1/u1gfx/status.o \
 	games/ultima1/u1gfx/text_cursor.o \
 	games/ultima1/u1gfx/view_game.o \
+	games/ultima1/u1gfx/view_char_gen.o \
 	games/ultima1/u1gfx/view_title.o \
 	games/ultima1/u1gfx/viewport_dungeon.o \
 	games/ultima1/u1gfx/viewport_map.o \

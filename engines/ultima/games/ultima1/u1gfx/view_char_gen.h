@@ -20,45 +20,46 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_GAME_H
-#define ULTIMA_ULTIMA1_GAME_H
+#ifndef ULTIMA_ULTIMA1_GFX_VIEW_CHAR_GEN_H
+#define ULTIMA_ULTIMA1_GFX_VIEW_CHAR_GEN_H
 
-#include "ultima/games/shared/game.h"
 #include "ultima/gfx/visual_container.h"
+#include "ultima/games/shared/core/character.h"
+#include "graphics/managed_surface.h"
 
 namespace Ultima {
 namespace Ultima1 {
+namespace U1Gfx {
 
-enum VideoMode {
-	VIDEOMODE_EGA = 0, VIDEOMODE_VGA = 1
-};
-
-class GameResources;
-
-class Ultima1Game : public Shared::Game {
+/**
+ * This class implements the character generation view
+ */
+class ViewCharacterGeneration : public Gfx::VisualContainer {
 	DECLARE_MESSAGE_MAP;
-public:
-	GameResources *_res;
-	Ultima::Gfx::VisualContainer *_gameView;
-	Ultima::Gfx::VisualContainer *_titleView;
-	Ultima::Gfx::VisualContainer *_charGenView;
+	bool KeypressMsg(CKeypressMsg &msg);
+private:
+	Shared::Character _character;
 public:
 	CLASSDEF;
-	Ultima1Game();
-	virtual ~Ultima1Game();
 
 	/**
-	 * Returns true if the current video mode is VGA
+	 * Constructor
 	 */
-	virtual bool isVGA() const { return _videoMode == VIDEOMODE_VGA; }
+	ViewCharacterGeneration(TreeItem *parent = nullptr);
+	
+	/**
+	 * Destructor
+	 */
+	virtual ~ViewCharacterGeneration() {}
 
 	/**
-	 * Called when the game starts
+	 * Draw the game screen
 	 */
-	void starting();
+	virtual void draw();
 };
 
-} // End of namespace Ultima1
+} // End of namespace U1Gfx
+} // End of namespace Shared
 } // End of namespace Ultima
 
 #endif

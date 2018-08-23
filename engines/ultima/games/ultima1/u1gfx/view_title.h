@@ -31,9 +31,6 @@ namespace Ultima {
 namespace Ultima1 {
 namespace U1Gfx {
 
-class Status;
-class ViewportMap;
-
 /**
  * This class implements a standard view screen that shows a status and log area, as well as either
  * a map or dungeon view covering the bulk of the screen
