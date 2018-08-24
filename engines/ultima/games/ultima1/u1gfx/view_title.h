@@ -37,6 +37,7 @@ namespace U1Gfx {
  */
 class ViewTitle : public Gfx::VisualContainer {
 	DECLARE_MESSAGE_MAP;
+	bool ShowMsg(CShowMsg &msg);
 	bool KeypressMsg(CKeypressMsg &msg);
 	bool FrameMsg(CFrameMsg &msg);
 private:
