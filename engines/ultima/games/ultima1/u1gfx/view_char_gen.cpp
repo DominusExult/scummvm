@@ -34,7 +34,8 @@ BEGIN_MESSAGE_MAP(ViewCharacterGeneration, Gfx::VisualContainer)
 	ON_MESSAGE(KeypressMsg)
 END_MESSAGE_MAP()
 
-ViewCharacterGeneration::ViewCharacterGeneration(TreeItem *parent) : Gfx::VisualContainer("CharGen", Rect(0, 0, 320, 200), parent) {
+ViewCharacterGeneration::ViewCharacterGeneration(TreeItem *parent) :
+		Gfx::VisualContainer("CharGen", Rect(0, 0, 320, 200), parent), _flags(FLAG_INITIAL) {
 }
 
 void ViewCharacterGeneration::draw() {

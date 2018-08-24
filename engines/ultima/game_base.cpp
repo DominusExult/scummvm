@@ -197,7 +197,8 @@ void GameBase::update() {
 		frameMsg.execute(_currentView, nullptr, MSGFLAG_SCAN);
 
 		// Draw the view
-		_currentView->draw();
+		if (_currentView->isDirty())
+			_currentView->draw();
 
 		 // Allow the text cursor to update
 		_textCursor->update();
