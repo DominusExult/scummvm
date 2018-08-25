@@ -31,6 +31,8 @@
 namespace Ultima {
 namespace Gfx {
 
+class Dialog;
+
 /**
  * Acts as the base class for all classes that have a visual representation on the screen
  */
@@ -99,6 +101,11 @@ public:
 	 * Helper function to switch to a different visual item
 	 */
 	void setView(const Common::String &viewName);
+
+	/**
+	 * Helper function to switch to an on-screen dialog
+	 */
+	void setDialog(Gfx::Dialog *dialog);
 
 	/**
 	 * Helper function to switch the item to be the current view

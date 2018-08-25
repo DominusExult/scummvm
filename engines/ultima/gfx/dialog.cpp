@@ -27,9 +27,9 @@ namespace Ultima {
 namespace Gfx {
 
 void Dialog::show() {
-	// Save a copy of the view the dialog is being shown on, and set the dialog as the active view
+	// Save a copy of the view the dialog is being shown on, and activate it
 	_parentView = _game->getView();
-	_game->setView(this);
+	_game->setDialog(this);
 	setDirty();
 }
 
