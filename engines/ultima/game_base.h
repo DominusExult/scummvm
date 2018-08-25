@@ -37,6 +37,7 @@ class UltimaEngine;
 namespace Gfx {
 	class Font;
 	class TextCursor;
+	class TextInput;
 	class VisualItem;
 }
 namespace Shared {
@@ -73,6 +74,7 @@ protected:
 public:
 	Shared::GameState *_gameState;
 	Gfx::TextCursor *_textCursor;
+	Gfx::TextInput *_textInput;
 	uint _videoMode;
 public:
 	/**

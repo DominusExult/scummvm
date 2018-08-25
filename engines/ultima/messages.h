@@ -39,6 +39,7 @@ enum MessageFlag {
 class CMessage;
 namespace Gfx {
 	class VisualItem;
+	class TextInput;
 }
 
 #define MESSAGEDEF(theClass) \
@@ -272,6 +273,11 @@ MESSAGE0(CPassMsg);
  * Called when a game view is shown
  */
 MESSAGE2(CShowMsg, Gfx::VisualItem *, view, (Gfx::VisualItem *)nullptr, bool, fadeIn, false);
+
+/**
+ * Used when text input is finished, to pass the text back to the owning view
+ */
+MESSAGE3(CTextInputMsg, Gfx::TextInput *, textInput, nullptr, Common::String, text, "", bool, escaped, false);
 
 } // End of namespace Ultima
 

@@ -10,10 +10,12 @@ MODULE_OBJS = \
 	core/resources.o \
 	core/tree_item.o \
 	gfx/bitmap.o \
+	gfx/dialog.o \
 	gfx/font.o \
 	gfx/screen.o \
 	gfx/sprites.o \
 	gfx/text_cursor.o \
+	gfx/text_input.o \
 	gfx/visual_container.o \
 	gfx/visual_item.o \
 	gfx/visual_surface.o \
