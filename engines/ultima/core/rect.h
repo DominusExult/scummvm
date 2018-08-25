@@ -33,10 +33,22 @@ typedef Common::Rect Rect;
 
 typedef Common::Point Point;
 
+/**
+ * Simple derived point class that converts text coordinates to graphic screen coordinates
+ */
 class TextPoint : public Common::Point {
 public:
 	TextPoint() : Common::Point() {}
 	TextPoint(int16 x1, int16 y1) : Common::Point(x1 * 8, y1 * 8) {}
+};
+
+/**
+ * Simple derived rect class that converts text coordinates to graphic screen coordinates
+ */
+class TextRect : public Common::Rect {
+public:
+	TextRect() : Common::Rect() {}
+	TextRect(int16 x1, int16 y1, int16 x2, int16 y2) : Common::Rect(x1 * 8, y1 * 8, x2 * 8, y2 * 8) {}
 };
 
 } // End of namespace Ultima
