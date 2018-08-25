@@ -95,16 +95,6 @@ public:
 	Shared::Game *getGame();
 
 	/**
-	 * Return the game state
-	 */
-	Shared::GameState *getGameState();
-
-	/**
-	 * Return the game's map
-	 */
-	Shared::Map *getMap();
-
-	/**
 	 * Returns the currently active game view
 	 */
 	Gfx::VisualItem *getView();

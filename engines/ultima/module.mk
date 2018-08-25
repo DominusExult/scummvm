@@ -23,7 +23,6 @@ MODULE_OBJS = \
 	detection.o \
 	events.o \
 	game_base.o \
-	game_state.o \
 	input_handler.o \
 	input_translator.o \
 	messages.o \
@@ -34,7 +33,6 @@ MODULE_OBJS = \
 	games/shared/actions/huh.o \
 	games/shared/actions/pass.o \
 	games/shared/core/character.o \
-	games/shared/core/game_state.o \
 	games/shared/core/map.o \
 	games/shared/core/resources.o \
 	games/shared/core/widgets.o \
@@ -45,7 +43,6 @@ MODULE_OBJS = \
 	games/ultima0/game.o \
 	games/ultima0/core/resources.o \
 	games/ultima1/game.o \
-	games/ultima1/core/game_state.o \
 	games/ultima1/core/resources.o \
 	games/ultima1/core/transports.o \
 	games/ultima1/map/map.o \

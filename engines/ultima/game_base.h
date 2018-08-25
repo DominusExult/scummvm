@@ -26,7 +26,6 @@
 #include "common/scummsys.h"
 #include "common/array.h"
 #include "ultima/events.h"
-#include "ultima/games/shared/core/game_state.h"
 #include "ultima/input_handler.h"
 #include "ultima/input_translator.h"
 
@@ -40,9 +39,6 @@ namespace Gfx {
 	class TextCursor;
 	class TextInput;
 	class VisualItem;
-}
-namespace Shared {
-	class GameState;
 }
 
 class GameBase : public TreeItem, public EventTarget {
@@ -74,7 +70,6 @@ protected:
 	InputTranslator _inputTranslator;
 	Gfx::Font *_font;
 public:
-	Shared::GameState *_gameState;
 	Gfx::TextCursor *_textCursor;
 	Gfx::TextInput *_textInput;
 	uint _videoMode;
@@ -153,6 +148,11 @@ public:
 	 * Returns the current font
 	 */
 	Gfx::Font *getFont() const { return _font; }
+
+	/**
+	 * Returns the map
+	 */
+	virtual Shared::Map *getMap() const { return nullptr; }
 
 	/**
 	 * Gets a random number

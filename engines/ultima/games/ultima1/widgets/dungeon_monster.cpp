@@ -105,7 +105,7 @@ void DungeonMonster::attack() {
 	Ultima1Game *game = static_cast<Ultima1Game *>(_game);
 	Point playerPos = _map->_currentTransport->_position;
 	Point delta = playerPos - _position;
-	Shared::Character *c = _game->_gameState->_currentCharacter;
+	Shared::Character *c = _game->_party._currentCharacter;
 	uint threshold, damage;
 	bool isHit = true;
 

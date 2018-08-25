@@ -44,20 +44,12 @@ Shared::Game *TreeItem::getGame() {
 	return dynamic_cast<Shared::Game *>(treeItem);
 }
 
-Shared::GameState *TreeItem::getGameState() {
-	return getGame()->_gameState;
-}
-
 TreeItem *TreeItem::getLastSibling() {
 	TreeItem *item = this;
 	while (item->getNextSibling())
 		item = item->getNextSibling();
 
 	return item;
-}
-
-Shared::Map *TreeItem::getMap() {
-	return getGameState()->_map;
 }
 
 Gfx::VisualItem *TreeItem::getView() {

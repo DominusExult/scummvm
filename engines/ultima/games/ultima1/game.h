@@ -37,6 +37,11 @@ class GameResources;
 
 class Ultima1Game : public Shared::Game {
 	DECLARE_MESSAGE_MAP;
+private:
+	/**
+	 * Takes care of final setup as the game starts
+	 */
+	void setup();
 public:
 	GameResources *_res;
 	Ultima::Gfx::VisualContainer *_gameView;
