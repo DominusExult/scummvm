@@ -23,6 +23,11 @@
 #include "common/scummsys.h"
 #include "common/config-manager.h"
 #include "common/debug-channels.h"
+#include "common/system.h"
+#include "common/translation.h"
+#include "graphics/thumbnail.h"
+#include "graphics/scaler.h"
+#include "gui/saveload.h"
 #include "ultima/ultima.h"
 #include "ultima/debugger.h"
 #include "ultima/events.h"
@@ -76,6 +81,13 @@ bool UltimaEngine::initialize() {
 	// Load cursors
 	_mouseCursor = new MouseCursor();
 
+	// If requested, load a savegame instead of showing the intro
+	if (ConfMan.hasKey("save_slot")) {
+		int saveSlot = ConfMan.getInt("save_slot");
+		if (saveSlot >= 0 && saveSlot <= 999)
+			loadGameState(saveSlot);
+	}
+
 	return true;
 }
 
@@ -105,6 +117,163 @@ Shared::Game *UltimaEngine::createGame() const {
 	default:
 		error("Unknown game");
 	}
+}
+
+void UltimaEngine::GUIError(const char *msg, ...) {
+	char buffer[STRINGBUFLEN];
+	va_list va;
+
+	// Generate the full error message
+	va_start(va, msg);
+	vsnprintf(buffer, STRINGBUFLEN, msg, va);
+	va_end(va);
+
+	GUIErrorMessage(buffer);
+}
+
+Common::Error UltimaEngine::loadGameState(int slot) {
+	Common::InSaveFile *saveFile = g_system->getSavefileManager()->openForLoading(
+		Common::String::format("%s.%.3d", _targetName.c_str(), slot));
+	if (!saveFile)
+		return Common::kReadingFailed;
+
+	// Load the savaegame header
+	UltimaSavegameHeader header;
+	if (!readSavegameHeader(saveFile, header, false))
+		return Common::kReadingFailed;
+
+	if (header._gameId != getGameID() || header._language != getLanguage()
+		|| header._videoMode != (isVGAEnhanced() ? 9 : 0))
+		return Common::kReadingFailed;
+
+	// Set the total play time
+	_events->setFrameCounter(header._totalFrames);
+
+	// Read in the game's data
+	Common::Serializer s(saveFile, nullptr);
+	_game->synchronize(s);
+
+	delete saveFile;
+	return Common::kNoError;
+}
+
+Common::Error UltimaEngine::saveGameState(int slot, const Common::String &desc) {
+	Common::OutSaveFile *saveFile = g_system->getSavefileManager()->openForSaving(
+		Common::String::format("%s.%.3d", _targetName.c_str(), slot));
+	if (!saveFile)
+		return Common::kCreatingFileFailed;
+
+	// Write the savegame header
+	writeSavegameHeader(saveFile, desc);
+
+	// Write out the game's data
+	Common::Serializer s(nullptr, saveFile);
+	_game->synchronize(s);
+
+	saveFile->finalize();
+	delete saveFile;
+
+	return Common::kNoError;
+}
+
+bool UltimaEngine::canLoadGameStateCurrently() {
+	return _game->canLoadGameStateCurrently();
+}
+
+bool UltimaEngine::canSaveGameStateCurrently() {
+	return _game->canSaveGameStateCurrently();
+}
+
+static const uint32 SAVEGAME_IDENT = MKTAG('U', 'L', 'T', 'S');
+static const int SAVEGAME_VERSION = 1;
+
+bool UltimaEngine::readSavegameHeader(Common::InSaveFile *in, UltimaSavegameHeader &header, bool skipThumbnail) {
+	// Validate the header Id
+	if (in->readUint32BE() != SAVEGAME_IDENT)
+		return false;
+
+	header._version = in->readByte();
+	if (header._version > SAVEGAME_VERSION)
+		return false;
+
+	// Read in game, version and language fields
+	header._gameId = in->readByte();
+	header._language = in->readByte();
+	header._videoMode = in->readByte();
+
+	// Read in the string
+	header._saveName.clear();
+	char ch;
+	while ((ch = (char)in->readByte()) != '\0')
+		header._saveName += ch;
+
+	// Get the thumbnail
+	if (!Graphics::loadThumbnail(*in, header._thumbnail, skipThumbnail)) {
+		return false;
+	}
+
+	// Read in save date/time
+	header._year = in->readSint16LE();
+	header._month = in->readSint16LE();
+	header._day = in->readSint16LE();
+	header._hour = in->readSint16LE();
+	header._minute = in->readSint16LE();
+	header._totalFrames = in->readUint32LE();
+
+	return true;
+}
+
+void UltimaEngine::writeSavegameHeader(Common::OutSaveFile *out, const Common::String &saveName) {
+	out->writeUint32BE(SAVEGAME_IDENT);
+	out->writeByte(SAVEGAME_VERSION);
+	out->writeByte(getGameID());
+	out->writeByte(isVGAEnhanced() ? 9 : 0);
+	out->writeString(saveName);
+
+	// Write a thumbnail of the screen
+	uint8 thumbPalette[PALETTE_SIZE];
+	_screen->getPalette(thumbPalette);
+	Graphics::Surface saveThumb;
+	::createThumbnail(&saveThumb, (const byte *)_screen->getPixels(),
+		_screen->w, _screen->h, thumbPalette);
+	Graphics::saveThumbnail(*out, saveThumb);
+	saveThumb.free();
+
+	// Write out the save date/time
+	TimeDate td;
+	g_system->getTimeAndDate(td);
+	out->writeSint16LE(td.tm_year + 1900);
+	out->writeSint16LE(td.tm_mon + 1);
+	out->writeSint16LE(td.tm_mday);
+	out->writeSint16LE(td.tm_hour);
+	out->writeSint16LE(td.tm_min);
+	out->writeUint32LE(_events->getFrameCounter());
+}
+
+bool UltimaEngine::saveGame() {
+	if (!g_vm->canSaveGameStateCurrently())
+		return false;
+
+	GUI::SaveLoadChooser *dialog = new GUI::SaveLoadChooser(_("Save game:"), _("Save"), true);
+	int slotNum = dialog->runModalWithCurrentTarget();
+	Common::String saveName = dialog->getResultString();
+	delete dialog;
+
+	if (slotNum != -1)
+		saveGameState(slotNum, saveName);
+
+	return slotNum != -1;
+}
+
+bool UltimaEngine::loadGame() {
+	GUI::SaveLoadChooser *dialog = new GUI::SaveLoadChooser(_("Load game:"), _("Load"), false);
+	int slotNum = dialog->runModalWithCurrentTarget();
+	delete dialog;
+
+	if (slotNum != -1)
+		loadGameState(slotNum);
+
+	return slotNum != -1;
 }
 
 } // End of namespace Ultima

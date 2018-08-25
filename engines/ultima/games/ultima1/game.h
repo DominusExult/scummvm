@@ -61,6 +61,11 @@ public:
 	 * Called when the game starts
 	 */
 	void starting();
+
+	/**
+	 * Returns true if the game can currently be saved
+	 */
+	virtual bool canSaveGameStateCurrently();
 };
 
 } // End of namespace Ultima1

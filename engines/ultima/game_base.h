@@ -25,6 +25,7 @@
 
 #include "common/scummsys.h"
 #include "common/array.h"
+#include "common/serializer.h"
 #include "ultima/events.h"
 #include "ultima/input_handler.h"
 #include "ultima/input_translator.h"
@@ -173,6 +174,21 @@ public:
 	 * Return the current time
 	 */
 	uint32 getMillis() const;
+
+	/**
+	 * Returns true if a savegame can currently be loaded
+	 */
+	virtual bool canLoadGameStateCurrently() { return true; }
+
+	/**
+	 * Returns true if the game can currently be saved
+	 */
+	virtual bool canSaveGameStateCurrently() { return false; }
+
+	/**
+	 * Handles loading and saving games
+	 */
+	virtual void synchronize(Common::Serializer &s) {}
 };
 
 } // End of namespace Ultima

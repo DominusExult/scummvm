@@ -144,6 +144,11 @@ public:
 	uint32 getFrameCounter() const { return _frameCounter; }
 
 	/**
+	 * Sets the current game frame counter
+	 */
+	void setFrameCounter(uint32 frameNum) { _frameCounter = frameNum; }
+
+	/**
 	 * Get the elapsed playtime
 	 */
 	uint32 getTicksCount() const;

@@ -31,6 +31,7 @@
 #include "common/random.h"
 #include "common/savefile.h"
 #include "common/util.h"
+#include "graphics/surface.h"
 #include "engines/engine.h"
 
 namespace Ultima {
@@ -48,6 +49,18 @@ enum UltimaGameFeatures {
 };
 
 struct UltimaGameDescription;
+
+struct UltimaSavegameHeader {
+	uint8 _version;
+	uint8 _gameId;
+	uint8 _language;
+	uint8 _videoMode;
+	Common::String _saveName;
+	Graphics::Surface *_thumbnail;
+	int _year, _month, _day;
+	int _hour, _minute;
+	int _totalFrames;
+};
 
 class Debugger;
 class Events;
@@ -130,6 +143,56 @@ public:
 	 * Gets a random number
 	 */
 	uint getRandomNumber(uint min, uint max) { return min + _randomSource.getRandomNumber(max - min); }
+
+	/**
+	 * Displays an error message in a GUI dialog
+	 */
+	void GUIError(const char *msg, ...) GCC_PRINTF(2, 3);
+
+	/**
+	 * Load a savegame
+	 */
+	virtual Common::Error loadGameState(int slot) override;
+
+	/**
+	 * Save the game
+	 */
+	virtual Common::Error saveGameState(int slot, const Common::String &desc) override;
+
+	/**
+	 * Returns true if a savegame can currently be loaded
+	 */
+	virtual bool canLoadGameStateCurrently() override;
+
+	/**
+	 * Returns true if the game can currently be saved
+	 */
+	virtual bool canSaveGameStateCurrently() override;
+
+	/**
+	 * Get engine features
+	 */
+	virtual bool hasFeature(EngineFeature f) const override;
+
+	/**
+	 * Load a pending save
+	 */
+	bool loadGame();
+
+	/**
+	 * Save the game
+	 */
+	bool saveGame();
+
+	/**
+	 * Read in a savegame header
+	 */
+	static bool readSavegameHeader(Common::InSaveFile *in, UltimaSavegameHeader &header, bool skipThumbnail);
+
+	/**
+	 * Write out a savegame header
+	 */
+	void writeSavegameHeader(Common::OutSaveFile *out, const Common::String &saveName);
 };
 
 extern UltimaEngine *g_vm;

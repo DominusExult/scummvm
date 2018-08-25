@@ -84,5 +84,9 @@ void Ultima1Game::setup() {
 		c._spells[idx]._name = _res->SPELL_NAMES[idx];
 }
 
+bool Ultima1Game::canSaveGameStateCurrently() {
+	return _currentView->getName() == "Game";
+}
+
 } // End of namespace Ultima1
 } // End of namespace Ultima
