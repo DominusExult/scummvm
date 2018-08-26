@@ -251,9 +251,6 @@ void UltimaEngine::writeSavegameHeader(Common::OutSaveFile *out, const Common::S
 }
 
 bool UltimaEngine::saveGame() {
-	if (!g_vm->canSaveGameStateCurrently())
-		return false;
-
 	GUI::SaveLoadChooser *dialog = new GUI::SaveLoadChooser(_("Save game:"), _("Save"), true);
 	int slotNum = dialog->runModalWithCurrentTarget();
 	Common::String saveName = dialog->getResultString();
