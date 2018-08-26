@@ -42,6 +42,9 @@ namespace Gfx {
 	class VisualItem;
 }
 
+/**
+ * Base class for the game implementations
+ */
 class GameBase : public TreeItem, public EventTarget {
 private:
 	/**
@@ -61,7 +64,6 @@ private:
 
 	void changeView(const Common::String &name);
 protected:
-	int _pendingLoadSlot;
 	uint32 _priorLeftDownTime;
 	uint32 _priorMiddleDownTime;
 	uint32 _priorRightDownTime;
@@ -188,7 +190,7 @@ public:
 	/**
 	 * Handles loading and saving games
 	 */
-	virtual void synchronize(Common::Serializer &s) {}
+	virtual void synchronize(Common::Serializer &s);
 };
 
 } // End of namespace Ultima
