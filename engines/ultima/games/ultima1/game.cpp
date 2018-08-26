@@ -62,10 +62,12 @@ Ultima1Game::~Ultima1Game() {
 	delete _gameView;
 }
 
-void Ultima1Game::starting() {
+void Ultima1Game::starting(bool isLoading) {
+	Shared::Game::starting(isLoading);
+
 	_res->load();
 	setup();
-	_gameView->setView(g_vm->isVGAEnhanced() ? "Game" : "Title");
+	_gameView->setView(isLoading ? "Game" : "Title");
 }
 
 

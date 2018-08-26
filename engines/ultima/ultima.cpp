@@ -72,20 +72,20 @@ bool UltimaEngine::initialize() {
 	_debugger = Debugger::init(this);
 	_events = new Events();
 	_screen = new Gfx::Screen();
+	_mouseCursor = new MouseCursor();
 
 	// Create the game, and signal to it that the game is starting
 	_game = createGame();
 	_events->addTarget(_game);
-	_game->starting();
-
-	// Load cursors
-	_mouseCursor = new MouseCursor();
 
 	// If requested, load a savegame instead of showing the intro
 	if (ConfMan.hasKey("save_slot")) {
 		int saveSlot = ConfMan.getInt("save_slot");
 		if (saveSlot >= 0 && saveSlot <= 999)
 			loadGameState(saveSlot);
+		_game->starting(true);
+	} else {
+		_game->starting(false);
 	}
 
 	return true;
@@ -227,8 +227,10 @@ void UltimaEngine::writeSavegameHeader(Common::OutSaveFile *out, const Common::S
 	out->writeUint32BE(SAVEGAME_IDENT);
 	out->writeByte(SAVEGAME_VERSION);
 	out->writeByte(getGameID());
+	out->writeByte(getLanguage());
 	out->writeByte(isVGAEnhanced() ? 9 : 0);
 	out->writeString(saveName);
+	out->writeByte(0);
 
 	// Write a thumbnail of the screen
 	uint8 thumbPalette[PALETTE_SIZE];
