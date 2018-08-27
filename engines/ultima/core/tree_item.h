@@ -95,6 +95,11 @@ public:
 	Shared::Game *getGame();
 
 	/**
+	 * Jumps up through the parents to find the root game
+	 */
+	const Shared::Game *getGame() const;
+
+	/**
 	 * Returns the currently active game view
 	 */
 	Gfx::VisualItem *getView();
