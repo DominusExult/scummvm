@@ -27,6 +27,7 @@
 #include "ultima/core/file.h"
 #include "ultima/gfx/text_cursor.h"
 #include "ultima/messages.h"
+#include "ultima/ultima.h"
 
 namespace Ultima {
 namespace Ultima1 {
@@ -287,8 +288,14 @@ bool ViewTitle::KeypressMsg(CKeypressMsg &msg) {
 			Gfx::TextCursor *textCursor = getGame()->_textCursor;
 			textCursor->setVisible(false);
 
-			if (msg._keyState.keycode == Common::KEYCODE_a)
+			if (msg._keyState.keycode == Common::KEYCODE_a) {
 				setView("CharGen");
+			} else {
+				if (g_vm->loadGame())
+					setView("Game");
+				else
+					textCursor->setVisible(true);
+			}
 		}
 
 	} else if (_mode != TITLEMODE_TRADEMARKS) {
