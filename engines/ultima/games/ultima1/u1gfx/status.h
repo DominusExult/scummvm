@@ -36,7 +36,7 @@ class Status : public Gfx::VisualItem {
 	DECLARE_MESSAGE_MAP;
 public:
 	CLASSDEF;
-	Status(TreeItem *parent) : Gfx::VisualItem("Status", Rect(248, 168, 320, 200), parent) {}
+	Status(TreeItem *parent) : Gfx::VisualItem("Status", TextRect(31, 21, 40, 25), parent) {}
 	virtual ~Status() {}
 
 	/**

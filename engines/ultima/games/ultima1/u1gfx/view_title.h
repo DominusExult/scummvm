@@ -32,10 +32,10 @@ namespace Ultima1 {
 namespace U1Gfx {
 
 /**
- * This class implements a standard view screen that shows a status and log area, as well as either
- * a map or dungeon view covering the bulk of the screen
+ * This class implements the title screen, which shows the copyright screens and Ultima castle screen,
+ * as well as the main menu
  */
-class ViewTitle : public Gfx::VisualContainer {
+class ViewTitle : public Gfx::VisualItem {
 	DECLARE_MESSAGE_MAP;
 	bool ShowMsg(CShowMsg &msg);
 	bool KeypressMsg(CKeypressMsg &msg);

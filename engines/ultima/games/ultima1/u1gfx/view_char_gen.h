@@ -36,7 +36,7 @@ namespace U1Gfx {
 /**
  * This class implements the character generation view
  */
-class ViewCharacterGeneration : public Gfx::VisualContainer {
+class ViewCharacterGeneration : public Gfx::VisualItem {
 	DECLARE_MESSAGE_MAP;
 	bool KeypressMsg(CKeypressMsg &msg);
 	bool ShowMsg(CShowMsg &msg);
