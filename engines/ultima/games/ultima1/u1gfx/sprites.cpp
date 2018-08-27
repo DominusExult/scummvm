@@ -22,6 +22,7 @@
 
 #include "ultima/games/ultima1/u1gfx/sprites.h"
 #include "ultima/ultima.h"
+#include "ultima/games/shared/game.h"
 
 namespace Ultima {
 namespace Ultima1 {
@@ -30,6 +31,8 @@ namespace U1Gfx {
 BEGIN_MESSAGE_MAP(Sprites, TreeItem)
 	ON_MESSAGE(FrameMsg)
 END_MESSAGE_MAP()
+
+#define ANIMATE_FRAME_DELAY 200
 
 void Sprites::load(bool isOverworld) {
 	_isOverworld = isOverworld;
@@ -41,11 +44,17 @@ void Sprites::load(bool isOverworld) {
 }
 
 bool Sprites::FrameMsg(CFrameMsg &msg) {
-	if (!empty() && _isOverworld) {
-		animateWater();
+	uint32 time = getGame()->getMillis();
+
+	if (time >= _nextFrameTime) {
+		_nextFrameTime = time + ANIMATE_FRAME_DELAY;
+		if (!empty() && _isOverworld) {
+			animateWater();
+		}
+
+		++_frameCtr;
 	}
 
-	++_frameCtr;
 	return false;
 }
 
