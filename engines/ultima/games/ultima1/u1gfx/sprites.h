@@ -38,7 +38,6 @@ class Sprites : public Gfx::Sprites, public TreeItem {
 	DECLARE_MESSAGE_MAP;
 	bool FrameMsg(CFrameMsg &msg);
 private:
-	uint32 _nextFrameTime;
 	bool _isOverworld;
 	uint _frameCtr;
 private:
@@ -52,7 +51,7 @@ public:
 	/**
 	 * Constructor
 	 */
-	Sprites(TreeItem *parent) : Gfx::Sprites(), TreeItem(), _isOverworld(false), _frameCtr(0), _nextFrameTime(0) {
+	Sprites(TreeItem *parent) : Gfx::Sprites(), TreeItem(), _isOverworld(false), _frameCtr(0) {
 		addUnder(parent);
 	}
 

@@ -48,6 +48,7 @@ class ViewportMap;
  */
 class ViewGame : public Gfx::VisualContainer {
 	DECLARE_MESSAGE_MAP;
+	bool FrameMsg(CFrameMsg &msg);
 	bool KeypressMsg(CKeypressMsg &msg);
 private:
 	Shared::Info *_info;
@@ -55,6 +56,7 @@ private:
 	ViewportMap *_viewportMap;
 	Status *_status;
 	Shared::Actions::Action *_actions[5];
+	int _frameCtr;
 private:
 	/**
 	 * Draws level & direction indicators when in a dungeon
