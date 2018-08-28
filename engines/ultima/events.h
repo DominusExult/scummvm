@@ -83,6 +83,9 @@ public:
 	virtual void keyDown(Common::KeyState keyState) override { _pressed = true; }
 };
 
+/**
+ * Main events manager
+ */
 class Events {
 private:
 	Common::Stack<EventTarget *> _eventTargets;
@@ -108,6 +111,11 @@ private:
 	 * Handles setting/resettings special buttons on key up/down
 	 */
 	void handleKbdSpecial(Common::KeyState keyState);
+
+	/**
+	 * Returns true if the key is a modifier key
+	 */
+	bool isSpecialKey(const Common::KeyCode &kc) const;
 public:
 	Events();
 	~Events() {}

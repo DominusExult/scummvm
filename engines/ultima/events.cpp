@@ -83,15 +83,23 @@ void Events::pollEvents() {
 		break;
 	case Common::EVENT_KEYDOWN:
 		handleKbdSpecial(event.kbd);
-		eventTarget()->keyDown(event.kbd);
+		if (!isSpecialKey(event.kbd.keycode))
+			eventTarget()->keyDown(event.kbd);
 		break;
 	case Common::EVENT_KEYUP:
 		handleKbdSpecial(event.kbd);
-		eventTarget()->keyUp(event.kbd);
+		if (!isSpecialKey(event.kbd.keycode))
+			eventTarget()->keyUp(event.kbd);
 		break;
 	default:
 		break;
 	}
+}
+
+bool Events::isSpecialKey(const Common::KeyCode &kc) const {
+	return kc == Common::KEYCODE_LCTRL || kc == Common::KEYCODE_RCTRL
+		|| kc == Common::KEYCODE_LALT || kc == Common::KEYCODE_RALT
+		|| kc == Common::KEYCODE_LSHIFT || kc == Common::KEYCODE_RSHIFT;
 }
 
 void Events::pollEventsAndWait() {
