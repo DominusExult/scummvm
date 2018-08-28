@@ -87,6 +87,7 @@ class Events {
 private:
 	Common::Stack<EventTarget *> _eventTargets;
 	uint32 _frameCounter;
+	uint32 _playTime;
 	uint32 _priorFrameTime;
 	Point _mousePos;
 	uint _specialButtons;
@@ -144,9 +145,14 @@ public:
 	uint32 getFrameCounter() const { return _frameCounter; }
 
 	/**
-	 * Sets the current game frame counter
+	 * Return the current play time frame counter
 	 */
-	void setFrameCounter(uint32 frameNum) { _frameCounter = frameNum; }
+	uint32 getPlayTime() const { return _playTime; }
+
+	/**
+	 * Sets the current play time counter
+	 */
+	void setPlayTIme(uint32 time) { _playTime = time; }
 
 	/**
 	 * Get the elapsed playtime

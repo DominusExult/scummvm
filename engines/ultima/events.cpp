@@ -31,7 +31,7 @@
 
 namespace Ultima {
 
-Events::Events(): _frameCounter(1), _priorFrameTime(0), _specialButtons(0) {
+Events::Events(): _frameCounter(1), _playTime(0), _priorFrameTime(0), _specialButtons(0) {
 }
 
 void Events::pollEvents() {
@@ -104,6 +104,7 @@ bool Events::checkForNextFrameCounter() {
 	uint32 milli = g_system->getMillis();
 	if ((milli - _priorFrameTime) >= GAME_FRAME_TIME) {
 		++_frameCounter;
+		++_playTime;
 		_priorFrameTime = milli;
 
 		// Handle any idle updates

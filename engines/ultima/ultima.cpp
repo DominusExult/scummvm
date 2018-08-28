@@ -148,7 +148,7 @@ Common::Error UltimaEngine::loadGameState(int slot) {
 		return Common::kReadingFailed;
 
 	// Set the total play time
-	_events->setFrameCounter(header._totalFrames);
+	_events->setPlayTIme(header._totalFrames);
 
 	// Read in the game's data
 	Common::Serializer s(saveFile, nullptr);
@@ -250,7 +250,7 @@ void UltimaEngine::writeSavegameHeader(Common::OutSaveFile *out, const Common::S
 	out->writeSint16LE(td.tm_mday);
 	out->writeSint16LE(td.tm_hour);
 	out->writeSint16LE(td.tm_min);
-	out->writeUint32LE(_events->getFrameCounter());
+	out->writeUint32LE(_events->getPlayTime());
 }
 
 bool UltimaEngine::saveGame() {
