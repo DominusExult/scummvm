@@ -20,31 +20,48 @@
  *
  */
 
-#include "ultima/games/ultima1/widgets/transport.h"
-#include "ultima/games/ultima1/game.h"
-#include "ultima/games/ultima1/map/map.h"
-#include "ultima/games/ultima1/map/map_dungeon.h"
-#include "ultima/games/ultima1/map/map_overworld.h"
-#include "common/algorithm.h"
+#ifndef ULTIMA_ULTIMA1_URBAN_PLAYER_H
+#define ULTIMA_ULTIMA1_URBAN_PLAYER_H
+
+#include "ultima/games/ultima1/widgets/person.h"
 
 namespace Ultima {
 namespace Ultima1 {
 namespace Widgets {
 
-Ultima1Game *Transport::getGame() const {
-	return static_cast<Ultima1Game *>(_game);
-}
+/**
+ * Specialized player class for within cities and castles
+ */
+class UrbanPlayer : public Person {
+private:
+	/**
+	 * Checks for whether a princess has been saved from a castle being left
+	 */
+	bool isPrincessSaved() const;
 
-Map::Ultima1Map::MapBase *Transport::getMap() const {
-	return static_cast<Map::Ultima1Map::MapBase *>(_map);
-}
+	/**
+	 * Called for a princess being saved
+	 */
+	void princessSaved();
+public:
+	DECLARE_WIDGET(UrbanPlayer)
 
-/*-------------------------------------------------------------------*/
+	/**
+	 * Constructor
+	 */
+	UrbanPlayer(Ultima1Game *game, Map::Ultima1Map::MapBase *map) : Person(game, map, 18) {}
 
-uint TransportOnFoot::getTileNum() const {
-	return 8;
-}
+	/**
+	 * Moves to a given position
+	 * @param destPos		Specified new position
+	 * @param dir			Optional explicit direction to set. If not specified,
+	 *		the direction will be set relative to the position moved from
+	 */
+	virtual void moveTo(const Point &destPos, Shared::Direction dir = Shared::DIR_NONE) override;
+};
 
 } // End of namespace Widgets
 } // End of namespace Ultima1
 } // End of namespace Ultima
+
+#endif

@@ -33,7 +33,7 @@ void Princess::movement() {
 		Wench::movement();
 	} else {
 		// When the guards are hostile, keep the princess moving towards the player
-		Point playerPos = _map->_currentTransport->_position;
+		Point playerPos = _map->_playerWidget->_position;
 		Point delta(SGN(_position.x - playerPos.x), SGN(_position.y - playerPos.y));
 		bool moved = false;
 

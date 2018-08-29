@@ -76,7 +76,8 @@ MODULE_OBJS = \
 	games/ultima1/widgets/dungeon_monster.o \
 	games/ultima1/widgets/hit.o \
 	games/ultima1/widgets/transport.o \
-	games/ultima1/widgets/overworld_monster.o
+	games/ultima1/widgets/overworld_monster.o \
+	games/ultima1/widgets/urban_player.o
 
 
 # This module can be built as a plugin

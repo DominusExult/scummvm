@@ -20,29 +20,34 @@
  *
  */
 
-#include "ultima/games/ultima1/widgets/transport.h"
-#include "ultima/games/ultima1/game.h"
+#include "ultima/games/ultima1/widgets/urban_player.h"
 #include "ultima/games/ultima1/map/map.h"
-#include "ultima/games/ultima1/map/map_dungeon.h"
-#include "ultima/games/ultima1/map/map_overworld.h"
-#include "common/algorithm.h"
+#include "ultima/games/ultima1/game.h"
 
 namespace Ultima {
 namespace Ultima1 {
 namespace Widgets {
 
-Ultima1Game *Transport::getGame() const {
-	return static_cast<Ultima1Game *>(_game);
+void UrbanPlayer::moveTo(const Point &destPos, Shared::Direction dir) {
+	Creature::moveTo(destPos, dir);
+	Shared::Map *map = _game->getMap();
+
+	if (destPos.x < 0 || destPos.y < 0 || destPos.x >= (int)map->width() || destPos.y >= (int)map->height()) {
+		// Handling for leaving locations by walking off the edge of the map
+		if (isPrincessSaved())
+			princessSaved();
+
+		// Load the overworld map
+		map->load(Map::MAP_OVERWORLD);
+	}
 }
 
-Map::Ultima1Map::MapBase *Transport::getMap() const {
-	return static_cast<Map::Ultima1Map::MapBase *>(_map);
+bool UrbanPlayer::isPrincessSaved() const {
+	return false;
 }
 
-/*-------------------------------------------------------------------*/
-
-uint TransportOnFoot::getTileNum() const {
-	return 8;
+void UrbanPlayer::princessSaved() {
+	// TODO
 }
 
 } // End of namespace Widgets
