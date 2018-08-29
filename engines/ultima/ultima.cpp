@@ -155,6 +155,8 @@ Common::Error UltimaEngine::loadGameState(int slot) {
 	_game->synchronize(s);
 
 	delete saveFile;
+	_game->setView("Game");
+
 	return Common::kNoError;
 }
 
