@@ -33,22 +33,27 @@ MODULE_OBJS = \
 	games/shared/actions/huh.o \
 	games/shared/actions/pass.o \
 	games/shared/core/character.o \
-	games/shared/core/map.o \
 	games/shared/core/resources.o \
-	games/shared/core/widgets.o \
 	games/shared/gfx/dungeon_surface.o \
 	games/shared/gfx/info.o \
 	games/shared/gfx/viewport_dungeon.o \
 	games/shared/gfx/viewport_map.o \
+	games/shared/maps/map.o \
+	games/shared/maps/map_base.o \
+	games/shared/maps/map_tile.o \
+	games/shared/maps/map_widget.o \
+	games/shared/maps/creature.o \
 	games/ultima0/game.o \
 	games/ultima0/core/resources.o \
 	games/ultima1/game.o \
 	games/ultima1/core/resources.o \
 	games/ultima1/core/transports.o \
-	games/ultima1/map/map.o \
-	games/ultima1/map/map_city_castle.o \
-	games/ultima1/map/map_dungeon.o \
-	games/ultima1/map/map_overworld.o \
+	games/ultima1/maps/map.o \
+	games/ultima1/maps/map_base.o \
+	games/ultima1/maps/map_city_castle.o \
+	games/ultima1/maps/map_dungeon.o \
+	games/ultima1/maps/map_overworld.o \
+	games/ultima1/maps/map_tile.o \
 	games/ultima1/u1gfx/drawing_support.o \
 	games/ultima1/u1gfx/info.o \
 	games/ultima1/u1gfx/sprites.o \
@@ -77,7 +82,8 @@ MODULE_OBJS = \
 	games/ultima1/widgets/hit.o \
 	games/ultima1/widgets/transport.o \
 	games/ultima1/widgets/overworld_monster.o \
-	games/ultima1/widgets/urban_player.o
+	games/ultima1/widgets/urban_player.o \
+	games/ultima1/widgets/urban_widget.o
 
 
 # This module can be built as a plugin

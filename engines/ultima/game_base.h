@@ -41,6 +41,11 @@ namespace Gfx {
 	class TextInput;
 	class VisualItem;
 }
+namespace Shared {
+	namespace Maps {
+		class Map;
+	}
+}
 
 /**
  * Base class for the game implementations
@@ -155,7 +160,7 @@ public:
 	/**
 	 * Returns the map
 	 */
-	virtual Shared::Map *getMap() const { return nullptr; }
+	virtual Shared::Maps::Map *getMap() const { return nullptr; }
 
 	/**
 	 * Gets a random number

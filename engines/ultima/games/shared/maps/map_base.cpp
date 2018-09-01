@@ -20,36 +20,27 @@
  *
  */
 
-#include "ultima/games/shared/core/map.h"
+#include "ultima/games/shared/maps/map_base.h"
+#include "ultima/games/shared/maps/map_widget.h"
+#include "ultima/games/shared/maps/map.h"
 #include "ultima/games/shared/game.h"
 #include "ultima/gfx/visual_item.h"
 
 namespace Ultima {
 namespace Shared {
+namespace Maps {
 
-void MapTile::clear() {
-	_tileId = _tileNum = -1;
-	_widgetNum = -1;
-	_widget = nullptr;
-	_itemNum = -1;
-	_isDoor = _isSecretDoor = false;
-	_isLadderUp = _isLadderDown = false;
-	_isWall = _isHallway = _isBeams = false;
-}
-
-/*-------------------------------------------------------------------*/
-
-void Map::MapBase::clear() {
+void MapBase::clear() {
 	_mapId = 0;
 	_data.clear();
 	_widgets.clear();
 }
 
-void Map::MapBase::load(MapId mapId) {
+void MapBase::load(MapId mapId) {
 	_mapId = mapId;
 }
 
-void Map::MapBase::synchronize(Common::Serializer &s) {
+void MapBase::synchronize(Common::Serializer &s) {
 	_viewportPos.synchronize(s);
 	uint size;
 	int transportIndex = -1;
@@ -93,14 +84,14 @@ void Map::MapBase::synchronize(Common::Serializer &s) {
 	}
 }
 
-void Map::MapBase::setDimensions(const Point &size) {
+void MapBase::setDimensions(const Point &size) {
 	_data.resize(size.y);
 	for (int y = 0; y < size.y; ++y)
-		_data[y]._data.resize(size.x);
+		_data[y].resize(size.x);
 	_size = size;
 }
 
-Point Map::MapBase::getDirectionDelta() const {
+Point MapBase::getDirectionDelta() const {
 	switch (_playerWidget->_direction) {
 	case DIR_LEFT:
 		return Point(-1, 0);
@@ -113,16 +104,16 @@ Point Map::MapBase::getDirectionDelta() const {
 	}
 }
 
-Point Map::MapBase::getDeltaPosition(const Point &delta) {
+Point MapBase::getDeltaPosition(const Point &delta) {
 	return _playerWidget->_position + delta;
 } 
 
-void Map::MapBase::resetViewport() {
+void MapBase::resetViewport() {
 	// Reset the viewport, so it's position will get recalculated
 	_viewportPos.reset();
 }
 
-Point Map::MapBase::getViewportPosition(const Point &viewportSize) {
+Point MapBase::getViewportPosition(const Point &viewportSize) {
 	Point &topLeft = _viewportPos._topLeft;
 
 	if (!_viewportPos.isValid() || _viewportPos._size != viewportSize) {
@@ -139,7 +130,7 @@ Point Map::MapBase::getViewportPosition(const Point &viewportSize) {
 	return topLeft;
 }
 
-void Map::MapBase::shiftViewport(const Point &delta) {
+void MapBase::shiftViewport(const Point &delta) {
 	Point &topLeft = _viewportPos._topLeft;
 	topLeft += delta;
 
@@ -148,11 +139,11 @@ void Map::MapBase::shiftViewport(const Point &delta) {
 	topLeft.y = CLIP(topLeft.y, (int16)0, (int16)(height() - _viewportPos._size.y));
 }
 
-void Map::MapBase::addWidget(MapWidget *widget) {
-	_widgets.push_back(Shared::MapWidgetPtr(widget));
+void MapBase::addWidget(MapWidget *widget) {
+	_widgets.push_back(MapWidgetPtr(widget));
 }
 
-void Map::MapBase::removeWidget(MapWidget *widget) {
+void MapBase::removeWidget(MapWidget *widget) {
 	for (uint idx = 0; idx < _widgets.size(); ++idx) {
 		if (_widgets[idx].get() == widget) {
 			_widgets.remove_at(idx);
@@ -161,7 +152,7 @@ void Map::MapBase::removeWidget(MapWidget *widget) {
 	}
 }
 
-void Map::MapBase::getTileAt(const Point &pt, MapTile *tile) {
+void MapBase::getTileAt(const Point &pt, MapTile *tile) {
 	tile->clear();
 
 	// Get the base tile
@@ -178,7 +169,7 @@ void Map::MapBase::getTileAt(const Point &pt, MapTile *tile) {
 	}
 }
 
-void Map::MapBase::update() {
+void MapBase::update() {
 	// Call the update method of each widget, to allow for things like npc movement, etc.
 	for (uint idx = 0; idx < _widgets.size(); ++idx)
 		_widgets[idx].get()->update(true);
@@ -188,109 +179,22 @@ void Map::MapBase::update() {
 		_widgets[idx].get()->update(false);
 }
 
-Point Map::MapBase::getPosition() const {
+Point MapBase::getPosition() const {
 	return _playerWidget->_position;
 }
 
-void Map::MapBase::setPosition(const Point &pt) {
+void MapBase::setPosition(const Point &pt) {
 	_playerWidget->_position = pt;
 }
 
-Direction Map::MapBase::getDirection() const {
+Direction MapBase::getDirection() const {
 	return _playerWidget->_direction;
 }
 
-void Map::MapBase::setDirection(Shared::Direction dir) {
+void MapBase::setDirection(Direction dir) {
 	_playerWidget->_direction = dir;
 }
 
-/*------------------------------------------------------------------------*/
-
-void MapWidget::synchronize(Common::Serializer &s) {
-	s.syncAsUint16LE(_position.x);
-	s.syncAsSint16LE(_position.y);
-	s.syncAsByte(_direction);
-	s.syncString(_name);
-}
-
-void MapWidget::addInfoMsg(const Common::String &text, bool newLine) {
-	CInfoMsg msg(text, newLine);
-	msg.execute(_game->getView());
-}
-
-Shared::MapWidget::CanMove MapWidget::canMoveTo(const Point &destPos) {
-	if (destPos.x < 0 || destPos.y < 0 || destPos.x >= (int)_map->width() || destPos.y >= (int)_map->height()) {
-		// If the map is fixed, allow moving beyond it's edges so it can be left
-		if (!_map->isMapWrapped())
-			return YES;
-	}
-
-	// Get the details of the position
-	MapTile destTile;
-	_map->getTileAt(destPos, &destTile);
-
-	// If there's a widget blocking the tile, return false
-	if (destTile._widget && destTile._widget->isBlocking())
-		return NO;
-
-	return UNSET;
-}
-
-void MapWidget::moveTo(const Point &destPos, Direction dir) {
-	// If no direction is specified, we'll need to figure it out relative to the old position
-	if (dir == DIR_NONE) {
-		Point delta = destPos - _position;
-		if (ABS(delta.x) > ABS(delta.y))
-			_direction = delta.x > 0 ? DIR_EAST : DIR_WEST;
-		else if (delta.y != 0)
-			_direction = delta.y > 0 ? DIR_SOUTH : DIR_NORTH;
-	} else {
-		_direction = dir;
-	}
-
-	// Set new location
-	_position = destPos;
-
-	// Handle wrap around if need be on maps that wrap
-	if (_map->isMapWrapped()) {
-		if (_position.x < 0)
-			_position.x += _map->width();
-		else if (_position.x >= (int)_map->width())
-			_position.x -= _map->width();
-		if (_position.y < 0)
-			_position.y += _map->height();
-		else if (_position.y >= (int)_map->height())
-			_position.y -= _map->height();
-	}
-}
-
-/*-------------------------------------------------------------------*/
-
-void Map::clear() {
-	if (_mapArea)
-		_mapArea->clear();
-	_mapArea = nullptr;
-}
-
-void Map::load(MapId mapId) {
-	_mapArea = nullptr;
-}
-
-void Map::synchronize(Common::Serializer &s) {
-	int mapId;
-
-	if (s.isSaving()) {
-		// Saving
-		mapId = _mapArea->getMapId();
-		s.syncAsUint16LE(mapId);
-	} else {
-		// Loading
-		s.syncAsUint16LE(mapId);
-		load(mapId);
-	}
-
-	_mapArea->synchronize(s);
-}
-
+} // End of namespace Maps
 } // End of namespace Shared
 } // End of namespace Ultima

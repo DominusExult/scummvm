@@ -22,7 +22,7 @@
 
 #include "ultima/games/ultima1/actions/action.h"
 #include "ultima/games/ultima1/game.h"
-#include "ultima/games/ultima1/map/map.h"
+#include "ultima/games/ultima1/maps/map.h"
 #include "ultima/games/ultima1/core/resources.h"
 #include "ultima/gfx/visual_item.h"
 #include "ultima/messages.h"
@@ -35,8 +35,8 @@ Ultima1Game *Action::getGame() {
 	return static_cast<Ultima1Game *>(TreeItem::getGame());
 }
 
-Map::Ultima1Map *Action::getMap() {
-	return static_cast<Map::Ultima1Map *>(getGame()->getMap());
+Maps::Ultima1Map *Action::getMap() {
+	return static_cast<Maps::Ultima1Map *>(getGame()->getMap());
 }
 
 GameResources *Action::getRes() {

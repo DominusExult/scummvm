@@ -20,31 +20,51 @@
  *
  */
 
-#include "ultima/games/ultima1/widgets/transport.h"
-#include "ultima/games/ultima1/game.h"
-#include "ultima/games/ultima1/maps/map.h"
-#include "ultima/games/ultima1/maps/map_dungeon.h"
+#include "ultima/games/ultima1/maps/map_tile.h"
 #include "ultima/games/ultima1/maps/map_overworld.h"
-#include "common/algorithm.h"
+#include "ultima/games/ultima1/maps/map_city_castle.h"
 
 namespace Ultima {
 namespace Ultima1 {
-namespace Widgets {
+namespace Maps {
 
-Ultima1Game *Transport::getGame() const {
-	return static_cast<Ultima1Game *>(_game);
+void U1MapTile::clear() {
+	_map = nullptr;
+	_locationNum = -1;
 }
 
-Maps::MapBase *Transport::getMap() const {
-	return static_cast<Maps::MapBase *>(_map);
+bool U1MapTile::isWater() const {
+	return dynamic_cast<MapOverworld *>(_map) && _tileId == 0;
 }
 
-/*-------------------------------------------------------------------*/
-
-uint TransportOnFoot::getTileNum() const {
-	return 8;
+bool U1MapTile::isGrass() const {
+	return dynamic_cast<MapOverworld *>(_map) && _tileId == 1;
 }
 
-} // End of namespace Widgets
+bool U1MapTile::isWoods() const {
+	return dynamic_cast<MapOverworld *>(_map) && _tileId == 2;
+}
+
+bool U1MapTile::isOriginalWater() const {
+	return dynamic_cast<MapOverworld *>(_map) && _tileId == 0;
+}
+
+bool U1MapTile::isOriginalGrass() const {
+	return dynamic_cast<MapOverworld *>(_map) && _tileId == 1;
+}
+
+bool U1MapTile::isOriginalWoods() const {
+	return dynamic_cast<MapOverworld *>(_map) && _tileId == 2;
+}
+
+bool U1MapTile::isGround() const {
+	if (dynamic_cast<MapCityCastle *>(_map) && (_tileId == 1 || _tileId >= 51))
+		return true;
+	else if (dynamic_cast<MapOverworld *>(_map))
+		return _tileId != 0;
+	return false;
+}
+
+} // End of namespace Maps
 } // End of namespace Ultima1
 } // End of namespace Ultima

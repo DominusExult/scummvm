@@ -21,8 +21,10 @@
  */
 
 #include "ultima/games/shared/gfx/viewport_dungeon.h"
-#include "ultima/games/shared/core/widgets.h"
-#include "ultima/games/shared/core/map.h"
+#include "ultima/games/shared/maps/dungeon_widget.h"
+#include "ultima/games/shared/maps/dungeon_creature.h"
+#include "ultima/games/shared/maps/map_widget.h"
+#include "ultima/games/shared/maps/map.h"
 #include "ultima/games/shared/game.h"
 
 namespace Ultima {
@@ -36,30 +38,30 @@ void ViewportDungeon::draw() {
 	s.clear();
 
 	// Get the position delta for the facing direction, and the cells to the left and right of that
-	Map *map = getGame()->getMap();
+	Maps::Map *map = getGame()->getMap();
 	Point delta = map->getDirectionDelta();
 
 	Point leftDelta, rightDelta;
 	switch (map->getDirection()) {
-	case DIR_LEFT:
+	case Maps::DIR_LEFT:
 		leftDelta.y = 1;
 		rightDelta.y = -1;
 		break;
-	case DIR_RIGHT:
+	case Maps::DIR_RIGHT:
 		leftDelta.y = -1;
 		rightDelta.y = 1;
 		break;
-	case DIR_UP:
+	case Maps::DIR_UP:
 		leftDelta.x = -1;
 		rightDelta.x = 1;
 		break;
-	case DIR_DOWN:
+	case Maps::DIR_DOWN:
 		leftDelta.x = 1;
 		rightDelta.x = -1;
 		break;
 	}
 
-	MapTile tile, deltaTile, leftTile, rightTile, backTile;
+	Maps::MapTile tile, deltaTile, leftTile, rightTile, backTile;
 	Point currentPos = map->getPosition();
 	map->getTileAt(currentPos, &tile);
 	map->getTileAt(currentPos + delta, &deltaTile);
@@ -141,7 +143,7 @@ void ViewportDungeon::draw() {
 		}
 	}
 
-	DungeonWidget *widget = dynamic_cast<DungeonWidget *>(tile._widget);
+	Maps::DungeonWidget *widget = dynamic_cast<Maps::DungeonWidget *>(tile._widget);
 	if (isDoor && widget) {
 		widget->draw(s, 0);
 	}
@@ -156,10 +158,10 @@ uint ViewportDungeon::distanceToOccupiedCell(const Point &delta) {
 }
 
 bool ViewportDungeon::isCellOccupied(const Point &delta) {
-	Map *map = getGame()->getMap();
+	Maps::Map *map = getGame()->getMap();
 	Point pt = map->getPosition() + delta;
 	
-	MapTile tile;
+	Maps::MapTile tile;
 	map->getTileAt(pt, &tile);
 	if (tile.isWallOrDoorway())
 		return true;
@@ -168,21 +170,21 @@ bool ViewportDungeon::isCellOccupied(const Point &delta) {
 }
 
 bool ViewportDungeon::isMonsterBlocking(const Point &pt) {
-	MapTile tile;
+	Maps::MapTile tile;
 	getGame()->getMap()->getTileAt(pt, &tile);
-	DungeonCreature *monster = dynamic_cast<DungeonCreature *>(tile._widget);
+	Maps::DungeonCreature *monster = dynamic_cast<Maps::DungeonCreature *>(tile._widget);
 	return monster != nullptr && monster->isBlockingView();
 }
 
 void ViewportDungeon::drawCell(uint distance, const Point &pt) {
 	Game *game = getGame();
 	DungeonSurface s = getSurface();
-	Map *map = game->getMap();
+	Maps::Map *map = game->getMap();
 
-	MapTile tile;
+	Maps::MapTile tile;
 	map->getTileAt(pt, &tile);
 
-	DungeonCreature *monster = dynamic_cast<DungeonCreature *>(tile._widget);
+	Maps::DungeonCreature *monster = dynamic_cast<Maps::DungeonCreature *>(tile._widget);
 	if (monster) {
 		// Draw a monster
 		if (tile.isWallOrDoorway())
@@ -208,7 +210,7 @@ void ViewportDungeon::drawCell(uint distance, const Point &pt) {
 			break;
 		case 6:
 			// Ladder down
-			if (map->getDirection() == DIR_UP || map->getDirection() == DIR_DOWN) {
+			if (map->getDirection() == Maps::DIR_UP || map->getDirection() == Maps::DIR_DOWN) {
 				s.drawLadderDownFaceOn(distance + 1);
 			} else {
 				s.drawLadderDownSideOn(distance + 1);
@@ -216,7 +218,7 @@ void ViewportDungeon::drawCell(uint distance, const Point &pt) {
 			break;
 		case 7:
 			// Ladder up
-			if (map->getDirection() == DIR_UP || map->getDirection() == DIR_DOWN) {
+			if (map->getDirection() == Maps::DIR_UP || map->getDirection() == Maps::DIR_DOWN) {
 				s.drawLadderUpFaceOn(distance + 1);
 			} else {
 				s.drawLadderUpSideOn(distance + 1);
@@ -232,12 +234,12 @@ void ViewportDungeon::drawCell(uint distance, const Point &pt) {
 	}
 
 	// Draw any item at that distance
-	DungeonWidget *widget = dynamic_cast<DungeonWidget *>(tile._widget);
+	Maps::DungeonWidget *widget = dynamic_cast<Maps::DungeonWidget *>(tile._widget);
 	if (widget)
 		widget->draw(s, distance);
 }
 
-void ViewportDungeon::drawLeftCell(uint distance, const MapTile &tile) {
+void ViewportDungeon::drawLeftCell(uint distance, const Maps::MapTile &tile) {
 	DungeonSurface s = getSurface();
 
 	if (tile.isDoor())
@@ -248,7 +250,7 @@ void ViewportDungeon::drawLeftCell(uint distance, const MapTile &tile) {
 		s.drawLeftBlank(distance);
 }
 
-void ViewportDungeon::drawRightCell(uint distance, const MapTile &tile) {
+void ViewportDungeon::drawRightCell(uint distance, const Maps::MapTile &tile) {
 	DungeonSurface s = getSurface();
 
 	if (tile.isDoor())

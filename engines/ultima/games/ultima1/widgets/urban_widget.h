@@ -20,52 +20,53 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_MAP_MAP_OVERWORLD_H
-#define ULTIMA_ULTIMA1_MAP_MAP_OVERWORLD_H
+#ifndef ULTIMA_ULTIMA1_WIDGETS_URBAN_WIDGET_H
+#define ULTIMA_ULTIMA1_WIDGETS_URBAN_WIDGET_H
 
-#include "ultima/games/ultima1/map/map.h"
+#include "ultima/games/shared/maps/map_widget.h"
+#include "ultima/games/ultima1/maps/map.h"
 
 namespace Ultima {
 namespace Ultima1 {
-namespace Map {
+namespace Widgets {
 
-class MapOverworld : public Ultima1Map::MapBase {
+/**
+ * Base class for widgets in urban maps 
+ */
+class UrbanWidget : public Shared::Maps::MapWidget {
 private:
+	uint _tileNum;
+protected:
 	/**
-	 * Load widget list for the map
+	 * Moves by a given delta if the destination is available
+	 * @param delta		Delta to move character by
+	 * @returns			True if the move was able to be done
 	 */
-	void loadWidgets();
+	bool moveBy(const Point &delta);
 public:
-	MapOverworld(Ultima1Game *game, Ultima1Map *map) : Ultima1Map::MapBase(game, map) {}
-	virtual ~MapOverworld() {}
+	/**
+	 * Constructor
+	 */
+	UrbanWidget(Shared::Game *game, Shared::Maps::MapBase *map, uint tileNum) :
+		Shared::Maps::MapWidget(game, map), _tileNum(tileNum) {}
 
 	/**
-	 * Load the map
+	 * Destructor
 	 */
-	virtual void load(Shared::MapId mapId);
+	virtual ~UrbanWidget() {}
 
 	/**
-	 * Returns whether the map wraps around to the other side at it's edges (i.e. the overworld)
+	 * Get the tile number for the person
 	 */
-	virtual bool isMapWrapped() const override { return true; }
+	virtual uint getTileNum() const override { return _tileNum; }
 
 	/**
-	 * Shifts the viewport by a given delta
+	 * Returns true if the given widget can move to a given position on the map
 	 */
-	virtual void shiftViewport(const Point &delta) override;
-
-	/**
-	 * Get the viewport position
-	 */
-	virtual Point getViewportPosition(const Point &viewportSize) override;
-
-	/**
-	 * Gets a point relative to the current position
-	 */
-	virtual Point getDeltaPosition(const Point &delta) override;
+	virtual CanMove canMoveTo(const Point &destPos);
 };
 
-} // End of namespace Map
+} // End of namespace Widgets
 } // End of namespace Ultima1
 } // End of namespace Ultima
 

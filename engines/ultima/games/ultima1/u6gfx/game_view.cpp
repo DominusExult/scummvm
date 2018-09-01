@@ -23,7 +23,7 @@
 #include "ultima/games/ultima1/u6gfx/game_view.h"
 #include "ultima/gfx/bitmap.h"
 #include "ultima/games/shared/actions/pass.h"
-#include "ultima/games/shared/core/map.h"
+#include "ultima/games/shared/maps/map.h"
 #include "ultima/games/shared/gfx/info.h"
 #include "ultima/games/ultima1/game.h"
 #include "ultima/games/ultima1/u1gfx/drawing_support.h"
@@ -105,25 +105,25 @@ bool GameView::KeypressMsg(CKeypressMsg &msg) {
 	switch (msg._keyState.keycode) {
 	case Common::KEYCODE_LEFT:
 	case Common::KEYCODE_KP4: {
-		CMoveMsg move(Shared::DIR_LEFT);
+		CMoveMsg move(Shared::Maps::DIR_LEFT);
 		move.execute(this);
 		break;
 	}
 	case Common::KEYCODE_RIGHT:
 	case Common::KEYCODE_KP6: {
-		CMoveMsg move(Shared::DIR_RIGHT);
+		CMoveMsg move(Shared::Maps::DIR_RIGHT);
 		move.execute(this);
 		break;
 	}
 	case Common::KEYCODE_UP:
 	case Common::KEYCODE_KP8: {
-		CMoveMsg move(Shared::DIR_UP);
+		CMoveMsg move(Shared::Maps::DIR_UP);
 		move.execute(this);
 		break;
 	}
 	case Common::KEYCODE_DOWN:
 	case Common::KEYCODE_KP2: {
-		CMoveMsg move(Shared::DIR_DOWN);
+		CMoveMsg move(Shared::Maps::DIR_DOWN);
 		move.execute(this);
 		break;
 	}

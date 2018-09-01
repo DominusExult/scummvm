@@ -20,45 +20,52 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_WIDGETS_PRINCESS_H
-#define ULTIMA_ULTIMA1_WIDGETS_PRINCESS_H
+#ifndef ULTIMA_ULTIMA1_MAP_MAP_OVERWORLD_H
+#define ULTIMA_ULTIMA1_MAP_MAP_OVERWORLD_H
 
-#include "ultima/games/ultima1/widgets/wench.h"
+#include "ultima/games/ultima1/maps/map_base.h"
 
 namespace Ultima {
 namespace Ultima1 {
-namespace Widgets {
+namespace Maps {
 
-/**
- * Handles the princess NPCs
- */
-class Princess : public Wench {
-protected:
+class MapOverworld : public MapBase {
+private:
 	/**
-	 * Handles moving creatures
+	 * Load widget list for the map
 	 */
-	virtual void movement() override;
+	void loadWidgets();
 public:
-	DECLARE_WIDGET(Princess)
+	MapOverworld(Ultima1Game *game, Ultima1Map *map) : MapBase(game, map) {}
+	virtual ~MapOverworld() {}
 
 	/**
-	 * Constructor
+	 * Load the map
 	 */
-	Princess(Ultima1Game *game, Maps::MapBase *map, int hitPoints) :
-		Wench(game, map, 22, hitPoints) {}
+	virtual void load(Shared::Maps::MapId mapId);
 
 	/**
-	 * Constructor
+	 * Returns whether the map wraps around to the other side at it's edges (i.e. the overworld)
 	 */
-	Princess(Ultima1Game *game, Maps::MapBase *map) : Wench(game, map, 22) {}
+	virtual bool isMapWrapped() const override { return true; }
 
 	/**
-	 * Destructor
+	 * Shifts the viewport by a given delta
 	 */
-	virtual ~Princess() {}
+	virtual void shiftViewport(const Point &delta) override;
+
+	/**
+	 * Get the viewport position
+	 */
+	virtual Point getViewportPosition(const Point &viewportSize) override;
+
+	/**
+	 * Gets a point relative to the current position
+	 */
+	virtual Point getDeltaPosition(const Point &delta) override;
 };
 
-} // End of namespace Widgets
+} // End of namespace Maps
 } // End of namespace Ultima1
 } // End of namespace Ultima
 

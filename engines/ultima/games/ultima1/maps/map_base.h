@@ -20,45 +20,44 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_WIDGETS_PRINCESS_H
-#define ULTIMA_ULTIMA1_WIDGETS_PRINCESS_H
+#ifndef ULTIMA_ULTIMA1_MAPS_MAP_BASE_H
+#define ULTIMA_ULTIMA1_MAPS_MAP_BASE_H
 
-#include "ultima/games/ultima1/widgets/wench.h"
+#include "ultima/games/shared/maps/map_base.h"
 
 namespace Ultima {
 namespace Ultima1 {
-namespace Widgets {
+
+class Ultima1Game;
+
+namespace Maps {
+
+class Ultima1Map;
 
 /**
- * Handles the princess NPCs
+ * Intermediate base class for Ultima 1 maps
  */
-class Princess : public Wench {
+class MapBase : public Shared::Maps::MapBase {
 protected:
-	/**
-	 * Handles moving creatures
-	 */
-	virtual void movement() override;
+	Ultima1Game *_game;
 public:
-	DECLARE_WIDGET(Princess)
-
 	/**
 	 * Constructor
 	 */
-	Princess(Ultima1Game *game, Maps::MapBase *map, int hitPoints) :
-		Wench(game, map, 22, hitPoints) {}
-
-	/**
-	 * Constructor
-	 */
-	Princess(Ultima1Game *game, Maps::MapBase *map) : Wench(game, map, 22) {}
-
+	MapBase(Ultima1Game *game, Ultima1Map *map);
+		
 	/**
 	 * Destructor
 	 */
-	virtual ~Princess() {}
+	virtual ~MapBase() {}
+
+	/**
+	 * Gets a tile at a given position
+	 */
+	virtual void getTileAt(const Point &pt, Shared::Maps::MapTile *tile) override;
 };
 
-} // End of namespace Widgets
+} // End of namespace Maps
 } // End of namespace Ultima1
 } // End of namespace Ultima
 

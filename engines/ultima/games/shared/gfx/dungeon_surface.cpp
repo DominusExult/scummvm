@@ -21,7 +21,7 @@
  */
 
 #include "ultima/games/shared/gfx/dungeon_surface.h"
-#include "ultima/games/shared/core/map.h"
+#include "ultima/games/shared/maps/map.h"
 #include "ultima/games/shared/game.h"
 
 namespace Ultima {

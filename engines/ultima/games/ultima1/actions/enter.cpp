@@ -22,7 +22,8 @@
 
 #include "ultima/games/ultima1/actions/enter.h"
 #include "ultima/games/ultima1/game.h"
-#include "ultima/games/ultima1/map/map.h"
+#include "ultima/games/ultima1/maps/map.h"
+#include "ultima/games/ultima1/maps/map_tile.h"
 #include "ultima/games/ultima1/core/resources.h"
 
 namespace Ultima {
@@ -35,8 +36,8 @@ END_MESSAGE_MAP()
 
 bool Enter::EnterMsg(CEnterMsg &msg) {
 	Ultima1Game *game = getGame();
-	Map::Ultima1Map *map = getMap();
-	Map::U1MapTile mapTile;
+	Maps::Ultima1Map *map = getMap();
+	Maps::U1MapTile mapTile;
 
 	map->getTileAt(map->getPosition(), &mapTile);
 	

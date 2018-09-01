@@ -20,46 +20,48 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_WIDGETS_PRINCESS_H
-#define ULTIMA_ULTIMA1_WIDGETS_PRINCESS_H
+#ifndef ULTIMA_SHARED_MAPS_DUNGEON_CREATURE_H
+#define ULTIMA_SHARED_MAPS_DUNGEON_CREATURE_H
 
-#include "ultima/games/ultima1/widgets/wench.h"
+#include "ultima/games/shared/maps/creature.h"
 
 namespace Ultima {
-namespace Ultima1 {
-namespace Widgets {
+namespace Shared {
+
+class Game;
+class Map;
+
+namespace Maps {
 
 /**
- * Handles the princess NPCs
+ * Stub class for dungeon creatures
  */
-class Princess : public Wench {
-protected:
-	/**
-	 * Handles moving creatures
-	 */
-	virtual void movement() override;
+class DungeonCreature : public Creature {
 public:
-	DECLARE_WIDGET(Princess)
-
 	/**
 	 * Constructor
 	 */
-	Princess(Ultima1Game *game, Maps::MapBase *map, int hitPoints) :
-		Wench(game, map, 22, hitPoints) {}
-
-	/**
-	 * Constructor
-	 */
-	Princess(Ultima1Game *game, Maps::MapBase *map) : Wench(game, map, 22) {}
+	DungeonCreature(Game *game, MapBase *map) : Creature(game, map) {}
+	DungeonCreature(Game *game, MapBase *map, int hitPoints) : Creature(game, map, hitPoints) {}
 
 	/**
 	 * Destructor
 	 */
-	virtual ~Princess() {}
+	virtual ~DungeonCreature() {}
+
+	/**
+	 * Returns true if a monster blocks the background behind him
+	 */
+	virtual bool isBlockingView() const = 0;
+
+	/**
+	 * Draw a monster
+	 */
+	virtual void draw(DungeonSurface &s, uint distance) = 0;
 };
 
-} // End of namespace Widgets
-} // End of namespace Ultima1
+} // End of namespace Maps
+} // End of namespace Shared
 } // End of namespace Ultima
 
 #endif

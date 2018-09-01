@@ -32,8 +32,9 @@ namespace Gfx {
 }
 namespace Shared {
 	class Game;
-	class GameState;
+	namespace Maps {
 	class Map;
+	}
 }
 
 class GameManager;

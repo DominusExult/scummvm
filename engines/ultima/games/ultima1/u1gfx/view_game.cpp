@@ -23,7 +23,7 @@
 #include "ultima/games/ultima1/u1gfx/view_game.h"
 #include "ultima/games/shared/actions/huh.h"
 #include "ultima/games/shared/actions/pass.h"
-#include "ultima/games/shared/core/map.h"
+#include "ultima/games/shared/maps/map.h"
 #include "ultima/games/ultima1/game.h"
 #include "ultima/games/ultima1/u1gfx/drawing_support.h"
 #include "ultima/games/ultima1/u1gfx/info.h"
@@ -84,9 +84,9 @@ void ViewGame::draw() {
 	if (_status->isDirty())
 		_status->draw();
 
-	Map::Ultima1Map *map = static_cast<Map::Ultima1Map *>(getGame()->getMap());
+	Maps::Ultima1Map *map = static_cast<Maps::Ultima1Map *>(getGame()->getMap());
 	switch (map->_mapType) {
-	case Map::MAP_DUNGEON:
+	case Maps::MAP_DUNGEON:
 		_viewportDungeon->draw();
 		break;
 	default:
@@ -97,12 +97,12 @@ void ViewGame::draw() {
 
 void ViewGame::drawIndicators() {
 	Ultima1Game *game = static_cast<Ultima1Game *>(getGame());
-	Map::Ultima1Map *map = static_cast<Map::Ultima1Map *>(game->getMap());
+	Maps::Ultima1Map *map = static_cast<Maps::Ultima1Map *>(game->getMap());
 
 	Gfx::VisualSurface s = getSurface();
 	DrawingSupport ds(s);
 
-	if (map->_mapType == Map::MAP_DUNGEON) {
+	if (map->_mapType == Maps::MAP_DUNGEON) {
 		// Draw the dungeon level indicator
 		ds.drawRightArrow(TextPoint(15, 0));
 		s.writeString(game->_res->DUNGEON_LEVEL, TextPoint(16, 0), game->_textColor);
@@ -136,25 +136,25 @@ bool ViewGame::KeypressMsg(CKeypressMsg &msg) {
 	switch (msg._keyState.keycode) {
 	case Common::KEYCODE_LEFT:
 	case Common::KEYCODE_KP4: {
-		CMoveMsg move(Shared::DIR_LEFT);
+		CMoveMsg move(Shared::Maps::DIR_LEFT);
 		move.execute(this);
 		break;
 	}
 	case Common::KEYCODE_RIGHT:
 	case Common::KEYCODE_KP6: {
-		CMoveMsg move(Shared::DIR_RIGHT);
+		CMoveMsg move(Shared::Maps::DIR_RIGHT);
 		move.execute(this);
 		break;
 	}
 	case Common::KEYCODE_UP:
 	case Common::KEYCODE_KP8: {
-		CMoveMsg move(Shared::DIR_UP);
+		CMoveMsg move(Shared::Maps::DIR_UP);
 		move.execute(this);
 		break;
 	}
 	case Common::KEYCODE_DOWN:
 	case Common::KEYCODE_KP2: {
-		CMoveMsg move(Shared::DIR_DOWN);
+		CMoveMsg move(Shared::Maps::DIR_DOWN);
 		move.execute(this);
 		break;
 	}

@@ -22,7 +22,9 @@
 
 #include "ultima/games/ultima1/actions/climb.h"
 #include "ultima/games/ultima1/game.h"
-#include "ultima/games/ultima1/map/map_dungeon.h"
+#include "ultima/games/ultima1/maps/map.h"
+#include "ultima/games/ultima1/maps/map_tile.h"
+#include "ultima/games/ultima1/maps/map_dungeon.h"
 #include "ultima/games/ultima1/core/resources.h"
 
 namespace Ultima {
@@ -34,16 +36,16 @@ BEGIN_MESSAGE_MAP(Climb, Action)
 END_MESSAGE_MAP()
 
 bool Climb::ClimbMsg(CClimbMsg &msg) {
-	Map::Ultima1Map *map = getMap();
-	Map::U1MapTile mapTile;
+	Maps::Ultima1Map *map = getMap();
+	Maps::U1MapTile mapTile;
 
 	map->getTileAt(map->getPosition(), &mapTile);
 	
-	if (mapTile._tileNum != Map::DTILE_LADDER_UP && mapTile._tileNum != Map::DTILE_LADDER_DOWN) {
+	if (mapTile._tileNum != Maps::DTILE_LADDER_UP && mapTile._tileNum != Maps::DTILE_LADDER_DOWN) {
 		playFX(1);
-	} else if (map->getDirection() == Shared::DIR_LEFT || map->getDirection() == Shared::DIR_RIGHT) {
+	} else if (map->getDirection() == Shared::Maps::DIR_LEFT || map->getDirection() == Shared::Maps::DIR_RIGHT) {
 		playFX(1);
-	} else if (mapTile._tileNum == Map::DTILE_LADDER_UP) {
+	} else if (mapTile._tileNum == Maps::DTILE_LADDER_UP) {
 		ladderUp();
 	} else {
 		ladderDown();
@@ -53,15 +55,15 @@ bool Climb::ClimbMsg(CClimbMsg &msg) {
 }
 
 void Climb::ladderUp() {
-	Map::Ultima1Map *map = getMap();
+	Maps::Ultima1Map *map = getMap();
 
 	if (!map->changeLevel(-1)) {
-		map->load(Map::MAPID_OVERWORLD);
+		map->load(Maps::MAPID_OVERWORLD);
 	}
 }
 
 void Climb::ladderDown() {
-	Map::Ultima1Map *map = getMap();
+	Maps::Ultima1Map *map = getMap();
 	map->changeLevel(1);
 }
 

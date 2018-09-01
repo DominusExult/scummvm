@@ -22,7 +22,7 @@
 
 #include "ultima/games/shared/game.h"
 #include "ultima/games/shared/core/resources.h"
-#include "ultima/games/shared/core/map.h"
+#include "ultima/games/shared/maps/map.h"
 #include "ultima/ultima.h"
 #include "ultima/gfx/font.h"
 #include "ultima/gfx/screen.h"

@@ -20,26 +20,37 @@
  *
  */
 
-#include "ultima/games/shared/core/widgets.h"
-#include "ultima/games/shared/game.h"
+#include "ultima/games/ultima1/widgets/urban_widget.h"
+#include "ultima/games/ultima1/maps/map_city_castle.h"
+#include "ultima/games/ultima1/maps/map_tile.h"
 
 namespace Ultima {
-namespace Shared {
+namespace Ultima1 {
+namespace Widgets {
 
-void Creature::synchronize(Common::Serializer &s) {
-	StandardWidget::synchronize(s);
-	s.syncAsSint16LE(_hitPoints);
+Shared::Maps::MapWidget::CanMove UrbanWidget::canMoveTo(const Point &destPos) {
+	Shared::Maps::MapWidget::CanMove result = Shared::Maps::MapWidget::canMoveTo(destPos);
+	if (result != UNSET)
+		return result;
+
+	// Get the details of the position
+	Maps::U1MapTile destTile;
+	_map->getTileAt(destPos, &destTile);
+
+	return destTile._tileNum == Maps::CTILE_1 || destTile._tileNum == Maps::CTILE_51 ? YES : NO;
 }
 
-void Creature::update(bool isPreUpdate) {
-	if (isPreUpdate) {
-		// Check whether creature can attack
-		movement();
-		_isAttacking = attackDistance() != 0;
-	} else if (_isAttacking && !_game->_party.isDead()) {
-		attack();
+bool UrbanWidget::moveBy(const Point &delta) {
+	// TODO: Movement allowed on tile 63.. is this the gate of the princess' cells?
+	Point newPos = _position + delta;
+	if (canMoveTo(newPos) == YES) {
+		_position = newPos;
+		return true;
+	} else {
+		return false;
 	}
 }
 
+} // End of namespace Widgets
 } // End of namespace Ultima1
 } // End of namespace Ultima

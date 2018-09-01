@@ -20,46 +20,49 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_WIDGETS_PRINCESS_H
-#define ULTIMA_ULTIMA1_WIDGETS_PRINCESS_H
+#ifndef ULTIMA_SHARED_MAPS_DUNGEON_WIDGET_H
+#define ULTIMA_SHARED_MAPS_DUNGEON_WIDGET_H
 
-#include "ultima/games/ultima1/widgets/wench.h"
+#include "ultima/games/shared/maps/map_widget.h"
+#include "ultima/games/shared/maps/map.h"
+#include "ultima/games/shared/gfx/dungeon_surface.h"
+#include "common/serializer.h"
+#include "common/str.h"
 
 namespace Ultima {
-namespace Ultima1 {
-namespace Widgets {
+namespace Shared {
+
+class Game;
+class Map;
+
+namespace Maps {
 
 /**
- * Handles the princess NPCs
+ * Base class for things that appear within the dungeons
  */
-class Princess : public Wench {
-protected:
-	/**
-	 * Handles moving creatures
-	 */
-	virtual void movement() override;
+class DungeonWidget : public MapWidget {
 public:
-	DECLARE_WIDGET(Princess)
-
 	/**
 	 * Constructor
 	 */
-	Princess(Ultima1Game *game, Maps::MapBase *map, int hitPoints) :
-		Wench(game, map, 22, hitPoints) {}
-
-	/**
-	 * Constructor
-	 */
-	Princess(Ultima1Game *game, Maps::MapBase *map) : Wench(game, map, 22) {}
+	DungeonWidget(Game *game, Maps::MapBase *map) : MapWidget(game, map) {}
+	DungeonWidget(Game *game, Maps::MapBase *map, const Point &pt, Direction dir = DIR_NONE) : MapWidget(game, map, pt, dir) {}
+	DungeonWidget(Game *game, Maps::MapBase *map, const Common::String &name, const Point &pt, Direction dir = DIR_NONE) :
+		MapWidget(game, map, name, pt, dir) {}
 
 	/**
 	 * Destructor
 	 */
-	virtual ~Princess() {}
+	virtual ~DungeonWidget() {}
+
+	/**
+	 * Draws an item
+	 */
+	virtual void draw(DungeonSurface &s, uint distance) = 0;
 };
 
-} // End of namespace Widgets
-} // End of namespace Ultima1
+} // End of namespace Maps
+} // End of namespace Shared
 } // End of namespace Ultima
 
 #endif

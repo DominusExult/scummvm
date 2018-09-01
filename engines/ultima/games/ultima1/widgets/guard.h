@@ -53,13 +53,13 @@ public:
 	/**
 	 * Constructor
 	 */
-	Guard(Ultima1Game *game, Map::Ultima1Map::MapBase *map, int hitPoints) :
+	Guard(Ultima1Game *game, Maps::MapBase *map, int hitPoints) :
 		Person(game, map, 17, hitPoints), _moved(false) {}
 
 	/**
 	 * Constructor
 	 */
-	Guard(Ultima1Game *game, Map::Ultima1Map::MapBase *map) :
+	Guard(Ultima1Game *game, Maps::MapBase *map) :
 		Person(game, map, 17), _moved(false) {}
 
 	/**

@@ -20,45 +20,74 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_WIDGETS_PRINCESS_H
-#define ULTIMA_ULTIMA1_WIDGETS_PRINCESS_H
+#ifndef ULTIMA_ULTIMA1_MAPS_MAP_TILE_H
+#define ULTIMA_ULTIMA1_MAPS_MAP_TILE_H
 
-#include "ultima/games/ultima1/widgets/wench.h"
+#include "ultima/games/shared/maps/map_tile.h"
 
 namespace Ultima {
 namespace Ultima1 {
-namespace Widgets {
+namespace Maps {
+
+class MapBase;
+class Ultima1Map;
 
 /**
- * Handles the princess NPCs
+ * Derived map tile class for Ultima 1 that adds extra properties
  */
-class Princess : public Wench {
-protected:
-	/**
-	 * Handles moving creatures
-	 */
-	virtual void movement() override;
+class U1MapTile : public Shared::Maps::MapTile {
+private:
+	MapBase *_map;
 public:
-	DECLARE_WIDGET(Princess)
+	int _locationNum;
+public:
+	/**
+	 * Set the active map
+	 */
+	void setMap(MapBase *map) { _map = map; }
 
 	/**
-	 * Constructor
+	 * Clears tile data
 	 */
-	Princess(Ultima1Game *game, Maps::MapBase *map, int hitPoints) :
-		Wench(game, map, 22, hitPoints) {}
+	virtual void clear();
 
 	/**
-	 * Constructor
+	 * Return true if the tile base is water
 	 */
-	Princess(Ultima1Game *game, Maps::MapBase *map) : Wench(game, map, 22) {}
+	bool isWater() const;
 
 	/**
-	 * Destructor
+	 * Return true if the tile base is grass
 	 */
-	virtual ~Princess() {}
+	bool isGrass() const;
+
+	/**
+	 * Return true if the tile base is woods
+	 */
+	bool isWoods() const;
+
+	/**
+	 * Return true if the tile base in the original map is water
+	 */
+	bool isOriginalWater() const;
+
+	/**
+	 * Return true if the tile base in the original map is grass
+	 */
+	bool isOriginalGrass() const;
+
+	/**
+	 * Return true if the tile base in the original map is woods
+	 */
+	bool isOriginalWoods() const;
+
+	/**
+	 * Returns true if the tile is a ground type tool
+	 */
+	bool isGround() const;
 };
 
-} // End of namespace Widgets
+} // End of namespace Maps
 } // End of namespace Ultima1
 } // End of namespace Ultima
 
