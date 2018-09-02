@@ -76,6 +76,7 @@ MODULE_OBJS = \
 	games/ultima1/widgets/merchant.o \
 	games/ultima1/widgets/princess.o \
 	games/ultima1/widgets/wench.o \
+	games/ultima1/widgets/dungeon_item.o \
 	games/ultima1/widgets/dungeon_player.o \
 	games/ultima1/widgets/dungeon_widget.o \
 	games/ultima1/widgets/dungeon_monster.o \

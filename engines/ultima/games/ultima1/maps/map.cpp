@@ -33,7 +33,7 @@
 #include "ultima/games/ultima1/widgets/bard.h"
 #include "ultima/games/ultima1/widgets/dungeon_monster.h"
 #include "ultima/games/ultima1/widgets/dungeon_player.h"
-#include "ultima/games/ultima1/widgets/dungeon_widget.h"
+#include "ultima/games/ultima1/widgets/dungeon_item.h"
 #include "ultima/games/ultima1/widgets/guard.h"
 #include "ultima/games/ultima1/widgets/king.h"
 #include "ultima/games/ultima1/widgets/merchant.h"
@@ -131,7 +131,7 @@ Shared::Maps::MapWidget *Ultima1Map::createWidget(Shared::Maps::MapBase *map, co
 	REGISTER_WIDGET(Bard);
 	REGISTER_WIDGET(DungeonMonster);
 	REGISTER_WIDGET(DungeonPlayer);
-	REGISTER_WIDGET(DungeonWidget);
+	REGISTER_WIDGET(DungeonItem);
 	REGISTER_WIDGET(Guard);
 	REGISTER_WIDGET(King);
 	REGISTER_WIDGET(Merchant);
