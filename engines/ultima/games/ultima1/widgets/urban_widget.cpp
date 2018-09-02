@@ -51,6 +51,11 @@ bool UrbanWidget::moveBy(const Point &delta) {
 	}
 }
 
+void UrbanWidget::synchronize(Common::Serializer &s) {
+	MapWidget::synchronize(s);
+	s.syncAsUint16LE(_tileNum);
+}
+
 } // End of namespace Widgets
 } // End of namespace Ultima1
 } // End of namespace Ultima

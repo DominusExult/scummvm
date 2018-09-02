@@ -20,64 +20,47 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_WIDGETS_TRANSPORT_H
-#define ULTIMA_ULTIMA1_WIDGETS_TRANSPORT_H
+#ifndef ULTIMA_ULTIMA1_WIDGETS_OVERWORLD_WIDGET_H
+#define ULTIMA_ULTIMA1_WIDGETS_OVERWORLD_WIDGET_H
 
-#include "ultima/games/ultima1/widgets/overworld_widget.h"
-#include "ultima/games/shared/maps/map_base.h"
+#include "ultima/games/shared/maps/map.h"
+#include "ultima/games/shared/maps/map_widget.h"
 
 namespace Ultima {
 namespace Ultima1 {
-
-class Ultima1Game;
-
-namespace Maps {
-class MapBase;
-}
-
 namespace Widgets {
 
-class Transport : public OverworldWidget {
-protected:
-	/**
-	 * Gets the Ultima 1 game
-	 */
-	Ultima1Game *getGame() const;
-
-	/**
-	 * Gets the Ultima 1 map
-	 */
-	Maps::MapBase *getMap() const;
+/**
+ * Encapsulated class for drawing widgets within dungeons
+ */
+class OverworldWidget : public Shared::Maps::MapWidget {
 public:
-	/**
-	 * Constructor
-	 */
-	Transport(Shared::Game *game, Shared::Maps::MapBase *map) : OverworldWidget(game, map) {}
-
-	/**
-	 * Destructor
-	 */
-	virtual ~Transport() {}
-};
-
-class TransportOnFoot : public Transport {
+	Common::String _name;
+	uint _tileNum;
 public:
-	DECLARE_WIDGET(TransportOnFoot)
+	DECLARE_WIDGET(OverworldWidget)
 
 	/**
 	 * Constructor
 	 */
-	TransportOnFoot(Shared::Game *game, Shared::Maps::MapBase *map) : Transport(game, map) {}
+	OverworldWidget(Shared::Game *game, Shared::Maps::MapBase *map, uint tileNum, const Point &pt, Shared::Maps::Direction dir = Shared::Maps::DIR_NONE) :
+		Shared::Maps::MapWidget(game, map, pt, dir), _tileNum(tileNum)  {}
 
 	/**
-	 * Destructor
+	 * Constructor
 	 */
-	virtual ~TransportOnFoot() {}
+	OverworldWidget(Shared::Game *game, Shared::Maps::MapBase *map) : Shared::Maps::MapWidget(game, map),
+		_tileNum(0) {}
 
 	/**
-	 * Get the tile for the transport method
+	 * Get the tile number for the person
 	 */
-	virtual uint getTileNum() const override;
+	virtual uint getTileNum() const override { return _tileNum; }
+
+	/**
+	 * Handles loading and saving games
+	 */
+	virtual void synchronize(Common::Serializer &s) override;
 };
 
 } // End of namespace Widgets

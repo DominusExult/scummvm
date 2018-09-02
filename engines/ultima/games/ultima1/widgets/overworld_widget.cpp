@@ -20,68 +20,20 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_WIDGETS_TRANSPORT_H
-#define ULTIMA_ULTIMA1_WIDGETS_TRANSPORT_H
-
 #include "ultima/games/ultima1/widgets/overworld_widget.h"
-#include "ultima/games/shared/maps/map_base.h"
+#include "ultima/games/ultima1/core/resources.h"
+#include "ultima/games/ultima1/game.h"
+#include "ultima/ultima.h"
 
 namespace Ultima {
 namespace Ultima1 {
-
-class Ultima1Game;
-
-namespace Maps {
-class MapBase;
-}
-
 namespace Widgets {
 
-class Transport : public OverworldWidget {
-protected:
-	/**
-	 * Gets the Ultima 1 game
-	 */
-	Ultima1Game *getGame() const;
-
-	/**
-	 * Gets the Ultima 1 map
-	 */
-	Maps::MapBase *getMap() const;
-public:
-	/**
-	 * Constructor
-	 */
-	Transport(Shared::Game *game, Shared::Maps::MapBase *map) : OverworldWidget(game, map) {}
-
-	/**
-	 * Destructor
-	 */
-	virtual ~Transport() {}
-};
-
-class TransportOnFoot : public Transport {
-public:
-	DECLARE_WIDGET(TransportOnFoot)
-
-	/**
-	 * Constructor
-	 */
-	TransportOnFoot(Shared::Game *game, Shared::Maps::MapBase *map) : Transport(game, map) {}
-
-	/**
-	 * Destructor
-	 */
-	virtual ~TransportOnFoot() {}
-
-	/**
-	 * Get the tile for the transport method
-	 */
-	virtual uint getTileNum() const override;
-};
+void OverworldWidget::synchronize(Common::Serializer &s) {
+	MapWidget::synchronize(s);
+	s.syncAsUint16LE(_tileNum);
+}
 
 } // End of namespace Widgets
 } // End of namespace Ultima1
 } // End of namespace Ultima
-
-#endif
