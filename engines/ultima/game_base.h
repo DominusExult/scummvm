@@ -38,7 +38,6 @@ namespace Gfx {
 	class Font;
 	class Popup;
 	class TextCursor;
-	class TextInput;
 	class VisualItem;
 }
 namespace Shared {
@@ -79,7 +78,6 @@ protected:
 	Gfx::Font *_font;
 public:
 	Gfx::TextCursor *_textCursor;
-	Gfx::TextInput *_textInput;
 	uint _videoMode;
 public:
 	/**

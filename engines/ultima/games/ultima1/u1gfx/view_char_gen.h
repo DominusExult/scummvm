@@ -24,6 +24,7 @@
 #define ULTIMA_ULTIMA1_GFX_VIEW_CHAR_GEN_H
 
 #include "ultima/gfx/visual_container.h"
+#include "ultima/gfx/text_input.h"
 #include "ultima/games/shared/core/character.h"
 #include "graphics/managed_surface.h"
 
@@ -53,6 +54,7 @@ private:
 	int _pointsRemaining;
 	int _selectedAttribute;
 	uint *_attributes[ATTRIBUTE_COUNT];
+	Gfx::TextInput *_textInput;
 private:
 	/**
 	 * Set state within the view
@@ -139,7 +141,7 @@ public:
 	/**
 	 * Destructor
 	 */
-	virtual ~ViewCharacterGeneration() {}
+	virtual ~ViewCharacterGeneration();
 
 	/**
 	 * Draw the game screen
