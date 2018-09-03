@@ -20,50 +20,36 @@
  *
  */
 
-#ifndef ULTIMA_GFX_POPUP_H
-#define ULTIMA_GFX_POPUP_H
+#ifndef ULTIMA_ULTIMA1_U1DIALOGS_GROCERY_H
+#define ULTIMA_ULTIMA1_U1DIALOGS_GROCERY_H
 
-#include "ultima/gfx/visual_item.h"
+#include "ultima/games/ultima1/u1dialogs/buy_sell_dialog.h"
 
 namespace Ultima {
-
-class GameBase;
-
-namespace Gfx {
+namespace Ultima1 {
+namespace U1Dialogs {
 
 /**
- * Base class for graphic elements that "pop up" on top of existing views. This includes things like
- * dialogs, text input, etc.
+ * Implements the buy/sell dialog for grocers
  */
-class Popup : public VisualItem {
+class Grocery : public BuySellDialog {
 	DECLARE_MESSAGE_MAP;
-	bool ShowMsg(CShowMsg &msg);
-protected:
-	GameBase *_game;
-	VisualItem *_parentView;
-	TreeItem *_respondTo;
 public:
 	CLASSDEF;
 
 	/**
 	 * Constructor
 	 */
-	Popup(GameBase *game) : VisualItem(nullptr), _game(game), _respondTo(nullptr) {}
+	Grocery(Ultima1Game *game, BuySell buySell, int groceryNum);
 
 	/**
-	 * Show the popup
-	 * @param respondTo		Element to send any response to when the popup closes.
-	 *						If not provided, any response goes to the active view
+	 * Draws the visual item on the screen
 	 */
-	void show(TreeItem *respondTo = nullptr);
-
-	/**
-	 * Hide the popup
-	 */
-	void hide();
+	virtual void draw();
 };
 
-} // End of namespace Gfx
+} // End of namespace U1Dialogs
+} // End of namespace Ultima1
 } // End of namespace Ultima
 
 #endif

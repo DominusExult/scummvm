@@ -20,33 +20,48 @@
  *
  */
 
-#include "ultima/games/ultima1/u1dialogs/grocer.h"
-#include "ultima/messages.h"
+#include "ultima/games/ultima1/u1dialogs/buy_sell_dialog.h"
+#include "ultima/gfx/visual_surface.h"
+#include "ultima/games/ultima1/game.h"
+#include "ultima/games/ultima1/core/resources.h"
+#include "ultima/games/ultima1/maps/map.h"
 
 namespace Ultima {
 namespace Ultima1 {
 namespace U1Dialogs {
 
-BEGIN_MESSAGE_MAP(Grocer, BuySellDialog)
-	ON_MESSAGE(KeypressMsg)
-END_MESSAGE_MAP()
+void BuySellDialog::draw() {
+	Dialog::draw();
+	Gfx::VisualSurface s = getSurface();
+	
+	// Draw the title
+	byte color = getGame()->_textColor;
+	s.writeString(_title, Point((_bounds.width() - _title.size() * 8) / 2, 9), color);
 
-Grocer::Grocer(GameBase *game, BuySell buySell, int groceryNum) :
-		BuySellDialog(game, buySell, ""),
-		_groceryNum(groceryNum) {	
+	switch (_buySell) {
+	case SOLD:
+		s.writeString(getGame()->_res->SOLD, TextPoint(14, 5), color);
+		break;
+
+	case CANT_AFFORD:
+		s.writeString(getGame()->_res->CANT_AFFORD, TextPoint(4, 6), color);
+		break;
+
+	default:
+		break;
+	}
 }
 
-void Grocer::draw() {
-	BuySellDialog::draw();
-
-	// TODO
+void BuySellDialog::showSold() {
+	_buySell = SOLD;
+	setDirty();
 }
 
-bool Grocer::KeypressMsg(CKeypressMsg &msg) {
-	// TODO
-	return true;
+void BuySellDialog::cantAfford() {
+	_buySell = CANT_AFFORD;
+	setDirty();
 }
 
 } // End of namespace U1Dialogs
-} // End of namespace Ultima1
+} // End of namespace Gfx
 } // End of namespace Ultima

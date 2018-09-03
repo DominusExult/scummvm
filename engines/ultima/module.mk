@@ -55,8 +55,9 @@ MODULE_OBJS = \
 	games/ultima1/maps/map_dungeon.o \
 	games/ultima1/maps/map_overworld.o \
 	games/ultima1/maps/map_tile.o \
+	games/ultima1/u1dialogs/buy_sell_dialog.o \
 	games/ultima1/u1dialogs/dialog.o \
-	games/ultima1/u1dialogs/grocer.o \
+	games/ultima1/u1dialogs/grocery.o \
 	games/ultima1/u1gfx/drawing_support.o \
 	games/ultima1/u1gfx/info.o \
 	games/ultima1/u1gfx/sprites.o \

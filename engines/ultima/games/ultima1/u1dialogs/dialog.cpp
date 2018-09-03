@@ -29,7 +29,7 @@ namespace Ultima {
 namespace Ultima1 {
 namespace U1Dialogs {
 
-Dialog::Dialog(GameBase *game) : Popup(game) {
+Dialog::Dialog(Ultima1Game *game) : Popup(game) {
 	_bounds = Rect(31, 23, 287, 127);
 }
 
@@ -47,16 +47,6 @@ void Dialog::draw() {
 
 	// Draw the frame
 	s.frameRect(Rect(3, 3, _bounds.width() - 3, _bounds.height() - 3), getGame()->_borderColor);
-}
-
-/*-------------------------------------------------------------------*/
-
-void BuySellDialog::draw() {
-	Dialog::draw();
-	Gfx::VisualSurface s = getSurface();
-	
-	// Draw the title
-	s.writeString(_title, Point((_bounds.width() - _title.size() * 8) / 2, 9), getGame()->_textColor);
 }
 
 } // End of namespace U1Dialogs

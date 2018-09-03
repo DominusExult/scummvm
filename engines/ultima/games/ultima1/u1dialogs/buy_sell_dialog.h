@@ -20,50 +20,51 @@
  *
  */
 
-#ifndef ULTIMA_GFX_POPUP_H
-#define ULTIMA_GFX_POPUP_H
+#ifndef ULTIMA_ULTIMA1_U1DIALOGS_BUY_SELL_DIALOG_H
+#define ULTIMA_ULTIMA1_U1DIALOGS_BUY_SELL_DIALOG_H
 
-#include "ultima/gfx/visual_item.h"
+#include "ultima/games/ultima1/u1dialogs/dialog.h"
 
 namespace Ultima {
+namespace Ultima1 {
+namespace U1Dialogs {
 
-class GameBase;
-
-namespace Gfx {
+enum BuySell { BUY, SELL, SOLD, CANT_AFFORD };
 
 /**
- * Base class for graphic elements that "pop up" on top of existing views. This includes things like
- * dialogs, text input, etc.
- */
-class Popup : public VisualItem {
-	DECLARE_MESSAGE_MAP;
-	bool ShowMsg(CShowMsg &msg);
+  * Secondary base class for dialogs that have display for buying and selling
+  */
+class BuySellDialog : public Dialog {
 protected:
-	GameBase *_game;
-	VisualItem *_parentView;
-	TreeItem *_respondTo;
+	BuySell _buySell;
+	Common::String _title;
 public:
-	CLASSDEF;
-
 	/**
 	 * Constructor
 	 */
-	Popup(GameBase *game) : VisualItem(nullptr), _game(game), _respondTo(nullptr) {}
+	BuySellDialog(Ultima1Game *game, BuySell buySell, const Common::String &title) : Dialog(game),
+		_buySell(buySell), _title(title) {
+		assert(buySell == BUY || buySell == SOLD);
+	}
 
 	/**
-	 * Show the popup
-	 * @param respondTo		Element to send any response to when the popup closes.
-	 *						If not provided, any response goes to the active view
+	 * Draws the visual item on the screen
 	 */
-	void show(TreeItem *respondTo = nullptr);
+	virtual void draw();
 
 	/**
-	 * Hide the popup
+	 *  Switches the dialog to displaying sold
 	 */
-	void hide();
+	void showSold();
+
+	/**
+	 * Switches the dialog to displaying a can't afford message
+	 */
+	void cantAfford();
 };
 
-} // End of namespace Gfx
+} // End of namespace U1Dialogs
+} // End of namespace Ultima1
 } // End of namespace Ultima
 
 #endif

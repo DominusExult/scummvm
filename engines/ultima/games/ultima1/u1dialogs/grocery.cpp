@@ -20,36 +20,27 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_U1DIALOGS_GROCER_H
-#define ULTIMA_ULTIMA1_U1DIALOGS_GROCER_H
-
-#include "ultima/games/ultima1/u1dialogs/dialog.h"
+#include "ultima/games/ultima1/u1dialogs/grocery.h"
+#include "ultima/games/ultima1/game.h"
+#include "ultima/games/ultima1/core/resources.h"
+#include "ultima/messages.h"
 
 namespace Ultima {
 namespace Ultima1 {
 namespace U1Dialogs {
 
-class Grocer : public BuySellDialog {
-	DECLARE_MESSAGE_MAP;
-	bool KeypressMsg(CKeypressMsg &msg);
-private:
-	int _groceryNum;
-public:
-	CLASSDEF;
+EMPTY_MESSAGE_MAP(Grocery, BuySellDialog);
 
-	/**
-	 * Constructor
-	 */
-	Grocer(GameBase *game, BuySell buySell, int groceryNum);
+Grocery::Grocery(Ultima1Game *game, BuySell buySell, int groceryNum) :
+		BuySellDialog(game, buySell, game->_res->GROCERY_NAMES[groceryNum]) {
+}
 
-	/**
-	 * Draws the visual item on the screen
-	 */
-	virtual void draw();
-};
+void Grocery::draw() {
+	BuySellDialog::draw();
+
+	// TODO
+}
 
 } // End of namespace U1Dialogs
 } // End of namespace Ultima1
 } // End of namespace Ultima
-
-#endif
