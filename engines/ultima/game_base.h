@@ -35,16 +35,16 @@ namespace Ultima {
 class UltimaEngine;
 
 namespace Gfx {
-	class Dialog;
 	class Font;
+	class Popup;
 	class TextCursor;
 	class TextInput;
 	class VisualItem;
 }
 namespace Shared {
-	namespace Maps {
-		class Map;
-	}
+namespace Maps {
+	class Map;
+}
 }
 
 /**
@@ -73,7 +73,7 @@ protected:
 	uint32 _priorMiddleDownTime;
 	uint32 _priorRightDownTime;
 	Gfx::VisualItem *_currentView;
-	Gfx::Dialog *_pendingDialog;
+	Gfx::Popup *_pendingPopup;
 	InputHandler _inputHandler;
 	InputTranslator _inputTranslator;
 	Gfx::Font *_font;
@@ -138,9 +138,9 @@ public:
 	void setView(const Common::String &viewName);
 
 	/**
-	 * Sets a dialog to be active
+	 * Sets a popup to be shown
 	 */
-	void setDialog(Gfx::Dialog *dialog);
+	void setPopup(Gfx::Popup *popup);
 
 	/**
 	 * Returns the current view

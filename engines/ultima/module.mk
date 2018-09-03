@@ -10,7 +10,7 @@ MODULE_OBJS = \
 	core/resources.o \
 	core/tree_item.o \
 	gfx/bitmap.o \
-	gfx/dialog.o \
+	gfx/popup.o \
 	gfx/font.o \
 	gfx/screen.o \
 	gfx/sprites.o \

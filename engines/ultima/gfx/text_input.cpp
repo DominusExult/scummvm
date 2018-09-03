@@ -28,12 +28,12 @@
 namespace Ultima {
 namespace Gfx {
 
-BEGIN_MESSAGE_MAP(TextInput, Dialog)
+BEGIN_MESSAGE_MAP(TextInput, Popup)
 	ON_MESSAGE(KeypressMsg)
 END_MESSAGE_MAP()
 
 void TextInput::show(const Point &pt, bool isNumeric, size_t maxCharacters, byte color) {
-	Dialog::show();
+	Popup::show();
 	_isNumeric = isNumeric;
 	_maxCharacters = maxCharacters;
 	_color = color;
@@ -45,7 +45,7 @@ void TextInput::show(const Point &pt, bool isNumeric, size_t maxCharacters, byte
 }
 
 void TextInput::draw() {
-	Dialog::draw();
+	Popup::draw();
 
 	VisualSurface s = getSurface();
 

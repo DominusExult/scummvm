@@ -23,7 +23,7 @@
 #ifndef ULTIMA_GFX_TEXT_INPUT_H
 #define ULTIMA_GFX_TEXT_INPUT_H
 
-#include "ultima/gfx/dialog.h"
+#include "ultima/gfx/popup.h"
 
 namespace Ultima {
 namespace Gfx {
@@ -31,7 +31,7 @@ namespace Gfx {
 /**
  * Text input control
  */
-class TextInput : public Dialog {
+class TextInput : public Popup {
 	DECLARE_MESSAGE_MAP;
 	bool KeypressMsg(CKeypressMsg &msg);
 private:
@@ -41,7 +41,7 @@ private:
 	byte _color;
 public:
 	CLASSDEF;
-	TextInput(GameBase *game) : Dialog(game), _isNumeric(false), _maxCharacters(0), _color(0) {}
+	TextInput(GameBase *game) : Popup(game), _isNumeric(false), _maxCharacters(0), _color(0) {}
 
 	/**
 	 * Draws the visual item on the screen
