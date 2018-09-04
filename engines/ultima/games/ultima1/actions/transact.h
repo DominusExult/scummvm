@@ -20,43 +20,35 @@
  *
  */
 
-#include "ultima/games/ultima1/u1dialogs/grocery.h"
-#include "ultima/games/ultima1/game.h"
-#include "ultima/games/ultima1/core/resources.h"
+#ifndef ULTIMA_ULTIMA1_ACTIONS_TRANSACT_H
+#define ULTIMA_ULTIMA1_ACTIONS_TRANSACT_H
+
+#include "ultima/games/ultima1/actions/action.h"
 #include "ultima/messages.h"
 
 namespace Ultima {
 namespace Ultima1 {
-namespace U1Dialogs {
+namespace Actions {
 
-EMPTY_MESSAGE_MAP(Grocery, BuySellDialog);
+class Transact : public Action {
+	DECLARE_MESSAGE_MAP;
+	bool TransactMsg(CTransactMsg &msg);
+public:
+	CLASSDEF;
 
-Grocery::Grocery(Ultima1Game *game, BuySell buySell, int groceryNum, uint costPerPack) :
-		BuySellDialog(game, buySell, game->_res->GROCERY_NAMES[groceryNum]) {
-	assert(buySell == SELL || costPerPack > 0);
-}
+	/**
+	* Constructor
+	*/
+	Transact(TreeItem *parent) : Action(parent) {}
 
-void Grocery::draw() {
-	BuySellDialog::draw();
-	Gfx::VisualSurface s = getSurface();
-	Ultima1Game *game = getGame();
+	/**
+	 * Destructor
+	 */
+	virtual ~Transact() {}
+};
 
-	switch (_buySell) {
-	case BUY:
-		s.writeString(game->_res->GROCERY_PACKS1, TextPoint(5, 5), game->_textColor);
-		s.writeString(game->_res->GROCERY_PACKS2, TextPoint(5, 5), game->_textColor);
-		s.writeString(game->_res->GROCERY_PACKS3, TextPoint(5, 5), game->_textColor);
-		break;
-
-	case SELL:
-		s.writeString(game->_res->GROCERY_SELL, TextPoint(5, 5), game->_textColor);
-		break;
-
-	default:
-		break;
-	}
-}
-
-} // End of namespace U1Dialogs
+} // End of namespace Actions
 } // End of namespace Ultima1
 } // End of namespace Ultima
+
+#endif
