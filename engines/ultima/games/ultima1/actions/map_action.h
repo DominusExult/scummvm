@@ -20,32 +20,23 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_ACTIONS_TRANSACT_H
-#define ULTIMA_ULTIMA1_ACTIONS_TRANSACT_H
-
-#include "ultima/games/ultima1/actions/action.h"
-#include "ultima/messages.h"
+#ifndef ULTIMA_ULTIMA1_ACTIONS_MAP_ACTION_H
+#define ULTIMA_ULTIMA1_ACTIONS_MAP_ACTION_H
 
 namespace Ultima {
 namespace Ultima1 {
 namespace Actions {
 
-class Transact : public Action {
-	DECLARE_MESSAGE_MAP;
-	bool TransactMsg(CTransactMsg &msg);
-public:
-	CLASSDEF;
-
-	/**
-	* Constructor
-	*/
-	Transact(TreeItem *parent) : Action(parent) {}
-
-	/**
-	 * Destructor
-	 */
-	virtual ~Transact() {}
-};
+#define MAP_ACTION(NAME, ACTION_NUM, MAP_METHOD) \
+	class NAME : public Action { DECLARE_MESSAGE_MAP; bool NAME##Msg(C##NAME##Msg &msg) { \
+	addInfoMsg(getRes()->ACTION_NAMES[ACTION_NUM], false); \
+	getMap()->MAP_METHOD(); \
+	return true; } \
+	public: \
+	CLASSDEF; \
+	NAME(TreeItem *parent) : Action(parent) {} \
+	}; \
+	BEGIN_MESSAGE_MAP(NAME, Action) ON_MESSAGE(NAME##Msg) END_MESSAGE_MAP()
 
 } // End of namespace Actions
 } // End of namespace Ultima1

@@ -55,6 +55,16 @@ public:
 	 * Gets a tile at a given position
 	 */
 	virtual void getTileAt(const Point &pt, Shared::Maps::MapTile *tile) override;
+
+	/**
+	 * Do a steal action
+	 */
+	virtual void steal();
+
+	/**
+	 * Do a talk action
+	 */
+	virtual void talk();
 };
 
 } // End of namespace Maps
