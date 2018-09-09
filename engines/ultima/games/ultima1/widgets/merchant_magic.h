@@ -20,54 +20,38 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_MAPS_MAP_BASE_H
-#define ULTIMA_ULTIMA1_MAPS_MAP_BASE_H
+#ifndef ULTIMA_ULTIMA1_WIDGETS_MERCHANT_MAGIC_H
+#define ULTIMA_ULTIMA1_WIDGETS_MERCHANT_MAGIC_H
 
-#include "ultima/games/shared/maps/map_base.h"
+#include "ultima/games/ultima1/widgets/merchant.h"
 
 namespace Ultima {
 namespace Ultima1 {
+namespace Widgets {
 
-class Ultima1Game;
-
-namespace Maps {
-
-class Ultima1Map;
-
-/**
- * Intermediate base class for Ultima 1 maps
- */
-class MapBase : public Shared::Maps::MapBase {
-protected:
-	Ultima1Game *_game;
+class MerchantMagic : public Merchant {
 public:
+	DECLARE_WIDGET(MerchantMagic)
+
 	/**
 	 * Constructor
 	 */
-	MapBase(Ultima1Game *game, Ultima1Map *map);
-		
-	/**
-	 * Destructor
-	 */
-	virtual ~MapBase() {}
+	MerchantMagic(Ultima1Game *game, Maps::MapBase *map, int hitPoints) :
+		Merchant(game, map, 50, hitPoints) {}
 
 	/**
-	 * Gets a tile at a given position
+	 * Constructor
 	 */
-	virtual void getTileAt(const Point &pt, Shared::Maps::MapTile *tile) override;
+	MerchantMagic(Ultima1Game *game, Maps::MapBase *map, uint tileNum, int hitPoints) :
+		Merchant(game, map, tileNum, hitPoints) {}
 
 	/**
-	 * Do a steal action
+	 * Constructor
 	 */
-	void steal();
-
-	/**
-	 * Do a talk action
-	 */
-	void talk();
+	MerchantMagic(Ultima1Game *game, Maps::MapBase *map) : Merchant(game, map, 50) {}
 };
 
-} // End of namespace Maps
+} // End of namespace Widgets
 } // End of namespace Ultima1
 } // End of namespace Ultima
 

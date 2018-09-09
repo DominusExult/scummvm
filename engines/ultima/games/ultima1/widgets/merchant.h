@@ -29,6 +29,9 @@ namespace Ultima {
 namespace Ultima1 {
 namespace Widgets {
 
+/**
+ * Base class for merchants in the cities and castles
+ */
 class Merchant : public Person {
 public:
 	DECLARE_WIDGET(Merchant)
@@ -51,9 +54,9 @@ public:
 	Merchant(Ultima1Game *game, Maps::MapBase *map) : Person(game, map, 50) {}
 
 	/**
-	 * Destructor
+	 * Does the steal action
 	 */
-	virtual ~Merchant() {}
+	virtual void steal() {}
 };
 
 } // End of namespace Widgets

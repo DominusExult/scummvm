@@ -78,6 +78,12 @@ MODULE_OBJS = \
 	games/ultima1/widgets/guard.o \
 	games/ultima1/widgets/king.o \
 	games/ultima1/widgets/merchant.o \
+	games/ultima1/widgets/merchant_armor.o \
+	games/ultima1/widgets/merchant_grocer.o \
+	games/ultima1/widgets/merchant_magic.o \
+	games/ultima1/widgets/merchant_tavern.o \
+	games/ultima1/widgets/merchant_transport.o \
+	games/ultima1/widgets/merchant_weapons.o \
 	games/ultima1/widgets/princess.o \
 	games/ultima1/widgets/wench.o \
 	games/ultima1/widgets/dungeon_item.o \

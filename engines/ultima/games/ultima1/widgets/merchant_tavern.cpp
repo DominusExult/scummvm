@@ -20,55 +20,12 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_MAPS_MAP_BASE_H
-#define ULTIMA_ULTIMA1_MAPS_MAP_BASE_H
-
-#include "ultima/games/shared/maps/map_base.h"
+#include "ultima/games/ultima1/widgets/merchant_armor.h"
 
 namespace Ultima {
 namespace Ultima1 {
+namespace Widgets {
 
-class Ultima1Game;
-
-namespace Maps {
-
-class Ultima1Map;
-
-/**
- * Intermediate base class for Ultima 1 maps
- */
-class MapBase : public Shared::Maps::MapBase {
-protected:
-	Ultima1Game *_game;
-public:
-	/**
-	 * Constructor
-	 */
-	MapBase(Ultima1Game *game, Ultima1Map *map);
-		
-	/**
-	 * Destructor
-	 */
-	virtual ~MapBase() {}
-
-	/**
-	 * Gets a tile at a given position
-	 */
-	virtual void getTileAt(const Point &pt, Shared::Maps::MapTile *tile) override;
-
-	/**
-	 * Do a steal action
-	 */
-	void steal();
-
-	/**
-	 * Do a talk action
-	 */
-	void talk();
-};
-
-} // End of namespace Maps
+} // End of namespace Widgets
 } // End of namespace Ultima1
 } // End of namespace Ultima
-
-#endif
