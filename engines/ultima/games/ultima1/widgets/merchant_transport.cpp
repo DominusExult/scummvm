@@ -20,11 +20,13 @@
  *
  */
 
-#include "ultima/games/ultima1/widgets/merchant_grocer.h"
+#include "ultima/games/ultima1/widgets/merchant_transport.h"
 
 namespace Ultima {
 namespace Ultima1 {
 namespace Widgets {
+
+EMPTY_MESSAGE_MAP(MerchantTransport, Merchant);
 
 } // End of namespace Widgets
 } // End of namespace Ultima1
