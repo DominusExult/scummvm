@@ -31,7 +31,6 @@
 #include "ultima/games/ultima1/u1gfx/viewport_dungeon.h"
 #include "ultima/games/ultima1/u1gfx/viewport_map.h"
 #include "ultima/games/ultima1/actions/move.h"
-#include "ultima/games/ultima1/actions/enter.h"
 #include "ultima/games/ultima1/core/resources.h"
 #include "ultima/messages.h"
 
@@ -50,7 +49,7 @@ GameView::GameView(TreeItem *parent) : Gfx::VisualContainer("GameView", Rect(0, 
 	Ultima1Game *game = static_cast<Ultima1Game *>(getGame());
 	_actions[0] = new Actions::Move(this);
 	//_actions[1] = new Actions::Climb(this);
-	_actions[2] = new Actions::Enter(this);
+	//_actions[2] = new Actions::Enter(this);
 	_actions[3] = new Shared::Actions::Pass(this, game->_res->ACTION_NAMES[15]);
 	loadBackground();
 }

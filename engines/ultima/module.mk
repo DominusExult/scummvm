@@ -70,7 +70,6 @@ MODULE_OBJS = \
 	games/ultima1/u1gfx/viewport_map.o \
 	games/ultima1/u6gfx/game_view.o \
 	games/ultima1/actions/action.o \
-	games/ultima1/actions/enter.o \
 	games/ultima1/actions/move.o \
 	games/ultima1/widgets/person.o \
 	games/ultima1/widgets/bard.o \

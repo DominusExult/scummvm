@@ -63,7 +63,6 @@ public:
 	const char *DUNGEON_MONSTER_NAMES[99];
 	const char *LAND_NAMES[4];
 	const char *BLOCKED;
-	const char *ENTER_QUESTION;
 	const char *ENTERING;
 	const char *THE_CITY_OF;
 	const char *DUNGEON_LEVEL;

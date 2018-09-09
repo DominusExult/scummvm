@@ -31,7 +31,6 @@
 #include "ultima/games/ultima1/u1gfx/viewport_dungeon.h"
 #include "ultima/games/ultima1/u1gfx/viewport_map.h"
 #include "ultima/games/ultima1/actions/move.h"
-#include "ultima/games/ultima1/actions/enter.h"
 #include "ultima/games/ultima1/actions/map_action.h"
 #include "ultima/games/ultima1/core/resources.h"
 #include "ultima/messages.h"
@@ -39,6 +38,7 @@
 namespace Ultima {
 namespace Ultima1 {
 namespace Actions {
+	MAP_ACTION(Enter, 4, enter);
 	MAP_ACTION(Inform, 8, inform);
 	MAP_ACTION(Climb, 10, climb);
 	MAP_ACTION(Steal, 18, steal);
