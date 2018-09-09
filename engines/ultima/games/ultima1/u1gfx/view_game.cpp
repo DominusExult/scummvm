@@ -40,6 +40,7 @@
 namespace Ultima {
 namespace Ultima1 {
 namespace Actions {
+	MAP_ACTION(Inform, 8, inform);
 	MAP_ACTION(Steal, 18, steal);
 	MAP_ACTION(Transact, 19, talk)
 }
@@ -59,14 +60,15 @@ ViewGame::ViewGame(TreeItem *parent) : Gfx::VisualContainer("Game", Rect(0, 0, 3
 	Ultima1Game *game = static_cast<Ultima1Game *>(getGame());
 	_viewportMap = new ViewportMap(this);
 	
-	_actions.resize(7);
+	_actions.resize(8);
 	_actions[0] = new Actions::Move(this);
 	_actions[1] = new Actions::Climb(this);
 	_actions[2] = new Actions::Enter(this);
 	_actions[3] = new Shared::Actions::Pass(this, game->_res->ACTION_NAMES[15]);
 	_actions[4] = new Shared::Actions::Huh(this, game->_res->HUH);
-	_actions[5] = new Actions::Steal(this);
-	_actions[5] = new Actions::Transact(this);
+	_actions[5] = new Actions::Inform(this);
+	_actions[6] = new Actions::Steal(this);
+	_actions[7] = new Actions::Transact(this);
 }
 
 ViewGame::~ViewGame() {
@@ -171,6 +173,11 @@ bool ViewGame::KeypressMsg(CKeypressMsg &msg) {
 	case Common::KEYCODE_e: {
 		CEnterMsg enter;
 		enter.execute(this);
+		break;
+	}
+	case Common::KEYCODE_i: {
+		CInformMsg inform;
+		inform.execute(this);
 		break;
 	}
 	case Common::KEYCODE_k: {
