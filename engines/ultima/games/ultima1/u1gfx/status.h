@@ -34,22 +34,19 @@ namespace U1Gfx {
  */
 class Status : public Gfx::VisualItem {
 	DECLARE_MESSAGE_MAP;
+	bool FrameMsg(CFrameMsg &msg);
 private:
 	uint _hitPoints, _food, _experience, _coins;
+private:
 public:
 	CLASSDEF;
-	Status(TreeItem *parent) : Gfx::VisualItem("Status", TextRect(31, 21, 40, 25), parent) {}
+	Status(TreeItem *parent);
 	virtual ~Status() {}
 
 	/**
 	 * Draw the contents
 	 */
 	virtual void draw() override;
-
-	/**
-	 * Returns true if the item is dirty, requiring a redraw
-	 */
-	virtual bool isDirty() const override;
 };
 
 } // End of namespace U1Gfx
