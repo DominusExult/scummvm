@@ -48,7 +48,7 @@ public:
 class TextRect : public Common::Rect {
 public:
 	TextRect() : Common::Rect() {}
-	TextRect(int16 x1, int16 y1, int16 x2, int16 y2) : Common::Rect(x1 * 8, y1 * 8, x2 * 8, y2 * 8) {}
+	TextRect(int16 x1, int16 y1, int16 x2, int16 y2) : Common::Rect(x1 * 8, y1 * 8, (x2 + 1) * 8, (y2 + 1) * 8) {}
 };
 
 } // End of namespace Ultima
