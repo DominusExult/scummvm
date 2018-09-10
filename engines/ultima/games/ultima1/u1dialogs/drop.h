@@ -34,12 +34,36 @@ namespace U1Dialogs {
  */
 class Drop : public Dialog {
 	DECLARE_MESSAGE_MAP;
-	bool ShowMsg(CShowMsg &msg);
-	bool TextInputMsg(CTextInputMsg &msg);
+	bool KeypressMsg(CKeypressMsg &msg);
 
 	enum Mode { SELECT, DROP_PENCE, DROP_WEAPON, DROP_ARMOR };
 private:
 	Mode _mode;
+private:
+	/**
+	 * Nothing selected
+	 */
+	void nothing();
+
+	/**
+	 * Draw the initial mode selection display
+	 */
+	void drawSelection();
+
+	/**
+	 * Draw the drop pence display
+	 */
+	void drawDropPence();
+
+	/**
+	 * Draw the drop weapon display
+	 */
+	void drawDropWeapon();
+
+	/**
+	 * Draw the drop armor display
+	 */
+	void drawDropArmor();
 public:
 	CLASSDEF;
 
