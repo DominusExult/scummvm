@@ -20,38 +20,47 @@
  *
  */
 
-#include "ultima/games/shared/actions/action.h"
-#include "ultima/games/shared/game.h"
-#include "ultima/games/shared/maps/map.h"
-#include "ultima/gfx/visual_item.h"
+#include "ultima/games/ultima1/u1dialogs/drop.h"
+#include "ultima/games/ultima1/game.h"
+#include "ultima/games/ultima1/core/resources.h"
 #include "ultima/messages.h"
 
 namespace Ultima {
-namespace Shared {
-namespace Actions {
+namespace Ultima1 {
+namespace U1Dialogs {
 
-Action::Action(TreeItem *parent) : TreeItem() {
-	assert(parent);
-	addUnder(parent);
+BEGIN_MESSAGE_MAP(Drop, Dialog)
+	ON_MESSAGE(TextInputMsg)
+END_MESSAGE_MAP()
+
+Drop::Drop(Ultima1Game *game) : Dialog(game), _mode(SELECT) {
+	// The dialog itself doesn't initially display, instead we add a prompt to the info area for
+	// what kind of thing to drop
 }
 
-Game *Action::getGame() {
-	return static_cast<Game *>(TreeItem::getGame());
+void Drop::draw() {
+	return;
 }
 
-Maps::Map *Action::getMap() {
-	return static_cast<Maps::Map *>(getGame()->getMap());
+bool Drop::ShowMsg(CShowMsg &msg) {
+	// Add a prompt in the info area for what kind of thing to drop
+	addInfoMsg(getGame()->_res->DROP_PENCE_WEAPON_ARMOR);
+	CInfoGetKeypress keyMsg(this);
+	keyMsg.execute(_game);
+
+	return true;
 }
 
-void Action::addInfoMsg(const Common::String &text, bool newLine, bool replaceLine) {
-	CInfoMsg msg(text, newLine, replaceLine);
-	msg.execute(getView());
+bool Drop::TextInputMsg(CTextInputMsg &msg) {
+	if (msg._escaped) {
+		addInfoMsg(Common::String::format("%s %s", _game->_res->ACTION_NAMES[3], _game->_res->NOTHING), true, true);
+		hide();
+		delete this;
+	}
+
+	return true;
 }
 
-void Action::playFX(uint effectId) {
-	getGame()->playFX(effectId);
-}
-
-} // End of namespace Actions
-} // End of namespace Shared
+} // End of namespace U1Dialogs
+} // End of namespace Ultima1
 } // End of namespace Ultima

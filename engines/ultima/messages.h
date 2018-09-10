@@ -221,16 +221,6 @@ public:
 };
 
 /**
- * Climb up or down
- */
-MESSAGE0(CClimbMsg);
-
-/**
- * Used to trigger an Enter action
- */
-MESSAGE0(CEnterMsg);
-
-/**
  * Used to notify that a rendering frame has finished, occurring at GAME_FRAME_RATE times every second
  */
 MESSAGE1(CFrameMsg, uint, ticks, 0);
@@ -253,7 +243,7 @@ MESSAGE3(CInfoGetInput, MessageTarget *, responder, (MessageTarget *)nullptr, bo
 /**
  * Adds text strings to the info area
  */
-MESSAGE2(CInfoMsg, Common::String, text, "", bool, newLine, true);
+MESSAGE3(CInfoMsg, Common::String, text, "", bool, newLine, true, bool, replaceLine, false);
 
 /**
  * Signals an unknown/unhandled keypress
@@ -296,6 +286,22 @@ MESSAGE2(CShowMsg, Gfx::VisualItem *, view, (Gfx::VisualItem *)nullptr, bool, fa
 MESSAGE2(CTextInputMsg, Common::String, text, "", bool, escaped, false);
 
 /*-------------------------------------------------------------------*/
+
+/**
+ * Climb up or down
+ */
+MESSAGE0(CClimbMsg);
+
+/**
+ * Used to trigger a drop action
+ */
+MESSAGE0(CDropMsg);
+
+/**
+ * Used to trigger an Enter action
+ */
+MESSAGE0(CEnterMsg);
+
 
 /**
  * Used to trigger an inform action

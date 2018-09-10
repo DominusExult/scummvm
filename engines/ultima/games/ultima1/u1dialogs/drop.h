@@ -20,38 +20,42 @@
  *
  */
 
-#include "ultima/games/shared/actions/action.h"
-#include "ultima/games/shared/game.h"
-#include "ultima/games/shared/maps/map.h"
-#include "ultima/gfx/visual_item.h"
-#include "ultima/messages.h"
+#ifndef ULTIMA_ULTIMA1_U1DIALOGS_DROP_H
+#define ULTIMA_ULTIMA1_U1DIALOGS_DROP_H
+
+#include "ultima/games/ultima1/u1dialogs/dialog.h"
 
 namespace Ultima {
-namespace Shared {
-namespace Actions {
+namespace Ultima1 {
+namespace U1Dialogs {
 
-Action::Action(TreeItem *parent) : TreeItem() {
-	assert(parent);
-	addUnder(parent);
-}
+/**
+ * Implements the drop dialog
+ */
+class Drop : public Dialog {
+	DECLARE_MESSAGE_MAP;
+	bool ShowMsg(CShowMsg &msg);
+	bool TextInputMsg(CTextInputMsg &msg);
 
-Game *Action::getGame() {
-	return static_cast<Game *>(TreeItem::getGame());
-}
+	enum Mode { SELECT, DROP_PENCE, DROP_WEAPON, DROP_ARMOR };
+private:
+	Mode _mode;
+public:
+	CLASSDEF;
 
-Maps::Map *Action::getMap() {
-	return static_cast<Maps::Map *>(getGame()->getMap());
-}
+	/**
+	 * Constructor
+	 */
+	Drop(Ultima1Game *game);
 
-void Action::addInfoMsg(const Common::String &text, bool newLine, bool replaceLine) {
-	CInfoMsg msg(text, newLine, replaceLine);
-	msg.execute(getView());
-}
+	/**
+	 * Draws the visual item on the screen
+	 */
+	virtual void draw();
+};
 
-void Action::playFX(uint effectId) {
-	getGame()->playFX(effectId);
-}
-
-} // End of namespace Actions
-} // End of namespace Shared
+} // End of namespace U1Dialogs
+} // End of namespace Ultima1
 } // End of namespace Ultima
+
+#endif

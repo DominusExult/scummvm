@@ -28,6 +28,10 @@ namespace Ultima {
 namespace Ultima1 {
 namespace U1Gfx {
 
+BEGIN_MESSAGE_MAP(ViewportMap, Shared::ViewportMap)
+	ON_MESSAGE(FrameMsg)
+END_MESSAGE_MAP()
+
 ViewportMap::ViewportMap(TreeItem *parent) : Shared::ViewportMap(parent), _mapType(Maps::MAP_OVERWORLD) {
 	_sprites = new Sprites(this);	
 }
@@ -47,6 +51,12 @@ void ViewportMap::draw() {
 
 	// Draw the map
 	Shared::ViewportMap::draw();
+}
+
+bool ViewportMap::FrameMsg(CFrameMsg &msg) {
+	// To allow map to animate, on each frame mark the map as dirty again
+	setDirty(true);
+	return true;
 }
 
 } // End of namespace U1Gfx

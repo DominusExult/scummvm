@@ -31,9 +31,13 @@ namespace Ultima1 {
 namespace U1Gfx {
 
 class ViewportMap : public Shared::ViewportMap {
+	DECLARE_MESSAGE_MAP;
+	bool FrameMsg(CFrameMsg &msg);
 private:
 	Maps::MapType _mapType;
 public:
+	CLASSDEF;
+
 	/**
 	 * Constructor
 	 */
