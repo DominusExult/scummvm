@@ -60,7 +60,7 @@ public:
 	/**
 	 * Hide the popup
 	 */
-	void hide();
+	virtual void hide();
 };
 
 } // End of namespace Gfx
