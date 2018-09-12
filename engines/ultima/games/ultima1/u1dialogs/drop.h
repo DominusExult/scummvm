@@ -41,6 +41,11 @@ private:
 	Mode _mode;
 private:
 	/**
+	 * Sets the mode
+	 */
+	void setMode(Mode mode);
+
+	/**
 	 * Nothing selected
 	 */
 	void nothing();
