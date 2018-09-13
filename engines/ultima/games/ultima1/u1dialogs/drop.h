@@ -24,6 +24,7 @@
 #define ULTIMA_ULTIMA1_U1DIALOGS_DROP_H
 
 #include "ultima/games/ultima1/u1dialogs/full_screen_dialog.h"
+#include "ultima/gfx/text_input.h"
 
 namespace Ultima {
 namespace Ultima1 {
@@ -35,10 +36,12 @@ namespace U1Dialogs {
 class Drop : public FullScreenDialog {
 	DECLARE_MESSAGE_MAP;
 	bool KeypressMsg(CKeypressMsg &msg);
+	bool TextInputMsg(CTextInputMsg &msg);
 
 	enum Mode { SELECT, DROP_PENCE, DROP_WEAPON, DROP_ARMOR };
 private:
 	Mode _mode;
+	Gfx::TextInput _textInput;
 private:
 	/**
 	 * Sets the mode
