@@ -20,69 +20,40 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_MAPS_MAP_BASE_H
-#define ULTIMA_ULTIMA1_MAPS_MAP_BASE_H
+#ifndef ULTIMA_ULTIMA1_WIDGETS_DUNGEON_COFFIN_H
+#define ULTIMA_ULTIMA1_WIDGETS_DUNGEON_COFFIN_H
 
-#include "ultima/games/shared/maps/map_base.h"
+#include "ultima/games/ultima1/widgets/dungeon_item.h"
 
 namespace Ultima {
 namespace Ultima1 {
-
-class Ultima1Game;
-
-namespace Maps {
-
-class Ultima1Map;
+namespace Widgets {
 
 /**
- * Intermediate base class for Ultima 1 maps
+ * Chest item
  */
-class MapBase : public Shared::Maps::MapBase {
-private:
-	/**
-	 * Default unknown/question mark display
-	 */
-	void unknownAction();
-protected:
-	Ultima1Game *_game;
+class DungeonCoffin : public DungeonItem {
 public:
+	DECLARE_WIDGET(DungeonCoffin)
+
 	/**
 	 * Constructor
 	 */
-	MapBase(Ultima1Game *game, Ultima1Map *map);
-		
-	/**
-	 * Destructor
-	 */
-	virtual ~MapBase() {}
+	DungeonCoffin(Ultima1Game *game, Maps::MapBase *map, const Point &pt);
 
 	/**
-	 * Gets a tile at a given position
+	 * Constructor
 	 */
-	virtual void getTileAt(const Point &pt, Shared::Maps::MapTile *tile, bool includePlayer = true) override;
+	DungeonCoffin(Ultima1Game *game, Maps::MapBase *map);
 
 	/**
-	 * Default implementation for actions
+	 * Try to open the item
+	 * @returns		True if item was capable of being open
 	 */
-	#define DEFAULT_ACTION(NAME) virtual void NAME() { unknownAction(); }
-	DEFAULT_ACTION(drop)
-	DEFAULT_ACTION(enter)
-	DEFAULT_ACTION(get)
-	DEFAULT_ACTION(hyperjump)
-	DEFAULT_ACTION(inform)
-	DEFAULT_ACTION(climb)
-	DEFAULT_ACTION(open)
-	DEFAULT_ACTION(steal)
-	DEFAULT_ACTION(talk)
-	DEFAULT_ACTION(unlock)
-
-	/**
-	 * Handles dropping an amount of coins
-	 */
-	virtual void dropCoins(uint coins) {}
+	virtual bool open() override;
 };
 
-} // End of namespace Maps
+} // End of namespace Widgets
 } // End of namespace Ultima1
 } // End of namespace Ultima
 

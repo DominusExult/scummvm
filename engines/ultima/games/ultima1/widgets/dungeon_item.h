@@ -29,33 +29,33 @@ namespace Ultima {
 namespace Ultima1 {
 namespace Widgets {
 
-enum DungeonItemId {
-	DITEM_CHEST = 4, DITEM_COFFIN = 5
-};
 
 /**
  * Encapsulated class for drawing widgets within dungeons
  */
 class DungeonItem : public DungeonWidget {
-private:
-	DungeonItemId _itemId;
+protected:
+	/**
+	 * Constructor
+	 */
+	DungeonItem(Ultima1Game *game, Maps::MapBase *map, DungeonWidgetId widgetId, const Point &pt);
+
+	/**
+	 * Constructor
+	 */
+	DungeonItem(Ultima1Game *game, Maps::MapBase *map, DungeonWidgetId widgetId);
 public:
-	DECLARE_WIDGET(DungeonItem)
+	/**
+	 * Try to open the item
+	 * @returns		True if item was capable of being open
+	 */
+	virtual bool open() { return false; }
 
 	/**
-	 * Constructor
+	 * Try to unlock the item
+	 * @returns		True if item was capable of being unlock
 	 */
-	DungeonItem(Shared::Game *game, Shared::Maps::MapBase *map, DungeonItemId itemId, const Point &pt);
-
-	/**
-	 * Constructor
-	 */
-	DungeonItem(Shared::Game *game, Shared::Maps::MapBase *map) : DungeonWidget(game, map) {}
-
-	/**
-	 * Handles loading and saving games
-	 */
-	virtual void synchronize(Common::Serializer &s) override;
+	virtual bool unlock() { return false; }
 };
 
 } // End of namespace Widgets

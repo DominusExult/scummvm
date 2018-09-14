@@ -318,6 +318,11 @@ MESSAGE0(CHyperJumpMsg);
 MESSAGE0(CInformMsg);
 
 /**
+ * Used to trigger an open action
+ */
+MESSAGE0(COpenMsg);
+
+/**
  * Used to trigger a steal action
  */
 MESSAGE0(CStealMsg);
@@ -326,6 +331,11 @@ MESSAGE0(CStealMsg);
  * Used to trigger a Transact action
  */
 MESSAGE0(CTransactMsg);
+
+/**
+ * Used to trigger an Unlock action
+ */
+MESSAGE0(CUnlockMsg);
 
 } // End of namespace Ultima
 
