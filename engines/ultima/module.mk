@@ -60,6 +60,7 @@ MODULE_OBJS = \
 	games/ultima1/u1dialogs/full_screen_dialog.o \
 	games/ultima1/u1dialogs/drop.o \
 	games/ultima1/u1dialogs/grocery.o \
+	games/ultima1/u1dialogs/stats.o \
 	games/ultima1/u1gfx/drawing_support.o \
 	games/ultima1/u1gfx/info.o \
 	games/ultima1/u1gfx/sprites.o \
@@ -73,6 +74,7 @@ MODULE_OBJS = \
 	games/ultima1/u6gfx/game_view.o \
 	games/ultima1/actions/action.o \
 	games/ultima1/actions/move.o \
+	games/ultima1/actions/stats.o \
 	games/ultima1/widgets/person.o \
 	games/ultima1/widgets/bard.o \
 	games/ultima1/widgets/guard.o \
