@@ -35,7 +35,7 @@ namespace U1Dialogs {
  */
 class Stats : public FullScreenDialog {
 	DECLARE_MESSAGE_MAP;
-	bool PopupShowMsg(CPopupShownMsg &msg);
+	bool ShowMsg(CShowMsg &msg);
 	bool KeypressMsg(CKeypressMsg &msg);
 public:
 	/**

@@ -57,10 +57,16 @@ public:
 	Ultima::Gfx::VisualItem *_gameView;
 	Ultima::Gfx::VisualItem *_titleView;
 	Ultima::Gfx::VisualItem *_charGenView;
+	uint _gems[4];
 public:
 	CLASSDEF;
 	Ultima1Game();
 	virtual ~Ultima1Game();
+
+	/**
+	 * Handles loading and saving games
+	 */
+	virtual void synchronize(Common::Serializer &s) override;
 
 	/**
 	 * Returns true if the current video mode is VGA
