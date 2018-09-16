@@ -171,6 +171,16 @@ bool ViewGame::FrameMsg(CFrameMsg &msg) {
 	return true;
 }
 
+/**
+ * Dispatch method
+ */
+template<class T>
+void dispatchKey(ViewGame *game) {
+	T dMsg;
+	dMsg.execute(game);
+}
+#define CHECK(KEYCODE, MSG_CLASS) if (msg._keyState.keycode == KEYCODE) { dispatchKey<MSG_CLASS>(this); break; }
+
 bool ViewGame::KeypressMsg(CKeypressMsg &msg) {
 	getGame()->_textCursor->setVisible(false);
 
@@ -199,96 +209,27 @@ bool ViewGame::KeypressMsg(CKeypressMsg &msg) {
 		move.execute(this);
 		break;
 	}
-	case Common::KEYCODE_d: {
-		CDropMsg drop;
-		drop.execute(this);
-		break;
-	}
-	case Common::KEYCODE_e: {
-		CEnterMsg enter;
-		enter.execute(this);
-		break;
-	}
-	case Common::KEYCODE_f: {
-		CFireMsg fire;
-		fire.execute(this);
-		break;
-	}
-	case Common::KEYCODE_g: {
-		CGetMsg get;
-		get.execute(this);
-		break;
-	}
-	case Common::KEYCODE_h: {
-		CHyperJumpMsg hyperjump;
-		hyperjump.execute(this);
-		break;
-	}
-	case Common::KEYCODE_i: {
-		CInformMsg inform;
-		inform.execute(this);
-		break;
-	}
-	case Common::KEYCODE_k: {
-		CClimbMsg climb;
-		climb.execute(this);
-		break;
-	}
-	case Common::KEYCODE_o: {
-		COpenMsg open;
-		open.execute(this);
-		break;
-	}
-	case Common::KEYCODE_q: {
-		CQuitMsg quit;
-		quit.execute(this);
-		break;
-	}
-	case Common::KEYCODE_r: {
-		CReadyMsg ready;
-		ready.execute(this);
-		break;
-	}
-	case Common::KEYCODE_s: {
-		CStealMsg steal;
-		steal.execute(this);
-		break;
-	}
-	case Common::KEYCODE_t: {
-		CTransactMsg transact;
-		transact.execute(this);
-		break;
-	}
-	case Common::KEYCODE_u: {
-		CUnlockMsg unlock;
-		unlock.execute(this);
-		break;
-	}
-	case Common::KEYCODE_v: {
-		CViewChangeMsg view;
-		view.execute(this);
-		break;
-	}
-	case Common::KEYCODE_x: {
-		CExitTransportMsg exit;
-		exit.execute(this);
-		break;
-	}
-	case Common::KEYCODE_z: {
-		CStatsMsg stats;
-		stats.execute(this);
-		break;
-	}
-	case Common::KEYCODE_SPACE: {
-		CPassMsg pass;
-		pass.execute(this);
-		break;
-	}
-	default: {
-		CHuhMsg huh;
-		huh.execute(this);
-		break;
-	}
+	default:
+		CHECK(Common::KEYCODE_d, CDropMsg)
+		CHECK(Common::KEYCODE_e, CEnterMsg)
+		CHECK(Common::KEYCODE_f, CFireMsg)
+		CHECK(Common::KEYCODE_g, CGetMsg)
+		CHECK(Common::KEYCODE_h, CHyperJumpMsg)
+		CHECK(Common::KEYCODE_i, CInformMsg)
+		CHECK(Common::KEYCODE_k, CClimbMsg)
+		CHECK(Common::KEYCODE_o, COpenMsg)
+		CHECK(Common::KEYCODE_q, CQuitMsg)
+		CHECK(Common::KEYCODE_r, CReadyMsg)
+		CHECK(Common::KEYCODE_s, CStealMsg)
+		CHECK(Common::KEYCODE_t, CTransactMsg)
+		CHECK(Common::KEYCODE_u, CUnlockMsg)
+		CHECK(Common::KEYCODE_v, CViewChangeMsg)
+		CHECK(Common::KEYCODE_x, CExitTransportMsg)
+		CHECK(Common::KEYCODE_z, CStatsMsg)
+		CHECK(Common::KEYCODE_SPACE, CPassMsg)
+
+		// Fallback for unknown key
+		dispatchKey<CPassMsg>(this);
 	}
 
 	// End of turn
