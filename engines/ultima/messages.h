@@ -328,6 +328,11 @@ MESSAGE0(CInformMsg);
 MESSAGE0(COpenMsg);
 
 /**
+ * Used to trigger a quit (save) action
+ */
+MESSAGE0(CQuitMsg);
+
+/**
  * Used to trigger a stats action
  */
 MESSAGE0(CStatsMsg);

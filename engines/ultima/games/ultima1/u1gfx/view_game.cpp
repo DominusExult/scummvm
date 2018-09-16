@@ -32,6 +32,7 @@
 #include "ultima/games/ultima1/u1gfx/viewport_map.h"
 #include "ultima/games/ultima1/actions/move.h"
 #include "ultima/games/ultima1/actions/map_action.h"
+#include "ultima/games/ultima1/actions/quit.h"
 #include "ultima/games/ultima1/actions/stats.h"
 #include "ultima/games/ultima1/core/resources.h"
 #include "ultima/gfx/text_cursor.h"
@@ -69,7 +70,7 @@ ViewGame::ViewGame(TreeItem *parent) : Gfx::VisualContainer("Game", Rect(0, 0, 3
 	Ultima1Game *game = static_cast<Ultima1Game *>(getGame());
 	_viewportMap = new ViewportMap(this);
 	
-	_actions.resize(16);
+	_actions.resize(17);
 	_actions[0] = new Actions::Move(this);
 	_actions[1] = new Shared::Actions::Huh(this, game->_res->HUH);
 	_actions[2] = new Actions::Drop(this);
@@ -80,12 +81,13 @@ ViewGame::ViewGame(TreeItem *parent) : Gfx::VisualContainer("Game", Rect(0, 0, 3
 	_actions[7] = new Actions::Climb(this);
 	_actions[8] = new Actions::Open(this);
 	_actions[9] = new Shared::Actions::Pass(this, game->_res->ACTION_NAMES[15]);
-	_actions[10] = new Actions::Steal(this);
-	_actions[11] = new Actions::Transact(this);
-	_actions[12] = new Actions::Unlock(this);
-	_actions[13] = new Actions::ViewChange(this);
-	_actions[14] = new Actions::ExitTransport(this);
-	_actions[15] = new Actions::Stats(this);
+	_actions[10] = new Actions::Quit(this);
+	_actions[11] = new Actions::Steal(this);
+	_actions[12] = new Actions::Transact(this);
+	_actions[13] = new Actions::Unlock(this);
+	_actions[14] = new Actions::ViewChange(this);
+	_actions[15] = new Actions::ExitTransport(this);
+	_actions[16] = new Actions::Stats(this);
 }
 
 ViewGame::~ViewGame() {
@@ -226,6 +228,11 @@ bool ViewGame::KeypressMsg(CKeypressMsg &msg) {
 	case Common::KEYCODE_o: {
 		COpenMsg open;
 		open.execute(this);
+		break;
+	}
+	case Common::KEYCODE_q: {
+		CQuitMsg quit;
+		quit.execute(this);
 		break;
 	}
 	case Common::KEYCODE_s: {
