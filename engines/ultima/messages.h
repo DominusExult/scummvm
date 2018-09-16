@@ -333,6 +333,11 @@ MESSAGE0(COpenMsg);
 MESSAGE0(CQuitMsg);
 
 /**
+ * Used to trigger a ready item/weapon/spell action
+ */
+MESSAGE0(CReadyMsg);
+
+/**
  * Used to trigger a stats action
  */
 MESSAGE0(CStatsMsg);
