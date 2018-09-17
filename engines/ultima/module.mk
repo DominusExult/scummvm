@@ -56,6 +56,7 @@ MODULE_OBJS = \
 	games/ultima1/maps/map_overworld.o \
 	games/ultima1/maps/map_tile.o \
 	games/ultima1/u1dialogs/buy_sell_dialog.o \
+	games/ultima1/u1dialogs/combat.o \
 	games/ultima1/u1dialogs/dialog.o \
 	games/ultima1/u1dialogs/full_screen_dialog.o \
 	games/ultima1/u1dialogs/drop.o \
@@ -74,6 +75,7 @@ MODULE_OBJS = \
 	games/ultima1/u1gfx/viewport_map.o \
 	games/ultima1/u6gfx/game_view.o \
 	games/ultima1/actions/action.o \
+	games/ultima1/actions/attack.o \
 	games/ultima1/actions/move.o \
 	games/ultima1/actions/quit.o \
 	games/ultima1/actions/ready.o \

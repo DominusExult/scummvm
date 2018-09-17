@@ -30,8 +30,9 @@
 #include "ultima/games/ultima1/u1gfx/status.h"
 #include "ultima/games/ultima1/u1gfx/viewport_dungeon.h"
 #include "ultima/games/ultima1/u1gfx/viewport_map.h"
-#include "ultima/games/ultima1/actions/move.h"
 #include "ultima/games/ultima1/actions/map_action.h"
+#include "ultima/games/ultima1/actions/move.h"
+#include "ultima/games/ultima1/actions/attack.h"
 #include "ultima/games/ultima1/actions/quit.h"
 #include "ultima/games/ultima1/actions/ready.h"
 #include "ultima/games/ultima1/actions/stats.h"
@@ -72,26 +73,27 @@ ViewGame::ViewGame(TreeItem *parent) : Gfx::VisualContainer("Game", Rect(0, 0, 3
 	Ultima1Game *game = static_cast<Ultima1Game *>(getGame());
 	_viewportMap = new ViewportMap(this);
 	
-	_actions.resize(19);
+	_actions.resize(20);
 	_actions[0] = new Actions::Move(this);
 	_actions[1] = new Shared::Actions::Huh(this, game->_res->HUH);
-	_actions[2] = new Actions::Drop(this);
-	_actions[3] = new Actions::Enter(this);
-	_actions[4] = new Actions::Fire(this);
-	_actions[5] = new Actions::Get(this);
-	_actions[6] = new Actions::HyperJump(this);
-	_actions[7] = new Actions::Inform(this);
-	_actions[8] = new Actions::Climb(this);
-	_actions[9] = new Actions::Open(this);
-	_actions[10] = new Shared::Actions::Pass(this, game->_res->ACTION_NAMES[15]);
-	_actions[11] = new Actions::Quit(this);
-	_actions[12] = new Actions::Ready(this);
-	_actions[13] = new Actions::Steal(this);
-	_actions[14] = new Actions::Transact(this);
-	_actions[15] = new Actions::Unlock(this);
-	_actions[16] = new Actions::ViewChange(this);
-	_actions[17] = new Actions::ExitTransport(this);
-	_actions[18] = new Actions::Stats(this);
+	_actions[2] = new Actions::Attack(this);
+	_actions[3] = new Actions::Drop(this);
+	_actions[4] = new Actions::Enter(this);
+	_actions[5] = new Actions::Fire(this);
+	_actions[6] = new Actions::Get(this);
+	_actions[7] = new Actions::HyperJump(this);
+	_actions[8] = new Actions::Inform(this);
+	_actions[9] = new Actions::Climb(this);
+	_actions[10] = new Actions::Open(this);
+	_actions[11] = new Shared::Actions::Pass(this, game->_res->ACTION_NAMES[15]);
+	_actions[12] = new Actions::Quit(this);
+	_actions[13] = new Actions::Ready(this);
+	_actions[14] = new Actions::Steal(this);
+	_actions[15] = new Actions::Transact(this);
+	_actions[16] = new Actions::Unlock(this);
+	_actions[17] = new Actions::ViewChange(this);
+	_actions[18] = new Actions::ExitTransport(this);
+	_actions[19] = new Actions::Stats(this);
 }
 
 ViewGame::~ViewGame() {
@@ -172,62 +174,90 @@ bool ViewGame::FrameMsg(CFrameMsg &msg) {
 }
 
 /**
- * Dispatch method
+ * Dispatch action
  */
 template<class T>
 void dispatchKey(ViewGame *game) {
 	T dMsg;
 	dMsg.execute(game);
 }
-#define CHECK(KEYCODE, MSG_CLASS) if (msg._keyState.keycode == KEYCODE) { dispatchKey<MSG_CLASS>(this); break; }
+#define CHECK(KEYCODE, MSG_CLASS) else if (msg._keyState.keycode == KEYCODE) { dispatchKey<MSG_CLASS>(this); }
 
-bool ViewGame::KeypressMsg(CKeypressMsg &msg) {
-	getGame()->_textCursor->setVisible(false);
-
-	switch (msg._keyState.keycode) {
+bool ViewGame::checkMovement(const Common::KeyState &keyState) {
+	switch (keyState.keycode) {
 	case Common::KEYCODE_LEFT:
 	case Common::KEYCODE_KP4: {
-		CMoveMsg move(Shared::Maps::DIR_LEFT);
-		move.execute(this);
+		if (keyState.flags & Common::KBD_SHIFT) {
+			CAttackMsg attack(Shared::Maps::DIR_LEFT);
+			attack.execute(this);
+		} else {
+			CMoveMsg move(Shared::Maps::DIR_LEFT);
+			move.execute(this);
+		}
 		break;
 	}
 	case Common::KEYCODE_RIGHT:
 	case Common::KEYCODE_KP6: {
-		CMoveMsg move(Shared::Maps::DIR_RIGHT);
-		move.execute(this);
+		if (keyState.flags & Common::KBD_SHIFT) {
+			CAttackMsg attack(Shared::Maps::DIR_RIGHT);
+			attack.execute(this);
+		} else {
+			CMoveMsg move(Shared::Maps::DIR_RIGHT);
+			move.execute(this);
+		}
 		break;
 	}
 	case Common::KEYCODE_UP:
 	case Common::KEYCODE_KP8: {
-		CMoveMsg move(Shared::Maps::DIR_UP);
-		move.execute(this);
+		if (keyState.flags & Common::KBD_SHIFT) {
+			CAttackMsg attack(Shared::Maps::DIR_UP);
+			attack.execute(this);
+		} else {
+			CMoveMsg move(Shared::Maps::DIR_UP);
+			move.execute(this);
+		}
 		break;
 	}
 	case Common::KEYCODE_DOWN:
 	case Common::KEYCODE_KP2: {
-		CMoveMsg move(Shared::Maps::DIR_DOWN);
-		move.execute(this);
+		if (keyState.flags & Common::KBD_SHIFT) {
+			CAttackMsg attack(Shared::Maps::DIR_DOWN);
+			attack.execute(this);
+		} else {
+			CMoveMsg move(Shared::Maps::DIR_DOWN);
+			move.execute(this);
+		}
 		break;
 	}
 	default:
-		CHECK(Common::KEYCODE_d, CDropMsg)
-		CHECK(Common::KEYCODE_e, CEnterMsg)
-		CHECK(Common::KEYCODE_f, CFireMsg)
-		CHECK(Common::KEYCODE_g, CGetMsg)
-		CHECK(Common::KEYCODE_h, CHyperJumpMsg)
-		CHECK(Common::KEYCODE_i, CInformMsg)
-		CHECK(Common::KEYCODE_k, CClimbMsg)
-		CHECK(Common::KEYCODE_o, COpenMsg)
-		CHECK(Common::KEYCODE_q, CQuitMsg)
-		CHECK(Common::KEYCODE_r, CReadyMsg)
-		CHECK(Common::KEYCODE_s, CStealMsg)
-		CHECK(Common::KEYCODE_t, CTransactMsg)
-		CHECK(Common::KEYCODE_u, CUnlockMsg)
-		CHECK(Common::KEYCODE_v, CViewChangeMsg)
-		CHECK(Common::KEYCODE_x, CExitTransportMsg)
-		CHECK(Common::KEYCODE_z, CStatsMsg)
-		CHECK(Common::KEYCODE_SPACE, CPassMsg)
+		return false;
+	}
 
+	return true;
+}
+
+bool ViewGame::KeypressMsg(CKeypressMsg &msg) {
+	getGame()->_textCursor->setVisible(false);
+
+	if (checkMovement(msg._keyState)) {}
+	CHECK(Common::KEYCODE_d, CDropMsg)
+	CHECK(Common::KEYCODE_e, CEnterMsg)
+	CHECK(Common::KEYCODE_f, CFireMsg)
+	CHECK(Common::KEYCODE_g, CGetMsg)
+	CHECK(Common::KEYCODE_h, CHyperJumpMsg)
+	CHECK(Common::KEYCODE_i, CInformMsg)
+	CHECK(Common::KEYCODE_k, CClimbMsg)
+	CHECK(Common::KEYCODE_o, COpenMsg)
+	CHECK(Common::KEYCODE_q, CQuitMsg)
+	CHECK(Common::KEYCODE_r, CReadyMsg)
+	CHECK(Common::KEYCODE_s, CStealMsg)
+	CHECK(Common::KEYCODE_t, CTransactMsg)
+	CHECK(Common::KEYCODE_u, CUnlockMsg)
+	CHECK(Common::KEYCODE_v, CViewChangeMsg)
+	CHECK(Common::KEYCODE_x, CExitTransportMsg)
+	CHECK(Common::KEYCODE_z, CStatsMsg)
+	CHECK(Common::KEYCODE_SPACE, CPassMsg)
+	else {
 		// Fallback for unknown key
 		dispatchKey<CPassMsg>(this);
 	}
