@@ -80,6 +80,7 @@ MODULE_OBJS = \
 	games/ultima1/actions/quit.o \
 	games/ultima1/actions/ready.o \
 	games/ultima1/actions/stats.o \
+	games/ultima1/spells/spell.o \
 	games/ultima1/spells/prayer.o \
 	games/ultima1/widgets/person.o \
 	games/ultima1/widgets/bard.o \
