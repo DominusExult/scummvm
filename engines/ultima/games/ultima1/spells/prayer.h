@@ -20,45 +20,38 @@
  *
  */
 
-#include "ultima/games/ultima1/widgets/merchant_armor.h"
-#include "ultima/games/ultima1/maps/map_city_castle.h"
-#include "ultima/games/ultima1/core/resources.h"
+#ifndef ULTIMA_ULTIMA1_U1DIALOGS_PRAYER_H
+#define ULTIMA_ULTIMA1_U1DIALOGS_PRAYER_H
+
+#include "ultima/games/shared/core/character.h"
 
 namespace Ultima {
 namespace Ultima1 {
-namespace Widgets {
 
-EMPTY_MESSAGE_MAP(MerchantArmor, Merchant);
+class Ultima1Game;
 
-void MerchantArmor::get() {
-	Maps::MapCastle *map = dynamic_cast<Maps::MapCastle *>(_map);
-	assert(map);
-	if (map->_getCounter > 0) {
-		--map->_getCounter;
-		findArmor(false);
-	} else {
-		noKingsPermission();
-	}
-}
+namespace Spells {
 
-void MerchantArmor::steal() {
-	findArmor(true);
-}
+/**
+ * Prayer spell
+ */
+class Prayer : public Shared::Spell {
+protected:
+	Ultima1Game *_game;
+public:
+	/**
+	 * Constructor
+	 */
+	Prayer();
 
-void MerchantArmor::findArmor(bool checkStealing) {
-	if (!checkStealing || !checkCuaghtStealing()) {
-		uint armorNum = _game->getRandomNumber(1, 5);
-		Common::String armorStr = _game->_res->ARMOR_NAMES[armorNum];
-		_game->_party._currentCharacter->_armor[armorNum].incrQuantity();
+	/**
+	 * Cast the spell
+	 */
+	virtual void cast() override;
+};
 
-		if (armorNum == 5)
-			armorStr = Common::String::format("%s %s", _game->_res->A, armorStr.c_str());
-
-		addInfoMsg("");
-		addInfoMsg(Common::String::format(_game->_res->FIND, armorStr.c_str()));
-	}
-}
-
-} // End of namespace Widgets
+} // End of  namespace U1Dialogs
 } // End of namespace Ultima1
 } // End of namespace Ultima
+
+#endif

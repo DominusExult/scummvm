@@ -28,6 +28,7 @@
 #include "ultima/games/ultima1/u1gfx/view_title.h"
 #include "ultima/games/ultima1/u1gfx/text_cursor.h"
 #include "ultima/games/ultima1/u6gfx/game_view.h"
+#include "ultima/games/ultima1/spells/prayer.h"
 #include "ultima/games/shared/core/resources.h"
 #include "ultima/gfx/popup.h"
 #include "ultima/ultima.h"
@@ -84,7 +85,6 @@ void Ultima1Game::starting(bool isLoading) {
 	_gameView->setView(isLoading ? "Game" : "Title");
 }
 
-
 void Ultima1Game::setup() {
 	Shared::Character &c = *_party._currentCharacter;
 
@@ -99,9 +99,10 @@ void Ultima1Game::setup() {
 	for (int idx = 0; idx < 6; ++idx)
 		c._armor[idx]._name = _res->ARMOR_NAMES[idx];
 
-	c._spells.resize(11);
-	for (int idx = 0; idx < 11; ++idx)
-		c._spells[idx]._name = _res->SPELL_NAMES[idx];
+	c._spells.push_back(&_spellPrayer);
+	// TODO: Replace remaining spell slots with proper spell classes
+	for (int idx = 0; idx < 10; ++idx)
+		c._spells.push_back(&_spellPrayer);
 }
 
 bool Ultima1Game::canSaveGameStateCurrently() {
