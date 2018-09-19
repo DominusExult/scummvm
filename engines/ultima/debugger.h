@@ -38,6 +38,8 @@ private:
 	 * Converts a decimal or hexadecimal string into a number
 	 */
 	int strToInt(const char *s);
+
+	bool cmdSpell(int argc, const char **argv);
 protected:
 	UltimaEngine *_vm;
 public:

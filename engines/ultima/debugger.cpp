@@ -21,6 +21,9 @@
  */
 
 #include "ultima/debugger.h"
+#include "ultima/ultima.h"
+#include "ultima/games/shared/game.h"
+#include "ultima/games/shared/maps/map.h"
 
 namespace Ultima {
 
@@ -30,6 +33,7 @@ Debugger *Debugger::init(UltimaEngine *vm) {
 
 Debugger::Debugger(UltimaEngine *vm) : GUI::Debugger(), _vm(vm) {
 	registerCmd("continue",	     WRAP_METHOD(Debugger, cmdExit));
+	registerCmd("spell", WRAP_METHOD(Debugger, cmdSpell));
 }
 
 int Debugger::strToInt(const char *s) {
@@ -47,5 +51,21 @@ int Debugger::strToInt(const char *s) {
 		error("strToInt failed on string \"%s\"", s);
 	return (int)tmp;
 }
+
+
+bool Debugger::cmdSpell(int argc, const char **argv) {
+	if (argc != 2) {
+		debugPrintf("spell <spell number>\n");
+		return true;
+	} else {
+		int spellId = strToInt(argv[1]);
+		Shared::Game *game = dynamic_cast<Shared::Game *>(g_vm->_game);
+		assert(game);
+
+		game->_map->castSpell(spellId);
+		return false;
+	}
+}
+
 
 } // End of namespace Ultima

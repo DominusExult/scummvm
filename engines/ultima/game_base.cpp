@@ -163,9 +163,9 @@ void GameBase::keyDown(Common::KeyState keyState) {
 		// Attach to the debugger
 		g_vm->_debugger->attach();
 		g_vm->_debugger->onFrame();
+	} else {
+		_inputTranslator.keyDown(keyState);
 	}
-
-	_inputTranslator.keyDown(keyState);
 }
 
 void GameBase::setView(Gfx::VisualItem *view) {
