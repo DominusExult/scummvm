@@ -88,10 +88,9 @@ MODULE_OBJS = \
 	games/ultima1/spells/ladder_down.o \
 	games/ultima1/spells/ladder_up.o \
 	games/ultima1/spells/magic_missile.o \
-	games/ultima1/spells/open.o \
+	games/ultima1/spells/open_unlock.o \
 	games/ultima1/spells/prayer.o \
 	games/ultima1/spells/steal.o \
-	games/ultima1/spells/unlock.o \
 	games/ultima1/widgets/person.o \
 	games/ultima1/widgets/bard.o \
 	games/ultima1/widgets/guard.o \

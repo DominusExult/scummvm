@@ -32,10 +32,9 @@
 #include "ultima/games/ultima1/spells/ladder_down.h"
 #include "ultima/games/ultima1/spells/ladder_up.h"
 #include "ultima/games/ultima1/spells/magic_missile.h"
-#include "ultima/games/ultima1/spells/open.h"
+#include "ultima/games/ultima1/spells/open_unlock.h"
 #include "ultima/games/ultima1/spells/prayer.h"
 #include "ultima/games/ultima1/spells/steal.h"
-#include "ultima/games/ultima1/spells/unlock.h"
 
 namespace Ultima {
 namespace Ultima1 {

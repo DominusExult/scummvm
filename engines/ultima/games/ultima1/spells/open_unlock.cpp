@@ -20,33 +20,39 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_U1DIALOGS_UNLOCK_H
-#define ULTIMA_ULTIMA1_U1DIALOGS_UNLOCK_H
-
-#include "ultima/games/ultima1/spells/spell.h"
+#include "ultima/games/ultima1/spells/Open_unlock.h"
+#include "ultima/games/ultima1/game.h"
+#include "ultima/games/ultima1/core/resources.h"
+#include "ultima/games/ultima1/maps/map_tile.h"
+#include "ultima/games/ultima1/widgets/dungeon_item.h"
 
 namespace Ultima {
 namespace Ultima1 {
 namespace Spells {
 
-/**
- * Unlock spell
- */
-class Unlock : public Spell {
-public:
-	/**
-	 * Constructor
-	 */
-	Unlock();
+void OpenUnlock::dungeonCast(Maps::MapDungeon *map) {
+	Maps::U1MapTile tile;
+	map->getTileAt(map->getPosition(), &tile);
 
-	/**
-	 * Cast the spell within dungeons
-	 */
-	virtual void dungeonCast(Maps::MapDungeon *map) override;
-};
+	Widgets::DungeonItem *item = dynamic_cast<Widgets::DungeonItem *>(tile._widget);
+	if (item) {
+		addInfoMsg(item->_name, false);
+		openItem(map, item);
+	} else {
+		Spell::dungeonCast(map);
+	}
+}
 
-} // End of  namespace U1Dialogs
+void OpenUnlock::openItem(Maps::MapDungeon *map, Widgets::DungeonItem *item) {
+	// Say opened, and remove the coffin/chest
+	map->removeWidget(item);
+	addInfoMsg(Common::String::format(" %s", _game->_res->OPENED));
+	addInfoMsg(_game->_res->THOU_DOST_FIND, false);
+
+	uint coins = _game->getRandomNumber(3, map->getLevel() * map->getLevel() + 9);
+	_game->giveTreasure(coins, 0);
+}
+
+} // End of namespace Spells
 } // End of namespace Ultima1
 } // End of namespace Ultima
-
-#endif
