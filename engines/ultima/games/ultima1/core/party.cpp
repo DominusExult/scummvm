@@ -20,42 +20,15 @@
  *
  */
 
-#include "ultima/games/ultima1/widgets/dungeon_chest.h"
-#include "ultima/games/ultima1/maps/map_dungeon.h"
-#include "ultima/games/ultima1/core/resources.h"
+#include "ultima/games/ultima1/core/party.h"
 #include "ultima/games/ultima1/game.h"
 
 namespace Ultima {
 namespace Ultima1 {
-namespace Widgets {
 
-DungeonChest::DungeonChest(Ultima1Game *game, Maps::MapBase *map, const Point &pt) :
-		DungeonItem(game, map, MONSTER_MIMIC, pt) {
-	_name = game->_res->DUNGEON_ITEM_NAMES[0];
+Party::Party(Ultima1Game *game) {
+	add(new Character(game));
 }
 
-DungeonChest::DungeonChest(Ultima1Game *game, Maps::MapBase *map) : DungeonItem(game, map, MONSTER_MIMIC) {
-	_name = game->_res->DUNGEON_ITEM_NAMES[0];
-}
-
-bool DungeonChest::open() {
-	Ultima1Game *game = static_cast<Ultima1Game *>(_game);
-	Maps::MapDungeon *map = static_cast<Maps::MapDungeon *>(getMap());
-	Shared::Character &c = *_game->_party;
-
-	if (_game->getRandomNumber(1, 75) <= c._agility || c._class == CLASS_THIEF) {
-		// Successfully opened
-		addInfoMsg(game->_res->THOU_DOST_FIND);
-		game->giveTreasure(game->getRandomNumber(3, map->getLevel() * map->getLevel() + 9), 0);
-	} else {
-		addInfoMsg(game->_res->SET_OFF_TRAP);
-		game->playFX(2);
-		c._hitPoints -= map->getLevel();
-	}
-
-	return true;
-}
-
-} // End of namespace Widgets
 } // End of namespace Ultima1
 } // End of namespace Ultima

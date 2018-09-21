@@ -46,11 +46,12 @@ void MerchantWeapons::steal() {
 }
 
 void MerchantWeapons::findWeapon(bool checkStealing) {
+	Shared::Character &c = *_game->_party;
 	if (!checkStealing || !checkCuaghtStealing()) {
 		uint weaponNum = _game->getRandomNumber(1, 15);
 		const char *weaponStr = _game->_res->WEAPON_NAMES_ARTICLE[weaponNum];
 
-		_game->_party._currentCharacter->_weapons[weaponNum].incrQuantity();
+		c._weapons[weaponNum].incrQuantity();
 		addInfoMsg("");
 		addInfoMsg(Common::String::format(_game->_res->FIND, weaponStr));
 	}

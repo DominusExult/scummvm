@@ -20,27 +20,46 @@
  *
  */
 
-#include "ultima/games/shared/maps/creature.h"
-#include "ultima/games/shared/game.h"
+#ifndef ULTIMA_ULTIMA1_CORE_PARTY_H
+#define ULTIMA_ULTIMA1_CORE_PARTY_H
+
+#include "ultima/games/shared/core/party.h"
 
 namespace Ultima {
-namespace Shared {
-namespace Maps {
+namespace Ultima1 {
 
-void Creature::synchronize(Common::Serializer &s) {
-	s.syncAsSint32LE(_hitPoints);
-}
+class Ultima1Game;
 
-void Creature::update(bool isPreUpdate) {
-	if (isPreUpdate) {
-		// Check whether creature can attack
-		movement();
-		_isAttacking = attackDistance() != 0;
-	} else if (_isAttacking && !_gameRef->_party->isDead()) {
-		attackParty();
-	}
-}
+/**
+ * Implements the data for a playable character within the game
+ */
+class Character : public Shared::Character {
+private:
+	Ultima1Game *_game;
+public:
+	/**
+	 * Constructor
+	 */
+	Character(Ultima1Game *game) : Shared::Character(), _game(game) {}
 
-} // End of namespace Maps
-} // End of namespace Shared
+	/**
+	 * Gets the damage a given weapon does
+	 */
+	uint getWeaponDamage() const;
+};
+
+/**
+ * Implements the party
+ */
+class Party : public Shared::Party {
+public:
+	/**
+	 * Constructor
+	 */
+	Party(Ultima1Game *game);
+};
+
+} // End of namespace Ultima1
 } // End of namespace Ultima
+
+#endif

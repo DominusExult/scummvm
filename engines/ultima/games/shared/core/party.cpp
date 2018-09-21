@@ -20,27 +20,49 @@
  *
  */
 
-#include "ultima/games/shared/maps/creature.h"
-#include "ultima/games/shared/game.h"
+#include "ultima/games/shared/core/party.h"
 
 namespace Ultima {
 namespace Shared {
-namespace Maps {
 
-void Creature::synchronize(Common::Serializer &s) {
-	s.syncAsSint32LE(_hitPoints);
+Party::~Party() {
+	for (uint idx = 0; idx < _characters.size(); ++idx)
+		delete _characters[idx];
 }
 
-void Creature::update(bool isPreUpdate) {
-	if (isPreUpdate) {
-		// Check whether creature can attack
-		movement();
-		_isAttacking = attackDistance() != 0;
-	} else if (_isAttacking && !_gameRef->_party->isDead()) {
-		attackParty();
+void Party::add(Character *c) {
+	_characters.push_back(c);
+}
+
+void Party::synchronize(Common::Serializer &s) {
+	uint partyCount = _characters.size();
+	s.syncAsByte(partyCount);
+	if (s.isLoading())
+		assert(partyCount == _characters.size());
+
+	// Iterate through the characters of the party
+	for (uint idx = 0; idx < _characters.size(); ++idx)
+		_characters[idx]->synchronize(s);
+}
+
+
+bool Party::isDead() const {
+	for (uint idx = 0; idx < _characters.size(); ++idx) {
+		if ((*this)[idx]._hitPoints > 0)
+			return false;
 	}
+
+	return true;
 }
 
-} // End of namespace Maps
+bool Party::isFoodless() const {
+	for (uint idx = 0; idx < _characters.size(); ++idx) {
+		if ((*this)[idx]._food > 0)
+			return false;
+	}
+
+	return true;
+}
+
 } // End of namespace Shared
 } // End of namespace Ultima

@@ -20,27 +20,58 @@
  *
  */
 
-#include "ultima/games/shared/maps/creature.h"
-#include "ultima/games/shared/game.h"
+#ifndef ULTIMA_SHARED_CORE_PARTY_H
+#define ULTIMA_SHARED_CORE_PARTY_H
+
+#include "common/array.h"
+#include "common/str.h"
+#include "common/serializer.h"
+#include "ultima/games/shared/core/character.h"
 
 namespace Ultima {
 namespace Shared {
-namespace Maps {
 
-void Creature::synchronize(Common::Serializer &s) {
-	s.syncAsSint32LE(_hitPoints);
-}
+/**
+ * Base class for the player's party
+ */
+class Party {
+private:
+	Common::Array<Character *> _characters;
+public:
+	~Party();
 
-void Creature::update(bool isPreUpdate) {
-	if (isPreUpdate) {
-		// Check whether creature can attack
-		movement();
-		_isAttacking = attackDistance() != 0;
-	} else if (_isAttacking && !_gameRef->_party->isDead()) {
-		attackParty();
-	}
-}
+	/**
+	 * Add a character to the party
+	 */
+	void add(Character *c);
 
-} // End of namespace Maps
+	/**
+	 * Casting operator for convenient access to the first character
+	 */
+	operator Character &() const { return *_characters.front(); }
+
+	/**
+	 * Casting operator for convenient access to the first character
+	 */
+	operator Character *() const { return _characters.front(); }
+
+	/**
+	 * Synchronize data
+	 */
+	void synchronize(Common::Serializer &s);
+
+	/**
+	 * Returns true if the party is dead
+	 */
+	bool isDead() const;
+
+	/**
+	 * Returns true if the party has no food
+	 */
+	bool isFoodless() const;
+};
+
 } // End of namespace Shared
 } // End of namespace Ultima
+
+#endif

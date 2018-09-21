@@ -23,7 +23,7 @@
 #ifndef ULTIMA_ULTIMA1_U1DIALOGS_SPELL_H
 #define ULTIMA_ULTIMA1_U1DIALOGS_SPELL_H
 
-#include "ultima/games/shared/core/character.h"
+#include "ultima/games/shared/core/party.h"
 #include "ultima/games/ultima1/maps/map_base.h"
 #include "ultima/games/ultima1/maps/map_dungeon.h"
 
