@@ -48,8 +48,10 @@ class ViewportMap;
  */
 class ViewGame : public Gfx::VisualContainer {
 	DECLARE_MESSAGE_MAP;
+	bool ShowMsg(CShowMsg &msg);
+	bool EndOfTurnMsg(CEndOfTurnMsg &msg);
 	bool FrameMsg(CFrameMsg &msg);
-	bool KeypressMsg(CKeypressMsg &msg);
+	bool CharacterInputMsg(CCharacterInputMsg &msg);
 private:
 	Shared::Info *_info;
 	Shared::ViewportDungeon *_viewportDungeon;

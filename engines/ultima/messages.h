@@ -24,6 +24,7 @@
 #define ULTIMA_MESSAGES_H
 
 #include "common/keyboard.h"
+#include "common/events.h"
 #include "ultima/core/rect.h"
 #include "ultima/core/base_object.h"
 #include "ultima/core/tree_item.h"
@@ -231,14 +232,19 @@ MESSAGE1(CFrameMsg, uint, ticks, 0);
 MESSAGE2(CHideMsg, Gfx::VisualItem *, view, (Gfx::VisualItem *)nullptr, bool, fadeOut, false);
 
 /**
+ * Show a prompt in the info area, and get a keypress for a command
+ */
+MESSAGE1(CInfoGetCommandKeypress, TreeItem *, responder, (TreeItem *)nullptr);
+
+/**
  * Get a keypress in the info area
  */
-MESSAGE1(CInfoGetKeypress, MessageTarget *, responder, (MessageTarget *)nullptr);
+MESSAGE1(CInfoGetKeypress, TreeItem *, responder, (TreeItem *)nullptr);
 
 /**
  * Get a text input in the input area
  */
-MESSAGE3(CInfoGetInput, MessageTarget *, responder, (MessageTarget *)nullptr, bool, isNumeric, false, size_t, maxCharacters, 10);
+MESSAGE3(CInfoGetInput, TreeItem *, responder, (TreeItem *)nullptr, bool, isNumeric, false, size_t, maxCharacters, 10);
 
 /**
  * Adds text strings to the info area
@@ -261,11 +267,6 @@ MESSAGE1(CKeyCharMsg, int, key, 32);
 MESSAGE1(CKeypressMsg, Common::KeyState, keyState, Common::KeyState());
 
 /**
- * Pass a turn
- */
-MESSAGE0(CPassMsg);
-
-/**
  * Called when a popup is finally shown
  */
 MESSAGE1(CPopupShownMsg, Gfx::Popup *, view, (Gfx::Popup *)nullptr);
@@ -276,9 +277,14 @@ MESSAGE1(CPopupShownMsg, Gfx::Popup *, view, (Gfx::Popup *)nullptr);
 MESSAGE2(CShowMsg, Gfx::VisualItem *, view, (Gfx::VisualItem *)nullptr, bool, fadeIn, false);
 
 /**
- * Used when text or character input is finished, to pass the text back to the owning view
+ * Used when text input is finished, to pass the text back to the owning view
  */
 MESSAGE2(CTextInputMsg, Common::String, text, "", bool, escaped, false);
+
+/**
+ * Used when character input is finished, to pass the text back to the owning view
+ */
+MESSAGE1(CCharacterInputMsg, Common::KeyState, keyState, Common::KeyState());
 
 /*-------------------------------------------------------------------*/
 
@@ -343,6 +349,11 @@ MESSAGE0(CInformMsg);
 MESSAGE0(COpenMsg);
 
 /**
+ * Pass a turn
+ */
+MESSAGE0(CPassMsg);
+
+/**
  * Used to trigger a quit (save) action
  */
 MESSAGE0(CQuitMsg);
@@ -376,6 +387,11 @@ MESSAGE0(CUnlockMsg);
  * Used to trigger a view change action
  */
 MESSAGE0(CViewChangeMsg);
+
+/**
+ * Used to signal an end of turn
+ */
+MESSAGE0(CEndOfTurnMsg);
 
 } // End of namespace Ultima
 
