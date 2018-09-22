@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_U1DIALOGS_MAGIC_MISSILE_H
-#define ULTIMA_ULTIMA1_U1DIALOGS_MAGIC_MISSILE_H
+#ifndef ULTIMA_ULTIMA1_U1DIALOGS_KILL_MAGIC_MISSILE_H
+#define ULTIMA_ULTIMA1_U1DIALOGS_KILL_MAGIC_MISSILE_H
 
 #include "ultima/games/ultima1/spells/spell.h"
 
@@ -30,9 +30,36 @@ namespace Ultima1 {
 namespace Spells {
 
 /**
+ * Common intermediate base class for both the Kill and Magic Missile spells
+ */
+class KillMagicMIssile : public Spell {
+public:
+	/**
+	 * Constructor
+	 */
+	KillMagicMIssile(SpellId spellId) : Spell(spellId) {}
+};
+
+/**
+ * Kill spell
+ */
+class Kill : public KillMagicMIssile {
+public:
+	/**
+	 * Constructor
+	 */
+	Kill();
+
+	/**
+	 * Cast the spell within dungeons
+	 */
+	virtual void dungeonCast(Maps::MapDungeon *map) override;
+};
+
+/**
  * Magic Missile spell
  */
-class MagicMissile : public Spell {
+class MagicMissile : public KillMagicMIssile {
 public:
 	/**
 	 * Constructor

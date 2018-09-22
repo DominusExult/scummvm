@@ -85,10 +85,9 @@ MODULE_OBJS = \
 	games/ultima1/spells/blink.o \
 	games/ultima1/spells/create.o \
 	games/ultima1/spells/destroy.o \
-	games/ultima1/spells/kill.o \
+	games/ultima1/spells/kill_magic_missile.o \
 	games/ultima1/spells/ladder_down.o \
 	games/ultima1/spells/ladder_up.o \
-	games/ultima1/spells/magic_missile.o \
 	games/ultima1/spells/open_unlock.o \
 	games/ultima1/spells/prayer.o \
 	games/ultima1/spells/steal.o \
