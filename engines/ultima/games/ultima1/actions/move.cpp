@@ -162,7 +162,7 @@ void Move::dungeonMoveForward() {
 	Shared::Maps::MapWidget *player = map->getPlayerWidget();
 	assert(player);
 
-	if (player->canMoveTo(map->getPosition() + delta) == Shared::Maps::MapWidget::CanMove::YES) {
+	if (player->canMoveTo(map->getPosition() + delta) != Shared::Maps::MapWidget::CanMove::NO) {
 		map->setPosition(map->getPosition() + delta);
 	} else {
 		playFX(0);
