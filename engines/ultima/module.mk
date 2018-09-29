@@ -91,6 +91,7 @@ MODULE_OBJS = \
 	games/ultima1/spells/open_unlock.o \
 	games/ultima1/spells/prayer.o \
 	games/ultima1/spells/steal.o \
+	games/ultima1/widgets/attack_effect.o \
 	games/ultima1/widgets/person.o \
 	games/ultima1/widgets/bard.o \
 	games/ultima1/widgets/guard.o \
@@ -110,7 +111,6 @@ MODULE_OBJS = \
 	games/ultima1/widgets/dungeon_player.o \
 	games/ultima1/widgets/dungeon_widget.o \
 	games/ultima1/widgets/dungeon_monster.o \
-	games/ultima1/widgets/hit.o \
 	games/ultima1/widgets/transport.o \
 	games/ultima1/widgets/overworld_widget.o \
 	games/ultima1/widgets/overworld_monster.o \

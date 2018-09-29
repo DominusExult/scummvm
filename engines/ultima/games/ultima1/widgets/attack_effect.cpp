@@ -20,35 +20,19 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_WIDGETS_HIT_H
-#define ULTIMA_ULTIMA1_WIDGETS_HIT_H
-
-#include "ultima/games/shared/maps/map_widget.h"
+#include "ultima/games/ultima1/widgets/attack_effect.h"
 
 namespace Ultima {
 namespace Ultima1 {
 namespace Widgets {
 
-class Hit : public Shared::Maps::MapWidget {
-public:
-	/**
-	 * Constructor
-	 */
-	Hit(Shared::Game *game, Shared::Maps::MapBase *map) : Shared::Maps::MapWidget(game, map) {}
-
-	/**
-	 * Destructor
-	 */
-	virtual ~Hit() {}
-
-	/**
-	 * Get the tile for the transport method
-	 */
-	virtual uint getTileNum() const override;
-};
+void AttackEffect::synchronize(Common::Serializer &s) {
+	s.syncAsUint16LE(_tileId);
+	s.syncAsUint16LE(_remainingDistance);
+	s.syncAsUint16LE(_agility);
+	s.syncAsUint16LE(_damage);
+}
 
 } // End of namespace Widgets
 } // End of namespace Ultima1
 } // End of namespace Ultima
-
-#endif
