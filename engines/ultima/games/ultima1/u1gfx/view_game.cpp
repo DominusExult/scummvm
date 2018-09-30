@@ -52,7 +52,7 @@ namespace Actions {
 	MAP_ACTION_END_TURN(Climb, 10, climb);
 	MAP_ACTION_END_TURN(Open, 14, open);
 	MAP_ACTION_END_TURN(Steal, 18, steal);
-	MAP_ACTION_END_TURN(Transact, 19, talk)
+	MAP_ACTION(Transact, 19, talk)
 	MAP_ACTION_END_TURN(Unlock, 20, unlock)
 	MAP_ACTION_END_TURN(ViewChange, 21, view)
 	MAP_ACTION_END_TURN(ExitTransport, 23, disembark)
