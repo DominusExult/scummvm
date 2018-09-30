@@ -36,24 +36,36 @@ namespace U1Dialogs {
 class King : public Dialog {
 	DECLARE_MESSAGE_MAP;
 	bool ShowMsg(CShowMsg &msg);
+	bool CharacterInputMsg(CCharacterInputMsg &msg);
+	bool TextInputMsg(CTextInputMsg &msg);
 	enum KingMode { SELECT, PENCE, SERVICE };
 private:
 	KingMode _mode;
 private:
 	/**
-	 * Character input response point
-	 */
-	virtual bool CharacterInputMsg(CCharacterInputMsg &msg);
-
-	/**
-	 * Nothing selected
-	 */
-	void nothing();
-
-	/**
 	 * Set the mode
 	 */
 	void setMode(KingMode mode);
+
+	/**
+	 * Neither option (buy, service) selected
+	 */
+	void neither();
+
+	/**
+	 * No pence entered
+	 */
+	void none();
+
+	/**
+	 * Not that much
+	 */
+	void notThatMuch();
+
+	/**
+	 * Give hit points
+	 */
+	void giveHitPoints(uint amount);
 public:
 	CLASSDEF;
 
