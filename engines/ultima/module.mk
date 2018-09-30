@@ -8,6 +8,7 @@ MODULE_OBJS = \
 	core/mouse_cursor.o \
 	core/named_item.o \
 	core/resources.o \
+	core/str.o \
 	core/tree_item.o \
 	gfx/bitmap.o \
 	gfx/character_input.o \
