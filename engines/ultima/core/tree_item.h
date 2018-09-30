@@ -76,11 +76,6 @@ public:
 	virtual int compareTo(const Common::String &name, int maxLen = 0) const { return false; }
 
 	/**
-	 * Allows the item to draw itself
-	 */
-	virtual void draw(void *screenManager) {}
-
-	/**
 	 * Called when the view changes
 	 */
 	virtual void viewChange() {}

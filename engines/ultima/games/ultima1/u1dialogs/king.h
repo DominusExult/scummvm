@@ -20,49 +20,56 @@
  *
  */
 
+#ifndef ULTIMA_ULTIMA1_U1DIALOGS_KING_H
+#define ULTIMA_ULTIMA1_U1DIALOGS_KING_H
+
 #include "ultima/games/ultima1/u1dialogs/dialog.h"
-#include "ultima/games/ultima1/game.h"
-#include "ultima/games/ultima1/maps/map.h"
-#include "ultima/games/ultima1/u1gfx/info.h"
+#include "ultima/gfx/character_input.h"
 
 namespace Ultima {
 namespace Ultima1 {
 namespace U1Dialogs {
 
-Dialog::Dialog(Ultima1Game *game) : Popup(game), _game(game) {
-}
+/**
+  * Dialog for talking to kings
+  */
+class King : public Dialog {
+	DECLARE_MESSAGE_MAP;
+	bool ShowMsg(CShowMsg &msg);
+	enum KingMode { SELECT, PENCE, SERVICE };
+private:
+	KingMode _mode;
+private:
+	/**
+	 * Character input response point
+	 */
+	virtual bool CharacterInputMsg(CCharacterInputMsg &msg);
 
-Maps::Ultima1Map *Dialog::getMap() {
-	return static_cast<Maps::Ultima1Map *>(_game->getMap());
-}
+	/**
+	 * Nothing selected
+	 */
+	void nothing();
 
-void Dialog::addInfoMsg(const Common::String &text, bool newLine, bool replaceLine) {
-	TreeItem *infoArea = _game->findByName("Info");
+	/**
+	 * Set the mode
+	 */
+	void setMode(KingMode mode);
+public:
+	CLASSDEF;
 
-	CInfoMsg msg(text, newLine, replaceLine);
-	msg.execute(infoArea);
-}
+	/**
+	 * Constructor
+	 */
+	King(Ultima1Game *game);
 
-void Dialog::getKeypress() {
-	TreeItem *infoArea = _game->findByName("Info");
-
-	CInfoGetKeypress msg(this);
-	msg.execute(infoArea);
-}
-
-void Dialog::draw() {
-	// Redraw the game's info area
-	U1Gfx::Info *infoArea = dynamic_cast<U1Gfx::Info *>(_game->findByName("Info"));
-	infoArea->draw();
-}
-
-void Dialog::hide() {
-	Popup::hide();
-
-	// Delete the dialog when hidden
-	delete this;
-}
+	/**
+	 * Draws the visual item on the screen
+	 */
+	virtual void draw();
+};
 
 } // End of namespace U1Dialogs
-} // End of namespace Gfx
+} // End of namespace Ultima1
 } // End of namespace Ultima
+
+#endif

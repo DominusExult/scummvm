@@ -63,6 +63,7 @@ MODULE_OBJS = \
 	games/ultima1/u1dialogs/full_screen_dialog.o \
 	games/ultima1/u1dialogs/drop.o \
 	games/ultima1/u1dialogs/grocery.o \
+	games/ultima1/u1dialogs/king.o \
 	games/ultima1/u1dialogs/ready.o \
 	games/ultima1/u1dialogs/stats.o \
 	games/ultima1/u1gfx/drawing_support.o \

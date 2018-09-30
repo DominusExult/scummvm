@@ -33,8 +33,8 @@ void Spell::setGame(Ultima1Game *game) {
 	_name = _game->_res->SPELL_NAMES[_spellId];
 }
 
-void Spell::addInfoMsg(const Common::String &text, bool newLine) {
-	CInfoMsg msg(text, newLine);
+void Spell::addInfoMsg(const Common::String &text, bool newLine, bool replaceLine) {
+	CInfoMsg msg(text, newLine, replaceLine);
 	msg.execute("Game");
 }
 

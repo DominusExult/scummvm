@@ -23,6 +23,7 @@
 #include "ultima/games/ultima1/widgets/king.h"
 #include "ultima/games/ultima1/maps/map_city_castle.h"
 #include "ultima/games/ultima1/core/resources.h"
+#include "ultima/games/ultima1/u1dialogs/king.h"
 
 namespace Ultima {
 namespace Ultima1 {
@@ -44,7 +45,8 @@ void King::talk() {
 		_game->endOfTurn();
 	
 	} else {
-		// TODO
+		U1Dialogs::King *dialog = new U1Dialogs::King(_game);
+		dialog->show();
 	}
 }
 
