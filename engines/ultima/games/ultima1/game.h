@@ -25,6 +25,7 @@
 
 #include "ultima/games/shared/game.h"
 #include "ultima/gfx/visual_container.h"
+#include "ultima/games/ultima1/core/quests.h"
 
 namespace Ultima {
 namespace Ultima1 {
@@ -41,14 +42,13 @@ class GameResources;
 
 class Ultima1Game : public Shared::Game {
 	DECLARE_MESSAGE_MAP;
-	enum QuestFlag { UNSTARTED = 0, IN_PROGRESS = -1, COMPLETED = 1 };
 public:
 	GameResources *_res;
 	Ultima::Gfx::VisualItem *_gameView;
 	Ultima::Gfx::VisualItem *_titleView;
 	Ultima::Gfx::VisualItem *_charGenView;
 	uint _gems[4];
-	QuestFlag _questFlags[9];
+	Quests _quests;
 public:
 	CLASSDEF;
 	Ultima1Game();
@@ -78,11 +78,6 @@ public:
 	 * Give some treasure
 	 */
 	void giveTreasure(int coins, int v2);
-
-	/**
-	 * Called when a quest is completed
-	 */
-	void questCompleted(uint questNum);
 };
 
 } // End of namespace Ultima1

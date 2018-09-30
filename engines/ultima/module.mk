@@ -50,6 +50,7 @@ MODULE_OBJS = \
 	games/ultima0/core/resources.o \
 	games/ultima1/game.o \
 	games/ultima1/core/party.o \
+	games/ultima1/core/quests.o \
 	games/ultima1/core/resources.o \
 	games/ultima1/maps/map.o \
 	games/ultima1/maps/map_base.o \
