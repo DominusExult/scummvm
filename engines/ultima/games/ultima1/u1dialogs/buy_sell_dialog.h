@@ -37,6 +37,8 @@ enum BuySell { SELECT, BUY, SELL, SOLD, CANT_AFFORD };
   */
 class BuySellDialog : public Dialog {
 	DECLARE_MESSAGE_MAP;
+	bool ShowMsg(CShowMsg &msg);
+	virtual bool CharacterInputMsg(CCharacterInputMsg &msg);
 private:
 	Gfx::CharacterInput _charInput;
 protected:
@@ -49,11 +51,6 @@ protected:
 	BuySellDialog(Ultima1Game *game, const Common::String &title);
 
 	/**
-	 * Character input response point
-	 */
-	virtual bool CharacterInputMsg(CCharacterInputMsg &msg);
-
-	/**
 	 * Nothing selected
 	 */
 	void nothing();
@@ -61,7 +58,7 @@ protected:
 	/**
 	 * Set the mode
 	 */
-	void setMode(BuySell mode);
+	virtual void setMode(BuySell mode);
 
 	/**
 	 *  Switches the dialog to displaying sold
