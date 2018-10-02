@@ -34,11 +34,9 @@ namespace U1Dialogs {
  */
 class Grocery : public BuySellDialog {
 	DECLARE_MESSAGE_MAP;
-	bool FrameMsg(CFrameMsg &msg);
 	bool TextInputMsg(CTextInputMsg &msg);
 private:
 	uint _costPerPack;
-	uint _frameCounter;
 protected:
 	/**
 	 * Set the mode

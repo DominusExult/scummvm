@@ -38,12 +38,14 @@ enum BuySell { SELECT, BUY, SELL, SOLD, CANT_AFFORD };
 class BuySellDialog : public Dialog {
 	DECLARE_MESSAGE_MAP;
 	bool ShowMsg(CShowMsg &msg);
+	bool FrameMsg(CFrameMsg &msg);
 	virtual bool CharacterInputMsg(CCharacterInputMsg &msg);
 private:
 	Gfx::CharacterInput _charInput;
 protected:
 	BuySell _mode;
 	Common::String _title;
+	uint _closeCounter;
 protected:
 	/**
 	 * Constructor
