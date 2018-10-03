@@ -67,6 +67,7 @@ MODULE_OBJS = \
 	games/ultima1/u1dialogs/king.o \
 	games/ultima1/u1dialogs/ready.o \
 	games/ultima1/u1dialogs/stats.o \
+	games/ultima1/u1dialogs/weaponry.o \
 	games/ultima1/u1gfx/drawing_support.o \
 	games/ultima1/u1gfx/info.o \
 	games/ultima1/u1gfx/sprites.o \

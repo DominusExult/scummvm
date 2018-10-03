@@ -23,6 +23,7 @@
 #include "ultima/games/ultima1/widgets/merchant_weapons.h"
 #include "ultima/games/ultima1/maps/map_city_castle.h"
 #include "ultima/games/ultima1/core/resources.h"
+#include "ultima/games/ultima1/u1dialogs/weaponry.h"
 
 namespace Ultima {
 namespace Ultima1 {
@@ -55,6 +56,11 @@ void MerchantWeapons::findWeapon(bool checkStealing) {
 		addInfoMsg("");
 		addInfoMsg(Common::String::format(_game->_res->FIND, weaponStr));
 	}
+}
+
+void MerchantWeapons::talk() {
+	U1Dialogs::Weaponry *dialog = new U1Dialogs::Weaponry(_game, _map->getMapStyle() - 2);
+	dialog->show();
 }
 
 } // End of namespace Widgets
