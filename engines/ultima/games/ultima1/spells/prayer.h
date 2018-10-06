@@ -37,7 +37,7 @@ public:
 	/**
 	 * Constructor
 	 */
-	Prayer();
+	Prayer(Ultima1Game *game, Character *c);
 
 	/**
 	 * Cast the spell outside a dungeon

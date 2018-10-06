@@ -23,6 +23,7 @@
 #include "ultima/games/ultima1/u1dialogs/grocery.h"
 #include "ultima/games/ultima1/core/resources.h"
 #include "ultima/games/ultima1/game.h"
+#include "ultima/core/str.h"
 #include "ultima/messages.h"
 
 namespace Ultima {
@@ -75,7 +76,7 @@ void Grocery::draw() {
 		break;
 
 	case SELL:
-		centerText(game->_res->GROCERY_SELL, 4);
+		centerText(game->_res->GROCERY_SELL, String(_title).split('\n').size() + 2);
 		break;
 
 	default:

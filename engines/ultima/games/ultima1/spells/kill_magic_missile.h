@@ -41,7 +41,7 @@ public:
 	/**
 	 * Constructor
 	 */
-	KillMagicMIssile(SpellId spellId) : Spell(spellId) {}
+	KillMagicMIssile(Ultima1Game *game, Character *c, SpellId spellId) : Spell(game, c, spellId) {}
 
 	/**
 	 * Cast the spell outside a dungeon
@@ -57,7 +57,7 @@ public:
 	/**
 	 * Constructor
 	 */
-	Kill();
+	Kill(Ultima1Game *game, Character *c);
 
 	/**
 	 * Cast the spell within dungeons
@@ -73,7 +73,7 @@ public:
 	/**
 	 * Constructor
 	 */
-	MagicMissile();
+	MagicMissile(Ultima1Game *game, Character *c);
 
 	/**
 	 * Cast the spell within dungeons

@@ -66,6 +66,7 @@ MODULE_OBJS = \
 	games/ultima1/u1dialogs/drop.o \
 	games/ultima1/u1dialogs/grocery.o \
 	games/ultima1/u1dialogs/king.o \
+	games/ultima1/u1dialogs/magic.o \
 	games/ultima1/u1dialogs/ready.o \
 	games/ultima1/u1dialogs/stats.o \
 	games/ultima1/u1dialogs/weaponry.o \
