@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef ULTIMA_ULTIMA1_WIDGETS_MERCHANT_ARMOR_H
-#define ULTIMA_ULTIMA1_WIDGETS_MERCHANT_ARMOR_H
+#ifndef ULTIMA_ULTIMA1_WIDGETS_MERCHANT_ARMOUR_H
+#define ULTIMA_ULTIMA1_WIDGETS_MERCHANT_ARMOUR_H
 
 #include "ultima/games/ultima1/widgets/merchant.h"
 
@@ -32,7 +32,7 @@ namespace Widgets {
 /**
  * Implements the armor merchant
  */
-class MerchantArmor : public Merchant {
+class MerchantArmour : public Merchant {
 	DECLARE_MESSAGE_MAP;
 private:
 	/**
@@ -41,25 +41,25 @@ private:
 	 */
 	void findArmor(bool checkStealing);
 public:
-	DECLARE_WIDGET(MerchantArmor)
+	DECLARE_WIDGET(MerchantArmour)
 	CLASSDEF;
 
 	/**
 	 * Constructor
 	 */
-	MerchantArmor(Ultima1Game *game, Maps::MapBase *map, int hitPoints) :
+	MerchantArmour(Ultima1Game *game, Maps::MapBase *map, int hitPoints) :
 		Merchant(game, map, 50, hitPoints) {}
 
 	/**
 	 * Constructor
 	 */
-	MerchantArmor(Ultima1Game *game, Maps::MapBase *map, uint tileNum, int hitPoints) :
+	MerchantArmour(Ultima1Game *game, Maps::MapBase *map, uint tileNum, int hitPoints) :
 		Merchant(game, map, tileNum, hitPoints) {}
 
 	/**
 	 * Constructor
 	 */
-	MerchantArmor(Ultima1Game *game, Maps::MapBase *map) : Merchant(game, map, 50) {}
+	MerchantArmour(Ultima1Game *game, Maps::MapBase *map) : Merchant(game, map, 50) {}
 
 	/**
 	 * Does the get action
@@ -70,6 +70,11 @@ public:
 	 * Does the steal action
 	 */
 	virtual void steal() override;
+
+	/**
+	 * Does the talk action
+	 */
+	virtual void talk() override;
 };
 
 } // End of namespace Widgets

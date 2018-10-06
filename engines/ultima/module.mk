@@ -58,6 +58,7 @@ MODULE_OBJS = \
 	games/ultima1/maps/map_dungeon.o \
 	games/ultima1/maps/map_overworld.o \
 	games/ultima1/maps/map_tile.o \
+	games/ultima1/u1dialogs/armoury.o \
 	games/ultima1/u1dialogs/buy_sell_dialog.o \
 	games/ultima1/u1dialogs/combat.o \
 	games/ultima1/u1dialogs/dialog.o \
@@ -101,7 +102,7 @@ MODULE_OBJS = \
 	games/ultima1/widgets/guard.o \
 	games/ultima1/widgets/king.o \
 	games/ultima1/widgets/merchant.o \
-	games/ultima1/widgets/merchant_armor.o \
+	games/ultima1/widgets/merchant_armour.o \
 	games/ultima1/widgets/merchant_grocer.o \
 	games/ultima1/widgets/merchant_magic.o \
 	games/ultima1/widgets/merchant_tavern.o \

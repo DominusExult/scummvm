@@ -39,7 +39,7 @@ class Drop : public FullScreenDialog {
 	bool CharacterInputMsg(CCharacterInputMsg &msg);
 	bool TextInputMsg(CTextInputMsg &msg);
 
-	enum Mode { SELECT, DROP_PENCE, DROP_WEAPON, DROP_ARMOR };
+	enum Mode { SELECT, DROP_PENCE, DROP_WEAPON, DROP_armour };
 private:
 	Mode _mode;
 private:
