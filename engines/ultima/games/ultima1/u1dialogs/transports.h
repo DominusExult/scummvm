@@ -20,20 +20,60 @@
  *
  */
 
-#include "ultima/games/ultima1/widgets/merchant_transport.h"
-#include "ultima/games/ultima1/u1dialogs/transports.h"
+#ifndef ULTIMA_ULTIMA1_U1DIALOGS_TRANSPORTS_H
+#define ULTIMA_ULTIMA1_U1DIALOGS_TRANSPORTS_H
+
+#include "ultima/games/ultima1/u1dialogs/buy_sell_dialog.h"
 
 namespace Ultima {
 namespace Ultima1 {
-namespace Widgets {
+namespace U1Dialogs {
 
-EMPTY_MESSAGE_MAP(MerchantTransport, Merchant);
+/**
+ * Implements the dialog for the transport merchant
+ */
+class Transports : public BuySellDialog {
+	DECLARE_MESSAGE_MAP;
+	virtual bool CharacterInputMsg(CCharacterInputMsg &msg) override;
+private:
+	uint _transportsNum;
+	uint _water, _woods, _grass;
+private:
+	/**
+	 * Calculates the number of free tiles in the overworld
+	 */
+	void loadOverworldFreeTiles();
 
-void MerchantTransport::talk() {
-	U1Dialogs::Transports *dialog = new U1Dialogs::Transports(_game, _map->getMapStyle() - 2);
-	dialog->show();
-}
+	/**
+	 * Draws the Buy dialog content
+	 */
+	void drawBuy();
 
-} // End of namespace Widgets
+	/**
+	 * Draws the Sell dialog content
+	 */
+	void drawSell();
+protected:
+	/**
+	 * Set the mode
+	 */
+	virtual void setMode(BuySell mode) override;
+public:
+	CLASSDEF;
+
+	/**
+	 * Constructor
+	 */
+	Transports(Ultima1Game *game, int transportNum);
+
+	/**
+	 * Draws the visual item on the screen
+	 */
+	virtual void draw() override;
+};
+
+} // End of namespace U1Dialogs
 } // End of namespace Ultima1
 } // End of namespace Ultima
+
+#endif

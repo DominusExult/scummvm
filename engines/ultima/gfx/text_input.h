@@ -46,7 +46,7 @@ public:
 	/**
 	 * Draws the visual item on the screen
 	 */
-	virtual void draw();
+	virtual void draw() override;
 
 	/**
 	 * Show the text input

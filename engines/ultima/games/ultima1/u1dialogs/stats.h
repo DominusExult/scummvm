@@ -89,7 +89,7 @@ public:
 	/**
 	 * Draws the visual item on the screen
 	 */
-	virtual void draw();
+	virtual void draw() override;
 };
 
 } // End of namespace U1Dialogs
