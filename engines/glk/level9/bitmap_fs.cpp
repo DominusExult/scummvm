@@ -27,7 +27,7 @@
 namespace Glk {
 namespace Level9 {
 
-BitmapType BitmapFileSystem::_bitmapType;
+BitmapType BitmapFileSystem::_bitmapType = NO_BITMAPS;
 
 bool BitmapFileSystem::exists() {
 	Common::String file = bitmap_noext_name(2);
@@ -955,87 +955,25 @@ bool BitmapFileSystem::bitmap_bbc_decode(Bitmap &bitmap, const Common::String &f
 /*--------------------------------------------------------------------------*/
 
 BitmapFileSystem::BitmapFileSystem() : Common::Archive() {
-/*
-	Common::File f;
-	if (!f.open(_filename))
-		error("Error reading BitmapFileSystem file");
-
-	_palette = new Common::Array<byte>();
-
-	Common::Array<uint> offsets;
-	byte buffer[16];
-	f.read(buffer, 16);
-	_index.resize(READ_LE_UINT16(&buffer[PIC_FILE_HEADER_NUM_IMAGES]));
-	_entrySize = buffer[PIC_FILE_HEADER_ENTRY_SIZE];
-	_version = buffer[PIC_FILE_HEADER_FLAGS];
-	assert(_entrySize >= 8 && _entrySize <= 14);
-
-	// Iterate through loading the index
-	for (uint idx = 0; idx < _index.size(); ++idx) {
-		Entry &e = _index[idx];
-		f.read(buffer, _entrySize);
-
-		e._number = READ_LE_UINT16(buffer);
-		e._width = READ_LE_UINT16(buffer + 2);
-		e._height = READ_LE_UINT16(buffer + 4);
-		e._flags = READ_LE_UINT16(buffer + 6);
-
-		if (_entrySize >= 11) {
-			e._dataOffset = READ_BE_UINT32(buffer + 7) & 0xffffff;
-			if (e._dataOffset)
-				offsets.push_back(e._dataOffset);
-
-			if (_entrySize == 14) {
-				e._paletteOffset = READ_BE_UINT32(buffer + 10) & 0xffffff;
-			}
-		}
-
-		if (e._dataOffset)
-			e._filename = Common::String::format("pic%u.raw", e._number);
-		else
-			e._filename = Common::String::format("pic%u.rect", e._number);
-	}
-
-	// Further processing of index to calculate data sizes
-	Common::sort(offsets.begin(), offsets.end());
-
-	for (uint idx = 0; idx < _index.size(); ++idx) {
-		Entry &e = _index[idx];
-		if (!e._dataOffset)
-			continue;
-
-		// Find the entry in the offsets array
-		uint oidx = 0;
-		while (oidx < offsets.size() && offsets[oidx] != e._dataOffset)
-			++oidx;
-
-		// Set the size
-		e._dataSize = (oidx == (offsets.size() - 1) ? f.size() : offsets[oidx + 1]) - e._dataOffset;
-	}
-
-	f.close();
-	*/
+	assert(_bitmapType != NO_BITMAPS);
 }
 
-
 bool BitmapFileSystem::hasFile(const Common::String &name) const {
-/*
-	for (uint idx = 0; idx < _index.size(); ++idx) {
-		if (_index[idx]._filename.equalsIgnoreCase(name))
-			return true;
-	}
-	*/
-	return false;
+	int picNum = getPictureNumber(name);
+	return picNum != -1;
+}
+
+int BitmapFileSystem::getPictureNumber(const Common::String &filename) const {
+	if (!filename.hasPrefixIgnoreCase("pic") || !filename.hasSuffixIgnoreCase(".raw"))
+		return -1;
+
+	Common::String numStr(filename.c_str() + 3, filename.c_str() + filename.size() - 5);
+	return (numStr.empty() || !Common::isDigit(numStr[0])) ? -1 : atoi(numStr.c_str());
 }
 
 int BitmapFileSystem::listMembers(Common::ArchiveMemberList &list) const {
-	/*
-	for (uint idx = 0; idx < _index.size(); ++idx) {
-		list.push_back(Common::ArchiveMemberList::value_type(new Common::GenericArchiveMember(_index[idx]._filename, this)));
-	}
-	*/
+	// Listing isn't supported
 	return 0;
-	//(int)_index.size();
 }
 
 const Common::ArchiveMemberPtr BitmapFileSystem::getMember(const Common::String &name) const {
@@ -1046,105 +984,93 @@ const Common::ArchiveMemberPtr BitmapFileSystem::getMember(const Common::String 
 }
 
 Common::SeekableReadStream *BitmapFileSystem::createReadStreamForMember(const Common::String &name) const {
-	/*
-	PictureDecoder decoder;
+	// Get the picture number
+	int picNum = getPictureNumber(name);
+	if (picNum == -1)
+		return nullptr;
 
-	for (uint idx = 0; idx < _index.size(); ++idx) {
-		const Entry &e = _index[idx];
-		if (e._filename.equalsIgnoreCase(name)) {
-			Common::File f;
-			Common::SeekableReadStream *dest;
-			if (!f.open(_filename))
-				error("Reading failed");
+	// Decode the picture
+	Bitmap bitmap;
+	if (!decodeBitmap(bitmap, picNum))
+		return nullptr;
 
-			if (e._dataSize) {
-				loadPalette(f, e, *_palette);
+	// Create a memory stream for the raw picture data
+	Common::MemoryWriteStreamDynamic mem(DisposeAfterUse::NO);
 
-				f.seek(e._dataOffset);
-				Common::SeekableReadStream *src = f.readStream(e._dataSize);
-				dest = decoder.decode(*src, e._flags, *_palette, kMCGA, e._width, e._height);
-				delete src;
-			} else {
-				byte *rect = (byte *)malloc(2 * sizeof(uint32));
-				WRITE_BE_UINT32(rect, e._width);
-				WRITE_BE_UINT32(rect + 4, e._height);
-				dest = new Common::MemoryReadStream(rect, 2 * sizeof(uint32), DisposeAfterUse::YES);
-			}
+	// Add the dimensions
+	mem.writeUint16LE(bitmap.w);
+	mem.writeUint16LE(bitmap.h);
 
-			f.close();
-			return dest;
-		}
-	}
-*/
-	return nullptr;
+	// Add the palette
+	mem.writeUint16LE(bitmap._palette.size() / 3);
+	mem.write(&bitmap._palette[0], bitmap._palette.size());
+
+	// No transparency
+	mem.writeByte(0xff);
+
+	// Write the pixels
+	mem.write((const byte *)bitmap.getPixels(), bitmap.w * bitmap.h);
+
+	// Pass out a read stream
+	return new Common::MemoryReadStream(mem.getData(), mem.size(), DisposeAfterUse::YES);
 }
 
-#ifdef UNUSED
-Bitmap *DecodeBitmap(char *dir, BitmapType type, int num, int x, int y) {
-	char file[MAX_PATH];
+bool BitmapFileSystem::decodeBitmap(Bitmap &bitmap, int num) const {
+	const int x = 0, y = 0;
 
-	switch (type) {
+	switch (_bitmapType) {
 	case PC1_BITMAPS:
-		bitmap_pc_name(num, dir, file);
-		if (bitmap_pc1_decode(file, x, y))
-			return bitmap;
+		if (bitmap_pc1_decode(bitmap, bitmap_pc_name(num), x, y))
+			return true;
 		break;
 
 	case PC2_BITMAPS:
-		bitmap_pc_name(num, dir, file);
-		if (bitmap_pc2_decode(file, x, y))
-			return bitmap;
+		if (bitmap_pc2_decode(bitmap, bitmap_pc_name(num), x, y))
+			return true;
 		break;
 
 	case AMIGA_BITMAPS:
-		bitmap_noext_name(num, dir, file);
-		if (bitmap_amiga_decode(file, x, y))
-			return bitmap;
+		if (bitmap_amiga_decode(bitmap, bitmap_noext_name(num), x, y))
+			return true;
 		break;
 
 	case C64_BITMAPS:
-		bitmap_c64_name(num, dir, file);
-		if (bitmap_c64_decode(file, type, num))
-			return bitmap;
+		if (bitmap_c64_decode(bitmap, bitmap_c64_name(num), _bitmapType, num))
+			return true;
 		break;
 
 	case BBC_BITMAPS:
-		bitmap_bbc_name(num, dir, file);
-		if (bitmap_bbc_decode(file, type, num))
-			return bitmap;
+		if (bitmap_bbc_decode(bitmap, bitmap_bbc_name(num), _bitmapType, num))
+			return true;
 		break;
 
 	case CPC_BITMAPS:
-		bitmap_cpc_name(num, dir, file);
-		if (bitmap_c64_decode(file, type, num)) /* Nearly identical to C64 */
-			return bitmap;
+		// Nearly identical to C64
+		if (bitmap_c64_decode(bitmap, bitmap_cpc_name(num), _bitmapType, num))
+			return true;
 		break;
 
 	case MAC_BITMAPS:
-		bitmap_noext_name(num, dir, file);
-		if (bitmap_mac_decode(file, x, y))
-			return bitmap;
+		if (bitmap_mac_decode(bitmap, bitmap_noext_name(num), x, y))
+			return true;
 		break;
 
 	case ST1_BITMAPS:
-		bitmap_noext_name(num, dir, file);
-		if (bitmap_st1_decode(file, x, y))
-			return bitmap;
+		if (bitmap_st1_decode(bitmap, bitmap_noext_name(num), x, y))
+			return true;
 		break;
 
 	case ST2_BITMAPS:
-		bitmap_st2_name(num, dir, file);
-		if (bitmap_pc2_decode(file, x, y))
-			return bitmap;
+		if (bitmap_pc2_decode(bitmap, bitmap_st2_name(num), x, y))
+			return true;
 		break;
 
 	default:
 		break;
 	}
 
-	return NULL;
+	return false;
 }
-#endif
 
 } // End of namespace Frotz
 } // End of namespace Glk

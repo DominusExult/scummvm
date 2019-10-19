@@ -55,11 +55,13 @@ class Bitmap : public Graphics::ManagedSurface {
 public:
 	Common::Array<byte> _palette;
 public:
-	Bitmap();
-	Bitmap(Graphics::ManagedSurface &surf);
-	Bitmap(int width, int height);
-	Bitmap(int width, int height, const Graphics::PixelFormat &pixelFormat);
-	Bitmap(Graphics::ManagedSurface &surf, const Common::Rect &bounds);
+	Bitmap() : Graphics::ManagedSurface() {}
+	Bitmap(Graphics::ManagedSurface &surf) : Graphics::ManagedSurface(surf) {}
+	Bitmap(int width, int height) : Graphics::ManagedSurface(width, height) {}
+	Bitmap(int width, int height, const Graphics::PixelFormat &pixelFormat) :
+		Graphics::ManagedSurface(width, height, pixelFormat) {}
+	Bitmap(Graphics::ManagedSurface &surf, const Common::Rect &bounds) :
+		Graphics::ManagedSurface(surf, bounds) {}
 	virtual ~Bitmap() {}
 };
 
@@ -71,7 +73,7 @@ private:
 	static BitmapType _bitmapType;
 private:
 	static Common::String bitmap_noext_name(int num);
-	byte *bitmap_load(const Common::String &file, size_t *size);
+	static byte *bitmap_load(const Common::String &file, size_t *size);
 	static BitmapType bitmap_noext_type(const Common::String &file);
 
 	/**
@@ -82,7 +84,7 @@ private:
 	 * IE the value can only be 0-7 not the full possible 0-15 and so the MSbit in
 	 * each nybble is always 0.
 	*/
-	Colour bitmap_pcst_colour(int big, int small);
+	static Colour bitmap_pcst_colour(int big, int small);
 
 	/**
 	 * @defgroup PC Bitmaps
@@ -131,7 +133,7 @@ private:
 	 * image colour table. The pixels are organised with the top left first and
 	 * bottom left last, each row in turn.
 	*/
-	bool bitmap_pc1_decode(Bitmap &bitmap, const Common::String &file, int x, int y);
+	static bool bitmap_pc1_decode(Bitmap &bitmap, const Common::String &file, int x, int y);
 
 	/*
 	 * The PC (v2) image file has the following format. It consists of a 44
@@ -282,7 +284,7 @@ private:
 	 * code in a debugger - thanks to the now defunct HiSoft for their DevPac ST and
 	 * Gerin Philippe for NoSTalgia <http://users.skynet.be/sky39147/>.
 	 */
-	bool bitmap_pc2_decode(Bitmap &bitmap, const Common::String &file, int x, int y);
+	static bool bitmap_pc2_decode(Bitmap &bitmap, const Common::String &file, int x, int y);
 	static BitmapType bitmap_pc_type(const Common::String &file);
 
 	//@}
@@ -310,7 +312,7 @@ private:
 	 * 		masked by a value to select only that bit and added to the final pixel
 	 * 		value.
 	*/
-	uint32 bitmap_st1_decode_pixels(byte *pic, byte *data, uint32 count, uint32 pixels);
+	static uint32 bitmap_st1_decode_pixels(byte *pic, byte *data, uint32 count, uint32 pixels);
 
 	/**
 	 * The ST image file has the following format. It consists of a 44 byte header
@@ -381,7 +383,7 @@ private:
 	 * the number of pixels to extract (usually 16, possibly less for the last
 	 * block in a row.)
 	 */
-	bool bitmap_st1_decode(Bitmap &bitmap, const Common::String &file, int x, int y);
+	static bool bitmap_st1_decode(Bitmap &bitmap, const Common::String &file, int x, int y);
 	static Common::String bitmap_st2_name(int num);
 
 	//@}
@@ -391,7 +393,7 @@ private:
      */
 	//@{
 
-	int bitmap_amiga_intensity(int col) {
+	static int bitmap_amiga_intensity(int col) {
 		return (int)(pow((double)col / 15, 1.0 / 0.8) * 0xff);
 	}
 
@@ -400,7 +402,7 @@ private:
 	 * values stored in the second, third and lowest nybles respectively. The high
 	 * nybble is always zero.
 	*/
-	Colour bitmap_amiga_colour(int i1, int i2);
+	static Colour bitmap_amiga_colour(int i1, int i2);
 
 	/**
 	 * The Amiga image file has the following format. It consists of a 44 byte
@@ -428,7 +430,7 @@ private:
 	 * the second bit of the pixel and so on up to the fifth bit plane holding the
 	 * high bit of the f5-bit pixel.
 	*/
-	bool bitmap_amiga_decode(Bitmap &bitmap, const Common::String &file, int x, int y);
+	static bool bitmap_amiga_decode(Bitmap &bitmap, const Common::String &file, int x, int y);
 
 	//@}
 
@@ -455,7 +457,7 @@ private:
 	 * The image sizes are 512 * 216 pixels for main images and 360 * 186 pixels
 	 * for sub-images.
 	 */
-	bool bitmap_mac_decode(Bitmap &bitmap, const Common::String &file, int x, int y);
+	static bool bitmap_mac_decode(Bitmap &bitmap, const Common::String &file, int x, int y);
 
 	//@}
 
@@ -508,7 +510,7 @@ private:
 	 * each forming a picture, in the C64 game file format (minus the two
 	 * byte header).
 	 */
-	bool bitmap_c64_decode(Bitmap &bitmap, const Common::String &file, BitmapType type, int num);
+	static bool bitmap_c64_decode(Bitmap &bitmap, const Common::String &file, BitmapType type, int num);
 
 	//@}
 
@@ -586,7 +588,17 @@ private:
 	 * loading. See the comments to that function for details of how the
 	 * image is encoded and stored.
 	 */
-	bool bitmap_bbc_decode(Bitmap &bitmap, const Common::String &file, BitmapType type, int num);
+	static bool bitmap_bbc_decode(Bitmap &bitmap, const Common::String &file, BitmapType type, int num);
+private:
+	/**
+	 * Returns a picture number from a valid passed
+	 */
+	int getPictureNumber(const Common::String &filename) const;
+
+	/**
+	 * Decode a picture
+	 */
+	bool decodeBitmap(Bitmap &bitmap, int num) const;
 public:
 	/**
 	 * Checks what type of graphics, if any, the game supports, setting _bitmapType.
