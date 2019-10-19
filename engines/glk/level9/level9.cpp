@@ -22,14 +22,13 @@
 
 #include "glk/level9/level9.h"
 #include "glk/level9/bitmap_fs.h"
+#include "glk/level9/level9_main.h"
+#include "glk/level9/os_glk.h"
 
 namespace Glk {
 namespace Level9 {
 
 Level9 *g_vm = nullptr;
-
-extern void gln_main(const char *filename);
-extern int gln_startup_code(int argc, char *argv[]);
 
 Level9::Level9(OSystem *syst, const GlkGameDescription &gameDesc) : GlkAPI(syst, gameDesc) {
 	g_vm = this;
@@ -38,6 +37,7 @@ Level9::Level9(OSystem *syst, const GlkGameDescription &gameDesc) : GlkAPI(syst,
 void Level9::runGame() {
 	initialize();
 
+
 	_gameFile.close();
 	gln_main(getFilename().c_str());
 
@@ -45,8 +45,21 @@ void Level9::runGame() {
 }
 
 bool Level9::initialize() {
+	// Field initialization
+	gln_initialize();
+	level9_initialize();
+
 	// Set up picture handling
-	if (BitmapFileSystem::exists()) {
+	bool gfxExists = BitmapFileSystem::exists();
+
+	// Check Glk library capabilities
+	gln_graphics_possible = gfxExists && g_vm->glk_gestalt(gestalt_Graphics, 0)
+		&& g_vm->glk_gestalt(gestalt_Timer, 0);
+
+	// If pictures are impossible, clear pictures enabled flag
+	gln_graphics_enabled = gln_graphics_possible;
+
+	if (gln_graphics_possible) {
 		BitmapFileSystem *pics = new BitmapFileSystem();
 		SearchMan.add("Pics", pics, 99, false);
 	}
