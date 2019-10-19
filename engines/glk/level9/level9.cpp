@@ -21,6 +21,7 @@
  */
 
 #include "glk/level9/level9.h"
+#include "glk/level9/bitmap_fs.h"
 
 namespace Glk {
 namespace Level9 {
@@ -44,6 +45,12 @@ void Level9::runGame() {
 }
 
 bool Level9::initialize() {
+	// Set up picture handling
+	if (BitmapFileSystem::exists()) {
+		BitmapFileSystem *pics = new BitmapFileSystem();
+		SearchMan.add("Pics", pics, 99, false);
+	}
+
 	return gln_startup_code(0, nullptr);
 }
 

@@ -55,33 +55,6 @@ struct GameState {
 	char filename[MAX_PATH];
 };
 
-enum BitmapType {
-	NO_BITMAPS,
-	AMIGA_BITMAPS,
-	PC1_BITMAPS,
-	PC2_BITMAPS,
-	C64_BITMAPS,
-	BBC_BITMAPS,
-	CPC_BITMAPS,
-	MAC_BITMAPS,
-	ST1_BITMAPS,
-	ST2_BITMAPS
-};
-
-struct Colour {
-	L9BYTE red, green, blue;
-};
-
-struct Bitmap {
-	L9UINT16 width, height;
-	L9BYTE *bitmap;
-	Colour palette[32];
-	L9UINT16 npalette;
-};
-
-#define MAX_BITMAP_WIDTH 512
-#define MAX_BITMAP_HEIGHT 218
-
 #define L9WORD(x) READ_LE_UINT16(x)
 #define L9SETWORD(x,val) WRITE_LE_UINT16(x, val)
 #define L9SETDWORD(x,val) WRITE_LE_UINT32(x, val)
@@ -112,10 +85,6 @@ void RestoreGame(char *filename);
 void FreeMemory(void);
 void GetPictureSize(int *width, int *height);
 L9BOOL RunGraphics(void);
-
-/* bitmap routines provided by level9 interpreter */
-BitmapType DetectBitmaps(char *dir);
-Bitmap *DecodeBitmap(char *dir, BitmapType type, int num, int x, int y);
 
 } // End of namespace Level9
 } // End of namespace Glk

@@ -122,7 +122,6 @@ GameState CheatWorkspace;
 int reflectflag, scale, gintcolour, option;
 int l9textmode = 0, drawx = 0, drawy = 0, screencalled = 0, showtitle = 1;
 L9BYTE *gfxa5 = NULL;
-Bitmap *bitmap = NULL;
 int gfx_mode = GFX_V2;
 
 L9BYTE *GfxA5Stack[GFXSTACKSIZE];
@@ -634,10 +633,6 @@ void FreeMemory() {
 	if (pictureaddress) {
 		free(pictureaddress);
 		pictureaddress = NULL;
-	}
-	if (bitmap) {
-		free(bitmap);
-		bitmap = NULL;
 	}
 	if (scriptfile) {
 		delete scriptfile;

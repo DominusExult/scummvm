@@ -22,6 +22,7 @@
 
 #include "glk/level9/level9_main.h"
 #include "glk/level9/level9.h"
+#include "glk/level9/bitmap_fs.h"
 #include "common/textconsole.h"
 
 namespace Glk {
@@ -2251,45 +2252,6 @@ static void gln_graphics_timeout() {
 }
 
 /*
- * gln_graphics_locate_bitmaps()
- *
- * Given the name of the game file being run, try to set up the graphics
- * directory and bitmap type for that game.  If none available, set the
- * directory to NULL, and bitmap type to NO_BITMAPS.
- */
-static void gln_graphics_locate_bitmaps(const char *gamefile) {
-	const char *basename;
-	char *dirname;
-	BitmapType bitmap_type;
-
-	/* Find the start of the last element of the filename passed in. */
-	basename = strrchr(gamefile, GLN_FILE_DELIM);
-	basename = basename ? basename + 1 : gamefile;
-
-	/* Take a copy of the directory part of the filename. */
-	dirname = (char *)gln_malloc(basename - gamefile + 1);
-	strncpy(dirname, gamefile, basename - gamefile);
-	dirname[basename - gamefile] = '\0';
-
-	/*
-	 * Use the core interpreter to search for suitable bitmaps.  If none found,
-	 * free allocated memory and return noting none available.
-	 */
-	bitmap_type = DetectBitmaps(dirname);
-	if (bitmap_type == NO_BITMAPS) {
-		free(dirname);
-		gln_graphics_bitmap_directory = NULL;
-		gln_graphics_bitmap_type = NO_BITMAPS;
-		return;
-	}
-
-	/* Record the bitmap details for later use. */
-	gln_graphics_bitmap_directory = dirname;
-	gln_graphics_bitmap_type = bitmap_type;
-}
-
-
-/*
  * gln_graphics_handle_title_picture()
  *
  * Picture 0 is special, normally the title picture.  Unless we handle it
@@ -2358,9 +2320,6 @@ static void gln_graphics_handle_title_picture() {
  * function.
  */
 void os_show_bitmap(int picture, int x, int y) {
-	Bitmap *bitmap;
-	long picture_bytes;
-
 	/*
 	 * If interpreter graphics are disabled, the only way we can get into here
 	 * is using #picture.  It seems that the interpreter won't always deliver
@@ -2375,37 +2334,10 @@ void os_show_bitmap(int picture, int x, int y) {
 		return;
 
 	/*
-	 * Get the core interpreter's bitmap for the requested picture.  If this
-	 * returns NULL, the picture doesn't exist, so ignore the call silently.
-	 */
-	bitmap = DecodeBitmap(gln_graphics_bitmap_directory,
-	                      gln_graphics_bitmap_type, picture, x, y);
-	if (!bitmap)
-		return;
-
-	/*
 	 * Note the last thing passed to os_show_bitmap, to avoid possible repaints
 	 * of the current picture.
 	 */
 	gln_graphics_picture = picture;
-
-	/* Calculate the picture size in bytes. */
-	picture_bytes = bitmap->width * bitmap->height * sizeof(*bitmap->bitmap);
-
-	/*
-	 * Save the picture details for the update code.  Here we take a complete
-	 * local copy of the bitmap, dimensions, and palette.  The core interpreter
-	 * may return a palette with fewer colors than our maximum, so unused local
-	 * palette entries are set to zero.
-	 */
-	free(gln_graphics_bitmap);
-	gln_graphics_bitmap = (gln_byte *)gln_malloc(picture_bytes);
-	memcpy(gln_graphics_bitmap, bitmap->bitmap, picture_bytes);
-	gln_graphics_width = bitmap->width;
-	gln_graphics_height = bitmap->height;
-	memset(gln_graphics_palette, 0, sizeof(gln_graphics_palette));
-	memcpy(gln_graphics_palette, bitmap->palette,
-	       bitmap->npalette * sizeof(bitmap->palette[0]));
 
 	/*
 	 * If graphics are enabled, both at the Glk level and in the core
@@ -5753,10 +5685,6 @@ void gln_main(const char *filename) {
 	 */
 	if (!gln_graphics_possible)
 		gln_graphics_enabled = FALSE;
-
-	/* If pictures are possible, search for bitmap graphics. */
-	if (gln_graphics_possible)
-		gln_graphics_locate_bitmaps(filename);
 
 	/* Try to create a one-line status window.  We can live without it. */
 	/*

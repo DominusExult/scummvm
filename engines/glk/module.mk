@@ -228,6 +228,7 @@ endif
 
 ifdef ENABLE_GLK_LEVEL9
 MODULE_OBJS += \
+	level9/bitmap_fs.o \
 	level9/detection.o \
 	level9/level9.o \
 	level9/bitmap.o \
