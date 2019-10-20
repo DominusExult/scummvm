@@ -70,8 +70,6 @@ public:
  */
 class BitmapFileSystem : public Common::Archive {
 private:
-	static BitmapType _bitmapType;
-private:
 	static Common::String bitmap_noext_name(int num);
 	static byte *bitmap_load(const Common::String &file, size_t *size);
 	static BitmapType bitmap_noext_type(const Common::String &file);
@@ -598,13 +596,25 @@ private:
 	/**
 	 * Decode a picture
 	 */
-	bool decodeBitmap(Bitmap &bitmap, int num) const;
+	static bool decodeBitmap(Bitmap &bitmap, int num);
 public:
+	static BitmapType _bitmapType;
+
 	/**
 	 * Checks what type of graphics, if any, the game supports, setting _bitmapType.
 	 * Returns true if graphics are present
 	 */
 	static bool exists();
+
+	/**
+	 * Returns the number of colors a given picture uses
+	 */
+	static int picColorCount(int picNum);
+
+	/**
+	 * Returns true if there are graphics
+	 */
+	static bool hasGraphics() { return _bitmapType != NO_BITMAPS; }
 public:
 	/**
 	 * Constructor

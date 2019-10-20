@@ -71,6 +71,30 @@ finish:
 	return _bitmapType != NO_BITMAPS;
 }
 
+int BitmapFileSystem::picColorCount(int picNum) {
+	bool usage[256];
+	int count = 0;
+	Bitmap bitmap;
+	if (!decodeBitmap(bitmap, picNum))
+		error("Invalid number %d specified", picNum);
+
+	// Traverse the image
+	Common::fill(&usage[0], &usage[256], false);
+
+	for (int y = 0; y < bitmap.h; ++y) {
+		const byte *lineP = (const byte *)bitmap.getBasePtr(0, y);
+		for (int x = 0; x < bitmap.w; ++x, ++lineP) {
+			if (!usage[*lineP]) {
+				usage[*lineP] = true;
+				++count;
+			}
+		}
+	}
+
+	return count;
+}
+
+
 byte *BitmapFileSystem::bitmap_load(const Common::String &file, size_t *size) {
 	byte *data = nullptr;
 
@@ -967,7 +991,7 @@ int BitmapFileSystem::getPictureNumber(const Common::String &filename) const {
 	if (!filename.hasPrefixIgnoreCase("pic") || !filename.hasSuffixIgnoreCase(".raw"))
 		return -1;
 
-	Common::String numStr(filename.c_str() + 3, filename.c_str() + filename.size() - 5);
+	Common::String numStr(filename.c_str() + 3, filename.c_str() + filename.size() - 4);
 	return (numStr.empty() || !Common::isDigit(numStr[0])) ? -1 : atoi(numStr.c_str());
 }
 
@@ -1015,7 +1039,7 @@ Common::SeekableReadStream *BitmapFileSystem::createReadStreamForMember(const Co
 	return new Common::MemoryReadStream(mem.getData(), mem.size(), DisposeAfterUse::YES);
 }
 
-bool BitmapFileSystem::decodeBitmap(Bitmap &bitmap, int num) const {
+bool BitmapFileSystem::decodeBitmap(Bitmap &bitmap, int num) {
 	const int x = 0, y = 0;
 
 	switch (_bitmapType) {

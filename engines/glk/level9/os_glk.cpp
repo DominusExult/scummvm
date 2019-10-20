@@ -98,10 +98,6 @@ static void gln_standout_string(const char *message);
 static int gln_confirm(const char *prompt);
 
 /* Picture variables */
-/* Graphics file directory, and type of graphics found in it. */
-static char *gln_graphics_bitmap_directory = nullptr;
-static BitmapType gln_graphics_bitmap_type = NO_BITMAPS;
-
 /* The current picture id being displayed. */
 enum { GLN_PALETTE_SIZE = 32 };
 static gln_byte *gln_graphics_bitmap = nullptr;
@@ -168,8 +164,6 @@ void gln_initialize() {
 	gln_commands_enabled = TRUE;
 	gln_stop_reason = STOP_NONE;
 
-	gln_graphics_bitmap_directory = nullptr;
-	gln_graphics_bitmap_type = NO_BITMAPS;
 	gln_graphics_bitmap = nullptr;
 	gln_graphics_width = 0;
 	gln_graphics_height = 0;
@@ -1482,43 +1476,6 @@ static void gln_graphics_restart() {
 	}
 }
 
-
-/*
- * gln_graphics_count_colors()
- *
- * Analyze an image, and return an overall count of how many colors out of
- * the palette are used.
- */
-static int gln_graphics_count_colors(gln_byte bitmap[], gln_uint16 width, gln_uint16 height) {
-	int x, y, count;
-	long usage[GLN_PALETTE_SIZE], index_row;
-	assert(bitmap);
-
-	/*
-	 * Traverse the image, counting each pixel usage.  For the y iterator,
-	 * maintain an index row as an optimization to avoid multiplications in
-	 * the loop.
-	 */
-	count = 0;
-	memset(usage, 0, sizeof(usage));
-	for (y = 0, index_row = 0; y < height; y++, index_row += width) {
-		for (x = 0; x < width; x++) {
-			long index;
-
-			/* Get the pixel index, and update the count for this color. */
-			index = index_row + x;
-			usage[bitmap[index]]++;
-
-			/* If color usage is now 1, note new color encountered. */
-			if (usage[bitmap[index]] == 1)
-				count++;
-		}
-	}
-
-	return count;
-}
-
-
 /*
  * gln_graphics_split_color()
  * gln_graphics_combine_color()
@@ -1652,30 +1609,6 @@ static void gln_graphics_clear_and_border(winid_t glk_window, int x_offset, int 
 		shading_color -= fade_color;
 	}
 }
-
-
-/*
- * gln_graphics_convert_palette()
- *
- * Convert a Level 9 bitmap color palette to a Glk one.
- */
-static void gln_graphics_convert_palette(Colour ln_palette[], glui32 glk_palette[]) {
-	int index;
-	assert(ln_palette && glk_palette);
-
-	for (index = 0; index < GLN_PALETTE_SIZE; index++) {
-		Colour colour;
-		gln_rgb_t gln_color;
-
-		/* Convert color from Level 9 to internal RGB, then to Glk color. */
-		colour = ln_palette[index];
-		gln_color.red   = colour.red;
-		gln_color.green = colour.green;
-		gln_color.blue  = colour.blue;
-		glk_palette[index] = gln_graphics_combine_color(&gln_color);
-	}
-}
-
 
 /*
  * gln_graphics_position_picture()
@@ -1985,23 +1918,6 @@ break_y_max:
 }
 #endif
 
-static void gln_graphics_paint_everything(winid_t glk_window, glui32 palette[],
-		gln_byte off_screen[], int x_offset, int y_offset, gln_uint16 width, gln_uint16 height) {
-	gln_byte        pixel;          /* Reference pixel color */
-	int     x, y;
-
-	for (y = 0; y < height; y++) {
-		for (x = 0; x < width; x ++) {
-			pixel = off_screen[ y * width + x ];
-			g_vm->glk_window_fill_rect(glk_window,
-			                           palette[ pixel ],
-			                           x * GLN_GRAPHICS_PIXEL + x_offset,
-			                           y * GLN_GRAPHICS_PIXEL + y_offset,
-			                           GLN_GRAPHICS_PIXEL, GLN_GRAPHICS_PIXEL);
-		}
-	}
-}
-
 /*
  * gln_graphics_timeout()
  *
@@ -2090,16 +2006,8 @@ static void gln_graphics_timeout() {
 		/* Note the buffer for freeing on cleanup. */
 		gln_graphics_off_screen = off_screen;
 
-		/*
-		 * Pre-convert all the picture palette colors into their corresponding
-		 * Glk colors.
-		 */
-		gln_graphics_convert_palette(gln_graphics_palette, palette);
-
 		/* Save the color count for possible queries later. */
-		gln_graphics_color_count =
-		    gln_graphics_count_colors(off_screen,
-		                              gln_graphics_width, gln_graphics_height);
+		gln_graphics_color_count = BitmapFileSystem::picColorCount(gln_graphics_picture);
 	}
 
 	/*
@@ -2261,12 +2169,7 @@ static void gln_graphics_timeout() {
 	total_regions += regions;
 
 #else
-	gln_graphics_paint_everything
-	(gln_graphics_window,
-	 palette, off_screen,
-	 x_offset, y_offset,
-	 gln_graphics_width,
-	 gln_graphics_height);
+	g_vm->glk_image_draw(gln_graphics_window, gln_graphics_picture, x_offset, y_offset);
 #endif
 
 	/* Stop graphics; there's no more to be done until something restarts us. */
@@ -2441,7 +2344,7 @@ static int gln_graphics_get_rendering_details(const char **bitmap_type,
 		if (bitmap_type) {
 			const char *return_type;
 
-			switch (gln_graphics_bitmap_type) {
+			switch (BitmapFileSystem::_bitmapType) {
 			case AMIGA_BITMAPS:
 				return_type = "Amiga";
 				break;
@@ -2521,10 +2424,7 @@ static void gln_graphics_cleanup() {
 	gln_graphics_off_screen = nullptr;
 	free(gln_graphics_on_screen);
 	gln_graphics_on_screen = nullptr;
-	free(gln_graphics_bitmap_directory);
-	gln_graphics_bitmap_directory = nullptr;
 
-	gln_graphics_bitmap_type = NO_BITMAPS;
 	gln_graphics_picture = -1;
 }
 
@@ -3001,18 +2901,19 @@ void os_graphics(int mode) {
 
 		case 2:
 			/* If no graphics bitmaps were detected, ignore this call. */
-			if (!gln_graphics_bitmap_directory
-			        || gln_graphics_bitmap_type == NO_BITMAPS)
+			if (!BitmapFileSystem::hasGraphics())
 				return;
 
 			gln_graphics_interpreter_state = GLN_GRAPHICS_BITMAP_MODE;
+			break;
+
+		default:
 			break;
 		}
 
 		/* Given the interpreter state, update graphics activities. */
 		switch (gln_graphics_interpreter_state) {
 		case GLN_GRAPHICS_OFF:
-
 			/* If currently displaying graphics, stop and close window. */
 			if (gln_graphics_enabled && gln_graphics_are_displayed()) {
 				gln_graphics_stop();
@@ -3022,7 +2923,6 @@ void os_graphics(int mode) {
 
 		case GLN_GRAPHICS_LINE_MODE:
 		case GLN_GRAPHICS_BITMAP_MODE:
-
 			/* Create a new graphics context on switch to line mode. */
 			if (gln_graphics_interpreter_state == GLN_GRAPHICS_LINE_MODE)
 				gln_linegraphics_create_context();
@@ -3036,6 +2936,9 @@ void os_graphics(int mode) {
 				if (gln_graphics_open())
 					gln_graphics_restart();
 			}
+			break;
+
+		default:
 			break;
 		}
 
