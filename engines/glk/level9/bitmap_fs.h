@@ -607,9 +607,9 @@ public:
 	static bool exists();
 
 	/**
-	 * Returns the number of colors a given picture uses
+	 * Returns the number of colors and dimensions of a given picture
 	 */
-	static int picColorCount(int picNum);
+	static void getPicInfo(int picNum, uint16 &width, uint16 &height, int &colorCount);
 
 	/**
 	 * Returns true if there are graphics

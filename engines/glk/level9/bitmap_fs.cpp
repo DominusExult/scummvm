@@ -71,12 +71,15 @@ finish:
 	return _bitmapType != NO_BITMAPS;
 }
 
-int BitmapFileSystem::picColorCount(int picNum) {
+void BitmapFileSystem::getPicInfo(int picNum, uint16 &width, uint16 &height, int &colorCount) {
 	bool usage[256];
-	int count = 0;
 	Bitmap bitmap;
 	if (!decodeBitmap(bitmap, picNum))
 		error("Invalid number %d specified", picNum);
+
+	width = bitmap.w;
+	height = bitmap.h;
+	colorCount = 0;
 
 	// Traverse the image
 	Common::fill(&usage[0], &usage[256], false);
@@ -86,12 +89,10 @@ int BitmapFileSystem::picColorCount(int picNum) {
 		for (int x = 0; x < bitmap.w; ++x, ++lineP) {
 			if (!usage[*lineP]) {
 				usage[*lineP] = true;
-				++count;
+				++colorCount;
 			}
 		}
 	}
-
-	return count;
 }
 
 

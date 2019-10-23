@@ -1992,25 +1992,6 @@ static void gln_graphics_timeout() {
 	on_screen = gln_graphics_on_screen;
 
 	/*
-	 * If we received a new picture, set up the local static variables for that
-	 * picture -- convert the color palette, and initialize the off_screen
-	 * buffer to be the base picture.
-	 */
-	if (gln_graphics_new_picture) {
-		/* Initialize the off_screen buffer to be a copy of the base picture. */
-		free(off_screen);
-		off_screen = (gln_byte *)gln_malloc(picture_size * sizeof(*off_screen));
-		memcpy(off_screen, gln_graphics_bitmap,
-		       picture_size * sizeof(*off_screen));
-
-		/* Note the buffer for freeing on cleanup. */
-		gln_graphics_off_screen = off_screen;
-
-		/* Save the color count for possible queries later. */
-		gln_graphics_color_count = BitmapFileSystem::picColorCount(gln_graphics_picture);
-	}
-
-	/*
 	 * For a new picture, or a repaint of a prior one, calculate new values for
 	 * the x and y offsets used to draw image points, and set the on-screen
 	 * buffer to an unused pixel value, in effect invalidating all on-screen
@@ -2027,31 +2008,6 @@ static void gln_graphics_timeout() {
 		                              GLN_GRAPHICS_PIXEL,
 		                              gln_graphics_width, gln_graphics_height,
 		                              &x_offset, &y_offset);
-
-		/*
-		 * Reset all on-screen pixels to an unused value, guaranteed not to
-		 * match any in a real picture.  This forces all pixels to be repainted
-		 * on a buffer/on-screen comparison.
-		 */
-		free(on_screen);
-		on_screen = (gln_byte *)gln_malloc(picture_size * sizeof(*on_screen));
-		memset(on_screen, GLN_GRAPHICS_UNUSED_PIXEL,
-		       picture_size * sizeof(*on_screen));
-
-		/* Note the buffer for freeing on cleanup. */
-		gln_graphics_on_screen = on_screen;
-
-		/*
-		 * Assign new layers to the current image.  This sorts colors by usage
-		 * and puts the most used colors in the lower layers.  It also hands us
-		 * a count of pixels in each layer, useful for knowing when to stop
-		 * scanning for layers in the rendering loop.
-		 */
-#ifndef GARGLK
-		gln_graphics_assign_layers(off_screen, on_screen,
-		                           gln_graphics_width, gln_graphics_height,
-		                           layers, layer_usage);
-#endif
 
 		/* Clear the graphics window. */
 		gln_graphics_clear_and_border(gln_graphics_window,
@@ -2071,106 +2027,7 @@ static void gln_graphics_timeout() {
 		deferred_repaint = FALSE;
 	}
 
-#ifndef GARGLK
-	int layer;                                 /* Image layer iterator */
-	int x, y;                                  /* Image iterators */
-	int regions;                               /* Count of regions painted */
-	static int layers[GLN_PALETTE_SIZE];       /* Assigned image layers */
-	static long layer_usage[GLN_PALETTE_SIZE]; /* Image layer occupancies */
-
-	/*
-	 * Make a portion of an image pass, from lower to higher image layers,
-	 * scanning for invalidated pixels that are in the current image layer we
-	 * are painting.  Each invalidated pixel gives rise to a region paint,
-	 * which equates to one Glk rectangle fill.
-	 *
-	 * When the limit on regions is reached, save the current image pass layer
-	 * and coordinates, and yield control to the main game playing code by
-	 * returning.  On the next call, pick up where we left off.
-	 *
-	 * As an optimization, we can leave the loop on the first empty layer we
-	 * encounter.  Since layers are ordered by complexity and color usage, all
-	 * layers higher than the first unused one will also be empty, so we don't
-	 * need to scan them.
-	 */
-	regions = 0;
-	for (layer = saved_layer;
-	        layer < GLN_PALETTE_SIZE && layer_usage[layer] > 0; layer++) {
-		long index_row;
-
-		/*
-		 * As an optimization to avoid multiplications in the loop, maintain a
-		 * separate index row.
-		 */
-		index_row = saved_y * gln_graphics_width;
-		for (y = saved_y; y < gln_graphics_height; y++) {
-			for (x = saved_x; x < gln_graphics_width; x++) {
-				long index;
-
-				/* Get the index for this pixel. */
-				index = index_row + x;
-				assert(index < picture_size * sizeof(*off_screen));
-
-				/*
-				 * Ignore pixels not in the current layer, and pixels not
-				 * currently invalid (that is, ones whose on-screen represen-
-				 * tation matches the off-screen buffer).
-				 */
-				if (layers[off_screen[index]] == layer
-				        && on_screen[index] != off_screen[index]) {
-					/*
-					 * Rather than painting just one pixel, here we try to
-					 * paint the maximal region we can for the layer of the
-					 * given pixel.
-					 */
-					gln_graphics_paint_region(gln_graphics_window,
-					                          palette, layers,
-					                          off_screen, on_screen,
-					                          x, y, x_offset, y_offset,
-					                          GLN_GRAPHICS_PIXEL,
-					                          gln_graphics_width,
-					                          gln_graphics_height);
-
-					/*
-					 * Increment count of regions handled, and yield, by
-					 * returning, if the limit on paint regions is reached.
-					 * Before returning, save the current layer and scan
-					 * coordinates, so we can pick up here on the next call.
-					 */
-					regions++;
-					if (regions >= GLN_REPAINT_LIMIT) {
-						yield_counter++;
-						saved_layer = layer;
-						saved_x = x;
-						saved_y = y;
-						total_regions += regions;
-						return;
-					}
-				}
-			}
-
-			/* Reset the saved x coordinate on y increment. */
-			saved_x = 0;
-
-			/* Update the index row on change of y. */
-			index_row += gln_graphics_width;
-		}
-
-		/* Reset the saved y coordinate on layer change. */
-		saved_y = 0;
-	}
-
-	/*
-	 * If we reach this point, then we didn't get to the limit on regions
-	 * painted on this pass.  In that case, we've finished rendering the
-	 * image.
-	 */
-	assert(regions < GLN_REPAINT_LIMIT);
-	total_regions += regions;
-
-#else
 	g_vm->glk_image_draw(gln_graphics_window, gln_graphics_picture, x_offset, y_offset);
-#endif
 
 	/* Stop graphics; there's no more to be done until something restarts us. */
 	gln_graphics_stop();
@@ -2263,6 +2120,10 @@ void os_show_bitmap(int picture, int x, int y) {
 	 * of the current picture.
 	 */
 	gln_graphics_picture = picture;
+
+	// Get the info of the picture to display
+	BitmapFileSystem::getPicInfo(gln_graphics_picture, gln_graphics_width, gln_graphics_height,
+		gln_graphics_color_count);
 
 	/*
 	 * If graphics are enabled, both at the Glk level and in the core
