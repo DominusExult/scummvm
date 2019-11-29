@@ -2,7 +2,8 @@ MODULE := engines/ags
 
 MODULE_OBJS := \
 	ags.o \
-	detection.o
+	detection.o \
+	common/util/string.o
 
 # This module can be built as a plugin
 ifeq ($(ENABLE_AGS), DYNAMIC_PLUGIN)

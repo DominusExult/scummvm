@@ -25,8 +25,24 @@
 #include "common/scummsys.h"
 #include "common/config-manager.h"
 #include "common/debug-channels.h"
-#include "common/events.h"
-#include "common/file.h"
+
+#include "ags/common/ac/audiocliptype.h"
+#include "ags/common/ac/characterinfo.h"
+#include "ags/common/ac/common.h"
+#include "ags/common/ac/common_defines.h"
+#include "ags/common/ac/dialogtopic.h"
+#include "ags/common/ac/gamesetupstruct.h"
+#include "ags/common/ac/gamesetupstructbase.h"
+#include "ags/common/ac/gamestructdefines.h"
+#include "ags/common/ac/game_version.h"
+#include "ags/common/ac/interfacebutton.h"
+#include "ags/common/ac/interfaceelement.h"
+#include "ags/common/ac/inventoryiteminfo.h"
+#include "ags/common/ac/mousecursor.h"
+#include "ags/common/ac/oldgamesetupstruct.h"
+#include "ags/common/ac/spritecache.h"
+#include "ags/common/ac/view.h"
+#include "ags/common/ac/wordsdictionary.h"
 
 namespace AGS {
 
@@ -48,3 +64,4 @@ Common::Error AGSEngine::run() {
 }
 
 } // End of namespace AGS
+
