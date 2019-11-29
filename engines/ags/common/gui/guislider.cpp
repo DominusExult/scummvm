@@ -22,7 +22,7 @@ int numguislider = 0;
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 GUISlider::GUISlider()
@@ -263,5 +263,5 @@ void GUISlider::WriteToSavegame(Stream *out) const
     out->WriteInt32(Value);
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

@@ -51,7 +51,7 @@ inline size_t Hash_LowerCase(const char *data, const size_t len)
     return hash;
 }
 
-} // namespace FNV
+} // End of namespace FNV
 
 // A std::hash specialization for AGS String
 namespace std {
@@ -63,9 +63,9 @@ namespace tr1
 /*
 // std::hash for String object
 template<>
-struct hash<AGSCommon::String> : public unary_function<AGSCommon::String, size_t>
+struct hash<Shared::String> : public unary_function<Shared::String, size_t>
 {
-    size_t operator ()(const AGSCommon::String &key) const
+    size_t operator ()(const Shared::String &key) const
     {
         return FNV::Hash(key.GetCStr(), key.GetLength());
     }
@@ -76,7 +76,7 @@ struct hash<AGSCommon::String> : public unary_function<AGSCommon::String, size_t
 #endif
 }
 
-namespace AGSCommon {
+namespace Shared {
 
 //
 // Various comparison functors
@@ -113,7 +113,7 @@ typedef std::vector<String> StringV;
 typedef std::unordered_map<String, String> StringMap;
 typedef std::unordered_map<String, String, HashStrNoCase, StrEqNoCase> StringIMap;
 
-} // namespace AGSCommon
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS
 
 #endif //AGS_COMMON_UTIL_STRINGTYPES_H

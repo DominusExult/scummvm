@@ -30,7 +30,7 @@ String cbuf_to_string_and_free(char *char_buf)
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 String StrUtil::IntToString(int d)
@@ -167,5 +167,5 @@ void StrUtil::WriteCStr(const String &s, Stream *out)
     out->Write(s.GetCStr(), s.GetLength() + 1);
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

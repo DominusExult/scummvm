@@ -1,28 +1,36 @@
-//=============================================================================
-//
-// Adventure Game Studio (AGS)
-//
-// Copyright (C) 1999-2011 Chris Jones and 2011-20xx others
-// The full list of copyright holders can be found in the Copyright.txt
-// file, which is part of this source code distribution.
-//
-// The AGS source code is provided under the Artistic License 2.0.
-// A copy of this license can be found in the file License.txt and at
-// http://www.opensource.org/licenses/artistic-license-2.0.php
-//
-//=============================================================================
+/* ScummVM - Graphic Adventure Engine
+ *
+ * ScummVM is the legal property of its developers, whose names
+ * are too numerous to list here. Please refer to the COPYRIGHT
+ * file distributed with this source distribution.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ */
 
-#ifndef __AC_FONT_H
-#define __AC_FONT_H
+#ifndef AGS_COMMON_FONT_FONTS_H
+#define AGS_COMMON_FONT_FONTS_H
 
-#include <vector>
-#include "core/types.h"
-#include "util/string.h"
+#include "ags/std/vector.h"
+#include "ags/common/core/types.h"
+#include "ags/common/util/string.h"
 
 // TODO: we need to make some kind of TextManager class of this module
 
-namespace AGS { namespace Common { class Bitmap; } }
-using namespace AGS;
+namespace AGS {
+namespace Shared { class Bitmap; }
 
 class IAGSFontRenderer;
 class IAGSFontRenderer2;
@@ -60,12 +68,12 @@ void set_font_outline(size_t font_number, int outline_type);
 // Outputs a single line of text on the defined position on bitmap, using defined font, color and parameters
 int getfontlinespacing(size_t fontNumber);
 // Print text on a surface using a given font
-void wouttextxy(Common::Bitmap *ds, int xxx, int yyy, size_t fontNumber, color_t text_color, const char *texx);
+void wouttextxy(Shared::Bitmap *ds, int xxx, int yyy, size_t fontNumber, color_t text_color, const char *texx);
 // Assigns FontInfo to the font
 void set_fontinfo(size_t fontNumber, const FontInfo &finfo);
 // Loads a font from disk
 bool wloadfont_size(size_t fontNumber, const FontInfo &font_info);
-void wgtprintf(Common::Bitmap *ds, int xxx, int yyy, size_t fontNumber, color_t text_color, char *fmt, ...);
+void wgtprintf(Shared::Bitmap *ds, int xxx, int yyy, size_t fontNumber, color_t text_color, char *fmt, ...);
 void wfreefont(size_t fontNumber);
 
 // SplitLines class represents a list of lines and is meant to reduce
@@ -77,8 +85,8 @@ class SplitLines
 {
 public:
     inline size_t Count() const { return _count; }
-    inline const Common::String &operator[](size_t i) const { return _pool[i]; }
-    inline Common::String &operator[](size_t i) { return _pool[i]; }
+    inline const Shared::String &operator[](size_t i) const { return _pool[i]; }
+    inline Shared::String &operator[](size_t i) { return _pool[i]; }
     inline void Clear() { _pool.clear(); _count = 0; }
     inline void Reset() { _count = 0; }
     inline void Add(const char *cstr)
@@ -91,7 +99,7 @@ public:
     std::vector<char> LineBuf;
 
 private:
-    std::vector<Common::String> _pool;
+    std::vector<Shared::String> _pool;
     size_t _count; // actual number of lines in use
 };
 
@@ -99,6 +107,8 @@ private:
 // returns number of lines, or 0 if text cannot be split well to fit in this width
 size_t split_lines(const char *texx, SplitLines &lines, int width, int fontNumber, size_t max_lines = -1);
 
-namespace AGS { namespace Common { extern SplitLines Lines; } }
+namespace Shared { extern SplitLines Lines; }
 
-#endif // __AC_FONT_H
+} // End of namespace AGS
+
+#endif

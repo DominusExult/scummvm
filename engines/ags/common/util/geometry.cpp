@@ -15,7 +15,7 @@
 
 //namespace AGS
 //{
-//namespace Common
+//namespace Shared
 //{
 
 bool AreRectsIntersecting(const Rect &r1, const Rect &r2)
@@ -113,5 +113,5 @@ Rect PlaceInRect(const Rect &place, const Rect &item, const RectPlacement &place
     }
 }
 
-//} // namespace Common
-//} // namespace AGS
+//} // End of namespace Shared
+//} // End of namespace AGS

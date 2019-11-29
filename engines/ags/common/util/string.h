@@ -30,7 +30,7 @@
 #include "ags/std/vector.h"
 
 namespace AGS {
-namespace AGSCommon {
+namespace Shared {
 
 class Stream;
 
@@ -311,7 +311,7 @@ private:
 */
 };
 
-} // namespace AGSCommon
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS
 
 #endif

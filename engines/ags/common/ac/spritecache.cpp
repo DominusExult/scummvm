@@ -825,7 +825,7 @@ HError SpriteCache::InitFile(const char *filename, const char *sprindex_filename
     return RebuildSpriteIndex(_stream.get(), topmost, vers);
 }
 
-HError SpriteCache::RebuildSpriteIndex(AGS::Common::Stream *in, sprkey_t topmost, SpriteFileVersion vers)
+HError SpriteCache::RebuildSpriteIndex(AGS::Shared::Stream *in, sprkey_t topmost, SpriteFileVersion vers)
 {
     for (sprkey_t i = 0; i <= topmost; ++i)
     {

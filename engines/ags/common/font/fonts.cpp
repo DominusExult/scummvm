@@ -12,7 +12,7 @@
 //
 //=============================================================================
 
-#include <vector>
+#include "ags/std/vector.h"
 #include <alfont.h>
 #include "ac/common.h" // set_our_eip
 #include "ac/gamestructdefines.h"
@@ -29,7 +29,7 @@ using namespace AGS::Common;
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 struct Font
@@ -191,7 +191,7 @@ bool use_default_linespacing(size_t fontNumber)
 // Project-dependent implementation
 extern int wgettextwidth_compensate(const char *tex, int font);
 
-namespace AGS { namespace Common { SplitLines Lines; } }
+namespace AGS { namespace Shared { SplitLines Lines; } }
 
 // Replaces AGS-specific linebreak tags with common '\n'
 void unescape_script_string(const char *cstr, std::vector<char> &out)

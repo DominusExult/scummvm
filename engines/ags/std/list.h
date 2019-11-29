@@ -20,41 +20,21 @@
  *
  */
 
-#ifndef AGS_COMMON_DYNOBJ_SCRIPTAUDIOCLIP_H
-#define AGS_COMMON_DYNOBJ_SCRIPTAUDIOCLIP_H
+#ifndef AGS_STD_LIST
+#define AGS_STD_LIST
 
-#include "ags/common/util/string.h"
+#include "common/list.h"
 
 namespace AGS {
-	
-namespace Shared { class Stream; }
+namespace std {
 
-enum AudioFileType {
-    eAudioFileOGG = 1,
-    eAudioFileMP3 = 2,
-    eAudioFileWAV = 3,
-    eAudioFileVOC = 4,
-    eAudioFileMIDI = 5,
-    eAudioFileMOD = 6
+template <class T>
+class list : public Common::List<T> {
+public:
+
 };
 
-#define SCRIPTAUDIOCLIP_SCRIPTNAMELENGTH    30
-#define SCRIPTAUDIOCLIP_FILENAMELENGTH      15
-
-struct ScriptAudioClip {
-    int id;
-    Shared::String scriptName;
-	Shared::String fileName;
-    char bundlingType;
-    char type;
-    char fileType;
-    char defaultRepeat;
-    short defaultPriority;
-    short defaultVolume;
-
-    void ReadFromFile(Shared::Stream *in);
-};
-
+} // end of namespace std
 } // End of namespace AGS
 
 #endif

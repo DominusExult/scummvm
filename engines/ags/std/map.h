@@ -24,6 +24,7 @@
 #define AGS_STD_MAP
 
 #include "common/hashmap.h"
+#include "common/func.h"
 
 namespace AGS {
 namespace std {
@@ -31,6 +32,12 @@ namespace std {
 template<class Key, class T, class HashFunc = Common::Hash<Key>,
 	class KeyEqual = Common::EqualTo<Key>>
 class unordered_map : public Common::HashMap<Key, T, HashFunc, KeyEqual> {
+};
+
+// TODO: See whether any use of std::map need it to be ordered
+template<class Key, class T, class HashFunc = Common::Hash<Key>,
+	class KeyEqual = Common::EqualTo<Key>>
+class map : public Common::HashMap<Key, T, HashFunc, KeyEqual> {
 };
 
 } // end of namespace std

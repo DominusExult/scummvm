@@ -38,7 +38,7 @@
 
 namespace AGS {
 	
-namespace AGSCommon { class Bitmap; }
+namespace Shared { class Bitmap; }
 
 #if defined WGT2ALLEGRO_NOFUNCTIONS
 #error WGT2ALLEGRO_NOFUNCTIONS macro is obsolete and should not be defined anymore.
@@ -55,20 +55,20 @@ extern void __my_setcolor(int *ctset, int newcol, int wantColDep);
 extern void wsetrgb(int coll, int r, int g, int b, color * pall);
 extern void wcolrotate(unsigned char start, unsigned char finish, int dir, color * pall);
 
-extern AGSCommon::Bitmap *wnewblock(AGSCommon::Bitmap *src, int x1, int y1, int x2, int y2);
+extern Shared::Bitmap *wnewblock(Shared::Bitmap *src, int x1, int y1, int x2, int y2);
 
-extern int wloadsprites(color * pall, char *filnam, AGSCommon::Bitmap ** sarray, int strt, int eend);
+extern int wloadsprites(color * pall, char *filnam, Shared::Bitmap ** sarray, int strt, int eend);
 
-extern void wputblock(AGSCommon::Bitmap *ds, int xx, int yy, AGSCommon::Bitmap *bll, int xray);
+extern void wputblock(Shared::Bitmap *ds, int xx, int yy, Shared::Bitmap *bll, int xray);
 // CHECKME: temporary solution for plugin system
-extern void wputblock_raw(AGSCommon::Bitmap *ds, int xx, int yy, BITMAP *bll, int xray);
+extern void wputblock_raw(Shared::Bitmap *ds, int xx, int yy, BITMAP *bll, int xray);
 extern const int col_lookups[32];
 
 //extern void wsetcolor(int nval);
 
 extern int __wremap_keep_transparent;
-extern void wremap(color * pal1, AGSCommon::Bitmap *picc, color * pal2);
-extern void wremapall(color * pal1, AGSCommon::Bitmap *picc, color * pal2);
+extern void wremap(color * pal1, Shared::Bitmap *picc, color * pal2);
+extern void wremapall(color * pal1, Shared::Bitmap *picc, color * pal2);
 
 
 #define XRAY    1

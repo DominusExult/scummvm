@@ -16,7 +16,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 size_t Stream::WriteByteCount(uint8_t b, size_t count)
@@ -32,5 +32,5 @@ size_t Stream::WriteByteCount(uint8_t b, size_t count)
     return size;
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

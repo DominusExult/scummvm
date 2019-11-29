@@ -15,7 +15,7 @@
 #include "ac/dialogtopic.h"
 #include "util/stream.h"
 
-using AGS::Common::Stream;
+using AGS::Shared::Stream;
 
 void DialogTopic::ReadFromFile(Stream *in)
 {
@@ -31,12 +31,12 @@ void DialogTopic::ReadFromFile(Stream *in)
     topicFlags = in->ReadInt32();
 }
 
-void DialogTopic::ReadFromSavegame(Common::Stream *in)
+void DialogTopic::ReadFromSavegame(Shared::Stream *in)
 {
     in->ReadArrayOfInt32(optionflags, MAXTOPICOPTIONS);
 }
 
-void DialogTopic::WriteToSavegame(Common::Stream *out) const
+void DialogTopic::WriteToSavegame(Shared::Stream *out) const
 {
     out->WriteArrayOfInt32(optionflags, MAXTOPICOPTIONS);
 }

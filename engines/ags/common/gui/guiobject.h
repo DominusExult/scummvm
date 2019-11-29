@@ -1,37 +1,40 @@
-//=============================================================================
-//
-// Adventure Game Studio (AGS)
-//
-// Copyright (C) 1999-2011 Chris Jones and 2011-20xx others
-// The full list of copyright holders can be found in the Copyright.txt
-// file, which is part of this source code distribution.
-//
-// The AGS source code is provided under the Artistic License 2.0.
-// A copy of this license can be found in the file License.txt and at
-// http://www.opensource.org/licenses/artistic-license-2.0.php
-//
-//=============================================================================
+/* ScummVM - Graphic Adventure Engine
+ *
+ * ScummVM is the legal property of its developers, whose names
+ * are too numerous to list here. Please refer to the COPYRIGHT
+ * file distributed with this source distribution.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ */
 
-#ifndef __AC_GUIOBJECT_H
-#define __AC_GUIOBJECT_H
+#ifndef AGS_COMMON_GUI_GUIOBJECT_H
+#define AGS_COMMON_GUI_GUIOBJECT_H
 
-#include "core/types.h"
-#include "gfx/bitmap.h"
-#include "gui/guidefines.h"
-#include "util/string.h"
+#include "ags/common/core/types.h"
+#include "ags/common/gfx/bitmap.h"
+#include "ags/common/gui/guidefines.h"
+#include "ags/common/util/string.h"
 
 #define GUIDIS_GREYOUT   1
 #define GUIDIS_BLACKOUT  2
 #define GUIDIS_UNCHANGED 4
 #define GUIDIS_GUIOFF  0x80
 
-
-
-
-namespace AGS
-{
-namespace Common
-{
+namespace AGS {
+namespace Shared {
 
 enum LegacyGUIAlignment
 {
@@ -83,10 +86,10 @@ public:
     virtual void    OnResized() { }
 
     // Serialization
-    virtual void    ReadFromFile(Common::Stream *in, GuiVersion gui_version);
-    virtual void    WriteToFile(Common::Stream *out) const;
-    virtual void    ReadFromSavegame(Common::Stream *in, GuiSvgVersion svg_ver);
-    virtual void    WriteToSavegame(Common::Stream *out) const;
+    virtual void    ReadFromFile(Shared::Stream *in, GuiVersion gui_version);
+    virtual void    WriteToFile(Shared::Stream *out) const;
+    virtual void    ReadFromSavegame(Shared::Stream *in, GuiSvgVersion svg_ver);
+    virtual void    WriteToSavegame(Shared::Stream *out) const;
 
 // TODO: these members are currently public; hide them later
 public:
@@ -115,12 +118,13 @@ protected:
 // Converts legacy alignment type used in GUI Label/ListBox data (only left/right/center)
 HorAlignment ConvertLegacyGUIAlignment(LegacyGUIAlignment align);
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
 
 // Tells if all controls are disabled
 extern int all_buttons_disabled;
 // Tells if the given control is considered enabled, taking global flag into account
-inline bool IsGUIEnabled(AGS::Common::GUIObject *g) { return !all_buttons_disabled && g->IsEnabled(); }
+inline bool IsGUIEnabled(AGS::Shared::GUIObject *g) { return !all_buttons_disabled && g->IsEnabled(); }
 
-#endif // __AC_GUIOBJECT_H
+} // End of namespace AGS
+
+#endif

@@ -18,14 +18,12 @@
 #ifndef AGS_COMMON_UTIL_BUFFEREDSTREAM_H
 #define AGS_COMMON_UTIL_BUFFEREDSTREAM_H
 
-#include <vector>
-#include "util/filestream.h"
-#include "util/file.h" // TODO: extract filestream mode constants
+#include "ags/std/vector.h"
+#include "ags/common/util/filestream.h"
+#include "ags/common/util/file.h" // TODO: extract filestream mode constants
 
-namespace AGS
-{
-namespace Common
-{
+namespace AGS {
+namespace Shared {
 
 // Needs tuning depending on the platform.
 const auto BufferStreamSize = 8*1024;
@@ -63,7 +61,7 @@ private:
     void FillBufferFromPosition(soff_t position);
 };
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS
 
-#endif // AGS_COMMON_UTIL_BUFFEREDSTREAM_H
+#endif

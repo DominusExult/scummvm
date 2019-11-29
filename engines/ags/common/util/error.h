@@ -35,7 +35,7 @@
 #include "ags/std/memory.h"
 
 namespace AGS {
-namespace AGSCommon {
+namespace Shared {
 
 class Error;
 typedef std::shared_ptr<Error> PError;
@@ -138,7 +138,7 @@ public:
     CodeType Code() const { return (CodeType)Error::Code(); }
 };
 
-} // namespace AGSCommon
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS
 
 #endif

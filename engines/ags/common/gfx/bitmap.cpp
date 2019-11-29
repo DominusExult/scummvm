@@ -17,7 +17,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 // TODO: revise this construction later
@@ -189,7 +189,7 @@ void ReadPixelsFromMemory(Bitmap *dst, const uint8_t *src_buffer, const size_t s
     Memory::BlockCopy(dst->GetDataForWriting(), dst->GetLineLength(), 0, src_buffer, src_pitch, src_px_offset * bpp, dst->GetHeight());
 }
 
-} // namespace BitmapHelper
+} // End of namespace BitmapHelper
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

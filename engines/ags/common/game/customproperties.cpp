@@ -18,7 +18,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 PropertyDesc::PropertyDesc()
@@ -130,7 +130,7 @@ void WriteValues(const StringIMap &map, Stream *out)
     }
 }
 
-} // namespace Properties
+} // End of namespace Properties
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

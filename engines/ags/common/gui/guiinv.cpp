@@ -23,7 +23,7 @@ int numguiinv = 0;
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 GUIInvWindow::GUIInvWindow()
@@ -140,5 +140,5 @@ void GUIInvWindow::CalculateNumCells()
     }
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

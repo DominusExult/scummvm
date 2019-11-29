@@ -1,86 +1,93 @@
-//=============================================================================
-//
-// Adventure Game Studio (AGS)
-//
-// Copyright (C) 1999-2011 Chris Jones and 2011-20xx others
-// The full list of copyright holders can be found in the Copyright.txt
-// file, which is part of this source code distribution.
-//
-// The AGS source code is provided under the Artistic License 2.0.
-// A copy of this license can be found in the file License.txt and at
-// http://www.opensource.org/licenses/artistic-license-2.0.php
-//
+/* ScummVM - Graphic Adventure Engine
+ *
+ * ScummVM is the legal property of its developers, whose names
+ * are too numerous to list here. Please refer to the COPYRIGHT
+ * file distributed with this source distribution.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ */
+
 //=============================================================================
 //
 // Platform-independent File functions
 //
 //=============================================================================
+
 #ifndef AGS_COMMON_UTIL_FILE_H
 #define AGS_COMMON_UTIL_FILE_H
 
-#include "core/platform.h"
-#include "util/string.h"
+#include "ags/common/core/platform.h"
+#include "ags/common/util/string.h"
 
-namespace AGS
-{
-namespace Common
-{
+namespace AGS {
+namespace Shared {
 
 // Forward declarations
 class Stream;
 
-enum FileOpenMode
-{
+enum FileOpenMode {
     kFile_Open,         // Open existing file
     kFile_Create,       // Create new file, or open existing one
     kFile_CreateAlways  // Always create a new file, replacing any existing one
 };
 
-enum FileWorkMode
-{
+enum FileWorkMode {
     kFile_Read,
     kFile_Write,
     kFile_ReadWrite
 };
 
-namespace File
+namespace File {
+
+// Returns size of a file, or -1 if no such file found
+soff_t      GetFileSize(const String &filename);
+// Tests if file could be opened for reading
+bool        TestReadFile(const String &filename);
+// Opens a file for writing or creates new one if it does not exist; deletes file if it was created during test
+bool        TestWriteFile(const String &filename);
+// Create new empty file and deletes it; returns TRUE if was able to create file
+bool        TestCreateFile(const String &filename);
+// Deletes existing file; returns TRUE if was able to delete one
+bool        DeleteFile(const String &filename);
+
+// Sets FileOpenMode and FileWorkMode values corresponding to C-style file open mode string
+bool        GetFileModesFromCMode(const String &cmode, FileOpenMode &open_mode, FileWorkMode &work_mode);
+// Gets C-style file mode from FileOpenMode and FileWorkMode
+String      GetCMode(FileOpenMode open_mode, FileWorkMode work_mode);
+
+Stream      *OpenFile(const String &filename, FileOpenMode open_mode, FileWorkMode work_mode);
+// Convenience helpers
+// Create a totally new file, overwrite existing one
+inline Stream *CreateFile(const String &filename)
 {
-    // Returns size of a file, or -1 if no such file found
-    soff_t      GetFileSize(const String &filename);
-    // Tests if file could be opened for reading
-    bool        TestReadFile(const String &filename);
-    // Opens a file for writing or creates new one if it does not exist; deletes file if it was created during test
-    bool        TestWriteFile(const String &filename);
-    // Create new empty file and deletes it; returns TRUE if was able to create file
-    bool        TestCreateFile(const String &filename);
-    // Deletes existing file; returns TRUE if was able to delete one
-    bool        DeleteFile(const String &filename);
+    return OpenFile(filename, kFile_CreateAlways, kFile_Write);
+}
+// Open existing file for reading
+inline Stream *OpenFileRead(const String &filename)
+{
+    return OpenFile(filename, kFile_Open, kFile_Read);
+}
+// Open existing file for writing (append) or create if it does not exist
+inline Stream *OpenFileWrite(const String &filename)
+{
+    return OpenFile(filename, kFile_Create, kFile_Write);
+}
 
-    // Sets FileOpenMode and FileWorkMode values corresponding to C-style file open mode string
-    bool        GetFileModesFromCMode(const String &cmode, FileOpenMode &open_mode, FileWorkMode &work_mode);
-    // Gets C-style file mode from FileOpenMode and FileWorkMode
-    String      GetCMode(FileOpenMode open_mode, FileWorkMode work_mode);
+} // End of namespace File
+} // End of namespace Shared
+} // End of namespace AGS
 
-    Stream      *OpenFile(const String &filename, FileOpenMode open_mode, FileWorkMode work_mode);
-    // Convenience helpers
-    // Create a totally new file, overwrite existing one
-    inline Stream *CreateFile(const String &filename)
-    {
-        return OpenFile(filename, kFile_CreateAlways, kFile_Write);
-    }
-    // Open existing file for reading
-    inline Stream *OpenFileRead(const String &filename)
-    {
-        return OpenFile(filename, kFile_Open, kFile_Read);
-    }
-    // Open existing file for writing (append) or create if it does not exist
-    inline Stream *OpenFileWrite(const String &filename)
-    {
-        return OpenFile(filename, kFile_Create, kFile_Write);
-    }
-} // namespace File
-
-} // namespace Common
-} // namespace AGS
-
-#endif // AGS_COMMON_UTIL_FILE_H
+#endif

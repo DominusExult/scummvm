@@ -19,7 +19,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 namespace MFLUtil
@@ -462,5 +462,5 @@ void MFLUtil::ReadEncString(char *buffer, size_t max_len, Stream *in, int &rand_
     }
 }
 
-} // namespace AGS
-} // namespace Common
+} // End of namespace AGS
+} // End of namespace Shared

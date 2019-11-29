@@ -1,15 +1,25 @@
-//=============================================================================
-//
-// Adventure Game Studio (AGS)
-//
-// Copyright (C) 1999-2011 Chris Jones and 2011-20xx others
-// The full list of copyright holders can be found in the Copyright.txt
-// file, which is part of this source code distribution.
-//
-// The AGS source code is provided under the Artistic License 2.0.
-// A copy of this license can be found in the file License.txt and at
-// http://www.opensource.org/licenses/artistic-license-2.0.php
-//
+/* ScummVM - Graphic Adventure Engine
+ *
+ * ScummVM is the legal property of its developers, whose names
+ * are too numerous to list here. Please refer to the COPYRIGHT
+ * file distributed with this source distribution.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ */
+
 //=============================================================================
 //
 // RoomStruct, a class describing initial room data.
@@ -34,14 +44,17 @@
 // the engine code, and savegame read/write code.
 //
 //=============================================================================
+
 #ifndef AGS_COMMON_GAME_ROOMINFO_H
 #define AGS_COMMON_GAME_ROOMINFO_H
 
-#include <memory>
-#include "ac/common_defines.h"
-#include "game/interactions.h"
-#include "util/geometry.h"
-#include "util/wgt2allg.h" // color (allegro RGB)
+#include "ags/std/memory.h"
+#include "ags/common/ac/common_defines.h"
+#include "ags/common/game/interactions.h"
+#include "ags/common/util/geometry.h"
+#include "ags/common/util/wgt2allg.h" // color (allegro RGB)
+
+namespace AGS {
 
 struct ccScript;
 struct SpriteInfo;
@@ -87,11 +100,7 @@ enum RoomVolumeMod
 
 #define MAX_MESSAGES       100
 
-
-namespace AGS
-{
-namespace Common
-{
+namespace Shared {
 
 class Bitmap;
 class Stream;
@@ -365,7 +374,7 @@ void FixRoomMasks(RoomStruct *room);
 // Adjusts bitmap size if necessary and returns either new or old bitmap.
 PBitmap FixBitmap(PBitmap bmp, int dst_width, int dst_height);
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS
 
 #endif // AGS_COMMON_GAME_ROOMINFO_H

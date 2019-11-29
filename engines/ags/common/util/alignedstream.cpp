@@ -18,7 +18,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 AlignedStream::AlignedStream(Stream *stream, AlignedStreamMode mode, ObjectOwnershipPolicy stream_ownership_policy,
@@ -385,5 +385,5 @@ void AlignedStream::FinalizeBlock()
     _block = 0;
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

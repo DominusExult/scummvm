@@ -37,7 +37,7 @@
 #include "ags/common/api/stream_api.h"
 
 namespace AGS {
-namespace AGSCommon {
+namespace Shared {
 
 class Stream : public IAGSStream {
 public:
@@ -85,7 +85,7 @@ public:
     size_t WriteByteCount(uint8_t b, size_t count);
 };
 
-} // namespace AGSCommon
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS
 
 #endif

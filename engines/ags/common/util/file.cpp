@@ -23,7 +23,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 soff_t File::GetFileSize(const String &filename)
@@ -171,5 +171,5 @@ Stream *File::OpenFile(const String &filename, FileOpenMode open_mode, FileWorkM
     return fs;
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

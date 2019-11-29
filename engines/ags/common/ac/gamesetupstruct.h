@@ -35,7 +35,7 @@
 
 namespace AGS {
 
-namespace AGSCommon {
+namespace Shared {
     struct AssetLibInfo;
     struct Interaction;
     struct InteractionScripts;
@@ -43,9 +43,9 @@ namespace AGSCommon {
     typedef std::shared_ptr<InteractionScripts> PInteractionScripts;
 }
 
-using AGS::AGSCommon::PInteraction;
-using AGS::AGSCommon::PInteractionScripts;
-using AGS::AGSCommon::HGameFileError;
+using AGS::Shared::PInteraction;
+using AGS::Shared::PInteractionScripts;
+using AGS::Shared::HGameFileError;
 struct OldGameSetupStruct;
 
 
@@ -64,17 +64,17 @@ struct GameSetupStruct: public GameSetupStructBase {
     // TODO: why we do not use this in the engine instead of
     // loaded_game_file_version?
     int               filever;  // just used by editor
-    AGSCommon::String    compiled_with; // version of AGS this data was created by
+    Shared::String    compiled_with; // version of AGS this data was created by
     char              lipSyncFrameLetters[MAXLIPSYNCFRAMES][50];
-    AGS::AGSCommon::PropertySchema propSchema;
-    std::vector<AGS::AGSCommon::StringIMap> charProps;
-    AGS::AGSCommon::StringIMap invProps[MAX_INV];
+    AGS::Shared::PropertySchema propSchema;
+    std::vector<AGS::Shared::StringIMap> charProps;
+    AGS::Shared::StringIMap invProps[MAX_INV];
     // NOTE: although the view names are stored in game data, they are never
     // used, nor registered as script exports; numeric IDs are used to
     // reference views instead.
-    std::vector<AGSCommon::String> viewNames;
-    AGSCommon::String    invScriptNames[MAX_INV];
-    std::vector<AGSCommon::String> dialogScriptNames;
+    std::vector<Shared::String> viewNames;
+    Shared::String    invScriptNames[MAX_INV];
+    std::vector<Shared::String> dialogScriptNames;
     char              guid[MAX_GUID_LENGTH];
     char              saveGameFileExtension[MAX_SG_EXT_LENGTH];
     char              saveGameFolderName[MAX_SG_FOLDER_LEN];
@@ -124,39 +124,39 @@ struct GameSetupStruct: public GameSetupStructBase {
     // Do not call these directly
     //------------------------------
     // Part 1
-    void read_savegame_info(AGSCommon::Stream *in, GameDataVersion data_ver);
-    void read_font_infos(AGSCommon::Stream *in, GameDataVersion data_ver);
-    HGameFileError read_cursors(AGSCommon::Stream *in, GameDataVersion data_ver);
-    void read_interaction_scripts(AGSCommon::Stream *in, GameDataVersion data_ver);
-    void read_words_dictionary(AGSCommon::Stream *in);
+    void read_savegame_info(Shared::Stream *in, GameDataVersion data_ver);
+    void read_font_infos(Shared::Stream *in, GameDataVersion data_ver);
+    HGameFileError read_cursors(Shared::Stream *in, GameDataVersion data_ver);
+    void read_interaction_scripts(Shared::Stream *in, GameDataVersion data_ver);
+    void read_words_dictionary(Shared::Stream *in);
 
-    void ReadInvInfo_Aligned(AGSCommon::Stream *in);
-    void WriteInvInfo_Aligned(AGSCommon::Stream *out);
-    void ReadMouseCursors_Aligned(AGSCommon::Stream *in);
-    void WriteMouseCursors_Aligned(AGSCommon::Stream *out);
+    void ReadInvInfo_Aligned(Shared::Stream *in);
+    void WriteInvInfo_Aligned(Shared::Stream *out);
+    void ReadMouseCursors_Aligned(Shared::Stream *in);
+    void WriteMouseCursors_Aligned(Shared::Stream *out);
     //------------------------------
     // Part 2
-    void read_characters(AGSCommon::Stream *in, GameDataVersion data_ver);
-    void read_lipsync(AGSCommon::Stream *in, GameDataVersion data_ver);
-    void read_messages(AGSCommon::Stream *in, GameDataVersion data_ver);
+    void read_characters(Shared::Stream *in, GameDataVersion data_ver);
+    void read_lipsync(Shared::Stream *in, GameDataVersion data_ver);
+    void read_messages(Shared::Stream *in, GameDataVersion data_ver);
 
-    void ReadCharacters_Aligned(AGSCommon::Stream *in);
-    void WriteCharacters_Aligned(AGSCommon::Stream *out);
+    void ReadCharacters_Aligned(Shared::Stream *in);
+    void WriteCharacters_Aligned(Shared::Stream *out);
     //------------------------------
     // Part 3
-    HGameFileError read_customprops(AGSCommon::Stream *in, GameDataVersion data_ver);
-    HGameFileError read_audio(AGSCommon::Stream *in, GameDataVersion data_ver);
-    void read_room_names(AGSCommon::Stream *in, GameDataVersion data_ver);
+    HGameFileError read_customprops(Shared::Stream *in, GameDataVersion data_ver);
+    HGameFileError read_audio(Shared::Stream *in, GameDataVersion data_ver);
+    void read_room_names(Shared::Stream *in, GameDataVersion data_ver);
 
-    void ReadAudioClips_Aligned(AGSCommon::Stream *in, size_t count);
+    void ReadAudioClips_Aligned(Shared::Stream *in, size_t count);
     //--------------------------------------------------------------------
 
     // Functions for reading and writing appropriate data from/to save game
-    void ReadFromSaveGame_v321(AGSCommon::Stream *in, char* gswas, ccScript* compsc, CharacterInfo* chwas,
+    void ReadFromSaveGame_v321(Shared::Stream *in, char* gswas, ccScript* compsc, CharacterInfo* chwas,
                                    WordsDictionary *olddict, char** mesbk);
 
-    void ReadFromSavegame(AGSCommon::PStream in);
-    void WriteForSavegame(AGSCommon::PStream out);
+    void ReadFromSavegame(Shared::PStream in);
+    void WriteForSavegame(Shared::PStream out);
 };
 
 //=============================================================================

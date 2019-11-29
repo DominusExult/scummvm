@@ -1,15 +1,25 @@
-//=============================================================================
-//
-// Adventure Game Studio (AGS)
-//
-// Copyright (C) 1999-2011 Chris Jones and 2011-20xx others
-// The full list of copyright holders can be found in the Copyright.txt
-// file, which is part of this source code distribution.
-//
-// The AGS source code is provided under the Artistic License 2.0.
-// A copy of this license can be found in the file License.txt and at
-// http://www.opensource.org/licenses/artistic-license-2.0.php
-//
+/* ScummVM - Graphic Adventure Engine
+ *
+ * ScummVM is the legal property of its developers, whose names
+ * are too numerous to list here. Please refer to the COPYRIGHT
+ * file distributed with this source distribution.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ */
+
 //=============================================================================
 //
 // WFNFont - an immutable AGS font object.
@@ -33,13 +43,15 @@
 //
 //=============================================================================
 
-#ifndef __AGS_CN_FONT__WFNFONT_H
-#define __AGS_CN_FONT__WFNFONT_H
+#ifndef AGS_COMMON_FONT_WFNFONT_H
+#define AGS_COMMON_FONT_WFNFONT_H
 
-#include <vector>
-#include "core/types.h"
+#include "ags/std/vector.h"
+#include "ags/common/core/types.h"
 
-namespace AGS { namespace Common { class Stream; } }
+namespace AGS {
+	
+namespace Shared { class Stream; }
 
 enum WFNError
 {
@@ -89,7 +101,7 @@ public:
     void Clear();
     // Reads WFNFont object, using data_size bytes from stream; if data_size = 0,
     // the available stream's length is used instead. Returns error code.
-    WFNError ReadFromFile(AGS::Common::Stream *in, const soff_t data_size = 0);
+    WFNError ReadFromFile(AGS::Shared::Stream *in, const soff_t data_size = 0);
 
 protected:
     std::vector<const WFNChar*> _refs;      // reference array, contains pointers to elements of _items
@@ -99,4 +111,6 @@ protected:
     static const WFNChar        _emptyChar; // a dummy character to substitute bad symbols
 };
 
-#endif // __AGS_CN_FONT__WFNFONT_H
+} // End of namespace AGS
+
+#endif

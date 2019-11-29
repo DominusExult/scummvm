@@ -28,7 +28,7 @@
 
 namespace AGS {
 
-namespace AGSCommon { class Stream; }
+namespace Shared { class Stream; }
 
 struct ccScript {
 public:
@@ -56,16 +56,16 @@ public:
     int numSections;
     int capacitySections;
 
-    static ccScript *CreateFromStream(AGSCommon::Stream *in);
+    static ccScript *CreateFromStream(Shared::Stream *in);
 
     ccScript();
     ccScript(const ccScript &src);
     virtual ~ccScript(); // there are few derived classes, so dtor should be virtual
 
     // write the script to disk (after compiling)
-    void        Write(AGSCommon::Stream *out);
+    void        Write(Shared::Stream *out);
     // read back a script written with Write
-    bool        Read(AGSCommon::Stream *in);
+    bool        Read(Shared::Stream *in);
     const char* GetSectionName(int32_t offset);
 
 protected:

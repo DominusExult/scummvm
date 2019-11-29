@@ -26,7 +26,7 @@ int numguilabels = 0;
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 GUILabel::GUILabel()
@@ -124,5 +124,5 @@ void GUILabel::WriteToSavegame(Stream *out) const
     out->WriteInt32(TextAlignment);
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

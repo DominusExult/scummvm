@@ -1,15 +1,25 @@
-//=============================================================================
-//
-// Adventure Game Studio (AGS)
-//
-// Copyright (C) 1999-2011 Chris Jones and 2011-20xx others
-// The full list of copyright holders can be found in the Copyright.txt
-// file, which is part of this source code distribution.
-//
-// The AGS source code is provided under the Artistic License 2.0.
-// A copy of this license can be found in the file License.txt and at
-// http://www.opensource.org/licenses/artistic-license-2.0.php
-//
+/* ScummVM - Graphic Adventure Engine
+ *
+ * ScummVM is the legal property of its developers, whose names
+ * are too numerous to list here. Please refer to the COPYRIGHT
+ * file distributed with this source distribution.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ */
+
 //=============================================================================
 //
 // Interaction structs.
@@ -35,11 +45,12 @@
 */
 //
 //=============================================================================
+
 #ifndef AGS_COMMON_GAME_INTEREACTIONS_H
 #define AGS_COMMON_GAME_INTEREACTIONS_H
 
-#include <memory>
-#include "util/string_types.h"
+#include "ags/std/memory.h"
+#include "ags/common/util/string_types.h"
 
 #define LOCAL_VARIABLE_OFFSET       10000
 #define MAX_GLOBAL_VARIABLES        100
@@ -47,10 +58,8 @@
 #define MAX_NEWINTERACTION_EVENTS   30
 #define MAX_COMMANDS_PER_LIST       40
 
-namespace AGS
-{
-namespace Common
-{
+namespace AGS {
+namespace Shared {
 
 enum InterValType
 {
@@ -124,8 +133,8 @@ struct InteractionCommandList
     void Write_v321(Stream *out) const;
 
 protected:
-    void Read_Aligned(Common::Stream *in, std::vector<bool> &cmd_children);
-    void Write_Aligned(Common::Stream *out) const;
+    void Read_Aligned(Shared::Stream *in, std::vector<bool> &cmd_children);
+    void Write_Aligned(Shared::Stream *out) const;
 };
 
 
@@ -202,11 +211,12 @@ struct InteractionScripts
 
 typedef std::shared_ptr<InteractionScripts> PInteractionScripts;
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
 
 // Legacy global variables
-extern AGS::Common::InteractionVariable globalvars[MAX_GLOBAL_VARIABLES];
+extern Shared::InteractionVariable globalvars[MAX_GLOBAL_VARIABLES];
 extern int numGlobalVars;
 
-#endif // AGS_COMMON_GAME_INTEREACTIONS_H
+} // End of namespace AGS
+
+#endif

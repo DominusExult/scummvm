@@ -16,7 +16,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 DataStream::DataStream(DataEndianess stream_endianess)
@@ -173,5 +173,5 @@ size_t DataStream::WriteAndConvertArrayOfInt64(const int64_t *buffer, size_t cou
     return elem;
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

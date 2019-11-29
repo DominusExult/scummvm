@@ -16,7 +16,7 @@
 #ifndef __bma_aastr_h
 #define __bma_aastr_h
 
-#include <allegro.h>
+#include "ags/allegro/allegro.h"
 
 #ifdef __cplusplus
 extern "C" {

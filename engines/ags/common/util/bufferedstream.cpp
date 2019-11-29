@@ -20,7 +20,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 BufferedStream::BufferedStream(const String &file_name, FileOpenMode open_mode, FileWorkMode work_mode, DataEndianess stream_endianess)
@@ -130,5 +130,5 @@ bool BufferedStream::Seek(soff_t offset, StreamSeek origin)
     return _position == want_pos;
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

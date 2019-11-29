@@ -40,6 +40,15 @@ struct binary_function { // base class for binary functions
 	using result_type = _Result;
 };
 
+template <class _Ty1, class _Ty2>
+struct pair { // store a pair of values
+	using first_type = _Ty1;
+	using second_type = _Ty2;
+
+	_Ty1 first; // the first stored value
+	_Ty2 second; // the second stored value
+};
+
 } // end of namespace std
 } // End of namespace AGS
 

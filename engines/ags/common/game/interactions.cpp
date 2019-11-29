@@ -25,7 +25,7 @@ int numGlobalVars = 1;
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 InteractionValue::InteractionValue()
@@ -398,7 +398,7 @@ void InteractionVariable::Read(Stream *in)
     Value = in->ReadInt32();
 }
 
-void InteractionVariable::Write(Common::Stream *out) const
+void InteractionVariable::Write(Shared::Stream *out) const
 {
     out->Write(Name, INTER_VAR_NAME_LENGTH);
     out->WriteInt8(Type);
@@ -425,5 +425,5 @@ InteractionScripts *InteractionScripts::CreateFromStream(Stream *in)
     return scripts;
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

@@ -21,7 +21,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 AssetLocation::AssetLocation()
@@ -407,5 +407,5 @@ Stream *AssetManager::OpenAssetAsStream(const String &asset_name, FileOpenMode o
     return nullptr;
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

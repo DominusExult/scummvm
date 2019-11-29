@@ -23,7 +23,7 @@ int numguibuts = 0;
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 FrameAlignment ConvertLegacyButtonAlignment(LegacyButtonAlignment align)
@@ -380,5 +380,5 @@ void GUIButton::DrawTextButton(Bitmap *ds, bool draw_disabled)
     DrawText(ds, draw_disabled);
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

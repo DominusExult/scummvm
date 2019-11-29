@@ -16,7 +16,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 ProxyStream::ProxyStream(Stream *stream, ObjectOwnershipPolicy stream_ownership_policy)
@@ -178,5 +178,5 @@ bool ProxyStream::Seek(soff_t offset, StreamSeek origin)
     return _stream ? _stream->Seek(offset, origin) : false;
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

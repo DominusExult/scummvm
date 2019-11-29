@@ -25,7 +25,7 @@
 
 namespace AGS {
 
-namespace AGSCommon { class Stream; }
+namespace Shared { class Stream; }
 
 // [IKM] This is *conversation* dialog, not *gui* dialog, mind you!
 
@@ -64,10 +64,10 @@ struct DialogTopic {
     int           numoptions;
     int           topicFlags;
 
-    void ReadFromFile(AGSCommon::Stream *in);
+    void ReadFromFile(Shared::Stream *in);
 
-    void ReadFromSavegame(AGSCommon::Stream *in);
-    void WriteToSavegame(AGSCommon::Stream *out) const;
+    void ReadFromSavegame(Shared::Stream *in);
+    void WriteToSavegame(Shared::Stream *out) const;
 };
 
 } // End of namespace AGS

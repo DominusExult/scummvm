@@ -105,7 +105,7 @@ ScriptAudioClip* GetAudioClipForOldStyleNumber(GameSetupStruct &game, bool is_mu
 //-----------------------------------------------------------------------------
 // Reading Part 1
 
-void GameSetupStruct::read_savegame_info(Common::Stream *in, GameDataVersion data_ver)
+void GameSetupStruct::read_savegame_info(Shared::Stream *in, GameDataVersion data_ver)
 {
     if (data_ver > kGameVersion_272) // only 3.x
     {
@@ -115,7 +115,7 @@ void GameSetupStruct::read_savegame_info(Common::Stream *in, GameDataVersion dat
     }
 }
 
-void GameSetupStruct::read_font_infos(Common::Stream *in, GameDataVersion data_ver)
+void GameSetupStruct::read_font_infos(Shared::Stream *in, GameDataVersion data_ver)
 {
     fonts.resize(numfonts);
     if (data_ver < kGameVersion_350)
@@ -167,7 +167,7 @@ void GameSetupStruct::WriteInvInfo_Aligned(Stream *out)
     }
 }
 
-HGameFileError GameSetupStruct::read_cursors(Common::Stream *in, GameDataVersion data_ver)
+HGameFileError GameSetupStruct::read_cursors(Shared::Stream *in, GameDataVersion data_ver)
 {
     if (numcursors > MAX_CURSOR)
         return new MainGameFileError(kMGFErr_TooManyCursors, String::FromFormat("Count: %d, max: %d", numcursors, MAX_CURSOR));
@@ -176,7 +176,7 @@ HGameFileError GameSetupStruct::read_cursors(Common::Stream *in, GameDataVersion
     return HGameFileError::None();
 }
 
-void GameSetupStruct::read_interaction_scripts(Common::Stream *in, GameDataVersion data_ver)
+void GameSetupStruct::read_interaction_scripts(Shared::Stream *in, GameDataVersion data_ver)
 {
     numGlobalVars = 0;
 
@@ -204,7 +204,7 @@ void GameSetupStruct::read_interaction_scripts(Common::Stream *in, GameDataVersi
     }
 }
 
-void GameSetupStruct::read_words_dictionary(Common::Stream *in)
+void GameSetupStruct::read_words_dictionary(Shared::Stream *in)
 {
     if (load_dictionary) {
         dict = new WordsDictionary();
@@ -235,20 +235,20 @@ void GameSetupStruct::WriteMouseCursors_Aligned(Stream *out)
 //-----------------------------------------------------------------------------
 // Reading Part 2
 
-void GameSetupStruct::read_characters(Common::Stream *in, GameDataVersion data_ver)
+void GameSetupStruct::read_characters(Shared::Stream *in, GameDataVersion data_ver)
 {
     chars = new CharacterInfo[numcharacters + 5]; // TODO: why +5, is this really needed?
 
     ReadCharacters_Aligned(in);
 }
 
-void GameSetupStruct::read_lipsync(Common::Stream *in, GameDataVersion data_ver)
+void GameSetupStruct::read_lipsync(Shared::Stream *in, GameDataVersion data_ver)
 {
     if (data_ver >= kGameVersion_254) // lip syncing was introduced in 2.54
         in->ReadArray(&lipSyncFrameLetters[0][0], MAXLIPSYNCFRAMES, 50);
 }
 
-void GameSetupStruct::read_messages(Common::Stream *in, GameDataVersion data_ver)
+void GameSetupStruct::read_messages(Shared::Stream *in, GameDataVersion data_ver)
 {
     for (int ee=0;ee<MAXGLOBALMES;ee++) {
         if (!load_messages[ee]) continue;
@@ -297,7 +297,7 @@ void GameSetupStruct::WriteCharacters_Aligned(Stream *out)
 //-----------------------------------------------------------------------------
 // Reading Part 3
 
-HGameFileError GameSetupStruct::read_customprops(Common::Stream *in, GameDataVersion data_ver)
+HGameFileError GameSetupStruct::read_customprops(Shared::Stream *in, GameDataVersion data_ver)
 {
     dialogScriptNames.resize(numdialog);
     viewNames.resize(numviews);
@@ -333,7 +333,7 @@ HGameFileError GameSetupStruct::read_customprops(Common::Stream *in, GameDataVer
     return HGameFileError::None();
 }
 
-HGameFileError GameSetupStruct::read_audio(Common::Stream *in, GameDataVersion data_ver)
+HGameFileError GameSetupStruct::read_audio(Shared::Stream *in, GameDataVersion data_ver)
 {
     if (data_ver >= kGameVersion_320)
     {
@@ -379,7 +379,7 @@ void GameSetupStruct::read_room_names(Stream *in, GameDataVersion data_ver)
     }
 }
 
-void GameSetupStruct::ReadAudioClips_Aligned(Common::Stream *in, size_t count)
+void GameSetupStruct::ReadAudioClips_Aligned(Shared::Stream *in, size_t count)
 {
     AlignedStream align_s(in, Common::kAligned_Read);
     for (size_t i = 0; i < count; ++i)

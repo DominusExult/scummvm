@@ -26,7 +26,7 @@
 namespace AGS {
 
 // Forward declaration
-namespace AGSCommon { class Stream; }
+namespace Shared { class Stream; }
 
 #define AUCL_BUNDLE_EXE 1
 #define AUCL_BUNDLE_VOX 2
@@ -39,10 +39,10 @@ struct AudioClipType {
     int crossfadeSpeed;
     int reservedForFuture;
 
-    void ReadFromFile(AGSCommon::Stream *in);
-    void WriteToFile(AGSCommon::Stream *out);
-    void ReadFromSavegame(AGSCommon::Stream *in);
-    void WriteToSavegame(AGSCommon::Stream *out) const;
+    void ReadFromFile(Shared::Stream *in);
+    void WriteToFile(Shared::Stream *out);
+    void ReadFromSavegame(Shared::Stream *in);
+    void WriteToSavegame(Shared::Stream *out) const;
 };
 
 } // End of namespace AGS

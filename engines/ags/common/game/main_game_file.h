@@ -48,7 +48,7 @@ struct GameSetupStruct;
 struct DialogTopic;
 struct ViewStruct;
 
-namespace AGSCommon {
+namespace Shared {
 
 // Error codes for main game file reading
 enum MainGameFileErrorType
@@ -150,7 +150,7 @@ HGameFileError     UpdateGameData(LoadedGameEntities &ents, GameDataVersion data
 // Ensures that the game saves directory path is valid
 void               FixupSaveDirectory(GameSetupStruct &game);
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS
 
 #endif

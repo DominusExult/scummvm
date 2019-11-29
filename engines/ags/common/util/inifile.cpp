@@ -29,7 +29,7 @@ inline int isblank(int ch)
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 inline static void ReplaceSubString(String &line, IniFile::StrPos &sub_pos, const String &new_sub)
@@ -297,5 +297,5 @@ void IniFile::Write(Stream *out) const
     writer.ReleaseStream();
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

@@ -28,7 +28,7 @@
 #include "common/algorithm.h"
 
 namespace AGS {
-namespace AGSCommon {
+namespace Shared {
 
 String::String(char c, size_t count) : ::Common::String() {
 	FillString(c, count);
@@ -634,5 +634,5 @@ void String::TruncateToSection(char separator, size_t first, size_t last,
     }
 }
 
-} // namespace AGSCommon
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

@@ -30,7 +30,7 @@ int _apeg_start_audio(struct APEG_LAYER*, int);
 #include <string.h>
 #include <math.h>
 
-#include <allegro.h>
+#include "ags/allegro/allegro.h"
 
 #define ALMPA_OK	0
 #define ALMPA_ERROR	(-1)

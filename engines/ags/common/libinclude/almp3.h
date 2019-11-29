@@ -11,7 +11,7 @@
 #define ALMP3_H
 
 
-#include <allegro.h>
+#include "ags/allegro/allegro.h"
 
 #include "almp3dll.h"
 

@@ -12,7 +12,7 @@
 //
 //=============================================================================
 
-#include <memory>
+#include "ags/std/memory.h"
 #include "util/file.h"
 #include "util/ini_util.h"
 #include "util/inifile.h"
@@ -21,7 +21,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 typedef std::unique_ptr<Stream>       UStream;
@@ -190,5 +190,5 @@ bool IniUtil::Merge(const String &file, const ConfigTree &tree)
     return true;
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

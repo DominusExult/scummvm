@@ -19,7 +19,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 GUIObject::GUIObject()
@@ -210,5 +210,5 @@ HorAlignment ConvertLegacyGUIAlignment(LegacyGUIAlignment align)
     return kHAlignNone;
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

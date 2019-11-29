@@ -33,11 +33,9 @@
 
 namespace AGS {
 
-namespace AGSMath = AGS::AGSCommon::Math;
+namespace AGSMath = AGS::Shared::Math;
 
-//namespace AGS
-//{
-//namespace Common
+//namespace Shared
 //{
 
 // Type of alignment of a geometric item of rectangular boundaries.
@@ -411,9 +409,8 @@ Rect OffsetRect(const Rect &r, const Point off);
 Rect CenterInRect(const Rect &place, const Rect &item);
 Rect ClampToRect(const Rect &place, const Rect &item);
 Rect PlaceInRect(const Rect &place, const Rect &item, const RectPlacement &placement);
-//} // namespace Common
-//} // namespace AGS
 
+//} // End of namespace Shared
 } // End of namespace AGS
 
 #endif

@@ -1,31 +1,40 @@
-//=============================================================================
-//
-// Adventure Game Studio (AGS)
-//
-// Copyright (C) 1999-2011 Chris Jones and 2011-20xx others
-// The full list of copyright holders can be found in the Copyright.txt
-// file, which is part of this source code distribution.
-//
-// The AGS source code is provided under the Artistic License 2.0.
-// A copy of this license can be found in the file License.txt and at
-// http://www.opensource.org/licenses/artistic-license-2.0.php
-//
-//=============================================================================
+/* ScummVM - Graphic Adventure Engine
+ *
+ * ScummVM is the legal property of its developers, whose names
+ * are too numerous to list here. Please refer to the COPYRIGHT
+ * file distributed with this source distribution.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ */
 
-#ifndef __AC_GUIMAIN_H
-#define __AC_GUIMAIN_H
+#ifndef AGS_COMMON_GUI_GUIMAIN_H
+#define AGS_COMMON_GUI_GUIMAIN_H
 
-#include <vector>
-#include "ac/common_defines.h" // TODO: split out gui drawing helpers
-#include "gfx/gfx_def.h" // TODO: split out gui drawing helpers
-#include "gui/guidefines.h"
-#include "util/error.h"
-#include "util/geometry.h"
-#include "util/string.h"
+#include "ags/std/vector.h"
+#include "ags/std/misc.h"
+#include "ags/common/ac/common_defines.h" // TODO: split out gui drawing helpers
+#include "ags/common/gfx/gfx_def.h" // TODO: split out gui drawing helpers
+#include "ags/common/gui/guidefines.h"
+#include "ags/common/util/error.h"
+#include "ags/common/util/geometry.h"
+#include "ags/common/util/string.h"
 
-// Forward declaration
-namespace AGS { namespace Common { class Stream; } }
-using namespace AGS; // FIXME later
+namespace AGS {
+	
+namespace Shared { class Stream; }
 
 // There were issues when including header caused conflicts
 struct GameSetupStruct;
@@ -37,10 +46,7 @@ struct GameSetupStruct;
 #define GUIMAIN_LEGACY_EVENTHANDLER_LENGTH 20
 #define GUIMAIN_LEGACY_TW_FLAGS_SIZE       4
 
-namespace AGS
-{
-namespace Common
-{
+namespace Shared {
 
 // Legacy GUIMain visibility state, which combined Visible property and override factor
 enum LegacyGUIVisState
@@ -204,10 +210,9 @@ namespace GUI
     void ApplyLegacyVisibility(GUIMain &gui, LegacyGUIVisState vis);
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
 
-extern std::vector<Common::GUIMain> guis;
+extern std::vector<Shared::GUIMain> guis;
 extern int all_buttons_disabled, gui_inv_pic;
 extern int gui_disabled_style;
 
@@ -218,8 +223,8 @@ extern int get_adjusted_spriteheight(int spr);
 extern bool is_sprite_alpha(int spr);
 
 // This function has distinct implementations in Engine and Editor
-extern void draw_gui_sprite(Common::Bitmap *ds, int spr, int x, int y, bool use_alpha = true,
-                            Common::BlendMode blend_mode = Common::kBlendMode_Alpha);
+extern void draw_gui_sprite(Shared::Bitmap *ds, int spr, int x, int y, bool use_alpha = true,
+                            Shared::BlendMode blend_mode = Shared::kBlendMode_Alpha);
 
 extern AGS_INLINE int game_to_data_coord(int coord);
 extern AGS_INLINE int data_to_game_coord(int coord);
@@ -227,8 +232,8 @@ extern AGS_INLINE void data_to_game_coords(int *x, int *y);
 extern AGS_INLINE int get_fixed_pixel_size(int pixels);
 
 // Those function have distinct implementations in Engine and Editor
-extern void wouttext_outline(Common::Bitmap *ds, int xxp, int yyp, int usingfont, color_t text_color, const char *texx);
-extern int wgettextwidth_compensate(Common::Bitmap *ds, const char *tex, int font) ;
+extern void wouttext_outline(Shared::Bitmap *ds, int xxp, int yyp, int usingfont, color_t text_color, const char *texx);
+extern int wgettextwidth_compensate(Shared::Bitmap *ds, const char *tex, int font) ;
 extern void check_font(int *fontnum);
 
 extern void set_our_eip(int eip);
@@ -238,4 +243,6 @@ extern int get_eip_guiobj();
 
 extern bool outlineGuiObjects;
 
-#endif // __AC_GUIMAIN_H
+} // End of namespace AGS
+
+#endif

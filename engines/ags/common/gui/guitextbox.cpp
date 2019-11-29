@@ -25,7 +25,7 @@ int numguitext = 0;
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 GUITextBox::GUITextBox()
@@ -142,5 +142,5 @@ void GUITextBox::WriteToSavegame(Stream *out) const
     out->WriteInt32(TextBoxFlags);
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

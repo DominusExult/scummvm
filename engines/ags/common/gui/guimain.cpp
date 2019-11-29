@@ -37,7 +37,7 @@ int gui_disabled_style = 0;
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 /* static */ String GUIMain::FixupGUIName(const String &name)
@@ -618,7 +618,7 @@ void GUIMain::WriteToFile(Stream *out) const
     }
 }
 
-void GUIMain::ReadFromSavegame(Common::Stream *in, GuiSvgVersion svg_version)
+void GUIMain::ReadFromSavegame(Shared::Stream *in, GuiSvgVersion svg_version)
 {
     // Properties
     _flags = in->ReadInt32();
@@ -653,7 +653,7 @@ void GUIMain::ReadFromSavegame(Common::Stream *in, GuiSvgVersion svg_version)
     MouseWasAt.Y = in->ReadInt32();
 }
 
-void GUIMain::WriteToSavegame(Common::Stream *out) const
+void GUIMain::WriteToSavegame(Shared::Stream *out) const
 {
     // Properties
     out->WriteInt32(_flags);
@@ -913,7 +913,7 @@ void ApplyLegacyVisibility(GUIMain &gui, LegacyGUIVisState vis)
     }
 }
 
-} // namespace GUI
+} // End of namespace GUI
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

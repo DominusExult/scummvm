@@ -15,31 +15,29 @@
 // Platform-independent Directory functions
 //
 //=============================================================================
+
 #ifndef AGS_COMMON_UTIL_DIRECTORY_H
 #define AGS_COMMON_UTIL_DIRECTORY_H
 
-#include "core/platform.h"
-#include "util/string.h"
+#include "ags/common/core/platform.h"
+#include "ags/common/util/string.h"
 
-namespace AGS
-{
-namespace Common
-{
+namespace AGS {
+namespace Shared {
+namespace Directory {
 
-namespace Directory
-{
-    // Creates new directory (if it does not exist)
-    bool   CreateDirectory(const String &path);
-    // Makes sure all directories in the path are created. Parent path is
-    // not touched, and function must fail if parent path is not accessible.
-    bool   CreateAllDirectories(const String &parent, const String &path);
-    // Sets current working directory, returns the resulting path
-    String SetCurrentDirectory(const String &path);
-    // Gets current working directory
-    String GetCurrentDirectory();
-} // namespace Directory
+// Creates new directory (if it does not exist)
+bool   CreateDirectory(const String &path);
+// Makes sure all directories in the path are created. Parent path is
+// not touched, and function must fail if parent path is not accessible.
+bool   CreateAllDirectories(const String &parent, const String &path);
+// Sets current working directory, returns the resulting path
+String SetCurrentDirectory(const String &path);
+// Gets current working directory
+String GetCurrentDirectory();
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Directory
+} // End of namespace Shared
+} // End of namespace AGS
 
-#endif // AGS_COMMON_UTIL_DIRECTORY_H
+#endif

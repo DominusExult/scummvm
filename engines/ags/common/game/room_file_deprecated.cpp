@@ -54,7 +54,7 @@ struct PolyPoints
     void add_point(int x, int y);
     PolyPoints() { numpoints = 0; }
 
-    void Read(AGS::Common::Stream *in);
+    void Read(AGS::Shared::Stream *in);
 };
 
 

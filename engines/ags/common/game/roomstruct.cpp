@@ -19,7 +19,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 RoomOptions::RoomOptions()
@@ -296,5 +296,5 @@ void FixRoomMasks(RoomStruct *room)
     room->WalkAreaMask = FixBitmap(room->WalkAreaMask, low_width, low_height);
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

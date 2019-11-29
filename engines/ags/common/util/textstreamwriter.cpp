@@ -20,7 +20,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 #if AGS_PLATFORM_OS_WINDOWS
@@ -117,5 +117,5 @@ void TextStreamWriter::WriteLineBreak()
         _stream->Write(Endl, sizeof(Endl));
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

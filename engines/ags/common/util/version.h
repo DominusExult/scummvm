@@ -32,9 +32,9 @@
 #include "ags/common/util/string.h"
 
 namespace AGS {
-namespace AGSCommon {
+namespace Shared {
 
-using AGSCommon::String;
+using Shared::String;
 
 struct Version
 {
@@ -110,7 +110,7 @@ private:
     void MakeString();
 };
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS
 
 #endif

@@ -11,7 +11,7 @@
 
 // todo (char map null check)
 
-#include <allegro.h>
+#include "ags/allegro/allegro.h"
 #include <stdlib.h>
 #include <string.h>
 #include <alfont.h>

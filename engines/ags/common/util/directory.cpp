@@ -13,7 +13,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 namespace Directory
@@ -66,7 +66,7 @@ String GetCurrentDirectory()
     return str;
 }
 
-} // namespace Directory
+} // End of namespace Directory
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

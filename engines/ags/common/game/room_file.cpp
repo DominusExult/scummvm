@@ -38,7 +38,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 RoomDataSource::RoomDataSource()
@@ -967,5 +967,5 @@ HRoomFileError WriteRoomData(const RoomStruct *room, Stream *out, RoomFileVersio
     return HRoomFileError::None();
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

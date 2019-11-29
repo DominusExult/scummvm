@@ -25,11 +25,12 @@
 // Helper math functions
 //
 //=============================================================================
+
 #ifndef AGS_COMMON_UTIL_MATH_H
 #define AGS_COMMON_UTIL_MATH_H
 
 namespace AGS {
-namespace AGSCommon {
+namespace Shared {
 namespace Math {
 
 #ifndef M_PI
@@ -89,8 +90,8 @@ inline float DegreesToRadians(float deg)
     return deg * (float)(M_PI / 180.0);
 }
 
-} // namespace Math
-} // namespace AGSCommon
-} // namespace AGS
+} // End of namespace Math
+} // End of namespace Shared
+} // End of namespace AGS
 
 #endif

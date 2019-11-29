@@ -25,7 +25,7 @@
 
 namespace AGS {
 
-namespace AGSCommon { class Stream; }
+namespace Shared { class Stream; }
 
 #define MCF_ANIMMOVE 1
 #define MCF_DISABLED 2
@@ -40,10 +40,10 @@ struct MouseCursor {
     char  flags;
     MouseCursor();
 
-    void ReadFromFile(AGSCommon::Stream *in);
-    void WriteToFile(AGSCommon::Stream *out);
-    void ReadFromSavegame(AGSCommon::Stream *in);
-    void WriteToSavegame(AGSCommon::Stream *out) const;
+    void ReadFromFile(Shared::Stream *in);
+    void WriteToFile(Shared::Stream *out);
+    void ReadFromSavegame(Shared::Stream *in);
+    void WriteToSavegame(Shared::Stream *out) const;
 };
 
 } // End of namespace AGS

@@ -31,7 +31,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 const String MainGameSource::DefaultFilename_v3 = "game28.dta";
@@ -780,5 +780,5 @@ HGameFileError UpdateGameData(LoadedGameEntities &ents, GameDataVersion data_ver
     return HGameFileError::None();
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

@@ -29,6 +29,7 @@
 // endianness conversions and data padding, when needed.
 //
 //=============================================================================
+
 #ifndef __AGS_CN_API__IAGSSTREAM_H
 #define __AGS_CN_API__IAGSSTREAM_H
 
@@ -38,7 +39,7 @@
 #include "ags/common/core/types.h"
 
 namespace AGS {
-namespace AGSCommon {
+namespace Shared {
 
 enum StreamSeek {
    kSeekBegin,
@@ -90,7 +91,7 @@ public:
     virtual bool        Seek(soff_t offset, StreamSeek origin = kSeekCurrent) = 0;
 };
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS
 
 #endif

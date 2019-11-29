@@ -20,7 +20,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 FileStream::FileStream(const String &file_name, FileOpenMode open_mode, FileWorkMode work_mode,
@@ -176,5 +176,5 @@ void FileStream::Open(const String &file_name, FileOpenMode open_mode, FileWorkM
         throw std::runtime_error("Error opening file.");
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

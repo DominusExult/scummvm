@@ -23,7 +23,7 @@ int numguilist = 0;
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 GUIListBox::GUIListBox()
@@ -429,5 +429,5 @@ void GUIListBox::WriteToSavegame(Stream *out) const
     out->WriteInt32(SelectedItem);
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

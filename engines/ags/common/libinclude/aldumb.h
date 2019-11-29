@@ -21,7 +21,7 @@
 #define ALDUMB_H
 
 
-#include <allegro.h>
+#include "ags/allegro/allegro.h"
 
 #include "dumb.h"
 

@@ -12,7 +12,7 @@
 
 
 #include <stdio.h>
-#include <allegro.h>
+#include "ags/allegro/allegro.h"
 
 #include "aloggdll.h"
 

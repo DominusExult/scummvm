@@ -27,7 +27,7 @@
 
 namespace AGS {
 
-namespace AGSCommon { class Stream; }
+namespace Shared { class Stream; }
 
 #define MAX_INV             301
 #define CHF_MANUALSCALING   1
@@ -118,8 +118,8 @@ struct CharacterInfo {
 	void update_character_idle(CharacterExtras *chex, int &doing_nothing);
 	void update_character_follower(int &char_index, int &numSheep, int *followingAsSheep, int &doing_nothing);
 
-    void ReadFromFile(AGSCommon::Stream *in);
-    void WriteToFile(AGSCommon::Stream *out);
+    void ReadFromFile(Shared::Stream *in);
+    void WriteToFile(Shared::Stream *out);
 };
 
 

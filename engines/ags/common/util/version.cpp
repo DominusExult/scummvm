@@ -17,7 +17,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 const Version Version::LastOldFormatVersion(3, 2, 2, 1120);
@@ -146,5 +146,5 @@ void Version::MakeString()
     ShortString.Format("%d.%d", Major, Minor);
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

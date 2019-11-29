@@ -16,7 +16,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 AssetInfo::AssetInfo()
@@ -33,5 +33,5 @@ void AssetLibInfo::Unload()
     AssetInfos.clear();
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS

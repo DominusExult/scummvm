@@ -13,7 +13,7 @@
 #define ALFONT_H
 
 
-#include <allegro.h>
+#include "ags/allegro/allegro.h"
 
 #include "alfontdll.h"
 
@@ -40,7 +40,7 @@ extern "C" {
 
 /* includes */
 
-#include <allegro.h>
+#include "ags/allegro/allegro.h"
 
 
 /* structs */

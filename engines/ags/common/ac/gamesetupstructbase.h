@@ -31,7 +31,7 @@
 // Forward declaration
 namespace AGS {
 	
-namespace AGSCommon { class Stream; }
+namespace Shared { class Stream; }
 
 struct WordsDictionary;
 struct CharacterInfo;
@@ -84,8 +84,8 @@ struct GameSetupStructBase {
     void SetDefaultResolution(Size game_res);
     void SetGameResolution(GameResolutionType type);
     void SetGameResolution(Size game_res);
-    void ReadFromFile(AGSCommon::Stream *in);
-    void WriteToFile(AGSCommon::Stream *out);
+    void ReadFromFile(Shared::Stream *in);
+    void WriteToFile(Shared::Stream *out);
 
 
     //
@@ -190,7 +190,7 @@ struct GameSetupStructBase {
     }
 
     // Returns the expected filename of a digital audio package
-    inline AGS::AGSCommon::String GetAudioVOXName() const
+    inline AGS::Shared::String GetAudioVOXName() const
     {
         return IsLegacyAudioSystem() ? "music.vox" : "audio.vox";
     }

@@ -18,7 +18,7 @@
 
 namespace AGS
 {
-namespace Common
+namespace Shared
 {
 
 TextStreamReader::TextStreamReader(Stream *stream)
@@ -150,5 +150,5 @@ String TextStreamReader::ReadAll()
     return "";
 }
 
-} // namespace Common
-} // namespace AGS
+} // End of namespace Shared
+} // End of namespace AGS
