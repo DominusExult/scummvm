@@ -30,7 +30,7 @@
 #ifndef AGS_COMMON_UTIL_INIUTIL_H
 #define AGS_COMMON_UTIL_INIUTIL_H
 
-#include "ags/std/map.h"
+#include "ags/common/util/map.h"
 #include "ags/common/util/string.h"
 
 namespace AGS {

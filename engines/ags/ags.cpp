@@ -90,7 +90,7 @@
 #include "ags/common/util/filestream.h"
 #include "ags/common/util/geometry.h"
 #include "ags/common/util/inifile.h"
-//#include "ags/common/util/ini_util.h"
+#include "ags/common/util/ini_util.h"
 #include "ags/common/util/lzw.h"
 #include "ags/common/util/math.h"
 #include "ags/common/util/memory.h"
